@@ -32,6 +32,7 @@ public class FrontController extends HttpServlet {
 		String location = ary[2];
 		//�삤�젏萸�
 		//teststestsdf
+		//오점뭐
 		
 	}
 
