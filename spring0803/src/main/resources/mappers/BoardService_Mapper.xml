@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my0803.myapp.persistance.BoardService_Mapper">
+
+<insert id="boardInsert" parameterType="bv">
+<selectKey resultType="int" keyProperty="bidx"  order="AFTER">
+select max(bidx) as bidx from board0803
+</selectKey>
+
+insert into board0803(originbidx, depth, level_,subject,contents,writer,midx,pwd,filename,ip)
+ values(null,0,0,#{subject},#{contents},#{writer},#{midx},#{pwd},#{filename2},#{ip})
+</insert>
+
+
+
+
+<update id="boardOriginBidxUpdate" parameterType="int">
+update board0803 set originbidx=#{bidx} where bidx=#{bidx}
+</update>
+
+<sql id="search">
+<if test="searchType != null and searchType.equals('writer')">
+	and writer like concat('%',#{keyword},'%')
+</if>
+<if test="searchType != null and searchType.equals('subject')">
+	and subject like concat('%',#{keyword},'%')
+</if>
+</sql>
+<select id="boardSelectAll"  parameterType="scri" resultType="bv">
+select * from board0803 where delyn='N' 
+<include refid="search" />
+order by originbidx desc, depth asc limit #{page},15
+</select>
+<select id="boardTotalCount" parameterType="scri" resultType="Integer">
+select count(*) as cnt from board0803 where delyn='N'
+<include refid="search" />
+</select>
+
+<select id="boardSelectOne" parameterType="int" resultType="bv">
+select * from board0803 where bidx=#{bidx}
+</select>
+
+<update id="boardCntUpdate" parameterType="int"  >
+update board0803 set viewcnt = viewcnt+1 where bidx = #{bidx}
+</update>
+
+
+<update id="boardModify" parameterType="bv">
+   update board0803 set 
+   subject = #{subject}, contents = #{contents}, writer = #{writer}, modifyday = now(), 
+   ip = #{ip} where bidx = #{bidx} and pwd = #{pwd}
+   </update>
+
+
+<update id="boardDelete" parameterType="HashMap">
+				
+	update board0803 set 
+				delyn = 'Y', modifyday=now() 
+				 where bidx = #{bidx} and pwd= #{pwd} 		</update>	
+	<update id="boardReplyUpdate" parameterType="bv">
+update board0803 set depth = depth+1 where depth > #{depth} and originbidx =#{originbidx} 
+</update>
+
+<insert id="boardReplyInsert" parameterType="bv">
+<selectKey resultType="int" keyProperty="bidx"  order="AFTER">
+select max(bidx) as bidx from board0803
+</selectKey>
+insert into board0803(originbidx,depth,level_,subject,contents,writer,midx,ip,filename,pwd) 
+values(#{originbidx},#{depth}+1,#{level_}+1,#{subject},#{contents},#{writer},#{midx},#{ip},#{filename2},#{pwd})
+</insert>
+
+</mapper>

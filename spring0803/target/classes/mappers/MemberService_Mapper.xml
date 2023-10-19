@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.my0803.myapp.persistance.MemberService_Mapper">
+
+	<insert id="memberInsert" parameterType="mv">
+	
+	insert into member0803(memberid,memberpwd,membername,memberbirth,membergender,memberphone,memberemail,memberaddr,memberhobby)
+		values(#{memberId},#{memberPwd},#{memberName},#{memberBirth},#{memberGender},#{memberPhone},#{memberEmail},#{memberAddr},#{memberHobby});
+	</insert>
+
+<select id="memberLogin" parameterType="HashMap" resultType="mv">
+select midx,memberid,membername from member0803 where memberid=#{memberId} and memberpwd=#{memberPwd}
+</select>
+
+<select id="memberLogin2" parameterType="String" resultType="mv">
+select midx,memberid,membername,memberpwd from member0803 where memberid=#{memberId}
+</select>
+
+
+
+<select id="memberIdCheck" parameterType="String" resultType="int">
+select count(*) as cnt from member0803 where memberid=#{memberId}
+</select>
+
+<select id="memberList"  resultType="mv">
+select midx,memberid,membername,writeday from member0803 where delyn='N' order by midx desc
+</select>
+
+
+
+
+</mapper>
