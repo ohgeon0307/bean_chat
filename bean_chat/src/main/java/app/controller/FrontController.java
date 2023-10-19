@@ -16,7 +16,7 @@ public class FrontController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		//�뿬湲곗뿉�꽌 �뼱�뒓 而⑦듃濡ㅻ윭濡� 蹂대궪吏� 遺꾧린�븳�떎
+		//
 		String url = request.getRequestURI();	
 		int length = request.getContextPath().length();
 		String command = url.substring(length);	
@@ -31,6 +31,7 @@ public class FrontController extends HttpServlet {
 		String str = ary[1];
 		String location = ary[2];
 		//�삤�젏萸�
+		//teststestsdf
 		
 	}
 
