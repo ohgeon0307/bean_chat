@@ -16,10 +16,13 @@ public class FrontController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		//여기에서 어느 컨트롤러로 보낼지 분기한다
+		//�뿬湲곗뿉�꽌 �뼱�뒓 而⑦듃濡ㅻ윭濡� 蹂대궪吏� 遺꾧린�븳�떎
 		String url = request.getRequestURI();	
 		int length = request.getContextPath().length();
 		String command = url.substring(length);	
+		//jfyujfuyruru
+		
+		
 		
 		//   /member/memberList.do   
 		//   /board/boardList.do
@@ -27,7 +30,7 @@ public class FrontController extends HttpServlet {
 		String[] ary = command.split("/");
 		String str = ary[1];
 		String location = ary[2];
-		//오점뭐
+		//�삤�젏萸�
 		
 	}
 
