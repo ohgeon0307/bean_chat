@@ -27,7 +27,7 @@ public class FrontController extends HttpServlet {
 		String[] ary = command.split("/");
 		String str = ary[1];
 		String location = ary[2];
-		
+		//오점뭐
 		
 	}
 
