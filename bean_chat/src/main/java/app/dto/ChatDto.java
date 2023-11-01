@@ -1,11 +1,12 @@
 package app.dto;
 
 public class ChatDto {
+	
 	private int cidx;
 	private String cFrom;
 	private String cTo;
-	private String Ccontents;
-	private String Ctime;
+	private String cContents;
+	private String cTime;
 	private String delyn;
 	private int Uidx;
 	private int Ridx;
@@ -28,17 +29,17 @@ public class ChatDto {
 	public void setcTo(String cTo) {
 		this.cTo = cTo;
 	}
-	public String getCcontents() {
-		return Ccontents;
+	public String getcContents() {
+		return cContents;
 	}
-	public void setCcontents(String ccontents) {
-		Ccontents = ccontents;
+	public void setcContents(String cContents) {
+		this.cContents = cContents;
 	}
-	public String getCtime() {
-		return Ctime;
+	public String getcTime() {
+		return cTime;
 	}
-	public void setCtime(String ctime) {
-		Ctime = ctime;
+	public void setcTime(String cTime) {
+		this.cTime = cTime;
 	}
 	public String getDelyn() {
 		return delyn;
@@ -58,11 +59,7 @@ public class ChatDto {
 	public void setRidx(int ridx) {
 		Ridx = ridx;
 	}
-	
-	
-	
-	
-	
+
 			
 		
 }
