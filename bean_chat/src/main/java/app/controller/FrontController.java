@@ -39,6 +39,11 @@ public class FrontController extends HttpServlet {
 		}else if(str.equals("board")) {
 			BoardController bc = new BoardController(location);
 			bc.doGet(request, response);
+		
+		//ChatController 분기	
+		}else if(str.equals("chat")) {
+			ChatController cc = new ChatController(location);
+			cc.doGet(request, response);
 		}
 		
 	}
