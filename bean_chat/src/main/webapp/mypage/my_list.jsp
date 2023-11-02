@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+내글보기
 
 </body>
 </html>

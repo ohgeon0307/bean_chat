@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+친구리스트
 </body>
 </html>

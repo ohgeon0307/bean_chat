@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-내프로필보기
+프로필수정
 </body>
 </html>
