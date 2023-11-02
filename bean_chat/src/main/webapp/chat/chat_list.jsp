@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link href="../css/chat/chat_list.css" rel="stylesheet" />
+<title>채팅 목록</title>
 </head>
 <body>
 
