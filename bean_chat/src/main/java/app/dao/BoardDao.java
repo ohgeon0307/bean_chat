@@ -23,9 +23,9 @@ public class BoardDao {
 		ArrayList<BoardDto> alist = new ArrayList<BoardDto>();
 		ResultSet rs = null;
 		
-		String sql = "select bidx, subject,writer,viewcnt,writeday\r\n"
-					+ "from boardtable\r\n\""
-					+ "where bDelyn ='N'";
+		String sql = "select bidx, subject,writer,viewcnt,writedate\r\n"
+					+ "from boardtable\r\n"
+					+ "where bDelYn ='N'";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -37,8 +37,9 @@ public class BoardDao {
 			bdto.setBidx(rs.getInt("bidx"));
 			bdto.setSubject(rs.getString("subject"));
 			bdto.setWriter(rs.getString("writer"));
-			bdto.setViewCnt(rs.getInt("viewcnt"));
-			bdto.setWriteDate(rs.getString("writeday"));
+			bdto.setViewCnt(rs.getInt("viewCnt"));
+			bdto.setWriteDate(rs.getString("writeDate"));
+			alist.add(bdto);
 		}
 		}catch(Exception e) {
 			e.printStackTrace();
