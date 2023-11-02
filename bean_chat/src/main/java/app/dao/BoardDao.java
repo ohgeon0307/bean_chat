@@ -3,6 +3,7 @@ package app.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.dbconn.DbConn;
@@ -55,4 +56,36 @@ public class BoardDao {
 		
 		return alist;
 	}
-}
+	
+	public int boardInsert(BoardDto bdto) {
+		int exec = 0;
+		
+		String sql = "INSERT INTO boardtable(bidx,subject,contents,writer,uidx,filename)\r\n"
+				+ "VALUES(?,?,?,?,?,?)";
+		
+		try{
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bdto.getBidx());
+			pstmt.setString(2, bdto.getSubject());
+			pstmt.setString(3, bdto.getContents());
+			pstmt.setString(4, bdto.getWriter());
+			pstmt.setInt(5, bdto.getUidx());	
+			pstmt.setString(6, bdto.getFileName());
+			
+			
+			exec = pstmt.executeUpdate();
+			
+			conn.commit();
+			
+			}catch(Exception e){
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {				
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
+			return exec;	
+		}
+	}
