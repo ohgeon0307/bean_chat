@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-ぞしぞしししいい
+<a href="<%=request.getContextPath()%>/mypage/mymain.do">原戚凪戚走 郊稽亜奄</a>
 </body>
 </html>
