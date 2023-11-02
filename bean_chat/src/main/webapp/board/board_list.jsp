@@ -69,11 +69,11 @@
 					<td>
 						<%
 						//=bv.getViewcnt()
-						%>${bdto.viewcnt}</td>
+						%>${bdto.viewCnt}</td>
 					<td>
 						<%
 						//=bv.getWriteday()
-						%>${bdto.writedate}</td>
+						%>${bdto.writeDate}</td>
 				</tr>
 			</c:forEach>
 			<%
