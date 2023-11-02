@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+
 body {
   width: 70%;
   margin: 0 auto;
@@ -15,8 +16,8 @@ a {
 
 main h2 {
   font-size: 400%;
-  font-weight: bold;
   color: #418722;
+  
 }
 hr {
   background: #1e2924;
