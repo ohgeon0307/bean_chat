@@ -35,8 +35,19 @@ public class FrontController extends HttpServlet {
 		//오점뭐sdf
 		//sdfsdfsdfsfdsdfsdfsdfssdf
 		
+		if (str.equals("user")) {
+			UserController uc = new UserController(location);
+			uc.doGet(request, response);
+			
+		}else if(str.equals("mypage")) {
+			MypageController mc = new MypageController(location);
+			mc.doGet(request, response);		
+		}
+		
 	}
 
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
