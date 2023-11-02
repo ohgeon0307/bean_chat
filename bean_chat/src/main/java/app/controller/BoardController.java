@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import app.dao.BoardDao;
 import app.dto.BoardDto;
@@ -33,6 +34,44 @@ private static final long serialVersionUID = 1L;
 			
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
+			
+		} else if(location.equals("boardWrite.do")) {
+			
+			String path = "/board/board_write.jsp";
+			
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+			
+		} else if(location.equals("boardWriteAction.do")) {
+			String subject = request.getParameter("subject");
+			String contents = request.getParameter("contents");
+			String writer = request.getParameter("writer");
+		
+			//viewCnt, bList default error occurred(추후수정)
+			
+			//int uidx = 0;
+			//HttpSession session = request.getSession();
+			//uidx = (int)session.getAttribute("uidx");
+			
+			BoardDto bdto = new BoardDto();
+			bdto.setSubject(subject);
+			bdto.setContents(contents);
+			bdto.setWriter(writer);
+			//bdto.setFilename(fileName);
+			bdto.setUidx(1);
+			
+			
+			BoardDao bdao = new BoardDao();
+			int value = bdao.boardInsert(bdto);
+			
+			if (value == 0) {
+				String path = request.getContextPath()+"/board/boardWrite.do";
+				response.sendRedirect(path);
+			} else {
+				String path = request.getContextPath()+"/board/boardList.do";
+				response.sendRedirect(path);
+			}
+			
 		}
 	
 	}

@@ -126,7 +126,7 @@
 		</tr>
 	</table>
 
-	<a href="${pageContext.request.contextPath}/board/board_write.do">글쓰기</a>
+	<a href="${pageContext.request.contextPath}/board/boardWrite.do">글쓰기</a>
 	
 	
 </body>
