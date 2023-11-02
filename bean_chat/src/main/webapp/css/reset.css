@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+@import url("font/s-core-dream.css");
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -24,6 +25,17 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+}
+
+body, h3, h4, h5, h6, li, p,#nav li a, #topbar, input, button, select, textarea, a, .wf-container > *, .widget-title, .dwqa-container, #wpmem_reg, #wpmem_login {
+	font-family: "s-core-dream-light", sans-serif !important;
+	color: #000;
+} 
+
+h2, h1{
+	font-family: "s-core-dream-bold", sans-serif !important;
+	color: #000;
+	
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
