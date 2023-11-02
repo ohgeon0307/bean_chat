@@ -16,7 +16,7 @@
 		<div></div>
 	</header>
 	<main>
-		<h2>채팅방 목록</h2>
+		<div > <h2>채팅방 목록</h2></div>
 		<hr />
 
 
