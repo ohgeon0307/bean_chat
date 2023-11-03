@@ -1,15 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<a href="<%=request.getContextPath()%>/mypage/myMain.do">���������� �ٷΰ���</a>
-<a href="<%=request.getContextPath() %>/board/boardList.do">�Խ��� �ٷΰ���</a>
-<a href="<%=request.getContextPath() %>/chat/chatList.do">ä�ù� ��� �ٷΰ���</a>
-<a href="<%=request.getContextPath() %>/user/userList.do">������Ϻ���</a>
+	<h2>게시판</h2><br />
+		<a href="<%=request.getContextPath()%>/board/boardList.do">게시판 바로가기</a><br />
+	<h2>채팅방</h2>
+		<a href="<%=request.getContextPath()%>/chat/chatList.do">채팅방 목록 바로가기</a><br />
+	<h2>User</h2><br />
+		<a href="<%=request.getContextPath()%>/user/userList.do">유저목록보기</a><br />
+		<a href="<%=request.getContextPath()%>/mypage/myMain.do">마이페이지 바로가기</a><br />
+		<a href="<%=request.getContextPath()%>/user/userJoin.do">회원가입하기</a><br />
+		<a href="<%=request.getContextPath()%>/user/userLogin.do">로그인하기</a><br />
+		<a href="<%=request.getContextPath()%>/user/userFind.do">아이디/비밀번호찾기</a>
 </body>
 </html>
