@@ -15,9 +15,12 @@
 <header>
 		<div></div>
 	</header>
+
 	<main>
 		<div > <h2>채팅방 목록</h2></div>
 		<hr />
+		<div id="btn">1:1</div>
+		
 
 
 </main>

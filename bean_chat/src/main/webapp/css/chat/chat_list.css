@@ -1,2 +1,32 @@
 @charset "UTF-8";
+body{
+	background-color:#a0d468;
+}
+h2{
+		font-size: 130%;
+	font-weight: bold;
+	text-align: center;
+	color:white;
+	
+}
 
+#btn{
+	float:center;
+	width:100px;
+	height:50px;
+	background-color:green;
+	border-radius:20px;
+	position:absolute;
+	box-shadow:3px 3px 3px blak;
+	transition:0.2s;
+	
+	text-align: center;
+        line-height: 30px;
+        padding-top: 35px;
+        height: 60px;
+}
+#btn:active{
+margin-left:20px;
+margin-top:20px;
+	
+}
