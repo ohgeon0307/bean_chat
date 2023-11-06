@@ -54,12 +54,12 @@ font-size: 300%;
 
 }
 .btn1:hover{
-	transform: scale( 2.0, 1.5 )
+	transform: scale( 1.1, 1.1 )
 
 
 }
 .btn2:hover{
-	transform: scale( 2.0, 1.5 )
+	transform: scale( 1.1, 1.1 )
 	
 	
 	}
