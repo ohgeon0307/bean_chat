@@ -30,7 +30,7 @@
 				
 			</div>
 		
-			<div class="btn2">단체채팅방 ㅁㄴㅇㅁㄴㅇ
+			<div class="btn2">단체채팅방 ㅁㄴㅇㅁㄴㅇㅇ
 			<img src="../images/logo/BeanChatPicLogo.png">
 		</div>
 		</div>
