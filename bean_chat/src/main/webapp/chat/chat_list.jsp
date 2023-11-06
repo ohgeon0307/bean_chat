@@ -19,7 +19,7 @@
 	<main>
 		<div><h2>채팅방 목록</h2></div>
 
-		<hr />
+		<hr/>
 		<div id="mainzone">
 			<header>
 		<div></div>
