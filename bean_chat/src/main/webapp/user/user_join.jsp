@@ -14,90 +14,91 @@
 
 
 	<h1>회원가입페이지</h1>
-	    <form name="frm" onsubmit="return allCheck()">
+	<form name="frm" onsubmit="return allCheck()">
 
-
+<!-- 아이디 -->
 		<label for="userId">
 			<span class="required">*</span> 아이디(이메일)
 		</label>
 		
+<!-- 아이디 input창 -->
 		<div class="input_area">
-			<input type="text" id="userId" name="userId" placeholder="아이디(이메일)"
-				maxlength="30" autocomplete="off" required>
-
+			<input type="text" id="userId" name="userId" placeholder="아이디(이메일)" maxlength="30" autocomplete="off" required>
 			<!-- autocomplete="off" : 자동 완성 미사용 -->
 			<!-- required : 필수 작성 input 태그 -->
 
 			<button type="button">인증번호 받기</button>
-		</div>
+		</div><!-- //.input_area -->
 
-		<span class="message">메일을 받을 수 있는 이메일을 입력해 주세요.</span>
+<!-- 아이디 message -->
+		<span class="message" id="idMessage" >메일을 받을 수 있는 이메일을 입력해 주세요.</span>
+		<br/>
 		
+<!-- 이메일 인증번호 -->
 		<label for="emailCheck">
 			<span class="required">*</span> 인증번호
 		</label>
 
+<!-- 인증번호 input창 -->
 		<div class="input_area">
-			<input type="text" id="emailCheck" placeholder="인증번호 입력"
-				maxlength="6" autocomplete="off">
-
+			<input type="text" id="emailCheck" placeholder="인증번호 입력" maxlength="6" autocomplete="off">
 			<button type="button">인증하기</button>
-		</div>
+		</div><!-- //.input_area -->
 
-		<span class="message_success">인증되었습니다.</span>
-		<!-- <td><input type="text" name="userId" id="userId" size="30" maxlength="30">
-					<input type="button" name="btn" id="btn" value="아이디중복체크">
-				</td> -->
+<!-- 인증번호 message -->
+		<!-- <span class="message_success">인증되었습니다.</span> -->
+	
+<!-- 비밀번호 -->
 		<label for="userPwd">
 			<span class="required">*</span> 비밀번호
 		</label>
 
+<!-- 비밀번호 input창 -->
 		<div class="input_area">
-			<input type="password" id="userPwd" name="userPwd" placeholder="비밀번호"
-				maxlength="30">
-		</div>
+			<input type="password" id="userPwd" name="userPwd" placeholder="비밀번호" maxlength="30">
+		</div><!-- //.input_area -->
 
-
+<!-- 비밀번호확인 input창 -->
 		<div class="input_area">
-			<input type="password" id="userPwd2" placeholder="비밀번호 확인"
-				maxlength="30">
-		</div>
-		<span class="message_error">비밀번호가 일치하지 않습니다.</span>
-
-
-		<!-- <tr>
-				<th>비밀번호</th>
-				<td><input type="password" name="userPwd"></td>
-			</tr>
-			<tr>
-				<th>비밀번호확인</th>
-				<td><input type="password" name="userPwd2"></td>
-			</tr> -->
+			<input type="password" id="userPwd2" placeholder="비밀번호 확인" maxlength="30">
+		</div><!-- //.input_area -->
+		
+<!-- 비밀번호 message -->	
+		 <span class="message" id="pwdMessage">영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.</span>
+		
+		<!-- <span class="message_error" id="pwdMessage">비밀번호가 일치하지 않습니다.</span> -->
+		<br/>
+<!-- 이름 -->
 		<label for="userName">
 			<span class="required">*</span> 이름
 		</label>
 		
+<!-- 이름 input창 -->		
 		<div class="input_area">
 			<input type="text" name="userName" style="width: 100px;">
-		</div>
+		</div><!-- //.input_area -->
 		
+<!-- 닉네임 -->	
 		<label for="userNickname">
 			<span class="required">*</span> 닉네임
 		</label>
 
+<!-- 닉네임 input창 -->
 		<div class="input_area">
-			<input type="text" id="userNickname" name="userNickname"
-				placeholder="닉네임" maxlength="10">
-		</div>
+			<input type="text" id="userNickname" name="userNickname" placeholder="닉네임" maxlength="10">
+		</div><!-- //.input_area -->
+
+<!-- 닉네임 message -->		
+		<span class="message" id="nicknameMessage">영어/숫자/한글 2~10글자 사이로 작성해주세요.</span>
 		
-		<span class="message_success">사용 가능한 닉네임입니다.</span>
-		
-		
+		<!-- <span class="message_success">사용 가능한 닉네임입니다.</span> -->
+		<br/>
+<!-- 생년월일 -->
 		<label for="userBirth">
 			<span class="required">*</span> 생년월일
 		</label>
 
-
+<!-- 생년월일  input창 -->
 		<div class="input_area">
 			<select name="userYear">
 				<option value="2000">2000</option>
@@ -152,26 +153,33 @@
 				<option value="30">30</option>
 				<option value="31">31</option>
 			</select>
-		</div>
+		</div><!-- //.input_area -->
 
+<!-- 성별 -->
 		<label for="userGender">
 			<span class="required">*</span> 성별
 		</label>
-		
+
+<!-- 성별 input창 -->
 		<div class="input_area">
 			<input type="radio" name="userGender" value="남성">남성 
 			<input type="radio" name="userGender" value="여성" checked> 여성
-		</div>
+		</div><!-- //.input_area -->
 
+<!-- 전화번호 -->
 		<label for="userPhone"> 
 			<span class="required">*</span> 전화번호
 		</label>
-		
+
+<!-- 전화번호 input창 -->
 		<div class="input_area">
 			<input type="text" id="userPhone" name="userPhone" placeholder="(- 없이 숫자만 입력)" maxlength="11">
-		</div>
+		</div><!-- //.input_area -->
 
-		<span class="message_error">전화번호 형식이 올바르지 않습니다.</span>
+<!-- 전화번호 message -->
+		 <span class="message" id="phoneMessage">전화번호를 입력해주세요.(- 제외)</span>
+
+		<!-- <span class="message_error">전화번호 형식이 올바르지 않습니다.</span> -->
 
 
 
@@ -184,67 +192,20 @@
 
 
     <script>
+    
+    const checkObj = {
+    	    "userId": false,
+    	    "userPwd": false,
+    	    "userPwd2": false,
+    	    "userNickname": false,
+    	    "userPhone": false,
+    	};
+
+    
+    
 	var fm = document.frm;
-	function allCheck() {
+	
 
-	debugger;
-	// checkObj에 있는 모든 속성을 반복 접근하여
-	// false가 하나라도 있는 경우에는 form태그 기본 이벤트 제거
-
-		 
-		  
-	let str;
-
-	for (let key in checkObj) {
-	// 객체용 향상된 for문
-		   
-
-	// 현재 접근 중인 key의 value가 false인 경우
-	if (!checkObj[key]) {
-	switch (key) { 	
-		case "userId":
-		          str = "이메일이";
-		          break;
-		        case "userPwd":
-		          str = "비밀번호가";
-		          break;
-		        case "userPwd2":
-		          str = "비밀번호 확인이";
-		          break;
-		        case "userNickname":
-		          str = "닉네임이";
-		          break;
-		        case "userPhone":
-		          str = "전화번호가";
-		          break;
-		      }
-
-		      str += " 유효하지 않습니다.";
-
-		      alert(str);
-
-		      document.getElementById(key).focus();
-
-		      return false; 
-			} else {
-		  
-		
-		fm.action ="<%=request.getContextPath()%>/user/userJoinAction.do"; //처리하기위해 이동하는 주소
-			fm.method = "post"; //이동하는 방식  get 노출시킴 post 감추어서 전달
-			fm.submit(); //전송시킴
-			return true;
-
-			}
-		}
-	}
-
-		const checkObj = {
-			"userId": false,
-			"userPwd": false,
-			"userPwd2": false,
-			"userNickname": false,
-			"userPhone": false,
-		};
 
 		//전화번호 유효성 검사
 		
@@ -337,7 +298,6 @@
 				nicknameMessage.classList.remove("error");
 				checkObj.userNickname = true;
 
-				// ************* 닉네임 중복 검사(ajax) 진행 예정 **************
 			} else {
 				nicknameMessage.innerText = "닉네임 형식이 유효하지 않습니다.";
 				nicknameMessage.classList.add("error");
@@ -350,10 +310,7 @@
 		const userPwd2 = document.frm.userPwd2;
 		const pwdMessage = document.getElementById("pwdMessage");
 
-		userPwd
-				.addEventListener(
-						"input",
-						function() {
+		userPwd.addEventListener("input",function() {
 							if (userPwd.value.trim().length == 0) {
 								pwdMessage.innerText = "영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.";
 								pwdMessage.classList.remove("success", "error");
@@ -407,6 +364,60 @@
 				checkObj.userPwd2 = false;
 			}
 		}
+		
+		
+		function allCheck() {
+			
+
+			// checkObj에 있는 모든 속성을 반복 접근하여
+			// false가 하나라도 있는 경우에는 form태그 기본 이벤트 제거
+
+				 
+				  
+			let str;
+
+			for (let key in checkObj) {
+			// 객체용 향상된 for문
+				   
+
+			// 현재 접근 중인 key의 value가 false인 경우
+			if (!checkObj[key]) {
+			switch (key) { 	
+				case "userId":
+				          str = "이메일이";
+				          break;
+				        case "userPwd":
+				          str = "비밀번호가";
+				          break;
+				        case "userPwd2":
+				          str = "비밀번호 확인이";
+				          break;
+				        case "userNickname":
+				          str = "닉네임이";
+				          break;
+				        case "userPhone":
+				          str = "전화번호가";
+				          break;
+				      }
+
+				      str += " 유효하지 않습니다.";
+
+				      alert(str);
+
+				      document.getElementById(key).focus();
+
+				      return false; 
+					} 
+			}
+				  
+				
+				fm.action ="<%=request.getContextPath()%>/user/userJoinAction.do"; //처리하기위해 이동하는 주소
+					fm.method = "post"; //이동하는 방식  get 노출시킴 post 감추어서 전달
+					fm.submit(); //전송시킴
+					return true;
+
+		}
+				
 	</script>
 </body>
 </html>
