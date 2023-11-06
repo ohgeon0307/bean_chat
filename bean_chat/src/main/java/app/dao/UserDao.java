@@ -58,5 +58,34 @@ public class UserDao {
 		
 	}
 	
+	//회원가입하기
+	public int userInsert(
+			String userId,
+			String userPwd,String userName,
+			String userBirth,String userGender,
+			String userPhone,String userNickname,
+			String userDate){
+		int exec = 0;
+		
+		String sql = "insert into usertable(userid,userpwd,username,userbirth,usergender,userphone,usernickname,userdate)"
+		        +" values(?,?,?,?,?,?,?,now())";
+		try{
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, userId);
+		pstmt.setString(2, userPwd);
+		pstmt.setString(3, userName);
+		pstmt.setString(4, userBirth);
+		pstmt.setString(5, userGender);
+		pstmt.setString(6, userPhone);
+		pstmt.setString(7, userNickname);
+		pstmt.setString(8, userDate);
+		exec = pstmt.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return exec;	
+	}
+	
+	
 	
 }
