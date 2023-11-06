@@ -1,15 +1,14 @@
 package app.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import app.dao.UserDao;
 import app.dto.UserDto;
 
@@ -25,6 +24,7 @@ public class UserController extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		//관리자 페이지 이동
 		if (location.equals("userList.do")) {
 			UserDao udao = new UserDao();
 			ArrayList<UserDto> list = udao.userSelectAll();
@@ -34,7 +34,75 @@ public class UserController extends HttpServlet{
 			String path ="/user/admin_user_manage.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
+			
+		//회원가입 페이지 이동	
+		}else if(location.equals("userJoin.do")) {
+			
+			String path ="/user/user_join.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+		
+			
+		//로그인 수행
+		}else if(location.equals("userJoinAction.do")) {			
+			
+			//데이터를 넘겨주면 요청 객체는 그 값을 받아서 넘어온 매개변수에
+			//담긴 값을 꺼내서 새로운 변수에 담는다
+			String userId = request.getParameter("userId");
+			String userPwd = request.getParameter("userPwd");
+			String userName= request.getParameter("userName");
+			String userYear = request.getParameter("userYear");
+			String userMonth = request.getParameter("userMonthh");
+			String userDay = request.getParameter("userDay");
+			String userGender = request.getParameter("userGender");
+			String userPhone = request.getParameter("userPhone");
+			String userNickname = request.getParameter("userNickname");
+			
+			
+			String str = "";
+			
+			str = str.substring(0, str.length() - 1);
+			
+			String userBirth  = userYear+userMonth+userDay;
+			
+			UserDao udao = new UserDao();
+			int exec = udao.userInsert(userId, userPwd, userName, userBirth, userGender, userPhone, userNickname, userDay);
+			
+			PrintWriter out = response.getWriter();
+			
+			if(exec==1) {
+				out.println("<script>alert('정상적으로 회원가입 되었습니다.');"
+						+	"document.location.href='"+request.getContextPath()+"redirect:/'</script>");
+					}else{
+						out.println("<script>history.back();</script>");	
+					}
+			
+			
+			//로그인 페이지 이동
+			}else if(location.equals("userLogin.do")) {
+					
+				String path ="/user/userLogin.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(path);
+				rd.forward(request, response);
+				
+				
+			//로그인 수행	
+			}else if(location.equals("userLoginAction.do")) {
+					
+				String userId = request.getParameter("userId");
+				String userPwd = request.getParameter("userPwd");
+				
+							
+				UserDao udao = new UserDao();
+				int uidx = 0; 
+
+				
+				
 		}
+			
+			
+		
+		
 		
 		
 	
