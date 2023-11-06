@@ -12,31 +12,28 @@
 <title>채팅방 목록</title>
 </head>
 <body>
-<header>
-		<div></div>
-	</header>
+
 
 	<main>
 		<div><h2>채팅방 목록</h2></div>
 
-		<hr/>
+		<hr />
 		<div id="mainzone">
-		
-		
-			<header>
-		<div></div>
-	</header>
+			
 	
-			<div class="btn1">1:1
-			<img src="../images/logo/BeanchatChar1.png">
-				
+			<div class="btn1">
+				<a href=""><p>1:1 채팅</p>
+			<img src="../images/logo/BeanchatChar1.png" alt="1:1 채팅">
+				</a>
 			</div>
 		
-			<div class="btn2">단체채팅방 
-			<img src="../images/logo/BeanChatPicLogo.png">
+			<div class="btn2">
+				<a href="">
+					<p>단체채팅방</p>
+					<img src="../images/logo/BeanChatPicLogo.png" alt="단체채팅방">
+				</a>
+			</div>
 		</div>
-		</div>
-
 
 
 </main>
