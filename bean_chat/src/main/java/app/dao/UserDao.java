@@ -59,16 +59,11 @@ public class UserDao {
 	}
 	
 	//회원가입하기
-	public int userInsert(
-			String userId,
-			String userPwd,String userName,
-			String userBirth,String userGender,
-			String userPhone,String userNickname,
-			String userDate){
+	public int userInsert(String userId,String userPwd,String userName,String userBirth,String userGender,String userPhone,String userNickname){
 		int exec = 0;
 		
-		String sql = "insert into usertable(userid,userpwd,username,userbirth,usergender,userphone,usernickname,userdate)"
-		        +" values(?,?,?,?,?,?,?,now())";
+		String sql = "insert into usertable(userid,userpwd,username,userbirth,usergender,userphone,usernickname)"
+		        +" values(?,?,?,?,?,?,?)";
 		try{
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, userId);
@@ -78,12 +73,75 @@ public class UserDao {
 		pstmt.setString(5, userGender);
 		pstmt.setString(6, userPhone);
 		pstmt.setString(7, userNickname);
-		pstmt.setString(8, userDate);
 		exec = pstmt.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return exec;	
+	}
+	
+	public int userIdCheck(String userId){
+		int value=0;  // 결과값이 0인지 아닌지
+		
+		String sql="select count(*) as cnt from usertable where userid=?";
+		ResultSet rs = null;
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()){
+				value =	rs.getInt("cnt");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return value;
+	}
+	
+
+	//로그인하기
+	public int userLoginCheck(String userId, String userPwd) {
+		
+		int value=0;
+		
+		String sql="select uidx from usertable where userid=? and userpwd=?";
+		ResultSet rs = null;
+		
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()){
+				value =	rs.getInt("uidx");
+				//value가 0이면 일치하지않는다
+				//1 일치한다
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		return value;
 	}
 	
 	

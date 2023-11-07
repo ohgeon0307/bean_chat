@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import app.dao.UserDao;
 import app.dto.UserDto;
 
@@ -52,27 +54,26 @@ public class UserController extends HttpServlet{
 			String userPwd = request.getParameter("userPwd");
 			String userName= request.getParameter("userName");
 			String userYear = request.getParameter("userYear");
-			String userMonth = request.getParameter("userMonthh");
+			String userMonth = request.getParameter("userMonth");
 			String userDay = request.getParameter("userDay");
 			String userGender = request.getParameter("userGender");
 			String userPhone = request.getParameter("userPhone");
 			String userNickname = request.getParameter("userNickname");
+		
 			
 			
-			String str = "";
 			
-			str = str.substring(0, str.length() - 1);
 			
 			String userBirth  = userYear+userMonth+userDay;
 			
 			UserDao udao = new UserDao();
-			int exec = udao.userInsert(userId, userPwd, userName, userBirth, userGender, userPhone, userNickname, userDay);
+			int exec = udao.userInsert(userId, userPwd, userName, userBirth, userGender, userPhone, userNickname);
 			
 			PrintWriter out = response.getWriter();
 			
 			if(exec==1) {
 				out.println("<script>alert('정상적으로 회원가입 되었습니다.');"
-						+	"document.location.href='"+request.getContextPath()+"redirect:/'</script>");
+						+	"document.location.href='"+request.getContextPath()+"/user/userLogin.do'</script>");
 					}else{
 						out.println("<script>history.back();</script>");	
 					}
@@ -81,7 +82,7 @@ public class UserController extends HttpServlet{
 			//로그인 페이지 이동
 			}else if(location.equals("userLogin.do")) {
 					
-				String path ="/user/userLogin.jsp";
+				String path ="/user/user_login.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(path);
 				rd.forward(request, response);
 				
@@ -95,16 +96,41 @@ public class UserController extends HttpServlet{
 							
 				UserDao udao = new UserDao();
 				int uidx = 0; 
-
+				uidx = udao.userLoginCheck(userId,userPwd);
+				HttpSession session = request.getSession();
+				//Action처리하는 용도는 send방식으로 보낸다
+				if (uidx !=0){  //일치하면
+					//세션에 회원아이디를 담는다
+					
+					session.setAttribute("userId", userId);
+					session.setAttribute("uidx", uidx);
+					session.setMaxInactiveInterval(3600);
+					
+					response.sendRedirect("/jsp");
+				}else{
+					session.setAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
+				}
+			}else if(location.equals("userLogout.do")) {
+				
+				HttpSession session = request.getSession();
+				session.removeAttribute("userId");
+				session.removeAttribute("uidx");
+				session.invalidate();
+				
+				response.sendRedirect(request.getContextPath()+"/");
+			}
+				
 				
 				
 		}
 			
 			
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 		
 		
 		
 	
-	}
 }
+
