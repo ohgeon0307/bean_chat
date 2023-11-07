@@ -22,18 +22,18 @@
 			
 	
 			<div class="btn1">
-				<a href=""><p>1:1 채팅</p>
+				<a href="<%=request.getContextPath()%>/chat/chat_one.do"><p>1:1 채팅</p>
 			<img src="../images/logo/BeanchatChar1.png" alt="1:1 채팅">
 				</a>
-			</div>
+			</div><!-- //.btn1 -->
 		
 			<div class="btn2">
-				<a href="">
+				<a href="<%=request.getContextPath()%>/chat/chat_group.do">
 					<p>단체채팅방</p>
 					<img src="../images/logo/BeanChatPicLogo.png" alt="단체채팅방">
 				</a>
-			</div>
-		</div>
+			</div><!-- //.btn2 -->
+		</div><!-- //#mainzone -->
 
 
 </main>
