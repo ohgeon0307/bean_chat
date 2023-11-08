@@ -27,12 +27,12 @@ if (session.getAttribute("cTo") != null) {
 	
 	
 	
-	function autoClosingAlert(selector,delay)
-	{
-		var alert = $(selector).alert();
-		alert.show();
-		window.setTimeout(function() {alert.hide()},delay); 
-	}
+//	function autoClosingAlert(selector,delay)
+//	{
+//		var alert = $(selector).alert();
+//		alert.show();
+//		window.setTimeout(function() {alert.hide()},delay); 
+//	}
 	function submitFunction(){
 		var cFrom = '<%=userId%>';
 		var cTo =  '<%=cTo%>';
@@ -73,7 +73,7 @@ if (session.getAttribute("cTo") != null) {
 					<div id="chat" class="panel-collapse collapse in">
 						<div id="chat_List" class="porlet-body chat-widget">
 							<textarea style="overflow-y: auto; width: 600px; height: 600px;"
-								id="autoClosingAlert" class="form-control"></textarea>
+								id="chatTextArea" class="form-control"></textarea>
 						</div>
 						<div class="row" style="height: 90px;">
 							<div class="form-group col-xs-10">
