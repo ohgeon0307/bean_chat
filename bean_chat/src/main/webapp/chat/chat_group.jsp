@@ -33,20 +33,21 @@ if (session.getAttribute("cTo") != null) {
 		alert.show();
 		window.setTimeout(function() {alert.hide()},delay); 
 	}
-	function submitFuntion(){
+	function submitFunction(){
 		var cFrom = '<%=userId%>';
 		var cTo =  '<%=cTo%>';
 		var cContents = $('#cContents').val(); 
 		$.ajax({
 			type:"POST",
-			url:"./ChatController",
+			url:"<%=request.getContextPath()%>/chat/chat_group.do",
+			dataType : "json",
 			data:{
 				cFrom:encodeURIComponent(cFrom),
 				cTo:encodeURIComponent(cTo),
-				cContents:encodeURIComponent(cContents);
+				cContents:encodeURIComponent(cContents),
 				}
 			})
-		$('#cContents').val('');
+$('#cContents').val('');
 		}
 	
 
