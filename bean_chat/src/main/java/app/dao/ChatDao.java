@@ -31,7 +31,7 @@ public class ChatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM CHAT WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND Cidx > ? ORDER BY cTime";
+		String SQL = "SELECT * FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND Cidx > ? ORDER BY cTime";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
@@ -77,7 +77,7 @@ public class ChatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM CHAT WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND Cidx > (SELECT MAX(cidx) - ? FROM CHAT) ORDER BY cTime";
+		String SQL = "SELECT * FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND Cidx > (SELECT MAX(cidx) - ? FROM CHAT) ORDER BY cTime";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
@@ -121,7 +121,7 @@ public class ChatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "INSERT INTO CHAT VALUES(NULL, ?, ?, ?, NOW())";
+		String SQL = "INSERT INTO ChatTable VALUES(NULL, ?, ?, ?, NOW())";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
