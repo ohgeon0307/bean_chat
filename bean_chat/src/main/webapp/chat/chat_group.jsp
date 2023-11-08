@@ -44,7 +44,7 @@ if (session.getAttribute("cTo") != null) {
 			data:{
 				cFrom:encodeURIComponent(cFrom),
 				cTo:encodeURIComponent(cTo),
-				cContents:encodeURIComponent(cContents)
+				cContents:encodeURIComponent(cContents),
 				}
 			});
 		$('#cContents').val('');

@@ -91,16 +91,16 @@ public class ChatDao {
              while (rs.next()) {
             	 ChatDto chat = new ChatDto();
             	 chat.setCidx(rs.getInt("cidx"));
-            	 chat.setcFrom(rs.getString("cFrom").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-            	 chat.setcTo(rs.getString("cTo").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")); 
-                 chat.setcContents(rs.getString("cContents").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-                 int cTime = Integer.parseInt(rs.getString("cTime").substring(11,13));
+            	 chat.setcFrom(rs.getString("cfrom").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
+            	 chat.setcTo(rs.getString("cfo").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")); 
+                 chat.setcContents(rs.getString("ccontents").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
+                 int cTime = Integer.parseInt(rs.getString("ctime").substring(11,13));
                  String timeType = "오전";
                  if(cTime >= 12) {
                 	 timeType = "오후";
                 	 cTime = 12;
                  }
-                 chat.setcTime(rs.getString("cTime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
+                 chat.setcTime(rs.getString("ctime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("ctime").substring(14, 16) + "");
                  chatList.add(chat);
              } 
 	    } catch (Exception e) {
