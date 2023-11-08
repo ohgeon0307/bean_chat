@@ -27,7 +27,7 @@ if (session.getAttribute("cTo") != null) {
 	
 	
 	
-	function autoCloseingAlert(selector,delay)
+	function autoClosingAlert(selector,delay)
 	{
 		var alert = $(selector).alert();
 		alert.show();
@@ -44,10 +44,10 @@ if (session.getAttribute("cTo") != null) {
 			data:{
 				cFrom:encodeURIComponent(cFrom),
 				cTo:encodeURIComponent(cTo),
-				cContents:encodeURIComponent(cContents),
+				cContents:encodeURIComponent(cContents)
 				}
-			})
-$('#cContents').val('');
+			});
+		$('#cContents').val('');
 		}
 	
 
@@ -73,7 +73,7 @@ $('#cContents').val('');
 					<div id="chat" class="panel-collapse collapse in">
 						<div id="chat_List" class="porlet-body chat-widget">
 							<textarea style="overflow-y: auto; width: 600px; height: 600px;"
-								id="cContents" class="form-control"></textarea>
+								id="autoClosingAlert" class="form-control"></textarea>
 						</div>
 						<div class="row" style="height: 90px;">
 							<div class="form-group col-xs-10">
