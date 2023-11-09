@@ -98,6 +98,7 @@ public class UserController extends HttpServlet{
 				int uidx = 0; 
 				uidx = udao.userLoginCheck(userId,userPwd);
 				HttpSession session = request.getSession();
+				PrintWriter out = response.getWriter();
 				//Action처리하는 용도는 send방식으로 보낸다
 				if (uidx !=0){  //일치하면
 					//세션에 회원아이디를 담는다
@@ -106,9 +107,13 @@ public class UserController extends HttpServlet{
 					session.setAttribute("uidx", uidx);
 					session.setMaxInactiveInterval(3600);
 					
-					response.sendRedirect("/jsp");
+					
+					
+					response.sendRedirect(request.getContextPath() + "/index.jsp");
 				}else{
-					session.setAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
+					
+					out.println("<script>alert('아이디,비밀번호가 일치하지 않습니다.');"
+							+ "history.back();</script>");
 				}
 			}else if(location.equals("userLogout.do")) {
 				
