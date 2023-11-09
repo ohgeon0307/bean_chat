@@ -49,6 +49,21 @@ if (session.getAttribute("cTo") != null) {
 			});
 		$('#cContents').val('');
 		}
+	var lastID = 0;
+	function chatListfunction(type){
+		var formID = '<%= userId%>';
+		var cTo = '<%= cTo%>';
+		$.ajax({
+			type:"POST",
+			url:"<%=request.getContextPath()%>/chat/chat_group.do",
+			dataType : "json",
+			data:{
+				cFrom:encodeURIComponent(cFrom),
+				cTo:encodeURIComponent(cTo),
+				listType : type
+				}
+		})
+	}
 	
 
 	
