@@ -19,7 +19,7 @@ public class ChatDao {
 		try {
 			InitialContext initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env"); 
-			dataSource = (DataSource) envContext.lookup("jdbc/userid");
+			dataSource = (DataSource) envContext.lookup("jdbc/userId");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -31,7 +31,7 @@ public class ChatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM CHAT WHERE ((cFrom = ? AND cTo = ?) OR (cfrom = ? AND cTo = ?)) AND Cidx > ? ORDER BY ctime";
+		String SQL = "SELECT * FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND Cidx > ? ORDER BY cTime";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
@@ -47,14 +47,14 @@ public class ChatDao {
             	 chat.setCidx(rs.getInt("cidx"));
             	 chat.setcFrom(rs.getString("cFrom").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
             	 chat.setcTo(rs.getString("cTo").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")); 
-                 chat.setcContents(rs.getString("Ccontents").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-                 int cTime = Integer.parseInt(rs.getString("Ctime").substring(11,13));
+                 chat.setcContents(rs.getString("cContents").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
+                 int cTime = Integer.parseInt(rs.getString("cTime").substring(11,13));
                  String timeType = "오전";
                  if(cTime >= 12) {
                 	 timeType = "오후";
                 	 cTime = 12;
                  }
-                 chat.setcTime(rs.getString("Ctime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
+                 chat.setcTime(rs.getString("cTime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
                  chatList.add(chat);
              } 
 	    } catch (Exception e) {
@@ -77,7 +77,7 @@ public class ChatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM CHAT WHERE ((cFrom = ? AND cTo = ?) OR (cfrom = ? AND cTo = ?)) AND Cidx > (SELECT MAX(cidx) - ? FROM CHAT) ORDER BY ctime";
+		String SQL = "SELECT * FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND Cidx > (SELECT MAX(cidx) - ? FROM ChatTable) ORDER BY cTime";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
@@ -90,17 +90,17 @@ public class ChatDao {
              chatList = new ArrayList<ChatDto>();
              while (rs.next()) {
             	 ChatDto chat = new ChatDto();
-            	 chat.setCidx(rs.getInt("cidx"));
+            	 chat.setCidx(rs.getInt("Cidx"));
             	 chat.setcFrom(rs.getString("cFrom").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
             	 chat.setcTo(rs.getString("cTo").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")); 
-                 chat.setcContents(rs.getString("Ccontents").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-                 int cTime = Integer.parseInt(rs.getString("Ctime").substring(11,13));
+                 chat.setcContents(rs.getString("cContents").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
+                 int cTime = Integer.parseInt(rs.getString("cTime").substring(11,13));
                  String timeType = "오전";
                  if(cTime >= 12) {
                 	 timeType = "오후";
-                	 cTime = 12;
+                	 cTime -= 12;
                  }
-                 chat.setcTime(rs.getString("Ctime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
+                 chat.setcTime(rs.getString("cTime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
                  chatList.add(chat);
              } 
 	    } catch (Exception e) {
@@ -121,7 +121,7 @@ public class ChatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "INSERT INTO CHAT VALUES(NULL, ?, ?, ?, NOW())";
+		String SQL = "INSERT INTO ChatTable VALUES(NULL, ?, ?, ?, NOW())";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
