@@ -121,7 +121,8 @@ public class ChatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "INSERT INTO ChatTable VALUES(NULL, ?, ?, ?, NOW())";
+		String SQL = "insert into chattable(cfrom, cto, ccontents, ctime)"
+					+" values(?,?,?,now())";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
