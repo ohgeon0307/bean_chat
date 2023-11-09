@@ -5,15 +5,21 @@
 <head>
 <meta charset="utf-8">
 <title>회원가입</title>
-<link href="../css/member.css" type="text/css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- css연결 -->
+<link href="../css/reset.css" rel="stylesheet" />
+<link href="../css/user/user_join.css" rel="stylesheet" />
+<!-- 제이쿼리 연결 -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
 
 </head>
 <body>
-
-
-	<h1>회원가입페이지</h1>
+	<header>
+	<div></div>
+	</header>
+	
+	<main>
+	<div id = "main_zone">
 	<form name="frm" onsubmit="return allCheck()">
 
 <!-- 아이디 -->
@@ -189,8 +195,8 @@
 
 		 
 	</form>
-
-
+</div><!-- //#main_zone -->
+</main>
     <script>
     
     const checkObj = {
