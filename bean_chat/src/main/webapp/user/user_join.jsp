@@ -260,13 +260,37 @@
 							const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
 							if (regExp.test(userId.value)) {
-								// 유효한 경우
-								idMessage.innerText = "유효한 이메일 형식입니다.";
-								idMessage.classList.add("success");
-								idMessage.classList.remove("error");
-
-								checkObj.userId = true; // 유효 O 기록
-								// ************* 이메일 중복 검사(ajax) 진행 예정 **************
+								let userId = $("#userId").val();
+								
+								$.ajax({
+									type: "post",
+									url : "./user_id_check.jsp",	
+									data : {"userId" : userId},
+									dataType : "json", 
+									success : function(data){
+										//alert("성공");
+										//alert(data.cnt);
+										if (data.cnt ==1){
+											idMessage.innerText = "이미 사용 중인 이메일입니다.";
+											idMessage.classList.add("error");
+											idMessage.classList.remove("success");
+											
+											checkObj.userId = false;
+										}else{
+											idMessage.innerText = "사용 가능한 이메일입니다.";
+											idMessage.classList.add("success");
+						                    idMessage.classList.remove("error");
+						            
+						                    checkObj.userId = true; 
+										
+										}
+										
+									},
+									error : function(){
+										alert("실패");				
+									}			
+								});
+					
 							} else {
 								// 유효하지 않은 경우
 								idMessage.innerText = "이메일 형식이 유효하지 않습니다.";

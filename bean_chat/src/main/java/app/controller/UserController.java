@@ -122,7 +122,7 @@ public class UserController extends HttpServlet{
 				session.removeAttribute("uidx");
 				session.invalidate();
 				
-				response.sendRedirect(request.getContextPath()+"/");
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
 			}
 				
 				
