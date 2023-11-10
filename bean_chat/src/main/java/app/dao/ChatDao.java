@@ -26,8 +26,8 @@ public class ChatDao {
 		  
 	}
 	
-	public ArrayList<ChatDto> getChat_ListByID(String cFrom, String cTo, String cidx) {
-		ArrayList<ChatDto> chat_List = null;
+	public ArrayList<ChatDto> getChatListByID(String cFrom, String cTo, String cidx) {
+		ArrayList<ChatDto> chatList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -41,7 +41,7 @@ public class ChatDao {
              pstmt.setString(4, cFrom);
              pstmt.setInt(5, Integer.parseInt(cidx));
              rs = pstmt.executeQuery();
-             chat_List = new ArrayList<ChatDto>();
+             chatList = new ArrayList<ChatDto>();
              while (rs.next()) {
             	 ChatDto chat = new ChatDto();
             	 chat.setCidx(rs.getInt("cidx"));
@@ -55,7 +55,7 @@ public class ChatDao {
                 	 cTime -= 12;
                  }
                  chat.setcTime(rs.getString("cTime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
-                 chat_List.add(chat);
+                 chatList.add(chat);
              } 
 	    } catch (Exception e) {
 	    	e.printStackTrace();
@@ -69,11 +69,11 @@ public class ChatDao {
 	    	}
 	    }
 		
-	    return chat_List;  
+	    return chatList;  
 	}
 	
 	public ArrayList<ChatDto> getChatListByRecent(String cFrom, String cTo, int number) {
-		ArrayList<ChatDto> chat_List = null;
+		ArrayList<ChatDto> chatList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -87,7 +87,7 @@ public class ChatDao {
              pstmt.setString(4, cFrom);
              pstmt.setInt(5, number);
              rs = pstmt.executeQuery();
-             chat_List = new ArrayList<ChatDto>();
+             chatList = new ArrayList<ChatDto>();
              while (rs.next()) {
             	 ChatDto chat = new ChatDto();
             	 chat.setCidx(rs.getInt("cidx"));
@@ -101,7 +101,7 @@ public class ChatDao {
                 	 cTime -= 12;
                  }
                  chat.setcTime(rs.getString("cTime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
-                 chat_List.add(chat);
+                 chatList.add(chat);
              } 
 	    } catch (Exception e) {
 	    	e.printStackTrace();
@@ -114,7 +114,7 @@ public class ChatDao {
 	    		e.printStackTrace();
 	    	}
 	    }
-		return chat_List;
+		return chatList;
    }
 	
 	public int submit(String cFrom, String cTo, String cContents) {
