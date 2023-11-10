@@ -19,19 +19,19 @@ public class ChatDao {
 		try {
 			InitialContext initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env"); 
-			dataSource = (DataSource) envContext.lookup("jdbc/userId");
+			dataSource = (DataSource) envContext.lookup("jdbc/bean_chat");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		  
 	}
 	
-	public ArrayList<ChatDto> getchatListByID(String cFrom, String cTo, String cidx) {
+	public ArrayList<ChatDto> getChatListByID(String cFrom, String cTo, String cidx) {
 		ArrayList<ChatDto> chatList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND Cidx > ? ORDER BY cTime";
+		String SQL = "SELECT * FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND cidx > ? ORDER BY cTime";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
@@ -52,7 +52,7 @@ public class ChatDao {
                  String timeType = "오전";
                  if(cTime >= 12) {
                 	 timeType = "오후";
-                	 cTime = 12;
+                	 cTime -= 12;
                  }
                  chat.setcTime(rs.getString("cTime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
                  chatList.add(chat);
@@ -72,12 +72,12 @@ public class ChatDao {
 	    return chatList;  
 	}
 	
-	public ArrayList<ChatDto> getchatListByRecent(String cFrom, String cTo, int number) {
+	public ArrayList<ChatDto> getChatListByRecent(String cFrom, String cTo, int number) {
 		ArrayList<ChatDto> chatList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND Cidx > (SELECT MAX(cidx) - ? FROM ChatTable) ORDER BY cTime";
+		String SQL = "SELECT * FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND cidx > (SELECT MAX(cidx) - ? FROM ChatTable) ORDER BY cTime";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
@@ -90,7 +90,7 @@ public class ChatDao {
              chatList = new ArrayList<ChatDto>();
              while (rs.next()) {
             	 ChatDto chat = new ChatDto();
-            	 chat.setCidx(rs.getInt("Cidx"));
+            	 chat.setCidx(rs.getInt("cidx"));
             	 chat.setcFrom(rs.getString("cFrom").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
             	 chat.setcTo(rs.getString("cTo").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")); 
                  chat.setcContents(rs.getString("cContents").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
@@ -121,13 +121,15 @@ public class ChatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "INSERT INTO ChatTable VALUES(NULL, ?, ?, ?, NOW())";
+		String SQL = "insert into chattable(cfrom, cto, ccontents, ctime)"
+					+" values(?,?,?,now())";
 	    try {
              conn = dataSource.getConnection();
              pstmt = conn.prepareStatement(SQL);
              pstmt.setString(1, cFrom);
              pstmt.setString(2, cTo);
              pstmt.setString(3, cContents);
+             
              return pstmt.executeUpdate();
 	    } catch (Exception e) {
 	    	e.printStackTrace();
@@ -141,7 +143,9 @@ public class ChatDao {
 	    	}
 	    }
 		return -1;
-	
+
+		
+		
 }
 
 }
