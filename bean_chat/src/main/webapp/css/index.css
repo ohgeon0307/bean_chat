@@ -23,7 +23,7 @@ a { text-decoration: none; color: white; }
     a:focus { text-decoration: none; }
     a:hover, a:active { text-decoration: none; }
 
-/* header css */
+/* header css ~ 143번 라인까지*/
 .container {
     position : fixed;
     z-index: 99;
@@ -47,17 +47,16 @@ a { text-decoration: none; color: white; }
     
 }
 
-.Beanchat_water {
-    position: relative;
-    left : 850px;
-    bottom : 50px;
-    animation: fadeInRight 2s;
-}
+@keyframes headerbar {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
 
-.beanchat_text {
-    position : relative;
-    right : 275px;
-    max-width : 250px;
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .container ul img {
@@ -141,6 +140,23 @@ a { text-decoration: none; color: white; }
     height: 45px;
 }
 
+/* header css 종료 */
+
+
+.Beanchat_water {
+    position: relative;
+    left : 850px;
+    bottom : 50px;
+    animation: fadeInRight 2s;
+}
+
+.beanchat_text {
+    position : relative;
+    right : 275px;
+    max-width : 250px;
+}
+
+
 
 
 .s0 {
@@ -200,11 +216,6 @@ a { text-decoration: none; color: white; }
     color : white;
     font-size : 20px;
     font-weight : 700;
-}
-
-header {
-    position : fixed;
-    z-index :99;
 }
 
 
@@ -293,17 +304,7 @@ header {
     }
     }
 
-@keyframes headerbar {
-    0% {
-        opacity: 0;
-        visibility: hidden;
-    }
 
-    100% {
-        opacity: 1;
-        visibility: visible;
-    }
-}
 
 @keyframes fadeInRight {
     0% {
