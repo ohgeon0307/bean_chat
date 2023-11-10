@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import app.dao.ChatDao;
 import app.dto.ChatDto;
 
-@WebServlet("/ChatController")
+@WebServlet("/ChatContentController")
 public class ChatContentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String location;
@@ -34,8 +34,8 @@ public class ChatContentController extends HttpServlet {
 			rd.forward(request, response);
 		}
 
-		else if (location.equals("chat_group.do")) {
-
+		else if (location.equals("chat_group.do")) 
+		{
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			String cFrom = request.getParameter("cFrom");
@@ -54,14 +54,14 @@ public class ChatContentController extends HttpServlet {
 					response.getWriter().write("");
 				}
 			}
-			
-
-			String path = "/chat/chat_group.jsp";
-			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
-			RequestDispatcher rd = request.getRequestDispatcher(path);
-			rd.forward(request, response);
-			}
 		}
+		String path = "/chat/chat_group.jsp";
+		// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
+		RequestDispatcher rd = request.getRequestDispatcher(path);
+		rd.forward(request, response);
+			
+			}
+		
 	public String getTen(String cFrom , String cTo) {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
@@ -95,6 +95,10 @@ public class ChatContentController extends HttpServlet {
 		}
 		result.append("],\"last\":\""+chatList.get(chatList.size()-1).getCidx()+"\"}");
 		return result.toString();
+		
+		
+		
+		
 	}
 
 }
