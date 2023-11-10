@@ -36,23 +36,16 @@ font-weight: 900; }
     height : 140px;
 }
 
-
-@keyframes fadeInRight {
+@keyframes headerbar {
     0% {
         opacity: 0;
-        transform: translate3d(0, -50%, 0);
+        visibility: hidden;
     }
-    to {
-        opacity: 1;
-        transform: translateZ(0);
-    }
-}
 
-.Beanchat_water {
-    position: relative;
-    left : 850px;
-    bottom : 50px;
-    animation: fadeInRight 2s;
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .beanchat_text {
@@ -76,6 +69,7 @@ font-weight: 900; }
 .items {
     position: relative;
     bottom : 20px;
+    right : 100px;
     display: flex;
     flex-flow: wrap;
     -webkit-box-align: center;
@@ -146,6 +140,23 @@ font-weight: 900; }
 /* header 종료 지점 */
 
 
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -50%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+
+.Beanchat_water {
+    position: relative;
+    left : 850px;
+    bottom : 50px;
+    animation: fadeInRight 2s;
+}
 
 .s0 {
     background-image : url('../images/indexImage/BeanchatNormal.png');
@@ -274,17 +285,7 @@ font-weight: 900; }
     }
     }
 
-@keyframes headerbar {
-    0% {
-        opacity: 0;
-        visibility: hidden;
-    }
 
-    100% {
-        opacity: 1;
-        visibility: visible;
-    }
-}
 
 .s1 a:link,.s1 a:visited {
     background-color: purple;
