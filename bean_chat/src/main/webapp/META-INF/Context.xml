@@ -12,6 +12,6 @@
 	testOnBorrow="true"
 	url="jdbc:mysql://localhost:3306/beanchat"/>
 	<ResourceLink type="javax.sql.data.DataSouce"
-	name="jdbc/baenchat"
-	global="jdbc/baenchat"/>
+	name="jdbc/beanchat"
+	global="jdbc/beanchat"/>
 </Context>
