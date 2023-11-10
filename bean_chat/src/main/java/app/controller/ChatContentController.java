@@ -40,11 +40,11 @@ public class ChatContentController extends HttpServlet {
 			if (cFrom == null || cFrom.equals("") || cTo == null || cTo.equals("") || listType == null
 					|| listType.equals("")){
 				response.getWriter().write("0");
-			}else if(listType.equals("ten")) response.getWriter().write(getTen(cFrom,cTo)); 
+			}else if(listType.equals("ten")) response.getWriter().write(getTen(URLDecoder.decode( cFrom,"UTF-8"),URLDecoder.decode(cTo,"UTF-8"))); 
 			else {
 				try {
 					
-					response.getWriter().write(getID(cFrom,cTo,listType));
+					response.getWriter().write(getID(URLDecoder.decode( cFrom,"UTF-8"),URLDecoder.decode(cTo,"UTF-8"), listType));
 				}catch(Exception e) {
 					response.getWriter().write("");
 				}
@@ -63,9 +63,9 @@ public class ChatContentController extends HttpServlet {
 		if(chatList.size() == 0) return "";
 		for(int i = 0; i <  chatList.size(); i++ ) {
 			result.append("[{\"value\":\""+chatList.get(i).getcFrom()+"\"},");
-			result.append("[{\"value\":\""+chatList.get(i).getcTo()+"\"},");
-			result.append("[{\"value\":\""+chatList.get(i).getcContents()+"\"},");
-			result.append("[{\"value\":\""+chatList.get(i).getcTime()+"\"}]");
+			result.append("{\"value\":\""+chatList.get(i).getcTo()+"\"},");
+			result.append("{\"value\":\""+chatList.get(i).getcContents()+"\"},");
+			result.append("{\"value\":\""+chatList.get(i).getcTime()+"\"}]");
 			if(i !=chatList.size() -1) result.append(",");
 			
 		}
@@ -80,9 +80,9 @@ public class ChatContentController extends HttpServlet {
 		if(chatList.size() == 0) return "";
 		for(int i = 0; i <  chatList.size(); i++ ) {
 			result.append("[{\"value\":\""+chatList.get(i).getcFrom()+"\"},");
-			result.append("[{\"value\":\""+chatList.get(i).getcTo()+"\"},");
-			result.append("[{\"value\":\""+chatList.get(i).getcContents()+"\"},");
-			result.append("[{\"value\":\""+chatList.get(i).getcTime()+"\"}]");
+			result.append("{\"value\":\""+chatList.get(i).getcTo()+"\"},");
+			result.append("{\"value\":\""+chatList.get(i).getcContents()+"\"},");
+			result.append("{\"value\":\""+chatList.get(i).getcTime()+"\"}]");
 			if(i !=chatList.size() -1) result.append(",");
 			
 		}

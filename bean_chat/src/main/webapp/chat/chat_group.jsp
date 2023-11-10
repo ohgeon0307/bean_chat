@@ -27,12 +27,12 @@ if (session.getAttribute("cTo") != null) {
 	
 	
 	
-//	function autoClosingAlert(selector,delay)
-//	{
-//		var alert = $(selector).alert();
-//		alert.show();
-//		window.setTimeout(function() {alert.hide()},delay); 
-//	}
+	function autoClosingAlert(selector,delay)
+	{
+		var alert = $(selector).alert();
+		alert.show();
+		window.setTimeout(function() {alert.hide()},delay); 
+	}
 	function submitFunction(){
 		var cFrom = '<%=userId%>';
 		var cTo =  '<%=cTo%>';
@@ -45,13 +45,23 @@ if (session.getAttribute("cTo") != null) {
 				cFrom:encodeURIComponent(cFrom),
 				cTo:encodeURIComponent(cTo),
 				cContents:encodeURIComponent(cContents),
-				}
+				},
+				success: function(result){
+					if(result==1){
+						autoClosingAlert('#successMessage',2000);
+					}else if(result==0)
+					{
+					autoClosingAlert('#dangerMessage',2000);
+					}else{						
+					autoClosingAlert('#dangerMessage',2000);
+						 }
+					     				}  
 			});
 		$('#cContents').val('');
-		}
+									}
 	var lastID = 0;
-	function chatListfunction(type){
-		var formID = '<%= userId%>';
+	function chatListFunction(type){
+		var cFrom = '<%= userId%>';
 		var cTo = '<%= cTo%>';
 		$.ajax({
 			type:"POST",
@@ -61,15 +71,25 @@ if (session.getAttribute("cTo") != null) {
 				cFrom:encodeURIComponent(cFrom),
 				cTo:encodeURIComponent(cTo),
 				listType : type
+				},
+				success: function(data){
+					if(data=="")return;
+					var parsed = JSON.parse(data);
+					var result = parsed.result;
+					for (var i =0; i < result.length; i++){
+						addChat(result[i][0].value,result[i][2].value,result[i][3].value);
+						
+					}
+						lastID=Number(parsed.last);
 				}
 		});
 	}
 	
-		function addChat(userNickname, cContents, chatTime) {
+		function addChat(userNickname, cContents, cTime) {
 				$('#chatList').append('<div class="row">'+
 				'<div class="col-1g-12">' + 
 				'<div class="media">' +
-				'<a class="pull-left" href-"# ">' +
+				'<a class="pull-left" href="# ">' +
 
 				'<img class="media-object img-circle" src="images/icon.png" alt="">' +
 				
@@ -88,8 +108,13 @@ if (session.getAttribute("cTo") != null) {
 				'</div>'+
 				'</div>'+
 				'<hr>');
+$('#chatList').scrollTop($('#chatList')[0].scrollHeight);
 	}
-
+		function getInfiniteChat(){
+			setInterval(function(){
+				chatListFunction(lastID);
+			},3000);
+		}
 	
 	</script>
 </head>
@@ -110,9 +135,9 @@ if (session.getAttribute("cTo") != null) {
 						<div class="clearfix"></div>
 					</div>
 					<div id="chat" class="panel-collapse collapse in">
-						<div id="chat_List" class="porlet-body chat-widget">
+						<div id="chatList" class="porlet-body chat-widget">
 							<textarea style="overflow-y: auto; width: 600px; height: 600px;"
-								id="chatTextArea" class="form-control"></textarea>
+								id="textaera" class="form-control"></textarea>
 						</div>
 						<div class="row" style="height: 90px;">
 							<div class="form-group col-xs-10">
@@ -123,6 +148,8 @@ if (session.getAttribute("cTo") != null) {
 								<button type="button" class="btn btn-defoult pull-right"
 									onclick="submitFunction();">전송</button>
 								<div class="clearfix"></div>
+	   <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel">
+        <div class="modal-dialog" role="document">
 							</div>
 						</div>
 					</div>
@@ -130,6 +157,25 @@ if (session.getAttribute("cTo") != null) {
 			</div>
 		</div>
 	</div>
+	</div>
+	</div>
+            
+	<script >
+	$('#messageModal').modal("show");
 
+	
+	</script>
+	
+	<%
+	session.removeAttribute("messageContent");
+	session.removeAttribute("messagetype");
+	%>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		chatListFunction('ten');
+		getInfiniteChat();
+	});
+	
+	</script>
 </body>
 </html>
