@@ -84,12 +84,12 @@
             afterLoad: function (origin, destination, direction) {
                 console.log('afterLoad');
                 //스크롤 종료시 실행 (이벤트 핸들러 콜백)
-                if (destination.index == 1) {
-                    $('.scroll_image01').hide();
+                if (destination.index == 1) { //만약 destination(다음 목적지 세션이 section 1이라면)
+                    $('.scroll_image01').hide(); //scroll 이미지를 숨기겠다.
                 }
 
-                if (destination.index == 0) {
-                    $('.scroll_image01').show();
+                if (destination.index == 0) { //만약 destination(다음 목적지 세션이 0이라면(위로 올라갈 경우))
+                    $('.scroll_image01').show(); //scroll 이미지를 다시 보여주겠다.
                 }
 
             }

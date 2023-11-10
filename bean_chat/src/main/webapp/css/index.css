@@ -1,31 +1,22 @@
 /* beanchat index.css*/
 
-@import url("font/s-core-dream.css");
-
-body, h3, h4, h5, h6, li, p,#nav li a, #topbar, input, button, select, textarea, a, .wf-container > *, .widget-title, .dwqa-container, #wpmem_reg, #wpmem_login {
-	font-family: "s-core-dream-light", sans-serif !important;
-	color: #000;
-} 
-
-h2, h1{
-	font-family: "s-core-dream-bold", sans-serif !important;
-	color: #000;
-	
-}
-
 .section {
     color: white;
 }
 
+.container a { text-decoration: none; color: #BCE489;
+font-weight: 900; }
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
 
-
-/* header css ~ 143번 라인까지*/
+/* header css */
 .container {
+    background-color: white;
     position : fixed;
     z-index: 99;
     display : flex;
-    max-width: 1024px;
-    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -40,40 +31,33 @@ h2, h1{
     opacity: 0;
     animation: 1.5s ease 0.3s 1 normal forwards running headerbar;
     color : white;
-    
+    height : 140px;
 }
 
-@keyframes headerbar {
+
+@keyframes fadeInRight {
     0% {
         opacity: 0;
-        visibility: hidden;
+        transform: translate3d(0, -50%, 0);
     }
-
-    100% {
+    to {
         opacity: 1;
-        visibility: visible;
+        transform: translateZ(0);
     }
 }
 
-.container a {
-	text-decoration: none;
-	color: white;
+.Beanchat_water {
+    position: relative;
+    left : 850px;
+    bottom : 50px;
+    animation: fadeInRight 2s;
 }
 
-a:visited {
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: none;
-}
-
-a:focus {
-	text-decoration: none;
-}
-
-a:hover, a:active {
-	text-decoration: none;
+.beanchat_text {
+    position : relative;
+    left : 165px;
+    bottom : 20px;
+    max-width : 250px;
 }
 
 .container ul img {
@@ -89,7 +73,7 @@ a:hover, a:active {
 
 .items {
     position: relative;
-    left : 360px;
+    bottom : 20px;
     display: flex;
     flex-flow: wrap;
     -webkit-box-align: center;
@@ -107,12 +91,12 @@ a:hover, a:active {
 .items li span {
     position: absolute;
     top: 55%;
-    right : 1;
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.5s;
     width: 150px;
     height: 30px;
+    bottom : 20px;
 }
 
 .items li:hover span {
@@ -156,25 +140,6 @@ a:hover, a:active {
     width : 45px;
     height: 45px;
 }
-
-
-.beanchat_text {
-    position : relative;
-    right : 275px;
-    max-width : 250px;
-}
-
-/* header css 종료 */
-
-
-.Beanchat_water {
-    position: relative;
-    left : 850px;
-    bottom : 50px;
-    animation: fadeInRight 2s;
-}
-
-
 
 
 
@@ -223,7 +188,7 @@ a:hover, a:active {
     right: 500px;
     top : 200px;
     color : white;
-    font-size : 20px;
+    font-size : 18px;
     font-weight : 700;
 }
 
@@ -233,9 +198,11 @@ a:hover, a:active {
     right: 500px;
     bottom : 30px;
     color : white;
-    font-size : 20px;
+    font-size : 18px;
     font-weight : 700;
 }
+
+
 
 
 #fp-nav ul li a span {
@@ -279,26 +246,6 @@ a:hover, a:active {
     height: 68px;
 } 
 
-.s1 a:link,.s1 a:visited {
-    background-color: purple;
-    color: white;
-    border-radius: 50px;
-    padding: 15px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-weight: 700;
-}
-.s1 a:hover,.s1 a:active {
-    background-color: black;
-    color : white;
-    
-}
-
-.fp-watermark {
-    display : none;
-}
-
 
 @keyframes jump {
 
@@ -323,16 +270,34 @@ a:hover, a:active {
     }
     }
 
-
-
-@keyframes fadeInRight {
+@keyframes headerbar {
     0% {
         opacity: 0;
-        transform: translate3d(0, -50%, 0);
+        visibility: hidden;
     }
-    to {
+
+    100% {
         opacity: 1;
-        transform: translateZ(0);
+        visibility: visible;
     }
 }
 
+.s1 a:link,.s1 a:visited {
+    background-color: purple;
+    color: white;
+    border-radius: 50px;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 700;
+}
+.s1 a:hover,.s1 a:active {
+    background-color: black;
+    color : white;
+    
+}
+
+.fp-watermark {
+    display : none;
+}
