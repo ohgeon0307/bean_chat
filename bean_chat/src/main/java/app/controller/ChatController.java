@@ -54,7 +54,7 @@ public class ChatController extends HttpServlet {
 			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
-
+//
 		}
 	}
 

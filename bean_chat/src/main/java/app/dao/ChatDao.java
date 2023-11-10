@@ -115,7 +115,7 @@ public class ChatDao {
 	    	}
 	    }
 		return chatList;
-   }
+   }//
 	
 	public int submit(String cFrom, String cTo, String cContents) {
 		Connection conn = null;

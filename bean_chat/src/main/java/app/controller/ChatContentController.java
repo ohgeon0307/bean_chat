@@ -89,7 +89,7 @@ public class ChatContentController extends HttpServlet {
 		result.append("],\"last\":\""+chatList.get(chatList.size()-1).getCidx()+"\"}");
 		return result.toString();
 		
-		
+		//
 	}
 	
 	
