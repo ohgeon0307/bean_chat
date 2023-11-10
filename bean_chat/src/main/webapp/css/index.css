@@ -4,6 +4,8 @@
     color: white;
 }
 
+
+
 .container a { text-decoration: none; color: #BCE489;
 font-weight: 900; }
     a:visited { text-decoration: none; }
@@ -140,6 +142,8 @@ font-weight: 900; }
     width : 45px;
     height: 45px;
 }
+
+/* header 종료 지점 */
 
 
 
