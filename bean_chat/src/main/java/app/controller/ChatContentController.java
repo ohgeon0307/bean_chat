@@ -76,7 +76,7 @@ public class ChatContentController extends HttpServlet {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
 		ChatDao chatDao =new ChatDao();
-		ArrayList<ChatDto> chatList = chatDao.getChat_ListByID(cFrom, cTo, cidx);
+		ArrayList<ChatDto> chatList = chatDao.getChatListByID(cFrom, cTo, cidx);
 		if(chatList.size() == 0) return "";
 		for(int i = 0; i <  chatList.size(); i++ ) {
 			result.append("[{\"value\":\""+chatList.get(i).getcFrom()+"\"},");
