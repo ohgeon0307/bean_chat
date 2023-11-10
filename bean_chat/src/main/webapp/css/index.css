@@ -1,0 +1,318 @@
+/* beanchat index.css*/
+
+@import url("font/s-core-dream.css");
+
+body, h3, h4, h5, h6, li, p,#nav li a, #topbar, input, button, select, textarea, a, .wf-container > *, .widget-title, .dwqa-container, #wpmem_reg, #wpmem_login {
+	font-family: "s-core-dream-light", sans-serif !important;
+	color: #000;
+} 
+
+h2, h1{
+	font-family: "s-core-dream-bold", sans-serif !important;
+	color: #000;
+	
+}
+
+.section {
+    color: white;
+}
+
+a { text-decoration: none; color: white; }
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+
+/* header css */
+.container {
+    position : fixed;
+    z-index: 99;
+    display : flex;
+    max-width: 1024px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 40px 0px 0px 6%;
+    top: 0px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: 1.5s ease 0.3s 1 normal forwards running headerbar;
+    color : white;
+    
+}
+
+.Beanchat_water {
+    position: relative;
+    left : 850px;
+    bottom : 50px;
+    animation: fadeInRight 2s;
+}
+
+.beanchat_text {
+    position : relative;
+    right : 275px;
+    max-width : 250px;
+}
+
+.container ul img {
+    position : relative;
+    right : 0px;
+    object-fit: contain;
+    display: flex;
+    float: none;
+    width: 150%;
+    height: auto;
+    max-width : 250px;
+}
+
+.items {
+    position: relative;
+    left : 360px;
+    display: flex;
+    flex-flow: wrap;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin : 0;
+    padding : 0;
+}
+
+.items li:hover img {
+    opacity : 0;
+}
+
+.items li span {
+    position: absolute;
+    top: 55%;
+    right : 1;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 150px;
+    height: 30px;
+}
+
+.items li:hover span {
+    position : absolute;
+    opacity : 1;
+    transition-delay: 0.3s;
+}
+
+
+
+.container ul {
+    display: flex;
+    list-style: none;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 48px;
+    margin-right : 200px;
+    padding : 0;
+}
+
+.container ul li:not(:last-child) {
+    margin-right : 25px;
+   
+}
+
+.container ul li {
+    width: 60px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 방지 */
+    text-align: center; /* 가로 정렬을 위해 텍스트 가운데 정렬 */
+    margin: 0;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.items li img {
+    opacity: 1;
+    transition: opacity 0.3s;
+    width : 45px;
+    height: 45px;
+}
+
+
+
+.s0 {
+    background-image : url('../images/indexImage/BeanchatNormal.png');
+    background-repeat : no-repeat;
+    background-size : 1000px 350px;
+    background-position: 85% 95%;
+}
+
+.s1 {
+    background-image : url('../images/indexImage/beanchat_char.png');
+    background-repeat : no-repeat;
+    background-size : 1200px 800px;
+    background-position: 105% 125%;
+}
+
+.main {
+    width: 1024px;
+    margin: 0px auto;
+    padding: 165px 50px 400px;
+    position : relative;
+    z-index: 3;
+}
+
+.main_text_image {
+    position : relative;
+    width: 584px;
+    right : 150px;
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+.Beanchat_title {
+    position : absolute;
+    
+    float: none;
+    width: 100%;
+    height: auto;
+    
+}
+
+.s0 p {
+    position : relative;
+    left : 0;
+    right: 500px;
+    top : 200px;
+    color : white;
+    font-size : 20px;
+    font-weight : 700;
+}
+
+.s1 p {
+    position : relative;
+    left : 0;
+    right: 500px;
+    bottom : 30px;
+    color : white;
+    font-size : 20px;
+    font-weight : 700;
+}
+
+header {
+    position : fixed;
+    z-index :99;
+}
+
+
+#fp-nav ul li a span {
+    background-color : #fff;
+}
+
+.s1 h3 {
+    display: none;
+}
+
+.scroll_image01 {
+    position: fixed;
+    bottom: 3%;
+    left: 50%;
+    width: 68px;
+    height: 68px;
+    animation: 0.5s ease 0s 3 normal none running jump;
+    margin : 0px;
+    padding : 0px;
+}
+
+.scroll_image01 img {
+    width: 68px;
+    height: 68px;
+}
+
+
+ .scroll_image02 {
+    position: fixed;
+    animation: 1.0s ease 0s 5 normal none running jump;
+    top : 190%;
+    left: 50%;
+    width: 68px;
+    height: 68px;
+    margin : 0px;
+    padding : 0px;
+}
+
+.scroll_image02 img {
+    width: 68px;
+    height: 68px;
+} 
+
+.s1 a:link,.s1 a:visited {
+    background-color: purple;
+    color: white;
+    border-radius: 50px;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 700;
+}
+.s1 a:hover,.s1 a:active {
+    background-color: black;
+    color : white;
+    
+}
+
+.fp-watermark {
+    display : none;
+}
+
+
+@keyframes jump {
+
+    0% {
+        transform: translateY(0px);
+    }
+    
+    40% {
+        transform: translateY(-30px);
+    }
+    
+    50% {
+        transform: translateY(0px);
+    }
+    
+    60% {
+        transform: translateY(-15px);
+    }
+    
+    100% {
+        transform: translateY(0px);
+    }
+    }
+
+@keyframes headerbar {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -50%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+
