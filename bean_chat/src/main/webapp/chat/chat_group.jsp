@@ -62,9 +62,33 @@ if (session.getAttribute("cTo") != null) {
 				cTo:encodeURIComponent(cTo),
 				listType : type
 				}
-		})
+		});
 	}
 	
+		function addChat(userNickname, cContents, chatTime) {
+				$('#chatList').append('<div class="row">'+
+				'<div class="col-1g-12">' + 
+				'<div class="media">' +
+				'<a class="pull-left" href-"# ">' +
+
+				'<img class="media-object img-circle" src="images/icon.png" alt="">' +
+				
+				'<div class="media-body">' + 
+				'<h4 class="media-heading">'+
+				userNickname +
+				'<span class="small pull-right">'+
+				cTime +
+				'</span>'+
+				'</h4>'+
+				'<p>'+
+				cContents +
+				'</p>'+
+				'</div>'+
+				'</div>'+
+				'</div>'+
+				'</div>'+
+				'<hr>');
+	}
 
 	
 	</script>
