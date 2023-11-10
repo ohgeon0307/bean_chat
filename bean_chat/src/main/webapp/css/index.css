@@ -17,11 +17,7 @@ h2, h1{
     color: white;
 }
 
-a { text-decoration: none; color: white; }
-    a:visited { text-decoration: none; }
-    a:hover { text-decoration: none; }
-    a:focus { text-decoration: none; }
-    a:hover, a:active { text-decoration: none; }
+
 
 /* header css ~ 143번 라인까지*/
 .container {
@@ -57,6 +53,27 @@ a { text-decoration: none; color: white; }
         opacity: 1;
         visibility: visible;
     }
+}
+
+.container a {
+	text-decoration: none;
+	color: white;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:focus {
+	text-decoration: none;
+}
+
+a:hover, a:active {
+	text-decoration: none;
 }
 
 .container ul img {
@@ -140,6 +157,13 @@ a { text-decoration: none; color: white; }
     height: 45px;
 }
 
+
+.beanchat_text {
+    position : relative;
+    right : 275px;
+    max-width : 250px;
+}
+
 /* header css 종료 */
 
 
@@ -150,11 +174,6 @@ a { text-decoration: none; color: white; }
     animation: fadeInRight 2s;
 }
 
-.beanchat_text {
-    position : relative;
-    right : 275px;
-    max-width : 250px;
-}
 
 
 
