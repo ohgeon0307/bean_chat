@@ -25,17 +25,12 @@ public class ChatContentController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (location.equals("chatList.do"))
-
-		{
+		if (location.equals("chatList.do")){
 			String path = "/chat/chat_list.jsp";
 			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
-		}
-
-		else if (location.equals("chat_group.do")) 
-		{
+		}else if (location.equals("chat_group.do")) {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			String cFrom = request.getParameter("cFrom");
@@ -43,9 +38,9 @@ public class ChatContentController extends HttpServlet {
 			String listType = request.getParameter("listType");
 			
 			if (cFrom == null || cFrom.equals("") || cTo == null || cTo.equals("") || listType == null
-					|| listType.equals("")) 
+					|| listType.equals("")){
 				response.getWriter().write("0");
-			else if(listType.equals("ten")) response.getWriter().write(getTen(cFrom,cTo)); 
+			}else if(listType.equals("ten")) response.getWriter().write(getTen(cFrom,cTo)); 
 			else {
 				try {
 					
@@ -53,12 +48,10 @@ public class ChatContentController extends HttpServlet {
 				}catch(Exception e) {
 					response.getWriter().write("");
 				}
+			
+			
 			}
 		}
-		String path = "/chat/chat_group.jsp";
-		// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
-		RequestDispatcher rd = request.getRequestDispatcher(path);
-		rd.forward(request, response);
 			
 			}
 		
@@ -83,7 +76,7 @@ public class ChatContentController extends HttpServlet {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
 		ChatDao chatDao =new ChatDao();
-		ArrayList<ChatDto> chatList = chatDao.getChatListByID(cFrom, cTo, cidx);
+		ArrayList<ChatDto> chatList = chatDao.getChat_ListByID(cFrom, cTo, cidx);
 		if(chatList.size() == 0) return "";
 		for(int i = 0; i <  chatList.size(); i++ ) {
 			result.append("[{\"value\":\""+chatList.get(i).getcFrom()+"\"},");
@@ -97,8 +90,7 @@ public class ChatContentController extends HttpServlet {
 		return result.toString();
 		
 		
-		
-		
 	}
-
+	
+	
 }
