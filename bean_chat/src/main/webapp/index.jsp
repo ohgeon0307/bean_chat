@@ -17,7 +17,7 @@
 
 <body>
     
-    <div class="container">
+    <div class="container"> <!-- 헤더 시작 -->
         <img src="./images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
         <div class="items">
             <ul>
@@ -27,12 +27,12 @@
                 <li><a href="<%=request.getContextPath()%>/chat/chatList.do"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a></li>
             </ul>
         </div>
-    </div>
+    </div> <!-- 헤더 종료 -->
 
-    <div id="full-page">
+    <div id="full-page"> <!-- full-page section 나누기 시작 -->
 
 
-        <div class="section s0">
+        <div class="section s0"> <!-- full-page section 첫번째 시작 -->
             <div class="main">
                 <div class="main_text_image">
                     <img src="./images/indexImage/BeanchatTitle1.png" alt="" class="Beanchat_title">
@@ -41,9 +41,9 @@
                 </div>
                
             </div>
-        </div>
+        </div> <!-- full-page section 첫번째 종료 -->
 
-        <div class="section s1">
+        <div class="section s1"> <!-- full-page section 두번째 시작 -->
             <div class="main">
                 <div class="main_text_image">
                     <img src="./images/indexImage/BeanchatTitle2.png" alt="" class="Beanchat_title2">
@@ -55,16 +55,15 @@
                      <p>자, 그럼 시작해볼까요 ?</p>
                      <a href="<%=request.getContextPath()%>/chat/chatList.do">시작하기!</a>
                 </div>
-               
             </div>
-        </div>
+        </div> <!-- full-page section 두번째 종료-->
 
     </div>
-    <figure class="scroll_image01">
+    <figure class="scroll_image01"> <!-- 스크롤 애니메이션용 figure 태그 시작 -->
         <img src="./images/indexImage/scroll.png">
-    </figure>
+    </figure> <!-- 스크롤 애니메이션용 figure 태그 종료 -->
 
-    <script>
+    <script> // full-page 적용을 위한 라이브러리 코드 작성
         new fullpage('#full-page', {
             licenseKey: '',
             sectionsColor: ['#BCE489', '#BCE489', '#BCE489', '#BCE489'],
