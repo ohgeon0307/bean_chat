@@ -1,6 +1,4 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,166 +14,155 @@ if (session.getAttribute("cTo") != null) {
 }
 %>
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>채팅방</title>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-	integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-	crossorigin="anonymous"></script>
-<script type="text/javascript">
-	
-	
-	
-	function autoClosingAlert(selector,delay)
-	{
-		var alert = $(selector).alert();
-		alert.show();
-		window.setTimeout(function() {alert.hide()},delay); 
-	}
-	function submitFunction(){
-		var cFrom = '<%=userId%>';
-		var cTo =  '<%=cTo%>';
-		var cContents = $('#cContents').val(); 
-		$.ajax({
-			type:"POST",
-			url:"<%=request.getContextPath()%>/chat/chat_group.do",
-			dataType : "json",
-			data:{
-				cFrom:encodeURIComponent(cFrom),
-				cTo:encodeURIComponent(cTo),
-				cContents:encodeURIComponent(cContents),
-				},
-				success: function(result){
-					if(result==1){
-						autoClosingAlert('#successMessage',2000);
-					}else if(result==0)
-					{
-					autoClosingAlert('#dangerMessage',2000);
-					}else{						
-					autoClosingAlert('#dangerMessage',2000);
-						 }
-					     				}  
-			});
-		$('#cContents').val('');
-									}
-	var lastID = 0;
-	function chatListFunction(type){
-		var cFrom = '<%= userId%>';
-		var cTo = '<%= cTo%>';
-		$.ajax({
-			type:"POST",
-			url:"<%=request.getContextPath()%>/chat/chat_group.do",
-			dataType : "json",
-			data:{
-				cFrom:encodeURIComponent(cFrom),
-				cTo:encodeURIComponent(cTo),
-				listType : type
-				},
-				success: function(data){
-					if(data=="")return;
-					var parsed = JSON.parse(data);
-					var result = parsed.result;
-					for (var i =0; i < result.length; i++){
-						addChat(result[i][0].value,result[i][2].value,result[i][3].value);
-						
-					}
-						lastID=Number(parsed.last);
-				}
-		});
-	}
-	
-		function addChat(userNickname, cContents, cTime) {
-				$('#chatList').append('<div class="row">'+
-				'<div class="col-1g-12">' + 
-				'<div class="media">' +
-				'<a class="pull-left" href="# ">' +
+    <title>채팅방</title>
 
-				'<img class="media-object img-circle" src="images/icon.png" alt="">' +
-				
-				'<div class="media-body">' + 
-				'<h4 class="media-heading">'+
-				userNickname +
-				'<span class="small pull-right">'+
-				cTime +
-				'</span>'+
-				'</h4>'+
-				'<p>'+
-				cContents +
-				'</p>'+
-				'</div>'+
-				'</div>'+
-				'</div>'+
-				'</div>'+
-				'<hr>');
-$('#chatList').scrollTop($('#chatList')[0].scrollHeight);
-	}
-		function getInfiniteChat(){
-			setInterval(function(){
-				chatListFunction(lastID);
-			},3000);
-		}
-	
-	</script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #chatList {
+            width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 600px;
+            overflow-y: auto;
+        }
+
+        .message {
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .message img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        textarea {
+            width: 550px;
+            height: 80px;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        button {
+            width: 100px;
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function autoClosingAlert(selector, delay) {
+            var alert = $(selector).alert();
+            alert.show();
+            window.setTimeout(function () { alert.hide() }, delay);
+        }
+
+        function submitFunction() {
+            var cFrom = '<%=userId%>';
+            var cTo = '<%=cTo%>';
+            var cContents = $('#cContents').val();
+            $.ajax({
+                type: "POST",
+                url: "<%=request.getContextPath()%>/chat/chat_group.do",
+                dataType: "json",
+                data: {
+                    cFrom: encodeURIComponent(cFrom),
+                    cTo: encodeURIComponent(cTo),
+                    cContents: encodeURIComponent(cContents),
+                },
+                success: function (result) {
+                    if (result == 1) {
+                        autoClosingAlert('#successMessage', 2000);
+                    } else if (result == 0) {
+                        autoClosingAlert('#dangerMessage', 2000);
+                    } else {
+                        autoClosingAlert('#dangerMessage', 2000);
+                    }
+                }
+            });
+            $('#cContents').val('');
+        }
+
+        var lastID = 0;
+
+        function chatListFunction(type) {
+            var cFrom = '<%= userId%>';
+            var cTo = '<%= cTo%>';
+            $.ajax({
+                type: "POST",
+                url: "<%=request.getContextPath()%>/chat/chat_group.do",
+                dataType: "json",
+                data: {
+                    cFrom: encodeURIComponent(cFrom),
+                    cTo: encodeURIComponent(cTo),
+                    listType: type
+                },
+                success: function (data) {
+                    if (data == "") return;
+                    var parsed = JSON.parse(data);
+                    var result = parsed.result;
+                    for (var i = 0; i < result.length; i++) {
+                        addChat(result[i][0].value, result[i][2].value, result[i][3].value);
+                    }
+                    lastID = Number(parsed.last);
+                }
+            });
+        }
+
+        function addChat(userNickname, cContents, cTime) {
+            $('#chatList').append('<div class="message">' +
+                '<img src="<%=request.getContextPath()%>/images/indexImage/beanchat_char.png" alt="이미지">' +
+                '<div class="message-body">' +
+                '<h4>' +
+                userNickname +
+                '<span class="small pull-right">' +
+                cTime +
+                '</span>' +
+                '</h4>' +
+                '<p>' +
+                cContents +
+                '</p>' +
+                '</div>' +
+                '</div>');
+            $('#chatList').scrollTop($('#chatList')[0].scrollHeight);
+        }
+
+        function getInfiniteChat() {
+            setInterval(function () {
+                chatListFunction(lastID);
+            }, 3000);
+        }
+    </script>
 </head>
 <body>
-<!--  -->
 
+    <div id="chatList"></div>
+    
+    <textarea id="cContents" placeholder="채팅을 입력하세요." maxlength="1000"></textarea>
+    <button onclick="submitFunction()">전송</button>
 
-	<div class="conmtainer bootstrap snippet">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="portlet portlet-defoult">
-					<div class="portlet-heading">
-						<div class="portlet-title">
-							<h4>
-								<i class="fa fa-circle text-green"></i>단체채팅방
-							</h4>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div id="chat" class="panel-collapse collapse in">
-						<div id="chatList" class="porlet-body chat-widget">
-							<textarea style="overflow-y: auto; width: 600px; height: 600px;"
-								id="textaera" class="form-control"></textarea>
-						</div>
-						<div class="row" style="height: 90px;">
-							<div class="form-group col-xs-10">
-								<textarea style="height: 100px; width: 550px;" id="cContents"
-									class="form-control" placeholder="채팅을 입력하세요." maxlength="1000"></textarea>
-							</div>
-							<div class="form-group col-xs-2">
-								<button type="button" class="btn btn-defoult pull-right"
-									onclick="submitFunction();">전송</button>
-								<div class="clearfix"></div>
-	   <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel">
-        <div class="modal-dialog" role="document">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	</div>
-            
-	<script >
-	$('#messageModal').modal("show");
-
-	
-	</script>
-	
-	<%
-	session.removeAttribute("messageContent");
-	session.removeAttribute("messagetype");
-	%>
-	<script type="text/javascript">
-	$(document).ready(function(){
-		chatListFunction('ten');
-		getInfiniteChat();
-	});
-	
-	</script>
+    <script>
+        $(document).ready(function () {
+            chatListFunction('ten');
+            getInfiniteChat();
+        });
+    </script>
 </body>
 </html>
