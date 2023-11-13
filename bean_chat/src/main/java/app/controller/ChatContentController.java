@@ -27,7 +27,7 @@ public class ChatContentController extends HttpServlet {
 			throws ServletException, IOException {
 		
 			
-		  if(location.equals("chat_group.do")) {
+			if(location.equals("chat_group.do")) {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			String cFrom = request.getParameter("cFrom");
