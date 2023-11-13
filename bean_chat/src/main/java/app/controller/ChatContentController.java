@@ -21,13 +21,12 @@ public class ChatContentController extends HttpServlet {
 
 	public ChatContentController(String location) {
 		this.location = location;
-
 	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-			
-			if(location.equals("chat_group.do")) {
+		 if (location.equals("chat_group.do")) {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			String cFrom = request.getParameter("cFrom");
@@ -54,7 +53,7 @@ public class ChatContentController extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);
 			}
-
+		
 	public String getTen(String cFrom , String cTo) {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
