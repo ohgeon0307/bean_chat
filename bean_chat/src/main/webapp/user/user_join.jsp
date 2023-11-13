@@ -16,8 +16,8 @@
     </script>
   </head>
   <body>
-    <header>
-	    <div class="container"> <!-- 헤더 시작 -->
+    <header><!-- 헤더 시작 -->
+	    <div class="container"> 
 	        <img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
 	        <div class="items">
 	            <ul>
@@ -26,268 +26,261 @@
 	                <li><a href="<%=request.getContextPath()%>/board/boardList.do"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a></li>
 	                <li><a href="<%=request.getContextPath()%>/chat/chatList.do"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a></li>
 	            </ul>
-	        </div>
-	    </div> <!-- 헤더 종료 -->
-    </header>
+	        </div><!-- //.items -->
+	    </div> <!-- //.container -->
+    </header><!-- 헤더 종료 -->
 
-    <main>
-        <div id="main_zone">
-          <form name="frm" onsubmit="return allCheck()">
-            <!-- 아이디 -->
-            <label for="userId">
-              <span class="required">*</span> 아이디(이메일)
-            </label>
+    <main><!-- 메인 시작 -->
+		<div id="main_zone">
+			<form name="frm" onsubmit="return allCheck()">
+          
+				<!-- 아이디 -->
+				<label for="userId">
+					<span class="required">*</span> 
+					아이디(이메일)
+				</label>
 
-            <!-- 아이디 input창 -->
-            <div class="input_area">
-              <input
-                type="text"
-                id="userId"
-                name="userId"
-                placeholder="아이디(이메일)"
-                maxlength="30"
-                autocomplete="off"
-                required
-              />
-              <!-- autocomplete="off" : 자동 완성 미사용 -->
-              <!-- required : 필수 작성 input 태그 -->
+				<!-- 아이디 input창 -->
+				<div class="input_area">
+					<input type="text" id="userId" name="userId" placeholder="아이디(이메일)" maxlength="30" autocomplete="off" required/>
+					<!-- autocomplete="off" : 자동 완성 미사용 -->
+					<!-- required : 필수 작성 input 태그 -->
 
-              <button type="button" class="custom-button">인증번호 받기</button>
-            </div>
-            <!-- //.input_area -->
+					<button type="button" class="custom-button">인증번호 받기</button>
+            	</div><!-- //.input_area -->
 
-            <!-- 아이디 message -->
-            <span class="message" id="idMessage"
-              >메일을 받을 수 있는 이메일을 입력해 주세요.</span
-            >
-            <br />
+				<!-- 아이디 message -->
+				<span class="message" id="idMessage">
+            		메일을 받을 수 있는 이메일을 입력해 주세요.
+				</span >
+				<br />
 
-            <!-- 이메일 인증번호 -->
-            <label for="emailCheck">
-              <span class="required">*</span> 인증번호
-            </label>
+				<!-- 이메일 인증번호 -->
+				<label for="emailCheck">
+					<span class="required">*</span>
+					인증번호
+            	</label>
 
-            <!-- 인증번호 input창 -->
-            <div class="input_area">
-              <input
-                type="text"
-                id="emailCheck"
-                placeholder="인증번호 입력"
-                maxlength="6"
-                autocomplete="off"
-              />
-              <button type="button" class="custom-button">인증하기</button>
-            </div>
-            <!-- //.input_area -->
+				<!-- 인증번호 input창 -->
+				<div class="input_area">
+					<input type="text" id="emailCheck" placeholder="인증번호 입력" maxlength="6" autocomplete="off"/>
+					<button type="button" class="custom-button">인증하기</button>
+            	</div><!-- //.input_area -->
 
-            <!-- 인증번호 message -->
-            <!-- <span class="message_success">인증되었습니다.</span> -->
+				<!-- 인증번호 message -->
+				<!-- <span class="message_success">인증되었습니다.</span> -->
 
-            <!-- 비밀번호 -->
-            <label for="userPwd">
-              <span class="required">*</span> 비밀번호
-            </label>
+				<!-- 비밀번호 -->
+				<label for="userPwd">
+					<span class="required">*</span>
+					비밀번호
+				</label>
 
-            <!-- 비밀번호 input창 -->
-            <div class="input_area">
-              <input
-                type="password"
-                id="userPwd"
-                name="userPwd"
-                placeholder="비밀번호"
-                maxlength="30"
-              />
-            </div>
-            <!-- //.input_area -->
+	            <!-- 비밀번호 input창 -->
+	            <div class="input_area">
+	              <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호" maxlength="30"/>
+	            </div><!-- //.input_area -->
 
-            <!-- 비밀번호확인 input창 -->
-            <div class="input_area">
-              <input
-                type="password"
-                id="userPwd2"
-                placeholder="비밀번호 확인"
-                maxlength="30"
-              />
-            </div>
-            <!-- //.input_area -->
+	            <!-- 비밀번호확인 input창 -->
+	            <div class="input_area">
+	              <input type="password" id="userPwd2"placeholder="비밀번호 확인" maxlength="30"/>
+	            </div><!-- //.input_area -->
 
-            <!-- 비밀번호 message -->
-            <span class="message" id="pwdMessage"
-              >영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로
-              작성해주세요.</span
-            >
+	            <!-- 비밀번호 message -->
+				<span class="message" id="pwdMessage" >
+						영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.
+				</span>
+				<br />
+             
+	            <!-- 이름 -->
+	            <label for="userName"> 
+	            	<span class="required">*</span> 
+	            	이름 
+	            </label>
 
-            <!-- <span class="message_error" id="pwdMessage">비밀번호가 일치하지 않습니다.</span> -->
-            <br />
-            <!-- 이름 -->
-            <label for="userName"> <span class="required">*</span> 이름 </label>
+	            <!-- 이름 input창 -->
+	            <div class="input_area">
+	              <input type="text" name="userName" />
+	            </div><!-- //.input_area -->
 
-            <!-- 이름 input창 -->
-            <div class="input_area">
-              <input type="text" name="userName" />
-            </div>
-            <!-- //.input_area -->
+	            <!-- 닉네임 -->
+	            <label for="userNickname">
+	              <span class="required">*</span>
+	              닉네임
+	            </label>
 
-            <!-- 닉네임 -->
-            <label for="userNickname">
-              <span class="required">*</span> 닉네임
-            </label>
+	            <!-- 닉네임 input창 -->
+	            <div class="input_area">
+	              <input type="text" id="userNickname" name="userNickname" placeholder="닉네임" maxlength="10"/>
+	            </div><!-- //.input_area -->
 
-            <!-- 닉네임 input창 -->
-            <div class="input_area">
-              <input
-                type="text"
-                id="userNickname"
-                name="userNickname"
-                placeholder="닉네임"
-                maxlength="10"
-              />
-            </div>
-            <!-- //.input_area -->
+	            <!-- 닉네임 message -->
+	            <span class="message" id="nicknameMessage">
+	            	영어/숫자/한글 2~10글자 사이로 작성해주세요.
+	            </span>
+	            <br />
+	            
+	            <!-- 생년월일 -->
+	            <label for="userBirth">
+	              <span class="required">*</span>
+	              생년월일
+	            </label>
 
-            <!-- 닉네임 message -->
-            <span class="message" id="nicknameMessage"
-              >영어/숫자/한글 2~10글자 사이로 작성해주세요.</span
-            >
+	            <!-- 생년월일  input창 -->
+	            <div class="input_area">
+	              <select name="userYear">
+	                <option value="1960">1960</option>
+	                <option value="1961">1961</option>
+	                <option value="1962">1962</option>
+	                <option value="1963">1963</option>
+	                <option value="1964">1964</option>
+	                <option value="1965">1965</option>
+	                <option value="1966">1966</option>
+	                <option value="1967">1967</option>
+	                <option value="1968">1968</option>
+	                <option value="1969">1969</option>
+	                <option value="1970">1970</option>
+	                <option value="1971">1971</option>
+	                <option value="1972">1972</option>
+	                <option value="1973">1973</option>
+	                <option value="1974">1974</option>
+	                <option value="1975">1975</option>
+	                <option value="1976">1976</option>
+	                <option value="1977">1977</option>
+	                <option value="1978">1978</option>
+	                <option value="1979">1979</option>
+	                <option value="1980">1980</option>
+	                <option value="1981">1981</option>
+	                <option value="1982">1982</option>
+	                <option value="1983">1983</option>
+	                <option value="1984">1984</option>
+	                <option value="1985">1985</option>
+	                <option value="1986">1986</option>
+	                <option value="1987">1987</option>
+	                <option value="1988">1988</option>
+	                <option value="1989">1989</option>
+	                <option value="1990">1990</option>
+	                <option value="1991">1991</option>
+	                <option value="1992">1992</option>
+	                <option value="1993">1993</option>
+	                <option value="1994">1994</option>
+	                <option value="1995">1995</option>
+	                <option value="1996">1996</option>
+	                <option value="1997" selected>1997</option>
+	                <option value="1998">1998</option>
+	                <option value="1999">1999</option>
+	                <option value="2001">2001</option>
+	                <option value="2002">2002</option>
+	                <option value="2003">2003</option>
+	                <option value="2004">2004</option>
+	                <option value="2005">2005</option>
+	                <option value="2006">2006</option>
+	                <option value="2007">2007</option>
+	                <option value="2008">2008</option>
+	                <option value="2009">2009</option>
+	                <option value="2010">2010</option>
+	                <option value="2011">2011</option>
+	                <option value="2012">2012</option>
+	                <option value="2013">2013</option>
+	                <option value="2014">2014</option>
+	                <option value="2015">2015</option>
+	                <option value="2016">2016</option>
+	                <option value="2017">2017</option>
+	                <option value="2018">2018</option>
+	                <option value="2019">2019</option>
+	                <option value="2020">2020</option>
+	                <option value="2021">2021</option>
+	                <option value="2022">2022</option>
+	                <option value="2023">2023</option>
+	              </select>
+	              <p>년</p>
+	              <select name="userMonth">
+	                <option value="01"  selected>01</option>
+	                <option value="02">02</option>
+	                <option value="03">03</option>
+	                <option value="04">04</option>
+	                <option value="05">05</option>
+	                <option value="06">06</option>
+	                <option value="07">07</option>
+	                <option value="08">08</option>
+	                <option value="09">09</option>
+	                <option value="10">10</option>
+	                <option value="11">11</option>
+	                <option value="12">12</option>
+	              </select>
+	              <p>월</p>
+	              <select name="userDay">
+	                <option value="01" selected>01</option>
+	                <option value="02">02</option>
+	                <option value="03">03</option>
+	                <option value="04">04</option>
+	                <option value="05">05</option>
+	                <option value="06">06</option>
+	                <option value="07">07</option>
+	                <option value="08">08</option>
+	                <option value="09">09</option>
+	                <option value="10">10</option>
+	                <option value="11">11</option>
+	                <option value="12">12</option>
+	                <option value="13">13</option>
+	                <option value="14">14</option>
+	                <option value="15">15</option>
+	                <option value="16">16</option>
+	                <option value="17">17</option>
+	                <option value="18">18</option>
+	                <option value="19">19</option>
+	                <option value="20">20</option>
+	                <option value="21">21</option>
+	                <option value="22">22</option>
+	                <option value="23">23</option>
+	                <option value="24">24</option>
+	                <option value="25">25</option>
+	                <option value="26">26</option>
+	                <option value="27">27</option>
+	                <option value="28">28</option>
+	                <option value="29">29</option>
+	                <option value="30">30</option>
+	                <option value="31">31</option>
+	              </select>
+	              <p>일</p>
+	            </div><!-- //.input_area -->
 
-            <!-- <span class="message_success">사용 가능한 닉네임입니다.</span> -->
-            <br />
-            <!-- 생년월일 -->
-            <label for="userBirth">
-              <span class="required">*</span> 생년월일
-            </label>
+	            <!-- 성별 -->
+	            <label for="userGender">
+	              <span class="required">*</span>
+	              성별
+	            </label>
 
-            <!-- 생년월일  input창 -->
-            <div class="input_area">
-              <select name="userYear">
-                <option value="2000">2000</option>
-                <option value="2001">2001</option>
-                <option value="2002" selected>2002</option>
-                <option value="2003">2003</option>
-              </select>
-              <p>년</p>
-              <select name="userMonth">
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03" selected>03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-              </select>
-              <p>월</p>
-              <select name="userDay">
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-                <option value="26" selected>26</option>
-                <option value="27">27</option>
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-                <option value="31">31</option>
-              </select>
-              <p>일</p>
-            </div>
-            <!-- //.input_area -->
+	            <!-- 성별 input창 -->
+	            <div class="input_area">
+	              <input type="radio" name="userGender" value="남성" style="width: 20px; height: 20px; border: 1px solid black; font-size: 120%; "/>
+					남성
 
-            <!-- 성별 -->
-            <label for="userGender">
-              <span class="required">*</span> 성별
-            </label>
+	              <input type="radio" name="userGender" value="여성" style="width: 20px;height: 20px; border: 1px solid black; font-size: 120%; margin-left: 40%;" checked/>
+					여성
+				</div> <!-- //.input_area -->
 
-            <!-- 성별 input창 -->
-            <div class="input_area">
-              <input
-                type="radio"
-                name="userGender"
-                value="남성"
-                style="
-                  width: 20px;
-                  height: 20px;
-                  border: 1px solid black;
-                  font-size: 120%;
-                "
-              />
-              남성
 
-              <input
-                type="radio"
-                name="userGender"
-                value="여성"
-                style="
-                  width: 20px;
-                  height: 20px;
-                  border: 1px solid black;
-                  font-size: 120%;
-                  margin-left: 40%;
-                "
-                checked
-              />
-              여성
-            </div>
-            <!-- //.input_area -->
+	            <!-- 전화번호 -->
+	            <label for="userPhone">
+	              <span class="required">*</span>
+	              전화번호
+	            </label>
 
-            <!-- 전화번호 -->
-            <label for="userPhone">
-              <span class="required">*</span> 전화번호
-            </label>
+	            <!-- 전화번호 input창 -->
+	            <div class="input_area">
+	              <input type="text" id="userPhone" name="userPhone" placeholder="(- 없이 숫자만 입력)" maxlength="11" />
+	            </div><!-- //.input_area -->
 
-            <!-- 전화번호 input창 -->
-            <div class="input_area">
-              <input
-                type="text"
-                id="userPhone"
-                name="userPhone"
-                placeholder="(- 없이 숫자만 입력)"
-                maxlength="11"
-              />
-            </div>
-            <!-- //.input_area -->
+	            <!-- 전화번호 message -->
+	            <span class="message" id="phoneMessage">전화번호를 입력해주세요.(- 제외)</span>
 
-            <!-- 전화번호 message -->
-            <span class="message" id="phoneMessage"
-              >전화번호를 입력해주세요.(- 제외)</span
-            >
-
-            <!-- <span class="message_error">전화번호 형식이 올바르지 않습니다.</span> -->
-
-            <!--<input type="submit" name="smt" value="확인"> 데이터전송기능버튼 -->
-            <button type="submit" id="btn">가입하기</button>
-          </form>
-        </div>
-
-        <!-- //#main_zone -->
-    </main>
+				<button type="submit" id="btn">가입하기</button>
+          	</form>
+		</div><!-- //#main_zone -->
+	</main>
     <footer>
-      <div>푸터입니당</div>
+		<div>푸터입니당</div>
     </footer>
 
     <script>
