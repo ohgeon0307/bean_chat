@@ -144,7 +144,7 @@ main {
 
 #main_zone {
   position: relative;
-  top:250px;
+  top:200px;
   margin:0 auto;
   width: 600px;
   background-color: white;
@@ -174,7 +174,7 @@ form[name="frm"] {
 form[name="frm"] > label {
   display: block;
   margin-top: 5%;
-  font-size: 110%;
+  font-size: 18px;
   font-weight: bold;
 }
 

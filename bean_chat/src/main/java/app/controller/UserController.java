@@ -108,7 +108,6 @@ public class UserController extends HttpServlet{
 					session.setMaxInactiveInterval(3600);
 					
 					
-					
 					response.sendRedirect(request.getContextPath() + "/index.jsp");
 				}else{
 					
