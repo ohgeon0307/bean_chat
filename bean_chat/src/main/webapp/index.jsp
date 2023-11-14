@@ -27,15 +27,32 @@
                 		<c:when test="${uidx== null }">
                 			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="./images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
         				</c:when>
-            			<c:otherwise> test>
+            			<c:otherwise>
             				<a href="<%=request.getContextPath()%>/user/userLogout.do"><img role="button" src="./images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
             			</c:otherwise>
             		</c:choose>
             	</li>
-       
-                <li><a href="<%=request.getContextPath()%>/mypage/myMain.do"><img role="button" src="./images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a></li>
+                <li>
+                	<c:choose>
+                		<c:when test="${uidx== null }">
+                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="./images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="<%=request.getContextPath()%>/mypage/myMain.do"><img role="button" src="./images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
+                		</c:otherwise>
+                	</c:choose>
+                </li>
                 <li><a href="<%=request.getContextPath()%>/board/boardList.do"><img role="button" src="./images/indexImage/board_icon.png" alt=""><span>게시판</span></a></li>
-                <li><a href="<%=request.getContextPath()%>/chat/chatList.do"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a></li>
+                <li>
+                	<c:choose>
+                		<c:when test="${uidx== null }">
+                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="<%=request.getContextPath()%>/chat/chatList.do"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+                		</c:otherwise>
+                	</c:choose>
+                </li>	
             </ul>
         </div>
     </div> <!-- 헤더 종료 -->
