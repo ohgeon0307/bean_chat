@@ -25,8 +25,12 @@ public class ChatContentController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		 if (location.equals("chat_group.do")) {
+		if (location.equals("chatList.do")){
+			String path = "/chat/chat_list.jsp";
+			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+		}else if (location.equals("chat_group.do")) {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			String cFrom = request.getParameter("cFrom");
@@ -48,10 +52,7 @@ public class ChatContentController extends HttpServlet {
 			
 			}
 		}
-		String path = "/chat/chat_group.jsp";
-		// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
-		RequestDispatcher rd = request.getRequestDispatcher(path);
-		rd.forward(request, response);
+			
 			}
 		
 	public String getTen(String cFrom , String cTo) {
