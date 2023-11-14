@@ -30,7 +30,7 @@ public class ChatContentController extends HttpServlet {
 			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
-		}else if (location.equals("chat_group.do")) {
+		}else if (location.equals("chat_one.do")) {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			String cFrom = request.getParameter("cFrom");
@@ -49,7 +49,7 @@ public class ChatContentController extends HttpServlet {
 					response.getWriter().write("");
 				}
 			
-			
+			//	System.out.println("값이담기나?"+cTo);
 			}
 		}
 			
