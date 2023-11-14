@@ -34,8 +34,6 @@ public class ChatController extends HttpServlet {
 
 		else if (location.equals("chat_group.do")) {
 
-			request.setCharacterEncoding("UTF-8");
-			response.setContentType("text/html;charset=UTF-8");
 			String cFrom = request.getParameter("cFrom");
 			String cTo = request.getParameter("cTo");
 			String cContents = request.getParameter("cContents");

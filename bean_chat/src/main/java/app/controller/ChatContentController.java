@@ -24,15 +24,12 @@ public class ChatContentController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		if (location.equals("chatList.do")){
-			String path = "/chat/chat_list.jsp";
-			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
-			RequestDispatcher rd = request.getRequestDispatcher(path);
-			rd.forward(request, response);
-		}else if (location.equals("chat_group.do")) {
-			request.setCharacterEncoding("UTF-8");
-			response.setContentType("text/html;charset=UTF-8");
+			throws ServletException, IOException 
+			{
+		
+		 if (location.equals("chat_group.do")) 
+		 {
+			
 			String cFrom = request.getParameter("cFrom");
 			String cTo = request.getParameter("cTo");
 			String listType = request.getParameter("listType");
@@ -45,23 +42,28 @@ public class ChatContentController extends HttpServlet {
 				try {
 					
 					response.getWriter().write(getID(URLDecoder.decode( cFrom,"UTF-8"),URLDecoder.decode(cTo,"UTF-8"), listType));
-				}catch(Exception e) {
+					}catch(Exception e)
+				{
 					response.getWriter().write("");
+				}	
+			
 				}
-			
-			
-			}
+			String path = "/chat/chat_group.jsp";
+			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
 		}
-			
 			}
 		
-	public String getTen(String cFrom , String cTo) {
+	public String getTen(String cFrom , String cTo) 
+	{
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
 		ChatDao chatDao =new ChatDao();
 		ArrayList<ChatDto> chatList = chatDao.getChatListByRecent(cFrom, cTo, 10);
 		if(chatList.size() == 0) return "";
-		for(int i = 0; i <  chatList.size(); i++ ) {
+		for(int i = 0; i <  chatList.size(); i++ ) 
+		{
 			result.append("[{\"value\":\""+chatList.get(i).getcFrom()+"\"},");
 			result.append("{\"value\":\""+chatList.get(i).getcTo()+"\"},");
 			result.append("{\"value\":\""+chatList.get(i).getcContents()+"\"},");
