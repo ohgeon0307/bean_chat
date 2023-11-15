@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import app.dao.UserDao;
+import app.dto.UserDto;
+
 @WebServlet("/MypageController")
 public class MypageController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -27,7 +30,14 @@ public class MypageController extends HttpServlet{
 			 rd.forward(request, response);
 			 
 		}else if(location.equals("myProfile.do")){
+			String uidx = request.getParameter("uidx");
+			int uidx_int =Integer.parseInt(uidx);
 			
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(uidx_int);
+			
+			request.setAttribute("udto",udto);
+						
 			String path ="/mypage/my_profile.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);
 			 rd.forward(request, response);

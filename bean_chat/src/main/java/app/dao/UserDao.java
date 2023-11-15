@@ -3,6 +3,7 @@ package app.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.dbconn.DbConn;
@@ -142,6 +143,44 @@ public class UserDao {
 		}
 		
 		return value;
+	}
+	
+	public UserDto UserSelectOne(int uidx) {
+		UserDto udto = null;
+		String sql = "select * from usertable where uidx=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uidx);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				//결과값 옮겨담기
+				udto = new UserDto();
+				udto.setUserId(rs.getString("id"));
+				udto.setUserName(rs.getString("name"));
+				udto.setUserBirth(rs.getString("birth"));
+				udto.setUserNickname(rs.getString("nickname"));
+				udto.setUserPhone(rs.getString("phone"));
+				udto.setUserDate(rs.getString("udate"));
+				udto.setuDelYn(rs.getString("udyn"));
+				udto.setUserImage(rs.getString("uimage"));
+			}			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}	
+		
+		return udto;
+		
 	}
 	
 	
