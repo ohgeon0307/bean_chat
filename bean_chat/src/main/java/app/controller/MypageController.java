@@ -30,13 +30,24 @@ public class MypageController extends HttpServlet{
 			 rd.forward(request, response);
 			 
 		}else if(location.equals("myProfile.do")){
-			String uidx = request.getParameter("uidx");
-			int uidx_int =Integer.parseInt(uidx);
 			
+			int uidx = Integer.parseInt(request.getParameter("uidx"));
+			System.out.println("uidx"+uidx);
+			
+			/*
+			 * String userId = request.getParameter("userId"); String userName=
+			 * request.getParameter("userName"); String userBirth =
+			 * request.getParameter("userBirth"); String userGender =
+			 * request.getParameter("userGender"); String userPhone =
+			 * request.getParameter("userPhone"); String userNickname =
+			 * request.getParameter("userNickname");
+			 */
 			UserDao udao = new UserDao();
-			UserDto udto = udao.UserSelectOne(uidx_int);
+			UserDto udto = udao.UserSelectOne(uidx);
 			
-			request.setAttribute("udto",udto);
+			request.setAttribute("udto", udto);
+		
+			
 						
 			String path ="/mypage/my_profile.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);

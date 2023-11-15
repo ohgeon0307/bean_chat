@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <title>회원가입</title>
     <!-- css연결 -->
-<!--     <link href="../css/reset.css" rel="stylesheet" /> -->
+	<link href="../css/reset.css" rel="stylesheet" />
     <link href="../css/user/user_join.css" rel="stylesheet" />
     <!-- 제이쿼리 연결 -->
     <script

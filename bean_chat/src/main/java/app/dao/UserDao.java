@@ -60,22 +60,30 @@ public class UserDao {
 	}
 	
 	//회원가입하기
-	public int userInsert(String userId,String userPwd,String userName,String userBirth,String userGender,String userPhone,String userNickname){
+	public int userInsert(UserDto udto){
 		int exec = 0;
 		
-		String sql = "insert into usertable(userid,userpwd,username,userbirth,usergender,userphone,usernickname)"
+		String sql = "insert into usertable(uidx,userid,userpwd,username,userbirth,usergender,userphone,usernickname)"
 		        +" values(?,?,?,?,?,?,?)";
 		try{
+		conn.setAutoCommit(false);
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, userId);
-		pstmt.setString(2, userPwd);
-		pstmt.setString(3, userName);
-		pstmt.setString(4, userBirth);
-		pstmt.setString(5, userGender);
-		pstmt.setString(6, userPhone);
-		pstmt.setString(7, userNickname);
+		pstmt.setInt(1, udto.getUidx());
+		pstmt.setString(2, udto.getUserId());
+		pstmt.setString(3, udto.getUserPwd());
+		pstmt.setString(4, udto.getUserName());
+		pstmt.setString(5, udto.getUserBirth());
+		pstmt.setString(6, udto.getUserGender());
+		pstmt.setString(7, udto.getUserPhone());
+		pstmt.setString(8, udto.getUserNickname());
 		exec = pstmt.executeUpdate();
+		conn.commit();
 		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 		return exec;	
@@ -101,7 +109,6 @@ public class UserDao {
 			try{
 				rs.close();
 				pstmt.close();
-				conn.close();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -136,7 +143,7 @@ public class UserDao {
 			try{
 				rs.close();
 				pstmt.close();
-				conn.close();
+
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -153,6 +160,7 @@ public class UserDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, uidx);
+	
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {

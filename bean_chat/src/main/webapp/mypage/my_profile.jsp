@@ -7,6 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>내 프로필 보기</title>
+    <!-- css연결 -->
+	<link href="../css/reset.css" rel="stylesheet" />
+    <link href="../css/user/user_join.css" rel="stylesheet" />
+
     <!-- 제이쿼리 연결 -->
     <script
       src="https://code.jquery.com/jquery-3.6.1.min.js"
@@ -59,32 +63,32 @@
 				<section id="pro_info">
 					<div class="pro_text">
 						<label>닉네임</label>
-						<span>${uidx.nickname}</span>
+						<span>${udto.nickname}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>ID(Email) :</label>
-						<span>${uidx.id}</span>
+						<span>${udto.id}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>이름 :</label>
-						<span>${uidx.name}</span>
+						<span>${udto.name}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>전화번호 :</label>
-						<span>${uidx.phone}</span>
+						<span>${udto.phone}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>생년월일 :</label>
-						<span>${uidx.birth}</span>
+						<span>${udto.birth}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>가입일 :</label>
-						<span>${uidx.udate}</span>
+						<span>${udto.udate}</span>
 					</div><!-- //.pro_text -->
 				</section>
 				<input type="button" value="정보수정하기" onclick="changeForm(0)">

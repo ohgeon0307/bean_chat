@@ -66,8 +66,19 @@ public class UserController extends HttpServlet{
 			
 			String userBirth  = userYear+userMonth+userDay;
 			
+			UserDto udto = new UserDto();
+			udto.setUserId(userId);
+			udto.setUserName(userName);
+			udto.setUserNickname(userNickname);
+			udto.setUserBirth(userBirth);
+			udto.setUserPhone(userPhone);
+			udto.setUserDate(userDay);
+			udto.setUserGender(userGender);
+			udto.setUserImage(userId);
+			
 			UserDao udao = new UserDao();
-			int exec = udao.userInsert(userId, userPwd, userName, userBirth, userGender, userPhone, userNickname);
+			int exec = udao.userInsert(udto);
+			
 			
 			PrintWriter out = response.getWriter();
 			
