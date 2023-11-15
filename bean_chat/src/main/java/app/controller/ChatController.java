@@ -64,6 +64,34 @@ public class ChatController extends HttpServlet {
          rd.forward(request, response);
 //
       }
-   }
+      else if (location.equals("chat_group.do")) {
+          
+          
+          request.setCharacterEncoding("UTF-8");
+          response.setContentType("text/html;charset=UTF-8");
+          
+          String cFrom = request.getParameter("cFrom");
+          String cTo = request.getParameter("cTo");
+          String cContents = request.getParameter("cContents");
+          
+           HttpSession session = request.getSession();
+           session.setAttribute("cTo", cTo);
+           
+          if (cFrom == null || cFrom.equals("") || cTo == null || cTo.equals("") || cContents == null
+                || cContents.equals("")) {
+             response.getWriter().write("0");
 
+          } else  {
+             cFrom = URLDecoder.decode(cFrom, "UTF-8");
+             cTo = URLDecoder.decode(cTo, "UTF-8");
+             cContents = URLDecoder.decode(cContents, "UTF-8");
+             response.getWriter().write(new ChatDao().submit(cFrom, cTo, cContents) + "");
+
+          }
+          
+          String path = "/chat/chat_group.jsp";
+          RequestDispatcher rd = request.getRequestDispatcher(path);
+          rd.forward(request, response);
+   }
+   }
 } 
