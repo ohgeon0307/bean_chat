@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import app.dao.ChatDao;
 
@@ -41,10 +42,18 @@ public class ChatController extends HttpServlet {
 			
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
+<<<<<<< HEAD
+>>>>>>> branch 'master' of https://github.com/ohgeon0307/bean_chat.git
+=======
+			
 >>>>>>> branch 'master' of https://github.com/ohgeon0307/bean_chat.git
 			String cFrom = request.getParameter("cFrom");
 			String cTo = request.getParameter("cTo");
 			String cContents = request.getParameter("cContents");
+			
+		    HttpSession session = request.getSession();
+		    session.setAttribute("cTo", cTo);
+		    
 			if (cFrom == null || cFrom.equals("") || cTo == null || cTo.equals("") || cContents == null
 					|| cContents.equals("")) {
 				response.getWriter().write("0");

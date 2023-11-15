@@ -1,10 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>내 프로필 보기</title>
+    <!-- 제이쿼리 연결 -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous">
+    </script>
+<script>
+	function changeForm(val){
+		
+		var fm = document.frm;
+		
+		if(val == "0"){
+			fm.method = "post";
+			fm.action = "<%=request.getContextPath()%>/mypage/userJoinAction.do"; //처리하기위해 이동하는 주소
+			fm.submit();
+			return;
+		}else if(val == "1"){
+			fm.method = "post";
+			fm.action = "<%=request.getContextPath()%>/mypage/userJoinAction.do"; //처리하기위해 이동하는 주소
+			fm.submit();
+			return;
+		}
+		
+	}
+
+</script>
+
 </head>
 <body>
 	<header><!-- 헤더 시작 -->
@@ -24,12 +53,12 @@
 		<h1>My Page</h1>
 		<hr>
 		<h2>나의 프로필</h2>
-		 <form>
+		 <form name="frm">
 			 <div id="main_view">
 				<section id="pro_image"><p>NO IMAGE</p></section>
 				<section id="pro_info">
 					<div class="pro_text">
-						<label style="display:none;">닉네임</label>
+						<label>닉네임</label>
 						<span>${uidx.nickname}</span>
 					</div><!-- //.pro_text -->
 					
@@ -57,10 +86,8 @@
 						<label>가입일 :</label>
 						<span>${uidx.udate}</span>
 					</div><!-- //.pro_text -->
-					
-				
 				</section>
-				<input type="button" value="정보수정하기" onclick="changeForm(0)">        <input type="button" value="회원탈퇴" onclick="changeForm(1)">
+				<input type="button" value="정보수정하기" onclick="changeForm(0)">
 				<input type="button" value="탈퇴하기" onclick="changeForm(1)">
 			</div>
 	
