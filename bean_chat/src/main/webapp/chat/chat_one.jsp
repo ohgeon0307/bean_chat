@@ -147,7 +147,7 @@ if (session.getAttribute("cTo") != null) {
         function addChat(userNickname, cContents, cTime) {
         	
             $('#chatList').append('<div class="message">' +
-                '<img style="width:30px; height:30px;" src="images/indexImage/beanchat_char.png" alt="이미지">' +
+                '<img style="width:30px; height:30px;" src="../images/indexImage/beanchat_char.png" alt="이미지">' +
                 '<div class="message-body">' +
                 '<h4>' +
                 userNickname +
