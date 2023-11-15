@@ -32,8 +32,16 @@ public class ChatController extends HttpServlet {
 			rd.forward(request, response);
 		}
 
+<<<<<<< HEAD
 		else if (location.equals("chat_group.do")) {
 
+=======
+		else if (location.equals("chat_one.do")) {
+			
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
+>>>>>>> branch 'master' of https://github.com/ohgeon0307/bean_chat.git
 			String cFrom = request.getParameter("cFrom");
 			String cTo = request.getParameter("cTo");
 			String cContents = request.getParameter("cContents");
@@ -41,14 +49,15 @@ public class ChatController extends HttpServlet {
 					|| cContents.equals("")) {
 				response.getWriter().write("0");
 
-			} else {
+			} else  {
 				cFrom = URLDecoder.decode(cFrom, "UTF-8");
 				cTo = URLDecoder.decode(cTo, "UTF-8");
 				cContents = URLDecoder.decode(cContents, "UTF-8");
 				response.getWriter().write(new ChatDao().submit(cFrom, cTo, cContents) + "");
 
 			}
-			String path = "/chat/chat_group.jsp";
+			
+			String path = "/chat/chat_one.jsp";
 			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);

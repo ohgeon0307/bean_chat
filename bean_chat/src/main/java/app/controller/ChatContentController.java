@@ -24,12 +24,24 @@ public class ChatContentController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+<<<<<<< HEAD
 			throws ServletException, IOException 
 			{
 		
 		 if (location.equals("chat_group.do")) 
 		 {
 			
+=======
+			throws ServletException, IOException {
+		if (location.equals("chatList.do")){
+			String path = "/chat/chat_list.jsp";
+			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+		}else if (location.equals("chat_one.do")) {
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
+>>>>>>> branch 'master' of https://github.com/ohgeon0307/bean_chat.git
 			String cFrom = request.getParameter("cFrom");
 			String cTo = request.getParameter("cTo");
 			String listType = request.getParameter("listType");
@@ -48,10 +60,16 @@ public class ChatContentController extends HttpServlet {
 				}	
 			
 				}
+<<<<<<< HEAD
 			String path = "/chat/chat_group.jsp";
 			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
+=======
+			
+			//	System.out.println("값이담기나?"+cTo);
+			}
+>>>>>>> branch 'master' of https://github.com/ohgeon0307/bean_chat.git
 		}
 			}
 		

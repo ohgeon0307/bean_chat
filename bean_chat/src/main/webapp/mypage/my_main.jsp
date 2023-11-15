@@ -20,7 +20,7 @@
 		<div></div>
 	</header>
 	<main>
-		<h2>My Page</h2>
+		<h1>My Page</h1>
 		<hr />
 		<div id="main_zone">
 			<div class="main_button">

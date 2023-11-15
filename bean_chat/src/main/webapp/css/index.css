@@ -170,6 +170,16 @@ font-weight: 900; }
     background-repeat : no-repeat;
     background-size : 1200px 800px;
     background-position: 105% 125%;
+    animation: slideAnimation 5s linear;
+}
+
+@keyframes slideAnimation {
+    0% {
+        background-position: 105% 200%; /* 시작 위치 */
+    }
+    100% {
+        background-position: 105% 125%; /* 끝 위치 (위로 이동) */
+    }
 }
 
 .main {
