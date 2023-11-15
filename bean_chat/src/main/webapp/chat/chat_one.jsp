@@ -35,17 +35,32 @@ if (session.getAttribute("cTo") != null) {
             overflow-y: auto;
         }
 
-        .message {
-            border-bottom: 1px solid #eee;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
+      .message {
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
 
-        .message img {
-            border-radius: 50%;
-            margin-right: 10px;
-        }
+    .message img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 
+    .message-body {
+        flex: 1;
+    }
+
+    .message h4 {
+        margin: 0;
+    }
+
+    .message p {
+        margin: 0;
+    }
         textarea {
             width: 550px;
             height: 80px;
@@ -117,6 +132,7 @@ if (session.getAttribute("cTo") != null) {
                     listType: type
                 },
                 success: function (data) {
+                	
                     if (data == "") return;
                     var parsed = JSON.parse(data);
                     var result = parsed.result;
@@ -129,8 +145,9 @@ if (session.getAttribute("cTo") != null) {
         }
 
         function addChat(userNickname, cContents, cTime) {
+        	
             $('#chatList').append('<div class="message">' +
-                '<img src="${pageContext.request.contextPath}/images/indexImage/beanchat_char.png" alt="이미지">' +
+                '<img style="width:30px; height:30px;" src="images/indexImage/beanchat_char.png" alt="이미지">' +
                 '<div class="message-body">' +
                 '<h4>' +
                 userNickname +
@@ -164,6 +181,7 @@ if (session.getAttribute("cTo") != null) {
         $(document).ready(function () {
             chatListFunction('ten');
             getInfiniteChat();
+            addChat("userNickname", "cContents", "cTime");
         });
     </script>
     
