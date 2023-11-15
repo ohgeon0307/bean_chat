@@ -61,11 +61,11 @@
         <div class="boardList">
         
           <ul>
-          <c:forEach items="${alist }" var ="dto">
+          <c:forEach items="${alist }" var ="bdto">
             <li>
-              <a href="view.do?bidx=${dto.bidx}&uidx=${dto.uidx }">${dto.subject }</a>
+              <a href="view.do?bidx=${bdto.bidx}&uidx=${bdto.uidx }">${bdto.subject }</a>
               <div class="boardContent">
-              	<p>닉네임 : ${dto.bidx} 조회수 : ${dto.bidx } 댓글수 : ${dto.bidx }</p>
+              	<p>닉네임 : ${udto.userNickname} 조회수 : ${bdto.viewCnt } 댓글수 : ${bdto.bidx }</p>
                 
               </div>
               <!--end: boardContent-->

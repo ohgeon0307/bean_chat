@@ -1,10 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="app.dto.UserDto" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%-- <%
 if (session.getAttribute("midx") == null) {
 	out.println("<script>alert('로그인하셔야합니다.');location.href='"+request.getContextPath()+"/member/memberLogin.do'</script>");
 }
 %>   --%>  
+
+<%
+   UserDto udto = (UserDto) request.getAttribute("udto");
+%>    
     
 <!DOCTYPE html>
 <html>
@@ -52,7 +59,12 @@ function check(){
 		<textarea name="contents" cols="50" rows="10"></textarea>		
 		</td>
 		</tr>
-		<input type="hidden" name="writer" value="${udto.userId}"/>
+		<tr>
+		<th>작성자</th>
+		<td>
+		<input type="text" name="writer" value="${udto.userNickname}"/>
+		</td>
+		</tr>
 		<tr>
 		<th>파일첨부</th>
 		<td>
@@ -65,6 +77,7 @@ function check(){
 		<!--데이터전송기능버튼 -->
 		</td>
 		</tr>
+	
 </table>
 </form>
 </body>
