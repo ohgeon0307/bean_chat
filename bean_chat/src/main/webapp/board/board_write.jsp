@@ -25,12 +25,7 @@ function check(){
 		alert("내용을 입력하세요");
 		fm.contents.focus();
 		return;		
-	}else if (fm.writer.value ==""){
-		alert("작성자를 입력하세요");
-		fm.writer.focus();
-		return;		
 	}
-	
 	//처리하기위해 이동하는 주소
 	fm.action ="<%=request.getContextPath()%>/board/boardWriteAction.do";  
 	fm.method = "post";  //이동하는 방식  get 노출시킴 post 감추어서 전달
@@ -57,12 +52,7 @@ function check(){
 		<textarea name="contents" cols="50" rows="10"></textarea>		
 		</td>
 		</tr>
-		<tr>
-		<th>작성자</th>
-		<td>
-		<input type="text" name="writer">		
-		</td>
-		</tr>
+		<input type="hidden" name="writer" value="${udto.userId}"/>
 		<tr>
 		<th>파일첨부</th>
 		<td>

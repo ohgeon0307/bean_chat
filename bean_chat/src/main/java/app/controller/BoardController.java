@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import app.dao.BoardDao;
 import app.dto.BoardDto;
+import app.dto.UserDto;
 
 @WebServlet("/BoardController")
 public class BoardController extends HttpServlet{
@@ -43,9 +44,14 @@ private static final long serialVersionUID = 1L;
 			rd.forward(request, response);
 			
 		} else if(location.equals("boardWriteAction.do")) {
+			
+			
+			HttpSession session = request.getSession();
+			System.out.println(session.getAttribute(location));
+			
 			String subject = request.getParameter("subject");
 			String contents = request.getParameter("contents");
-			String writer = request.getParameter("writer");
+			String writer = (String) session.getAttribute("userId");
 		
 			//viewCnt, bList default error occurred(추후수정)
 			

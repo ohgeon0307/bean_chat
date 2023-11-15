@@ -59,185 +59,27 @@
         </div>
         <!--end: .boardSet-->
         <div class="boardList">
+        
           <ul>
+          <c:forEach items="${alist }" var ="dto">
             <li>
-              <a href="#">제목을 입력하세요</a>
+              <a href="view.do?bidx=${dto.bidx}&uidx=${dto.uidx }">${dto.subject }</a>
               <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
+              	<p>닉네임 : ${dto.bidx} 조회수 : ${dto.bidx } 댓글수 : ${dto.bidx }</p>
+                
               </div>
               <!--end: boardContent-->
             </li>
-            <li>
-              <a href="#">Stay foolish, Stay hungry</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">
-                흐르는강물을거꾸로거슬러오르는연어들의도무지알수없는 그들만의
-                신비한 이유처럼 그 언제 서부터인가 걸어 걸어 걸어오는 이길
-                앞으로 얼마나 더 많이 가야만 하는지
-              </a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">안녕 안녕 안녕 안녕 안녕 안녕 안녕안녕안녕안녕안녕</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  20930 &nbsp;&#124;&nbsp; 댓글수 1000 &nbsp;&#124;&nbsp; 추천수
-                  2000
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">coffeecoffeecoffeecoffeecoffeecoffeecoffee</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">FONTFONTFONTFONTFONTFONTFONTFONTFONTFONTFONT</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">글 제목</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">글 제목</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">글 제목</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">글 제목</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">글 제목</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">글 제목</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">글 제목</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">글 제목</a>
-              <div class="boardContent">
-                <span>자유</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
-            <li>
-              <a href="#">글 제목</a>
-              <div class="boardContent">
-                <span>후기</span>
-                <p>
-                  작성자 &nbsp;&#124;&nbsp; 2023.01.16 &nbsp;&#124;&nbsp; 조회수
-                  0 &nbsp;&#124;&nbsp; 댓글수 0 &nbsp;&#124;&nbsp; 추천수 0
-                </p>
-              </div>
-              <!--end: boardContent-->
-            </li>
+            </c:forEach>
           </ul>
+          
         </div>
         <!--end: .boardList-->
         <div id="boardOption">
           <div class="pager"><p>◀ pager가 들어갈 자리입니다 ▶</p></div>
           <!--end: .pager-->
           <div class="btnBar">
-            <a href="#">글쓰기</a>
+            <a href="${pageContext.request.contextPath}/board/boardWrite.do">글쓰기</a>
           </div>
           <!--end:.bthBar-->
         </div>
