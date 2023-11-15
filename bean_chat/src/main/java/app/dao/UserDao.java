@@ -166,14 +166,14 @@ public class UserDao {
 			if (rs.next()) {
 				//결과값 옮겨담기
 				udto = new UserDto();
-				udto.setUserId(rs.getString("id"));
-				udto.setUserName(rs.getString("name"));
-				udto.setUserBirth(rs.getString("birth"));
-				udto.setUserNickname(rs.getString("nickname"));
-				udto.setUserPhone(rs.getString("phone"));
-				udto.setUserDate(rs.getString("udate"));
-				udto.setuDelYn(rs.getString("udyn"));
-				udto.setUserImage(rs.getString("uimage"));
+				udto.setUserId(rs.getString("userId"));
+				udto.setUserName(rs.getString("userName"));
+				udto.setUserBirth(rs.getString("userBirth"));
+				udto.setUserNickname(rs.getString("userNickname"));
+				udto.setUserPhone(rs.getString("userPhone"));
+				udto.setUserDate(rs.getString("userDate"));
+				udto.setuDelYn(rs.getString("uDelYn"));
+				udto.setUserImage(rs.getString("userImage"));
 			}			
 		} catch (SQLException e) {			
 			e.printStackTrace();

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import app.dao.UserDao;
 import app.dto.UserDto;
@@ -30,8 +31,12 @@ public class MypageController extends HttpServlet{
 			 rd.forward(request, response);
 			 
 		}else if(location.equals("myProfile.do")){
+			HttpSession session = request.getSession();
+			System.out.println(session.getAttribute("uidx"));
 			
-			int uidx = Integer.parseInt(request.getParameter("uidx"));
+			System.out.println("-----test-----");
+			
+			int uidx = (Integer)session.getAttribute("uidx");
 			System.out.println("uidx"+uidx);
 			
 			/*

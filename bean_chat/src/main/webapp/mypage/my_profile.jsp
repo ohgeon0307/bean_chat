@@ -63,32 +63,32 @@
 				<section id="pro_info">
 					<div class="pro_text">
 						<label>닉네임</label>
-						<span>${udto.nickname}</span>
+						<span>${udto.userNickname}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>ID(Email) :</label>
-						<span>${udto.id}</span>
+						<span>${udto.userId}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>이름 :</label>
-						<span>${udto.name}</span>
+						<span>${udto.userName}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>전화번호 :</label>
-						<span>${udto.phone}</span>
+						<span>${udto.userPhone}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>생년월일 :</label>
-						<span>${udto.birth}</span>
+						<span>${udto.userBirth}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
 						<label>가입일 :</label>
-						<span>${udto.udate}</span>
+						<span>${udto.userDate}</span>
 					</div><!-- //.pro_text -->
 				</section>
 				<input type="button" value="정보수정하기" onclick="changeForm(0)">
