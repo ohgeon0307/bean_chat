@@ -1,13 +1,9 @@
 @charset "utf-8";
 
-body {
-  background-color: #bce489;
-}
-
 
 /* header css */
 
-.container a { text-decoration: none; color: #BCE489;
+.container a { text-decoration: none; color: white;
 font-weight: 900; }
     a:visited { text-decoration: none; }
     a:hover { text-decoration: none; }
@@ -15,7 +11,7 @@ font-weight: 900; }
     a:hover, a:active { text-decoration: none; }
 
 .container {
-    background-color: white;
+    background-color: #bce489;
     position : fixed;
     z-index: 99;
     display : flex;
@@ -136,10 +132,110 @@ font-weight: 900; }
 
 /*main 시작*/
 main {
-  top:200px;
-  width: 70%;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    top:250px;
+    
 }
+
+main h1 {
+	font-size: 50px;
+	color: #418722;
+}
+
+hr {
+	background: #1e2924;
+	height: 10px;
+	border: 0;
+	width: 250px;
+	margin-left: 0;
+	box-shadow: 0 10px 10px -10px #409968 inset;
+	border-radius: 10px;
+}
+
+main h2{
+    margin-top: 50px;
+    font-size:30px;
+    margin-bottom:80px;
+}
+
+#main_view {
+	
+	width: 70%;
+	height: 350px;
+    margin:0 auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+#pro_image{
+    width:260px;
+    height:330px;
+    background-color: rgb(182, 182, 182);
+}
+
+#pro_image p{
+    text-align:center;
+    font-size:25px;
+    padding-top: 152.5px;
+    letter-spacing:3px;
+    font-weight: bold;
+}
+
+.pro_title{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.pro_text{
+    text-align: left;
+    margin-top:10px;
+    line-height:280%;
+    font-size:18px;
+
+}
+
+#modiBtn{
+    margin-top:150px;
+    border:none;
+    background-color: white;
+    font-size:25px;
+    cursor: pointer;
+    height:30px;
+    letter-spacing:1px;
+    font-weight:bold;
+}
+
+#modiBtn:hover{
+    color:pink;
+}
+
+#frm{
+    text-align: center;
+}
+
+#backBtn{
+
+    width:165x;
+    height: 45px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 8%;
+    display:inline-block;
+    background-color: #A0D468;
+    cursor: pointer;
+    border-radius: 10px;
+    border:none;
+
+}
+
+#backBtn:hover{
+    background-color: #418722;
+    color:white;    
+}
+
+
+
 

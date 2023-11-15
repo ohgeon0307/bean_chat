@@ -98,6 +98,11 @@
 						        String userYear = userBirth.substring(0, 4);
 						        String userMonth = userBirth.substring(4, 6);
 						        String userDay = userBirth.substring(6, 8);
+						        
+						        // 해당 연도와 월, 일의 값 확인하기
+						        out.println("userYear: " + userYear); // 연도 출력
+						        out.println("userMonth: " + userMonth); // 월 출력
+						        out.println("userDay: " + userDay); // 일 출력
    						 %>
 						<label>생년월일 :</label><br>
 						
