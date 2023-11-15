@@ -48,13 +48,13 @@ public class ChatController extends HttpServlet {
           
          if (cFrom == null || cFrom.equals("") || cTo == null || cTo.equals("") || cContents == null
                || cContents.equals("")) {
-            response.getWriter().write("0");
+            response.getWriter().write("0"); //하나라도 값이 비어있는게 있으면 클라이언트에게 반환
 
          } else  {
             cFrom = URLDecoder.decode(cFrom, "UTF-8");
             cTo = URLDecoder.decode(cTo, "UTF-8");
             cContents = URLDecoder.decode(cContents, "UTF-8");
-            response.getWriter().write(new ChatDao().submit(cFrom, cTo, cContents) + "");
+            response.getWriter().write(new ChatDao().submit(cFrom, cTo, cContents) + ""); //submit함수를 실행해서 실행한 결과를 반환할수있게 write해줌
 
          }
          

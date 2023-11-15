@@ -12,6 +12,8 @@ String cTo = null;
 if (session.getAttribute("cTo") != null) {
 	cTo = (String) session.getAttribute("cTo");
 }
+
+
 %>
 
     <meta charset="UTF-8" />
@@ -77,6 +79,31 @@ if (session.getAttribute("cTo") != null) {
             border-radius: 4px;
             cursor: pointer;
         }
+          .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            display: none; /* 기본적으로는 숨김 상태로 설정 */
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
     </style>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
@@ -92,7 +119,7 @@ if (session.getAttribute("cTo") != null) {
         function submitFunction() {
             var cFrom = '<%=userId%>';
             var cTo = '<%=cTo%>';
-           // console.log("cTo:", cTo);
+    
             var cContents = $('#cContents').val();
             $.ajax({
                 type: "POST",
@@ -102,6 +129,7 @@ if (session.getAttribute("cTo") != null) {
                     cFrom: encodeURIComponent(cFrom),
                     cTo: encodeURIComponent(cTo),
                     cContents: encodeURIComponent(cContents),
+                    
                 },
                 success: function (result) {
                     if (result == 1) {
@@ -116,12 +144,11 @@ if (session.getAttribute("cTo") != null) {
             $('#cContents').val('');
         }
 
-        var lastID = 0;
+        var lastID = 0; //가장 마지막으로 대화데이터의 챗데이터
 
         function chatListFunction(type) {
             var cFrom = '<%= userId%>';
             var cTo = '<%= cTo%>';
-            
             $.ajax({
                 type: "POST",
                 url: "<%=request.getContextPath()%>/chat/chat_one.do",
@@ -135,13 +162,17 @@ if (session.getAttribute("cTo") != null) {
                 	
                     if (data == "") return;
                     var parsed = JSON.parse(data);
+                    
                     var result = parsed.result;
                     for (var i = 0; i < result.length; i++) {
                         addChat(result[i][0].value, result[i][2].value, result[i][3].value);
                     }
                     lastID = Number(parsed.last);
-                }
+                    
+                },
+
             });
+            
         }
 
         function addChat(userNickname, cContents, cTime) {
@@ -163,7 +194,7 @@ if (session.getAttribute("cTo") != null) {
             $('#chatList').scrollTop($('#chatList')[0].scrollHeight);
         }
 
-        function getInfiniteChat() {
+        function getInfiniteChat() { //몇초간격으로 계속해서 새로운메시지가 왔는지
             setInterval(function () {
                 chatListFunction(lastID);
             }, 3000);
@@ -176,12 +207,17 @@ if (session.getAttribute("cTo") != null) {
     
     <textarea id="cContents" placeholder="채팅을 입력하세요." maxlength="1000"></textarea>
     <button onclick="submitFunction()">전송</button>
+    <div class="alert alert-success" id="successMessage" style="dispaly:none;"><strong>메세지 전송에 성공했습니다</strong></div>
+    <div class="alert alert-danger" id="dangerMessage" style="dispaly:none;"><strong>이름과 내용을 입력</strong></div>
+    <div class="alert alert-warning" id="warningMessage" style="dispaly:none;"><strong>데이터베이스 오류</strong></div>
 
     <script>
         $(document).ready(function () {
             chatListFunction('ten');
             getInfiniteChat();
-            addChat("userNickname", "cContents", "cTime");
+            
+
+            
         });
     </script>
     

@@ -8,6 +8,8 @@ public class ChatDto {
 	private String cContents;
 	private String cTime;
 	private String delyn;
+	private String userNickname;
+	
 	private int Uidx;
 	private int Ridx;
 	
@@ -60,6 +62,12 @@ public class ChatDto {
 		Ridx = ridx;
 	}
 
+	public String getUserNickname() {
+		return userNickname;
+	}
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
 			
 		
 }
