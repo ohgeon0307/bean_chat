@@ -191,6 +191,33 @@ public class UserDao {
 		
 	}
 	
+	public int userModify(UserDto udto) {
+		int exec = 0;
+		String sql = "update usertable set(usernickname, username, userphone, userbirth)"
+				+"VALUES(?,?,?,?)"
+				+"where uidx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, udto.getUserNickname());
+			pstmt.setString(2, udto.getUserName());
+			pstmt.setString(3, udto.getUserBirth());
+			pstmt.setString(4, udto.getUserPhone());
+			exec = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			
+		}
+		
+		
+		return exec;
+		
+	}
+	
+	
+	
 	
 	
 }

@@ -9,7 +9,7 @@
 <title>내 프로필 보기</title>
     <!-- css연결 -->
 	<link href="../css/reset.css" rel="stylesheet" />
-    <link href="../css/user/user_join.css" rel="stylesheet" />
+    <link href="../css/mypage/my_profile.css" rel="stylesheet" />
 
     <!-- 제이쿼리 연결 -->
     <script
@@ -24,12 +24,12 @@
 		
 		if(val == "0"){
 			fm.method = "post";
-			fm.action = "<%=request.getContextPath()%>/mypage/userJoinAction.do"; //처리하기위해 이동하는 주소
+			fm.action = "<%=request.getContextPath()%>/mypage/myModify.do"; //처리하기위해 이동하는 주소
 			fm.submit();
 			return;
 		}else if(val == "1"){
 			fm.method = "post";
-			fm.action = "<%=request.getContextPath()%>/mypage/userJoinAction.do"; //처리하기위해 이동하는 주소
+			fm.action = "<%=request.getContextPath()%>/mypage/myMain.do"; //처리하기위해 이동하는 주소
 			fm.submit();
 			return;
 		}
@@ -57,8 +57,9 @@
 		<h1>My Page</h1>
 		<hr>
 		<h2>나의 프로필</h2>
-		 <form name="frm">
-			 <div id="main_view">
+		 <div id="main_view">
+		 	<form name="frm">
+			
 				<section id="pro_image"><p>NO IMAGE</p></section>
 				<section id="pro_info">
 					<div class="pro_text">
@@ -91,11 +92,12 @@
 						<span>${udto.userDate}</span>
 					</div><!-- //.pro_text -->
 				</section>
+				<input type="button" value="목록 돌아가기" onclick="changeForm(1)">
 				<input type="button" value="정보수정하기" onclick="changeForm(0)">
-				<input type="button" value="탈퇴하기" onclick="changeForm(1)">
-			</div>
+			
 	
 		</form>
+		</div>
 
 </main>
 </body>

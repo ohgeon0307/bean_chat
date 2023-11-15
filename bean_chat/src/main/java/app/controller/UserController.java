@@ -133,7 +133,19 @@ public class UserController extends HttpServlet{
 				session.invalidate();
 				
 				response.sendRedirect(request.getContextPath() + "/index.jsp");
-			}
+			
+				
+				
+			//아이디 비밀번호찾기		
+			}else if(location.equals("userFindIdpwd.do")) {
+				
+			String path ="/user/user_find_idpwd.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+			
+			
+		
+		}
 				
 				
 				

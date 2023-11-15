@@ -1,6 +1,7 @@
 package app.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,21 +33,11 @@ public class MypageController extends HttpServlet{
 			 
 		}else if(location.equals("myProfile.do")){
 			HttpSession session = request.getSession();
-			System.out.println(session.getAttribute("uidx"));
 			
-			System.out.println("-----test-----");
 			
 			int uidx = (Integer)session.getAttribute("uidx");
-			System.out.println("uidx"+uidx);
 			
-			/*
-			 * String userId = request.getParameter("userId"); String userName=
-			 * request.getParameter("userName"); String userBirth =
-			 * request.getParameter("userBirth"); String userGender =
-			 * request.getParameter("userGender"); String userPhone =
-			 * request.getParameter("userPhone"); String userNickname =
-			 * request.getParameter("userNickname");
-			 */
+	
 			UserDao udao = new UserDao();
 			UserDto udto = udao.UserSelectOne(uidx);
 			
@@ -55,13 +46,55 @@ public class MypageController extends HttpServlet{
 			
 						
 			String path ="/mypage/my_profile.jsp";
-			 RequestDispatcher rd = request.getRequestDispatcher(path);
+			 RequestDispatcher rd = request.getRequestDispatcher(path); 
 			 rd.forward(request, response);
 			
-		}else if(location.equals("myProfileModify.do")){
+		}else if(location.equals("myModify.do")){
+			HttpSession session = request.getSession();
+			System.out.println(session.getAttribute("uidx"));
+			
+			int uidx = (Integer)session.getAttribute("uidx");
+			System.out.println("uidx"+uidx);
+			
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(uidx);
+			
+			request.setAttribute("udto", udto);
+			
+			
 			String path ="/mypage/my_profile_modify.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);
 			 rd.forward(request, response);
+			
+			
+		}else if(location.equals("myModifyAction.do")){
+			
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+			
+			String userNickname = request.getParameter("userNickname");
+			String userName = request.getParameter("userName");
+			String userBirth = request.getParameter("userBirth");
+			String userPhone = request.getParameter("userPhone");
+			
+			UserDto udto = new UserDto();
+			udto.setUserNickname(userNickname);
+			udto.setUserName(userName);
+			udto.setUserBirth(userBirth);
+			udto.setUserPhone(userPhone);
+			
+			UserDao udao = new UserDao();
+			int value = udao.userModify(udto);
+			
+			PrintWriter out = response.getWriter();
+			
+			if(value == 1) {
+				out.println("<script>alert('정상적으로 변경 되었습니다.');"
+						+	"document.location.href='"+request.getContextPath()+"/mypage/myProfile.do'</script>");
+			}else{
+				out.println("<script>history.back();</script>");	
+			}
+			
 			
 			
 		}else if(location.equals("myFriend.do")){
@@ -76,7 +109,15 @@ public class MypageController extends HttpServlet{
 			 rd.forward(request, response);
 			
 			
+		}else if(location.equals("myModify.do")){
+			String path ="/mypage/my_profile_modify.jsp";
+			 RequestDispatcher rd = request.getRequestDispatcher(path);
+			 rd.forward(request, response);
+			
+			
 		}
 		
 	}
+
+
 }
