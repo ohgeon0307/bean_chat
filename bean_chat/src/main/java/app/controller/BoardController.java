@@ -54,7 +54,7 @@ private static final long serialVersionUID = 1L;
 			String writer = (String) session.getAttribute("userId");
 		
 			//viewCnt, bList default error occurred(추후수정)
-			
+			 
 			//int uidx = 0;
 			//HttpSession session = request.getSession();
 			//uidx = (int)session.getAttribute("uidx");
