@@ -11,7 +11,8 @@ if (session.getAttribute("midx") == null) {
 
 <%
    UserDto udto = (UserDto) request.getAttribute("udto");
-%>    
+%>   
+
     
 <!DOCTYPE html>
 <html>
@@ -44,6 +45,8 @@ function check(){
 </head>
 <body>
 
+ 
+
 <h1>글쓰기페이지</h1>
 	<form name="frm">
 		<table border="1" style="width:600px">
@@ -59,12 +62,10 @@ function check(){
 		<textarea name="contents" cols="50" rows="10"></textarea>		
 		</td>
 		</tr>
-		<tr>
-		<th>작성자</th>
-		<td>
-		<input type="text" name="writer" value="${udto.userNickname}"/>
-		</td>
-		</tr>
+		
+		<input type="hidden" name="writer" value="${udto.userNickname }"/>
+		
+	
 		<tr>
 		<th>파일첨부</th>
 		<td>
@@ -77,6 +78,7 @@ function check(){
 		<!--데이터전송기능버튼 -->
 		</td>
 		</tr>
+		
 	
 </table>
 </form>

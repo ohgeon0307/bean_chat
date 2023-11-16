@@ -33,6 +33,15 @@ public class BoardController extends HttpServlet {
 			ArrayList<BoardDto> alist = bdao.boardSelectAll();
 
 			request.setAttribute("alist", alist);
+			
+			HttpSession session = request.getSession();
+			System.out.println(session.getAttribute("userId"));
+			int uidx = (Integer) session.getAttribute("uidx");
+
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(uidx);
+			
+			request.setAttribute("udto", udto);
 
 			String path = "/board/board_list.jsp";
 
@@ -40,14 +49,7 @@ public class BoardController extends HttpServlet {
 			rd.forward(request, response);
 
 		} else if (location.equals("boardWrite.do")) {
-
-			String path = "/board/board_write.jsp";
-
-			RequestDispatcher rd = request.getRequestDispatcher(path);
-			rd.forward(request, response);
-
-		} else if (location.equals("boardWriteAction.do")) {
-
+			
 			HttpSession session = request.getSession();
 			System.out.println(session.getAttribute("userId"));
 			int uidx = (Integer) session.getAttribute("uidx");
@@ -64,18 +66,22 @@ public class BoardController extends HttpServlet {
 				System.out.println("udto is null or empty.");
 			}
 
+			String path = "/board/board_write.jsp";
+
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+
+		} else if (location.equals("boardWriteAction.do")) {
+			
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+
 			String subject = request.getParameter("subject");
 			System.out.println("subject : " + subject);
 			String contents = request.getParameter("contents");
 			System.out.println("contents : " + contents);
 			String writer = request.getParameter("writer");
 			System.out.println("writer : " + writer);
-
-			// viewCnt, bList default error occurred(추후수정)
-
-			// int uidx = 0;
-			// HttpSession session = request.getSession();
-			// uidx = (int)session.getAttribute("uidx");
 
 			BoardDto bdto = new BoardDto();
 			bdto.setSubject(subject);
