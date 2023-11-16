@@ -71,17 +71,25 @@ public class MypageController extends HttpServlet{
 			
 			HttpSession session = request.getSession();
 			int uidx = (Integer)session.getAttribute("uidx");
-			
+			System.out.println("getuidx"+uidx);
 			String userNickname = request.getParameter("userNickname");
 			String userName = request.getParameter("userName");
-			String userBirth = request.getParameter("userBirth");
+			String userYear = request.getParameter("userYear");
+			String userMonth = request.getParameter("userMonth");
+			String userDay = request.getParameter("userDay");
 			String userPhone = request.getParameter("userPhone");
+
+			
+			String userBirth  = userYear+userMonth+userDay;
+			
 			
 			UserDto udto = new UserDto();
 			udto.setUserNickname(userNickname);
 			udto.setUserName(userName);
 			udto.setUserBirth(userBirth);
 			udto.setUserPhone(userPhone);
+			udto.setUidx(uidx);
+			System.out.println("setuidx"+uidx);
 			
 			UserDao udao = new UserDao();
 			int value = udao.userModify(udto);

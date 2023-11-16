@@ -68,6 +68,7 @@ public class UserController extends HttpServlet{
 			
 			UserDto udto = new UserDto();
 			udto.setUserId(userId);
+			udto.setUserPwd(userPwd);
 			udto.setUserName(userName);
 			udto.setUserNickname(userNickname);
 			udto.setUserBirth(userBirth);

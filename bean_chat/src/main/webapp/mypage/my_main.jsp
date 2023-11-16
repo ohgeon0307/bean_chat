@@ -29,7 +29,7 @@
 					<p>나의 프로필 볼래요!</p> </a>
 			</div><!--//.main_button-->
 			<div class="main_button">
-				<a href="<%=request.getContextPath() %>/mypage/myProfileModify.do">
+				<a href="<%=request.getContextPath() %>/mypage/myModify.do">
 				<img src="../images/logo/BeanchatChar2.png" alt="프로필 수정하기" />
 					<p>내 프로필 수정할래요!</p> </a>
 			</div><!--//.main_button-->
