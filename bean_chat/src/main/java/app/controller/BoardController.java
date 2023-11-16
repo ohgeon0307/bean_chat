@@ -33,15 +33,6 @@ public class BoardController extends HttpServlet {
 			ArrayList<BoardDto> alist = bdao.boardSelectAll();
 
 			request.setAttribute("alist", alist);
-			
-			HttpSession session = request.getSession();
-			System.out.println(session.getAttribute("userId"));
-			int uidx = (Integer) session.getAttribute("uidx");
-
-			UserDao udao = new UserDao();
-			UserDto udto = udao.UserSelectOne(uidx);
-			
-			request.setAttribute("udto", udto);
 
 			String path = "/board/board_list.jsp";
 
