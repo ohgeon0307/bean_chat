@@ -210,7 +210,8 @@ if (session.getAttribute("cTo") != null) {
         
 
             function getUserNickname() {
-            	   var userId = '<%= (String)session.getAttribute("userId") %>';                var userId = '<%=userId%>';
+            	   var userId = '<%= (String)session.getAttribute("userId") %>'; 
+            	   var userId = '<%=userId%>';
                 return userId;
             }
 
