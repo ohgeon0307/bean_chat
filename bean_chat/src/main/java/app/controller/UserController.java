@@ -27,6 +27,8 @@ public class UserController extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		PasswordEncoder passwordEncoder = new PasswordEncoder();
+		
 		//관리자 페이지 이동
 		if (location.equals("userList.do")) {
 			UserDao udao = new UserDao();
@@ -53,6 +55,7 @@ public class UserController extends HttpServlet{
 			//담긴 값을 꺼내서 새로운 변수에 담는다
 			String userId = request.getParameter("userId");
 			String userPwd = request.getParameter("userPwd");
+			//현재값은 123123
 			String userName= request.getParameter("userName");
 			String userYear = request.getParameter("userYear");
 			String userMonth = request.getParameter("userMonth");
@@ -62,10 +65,14 @@ public class UserController extends HttpServlet{
 			String userNickname = request.getParameter("userNickname");
 			
 			String userBirth  = userYear+userMonth+userDay;
-			PasswordEncoder passwordencoder= new PasswordEncoder();
 			String userPwdHash = null;
 			try {
-				userPwdHash = passwordencoder.EncBySha256(userPwd);
+				userPwdHash = passwordEncoder.EncBySha256(userPwd);
+				// 96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e 최초해싱
+				UserDto udto = new UserDto();
+				udto.setUserPwd(userPwdHash);
+				System.out.println(userPwdHash + "<- 최초해싱값");
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -75,6 +82,7 @@ public class UserController extends HttpServlet{
 			UserDto udto = new UserDto();
 			udto.setUserId(userId);
 			udto.setUserPwd(userPwdHash);
+			System.out.println(userPwdHash + "<- 지금 값은 뭐야?");
 			udto.setUserName(userName);
 			udto.setUserNickname(userNickname);
 			udto.setUserBirth(userBirth);
@@ -85,6 +93,7 @@ public class UserController extends HttpServlet{
 			
 			UserDao udao = new UserDao();
 			int exec = udao.userInsert(udto);
+			System.out.println(udto.getUserPwd());
 			
 			
 			PrintWriter out = response.getWriter();
@@ -106,50 +115,52 @@ public class UserController extends HttpServlet{
 				
 				
 			//로그인 수행	
-			}else if(location.equals("userLoginAction.do")) {
-					
-				String userId = request.getParameter("userId");
-				String userPwd = request.getParameter("userPwd"); // 사용자가 입력한 비밀번호
-				
-							
-				UserDao udao = new UserDao();
-				int uidx = udao.userLoginCheck(userId); // 사용자의 아이디로부터 uidx 가져오기
-				
-				HttpSession session = request.getSession();
-				PrintWriter out = response.getWriter();
-				
-				
-				//Action처리하는 용도는 send방식으로 보낸다
-				try {
-					// 사용자가 입력한 비밀번호를 해시하여 저장
-					UserDto udto = new UserDto();
-					PasswordEncoder passwordencoder= new PasswordEncoder();
-				    udto.setUserPwd(passwordencoder.EncBySha256(userPwd));
-				    //해싱을 왜 한번더 ?
-				    
-				    System.out.println("입력받은 비밀번호?"+userPwd);
-				    
-				    
-				    // UserDao를 통해 데이터베이스에서 해당 아이디에 대한 해시된 비밀번호 가져오기
+			}else if (location.equals("userLoginAction.do")) {
+
+			    String userId = request.getParameter("userId");
+			    // 사용자가 입력한 userId
+			    String userPwd = request.getParameter("userPwd"); // 사용자가 입력한 비밀번호
+			    try {
+					userPwd = passwordEncoder.EncBySha256(userPwd);
+					System.out.println(userPwd+ "현재 유저비밀번호");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			    UserDao udao = new UserDao();
+			    int uidx = udao.userLoginCheck(userId); // 사용자의 아이디로부터 uidx 가져오기
+
+			    HttpSession session = request.getSession();
+			    PrintWriter out = response.getWriter();
+
+			    // Action처리하는 용도는 send방식으로 보낸다
+			    try {
+			        // UserDao를 통해 데이터베이스에서 해당 아이디에 대한 해시된 비밀번호 가져오기
 			        String userHashPwd = udao.userHashPassword(userId);
-				    System.out.println("원래 저장된 비밀번호?"+userHashPwd);
-				    // 저장된 해시된 비밀번호와 사용자 입력의 해시된 비밀번호를 비교
-				    if (userHashPwd != null) {
-				    	// 비밀번호 일치: 로그인 성공
+			        
+			        System.out.println("원래 저장된 해시된 비밀번호 (DB에서 가져온 것)? " + userHashPwd);
+			        System.out.println("입력받은 비밀번호? " + userPwd);
+			        
+			    
+
+			        // 저장된 해시된 비밀번호와 사용자 입력의 해시된 비밀번호를 비교
+			        if (userHashPwd.equals(userPwd)) {
+			        	System.out.println(userPwd + "최종 userPwd값");
+			        	System.out.println(" 이 값은 -> ? " + userHashPwd.equals(userPwd));
+			            // 비밀번호 일치: 로그인 성공
 			            session.setAttribute("userId", userId);
 			            session.setAttribute("uidx", uidx);
 			            session.setMaxInactiveInterval(3600);
-			            
+
 			            response.sendRedirect(request.getContextPath() + "/index.jsp");
-				    } else {
-				    	  // 비밀번호 불일치: 로그인 실패
+			        } else {
+			            // 비밀번호 불일치: 로그인 실패
 			            out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); history.back();</script>");
 			        }
-				} catch (Exception e) {
-				    e.printStackTrace();
-				}
-				
-				
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			    }
 			}else if(location.equals("userLogout.do")) {
 				
 				HttpSession session = request.getSession();
