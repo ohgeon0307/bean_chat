@@ -1,86 +1,254 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="app.dto.UserDto" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%-- <%
-if (session.getAttribute("midx") == null) {
-	out.println("<script>alert('로그인하셔야합니다.');location.href='"+request.getContextPath()+"/member/memberLogin.do'</script>");
-}
-%>   --%>  
-
-<%
-   UserDto udto = (UserDto) request.getAttribute("udto");
-%>   
-
-    
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>글쓰기</title>
-<link href="../css/board.css" type="text/css" rel="stylesheet">
-<script>
-function check(){
+<meta charset="UTF-8">
+<title>빈챗 글쓰기</title>
+<!--검색 버튼 아이콘-->
 
-	var fm = document.frm; //문서객체안의 폼객체이름
+<link href="../images/indexImage/beanchat_char.png" rel="shortcut icon" />
+<!--파비콘-->
+<!-- include libraries(jQuery, bootstrap) -->
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 	
-	if(fm.subject.value ==""){
-		alert("제목을 입력하세요");
-		fm.subject.focus();
-		return;
-	}else if (fm.contents.value ==""){
-		alert("내용을 입력하세요");
-		fm.contents.focus();
-		return;		
-	}
-	//처리하기위해 이동하는 주소
-	fm.action ="<%=request.getContextPath()%>/board/boardWriteAction.do";  
-	fm.method = "post";  //이동하는 방식  get 노출시킴 post 감추어서 전달
-	//fm.enctype= "multipart/form-data";
-	fm.submit(); //전송시킴
-	return;
-}
-</script>
+
+<!-- include summernote css/js-->
+
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script
+	src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
+<script src="/resources/summernote-lite.js"></script>
+<script src="/resources/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="/resources/summernote-lite.css">
+
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script>
+      $(document).ready(function () {
+        $("#summernote").summernote({
+          width: 1500,
+          height: 600, // set editor height
+          minHeight: 600, // set minimum height of editor
+          maxHeight: 600, // set maximum height of editor
+          focus: true, // set focus to editable area after initializing summernote
+          lang: "ko-KR", // default: 'en-US'
+          fontNames: [
+            "Nanum Gothic",
+            "sans-serif",
+            "돋움",
+            "Dotum",
+            "Arial",
+            "Arial Black",
+            "Comic Sans MS",
+            "Courier New",
+            "Helvetica",
+            "Impact",
+            "Tahoma",
+            "Times New Roman",
+            "Verdana",
+            "Roboto",
+          ],
+          defaultFontName: "Nanum Gothic",
+          fontSizes: ["8", "9", "10", "11", "12", "14", "18"],
+          toolbar: [
+            ["style", ["style"]],
+            ["font", ["bold", "italic", "underline", "clear"]],
+            ["fontname", ["fontname"]],
+            ["color", ["color"]],
+            ["fontsize", ["fontsize"]],
+            ["para", ["ul", "ol", "paragraph"]],
+            ["height", ["height"]],
+            ["table", ["table"]],
+            ["insert", ["link", "picture", "hr"]],
+            ["view", ["fullscreen", "codeview"]],
+            ["help", ["help"]],
+          ],
+        });
+
+        $(".title").keyup(function (e) {
+          var content = $(this).val();
+          $("#counter").html("(" + content.length + " / 40)"); //글자수 실시간 카운팅
+
+          if (content.length > 40) {
+            $(".errorMsg").html("제목은 최대 40자까지 입력 가능합니다.");
+            $(".errorMsg").css("float", "right");
+            $(".errorMsg").css("color", "red");
+            $(".errorMsg").css("font-size", "15px");
+            $(".errorMsg").css("font-style", "italic");
+
+            $(this).val(content.substring(0, 40));
+            $("#counter").html("(40 / 40)");
+          } else {
+            $(".errorMsg").html("");
+          }
+        });
+        
+        $(".logo").click(function(){	
+        	if(!confirm("메인으로 돌아가시겠습니까? 작성하신 내용은 저장되지 않습니다.")){
+				return false;
+        	}else{
+        		location.href="<%=request.getContextPath()%>";
+        	}
+        	
+         });
+        
+        $(".cancel").click(function(){	
+        	if(!confirm("이전 화면으로 돌아가시겠습니까? 작성하신 내용은 저장되지 않습니다.")){
+				return false;
+        	}else{
+        		location.href="<%=request.getContextPath()%>";
+        	}
+        	
+         });
+        
+      });
+    </script>
+
+<script>
+	$(function(){
+		$(".write").click(function(){
+			var title = $(".title").val();		
+			var content = $(".content").val();
+
+			if(title == ""){
+				alert("제목을 입력해주세요.");
+				document.frm.title.focus();
+				return false;
+			}else if(content
+					== ""){
+				alert("내용을 입력해주세요.");
+				document.frm.content.focus();
+				return false;
+			}
+			
+			return true;
+		});
+		
+		$(".cancel").on("click", function(){
+			
+			location.href ="list.do?page=${searchVo.page}"
+						  +"&category=${searchVo.category}"
+						  +"&order=${searchVo.order}"
+				   		  +"&perPageNum=${searchVo.perPageNum}"
+				   	 	  +"&searchType=${searchVo.searchType}"
+				   		  +"&searchVal=${searchVo.searchVal}";
+		})
+	});
+	</script>
+
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<link href="../css/board/board_write.css" rel="stylesheet" />
+<!--css 연결-->
 </head>
 <body>
-
- 
-
-<h1>글쓰기페이지</h1>
-	<form name="frm">
-		<table border="1" style="width:600px">
-		<tr>
-		<th>제목</th>
-		<td>
-		<input type="text" name="subject">		
-		</td>
-		</tr>
-		<tr>
-		<th>내용</th>
-		<td>
-		<textarea name="contents" cols="50" rows="10"></textarea>		
-		</td>
-		</tr>
-		
-		<input type="hidden" name="writer" value="${udto.userNickname }"/>
-		
-	
-		<tr>
-		<th>파일첨부</th>
-		<td>
-		<input type="file" name="filename">		
-		</td>
-		</tr>
-		<tr>
-		<td colspan="2" style="text-align:center;">
-		<input type="button" name="smt" value="확인" onclick="check();">
-		<!--데이터전송기능버튼 -->
-		</td>
-		</tr>
-		
-	
-</table>
-</form>
+	<form action="boardWriteAction.do" method="post" name="frm">
+		<input type="hidden" value="${udto.userNickname}" name="writer">
+		<div id="topMenu">
+			<div class="leftElement">
+				<a href="#" class="logo"> <img
+					src="../images/indexImage/beanchat_text.png"
+					
+              width="220px" />
+				</a>
+				<h1>글쓰기 Editor</h1>
+			</div>
+			<!--end: .leftElement-->
+			<div class="rightElement">
+				<a href="#" class="cancel">취소</a>
+				<button class="write">등록</button>
+				<p class="nickname">
+					<span>${udto.userNickname}</span> 님
+				</p>
+				<img
+					src="<%=request.getContextPath()%>/resources/upload/${login.stname}"
+					class="memberImage"
+					style="width: 45px; height: 45px; border-radius: 30px;">
+			</div>
+			<!--end: .rightElement-->
+		</div>
+		<!--end: #topMenu-->
+		<main>
+			<div id="title">
+				<select class="category" name="category">
+					<option>자유</option>
+					<option>후기</option>
+				</select> <input type="text" name="subject" class="title" minlength="2"
+					maxlength="40" placeholder="제목을 입력하세요" /> <span
+					style="color: #aaa; font-size: 15.5px" id="counter">(0
+					/ 40)</span> <br /> <span class="errorMsg"></span>
+			</div>
+			<!--end: title-->
+			<textarea id="summernote" class="content" name="contents">
+          -----------자유게시판 이용 공지------------
+          <br />
+          아래의 사항을 지키지 못한 게시글은 무통보 삭제될 수 있습니다.
+          <br />
+          <br />
+          1. 타인을 향한 욕설 및 비방, 근거없는 비난글
+          <br />
+          2. 광고가 포함된 (ex: 아르바이트 알선, 판매 등) 스팸 게시글
+          <br />
+          3. 사기·도박 및 매매성 게시글
+          <br />
+          <br />
+          이외의 게시판의 의도와 맞지 않은 게시글은 정리 될 수 있다는 점
+          유의하시기 바랍니다.
+        </textarea>
+			<input type="file" name="filename">
+		</main>
+		<!--end: main-->
+	</form>
+	<!--end: form-->
+	<footer>
+		<div id="slogan">
+			<img
+				src="../resources/img/사본_-혼밥의고수_로고_초안_대지_1_사본-removebg-preview.png"
+				width="180px" />
+			<p>Until the day when eaten alone human become proud</p>
+		</div>
+		<!--end: #slogan-->
+		<footer>
+			<div id="slogan">
+				<img src="../images/indexImage/beanchat_char.png" width="200px" />
+				<p>Beanchat, the collaborative chat web application System.</p>
+			</div>
+			<!--end: #slogan-->
+			<div id="footerMenu">
+				<ul>
+					<li><a href="#">팀 소개</a></li>
+					<p>&#124;</p>
+					<li><a href="#">개인정보처리방침</a></li>
+					<p>&#124;</p>
+					<li><a href="#">이용약관</a></li>
+					<p>&#124;</p>
+					<li><a href="#">도움말</a></li>
+					<p>&#124;</p>
+					<li><a href="#">공지사항</a></li>
+				</ul>
+				<p class="companyInfo">
+					빈챗 &#124; 팀원 : 최다혜 안기현 임세현 오 건 <br />Beanchat &#124; 전주시 덕진구 백제대로
+					572 4층 이젠컴퓨터아트서비스학원 <br /> © 2023 Beanchat Ltd. All rights
+					reserved.
+				</p>
+				<!--end: .companyInfo-->
+			</div>
+			<!--end: #footerMenu-->
+			<div id="sns">
+				<ul>
+					<li><a href="#"><i class="xi-instagram xi-2x"></i></a></li>
+					<li><a href="#"><i class="xi-facebook xi-2x"></i></a></li>
+					<li><a href="#"><i class="xi-kakaotalk xi-2x"></i></a></li>
+				</ul>
+			</div>
+			<!--end: #sns-->
+		</footer>
 </body>
 </html>
