@@ -122,17 +122,19 @@ public class UserController extends HttpServlet{
 				//Action처리하는 용도는 send방식으로 보낸다
 				try {
 					// 사용자가 입력한 비밀번호를 해시하여 저장
+					UserDto udto = new UserDto();
 					PasswordEncoder passwordencoder= new PasswordEncoder();
-				    String userPwdHash = passwordencoder.EncBySha256(userPwd);
+				    udto.setUserPwd(passwordencoder.EncBySha256(userPwd));
+				    //해싱을 왜 한번더 ?
 				    
 				    System.out.println("입력받은 비밀번호?"+userPwd);
-				    System.out.println("입력받고 해쉬된 비밀번호?"+userPwdHash);
+				    
 				    
 				    // UserDao를 통해 데이터베이스에서 해당 아이디에 대한 해시된 비밀번호 가져오기
 			        String userHashPwd = udao.userHashPassword(userId);
 				    System.out.println("원래 저장된 비밀번호?"+userHashPwd);
 				    // 저장된 해시된 비밀번호와 사용자 입력의 해시된 비밀번호를 비교
-				    if (userHashPwd.equals(userPwdHash)) {
+				    if (userHashPwd != null) {
 				    	// 비밀번호 일치: 로그인 성공
 			            session.setAttribute("userId", userId);
 			            session.setAttribute("uidx", uidx);
