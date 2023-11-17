@@ -62,10 +62,18 @@ public class ChatContentController extends HttpServlet {
       ArrayList<ChatDto> chatList = chatDao.getChatListByRecent(cFrom, cTo, 10);
       if(chatList.size() == 0) return "";
       for(int i = 0; i <  chatList.size(); i++ ) {
-         result.append("[{\"value\":\""+chatList.get(i).getcFrom()+"\"},");
-         result.append("{\"value\":\""+chatList.get(i).getcTo()+"\"},");
+    	  
+    	  String fromNickname = chatDao.getUserNickname(chatList.get(i).getcFrom());
+          String toNickname = chatDao.getUserNickname(chatList.get(i).getcTo());
+
+          result.append("[{\"fromNickname\":\"" + fromNickname + "\"},");
+          result.append("{\"toNickname\":\"" + toNickname + "\"},");
          result.append("{\"value\":\""+chatList.get(i).getcContents()+"\"},");
          result.append("{\"value\":\""+chatList.get(i).getcTime()+"\"}]");
+         
+      
+
+         result.append("]");
          if(i !=chatList.size() -1) result.append(",");
          
          
@@ -80,8 +88,11 @@ public class ChatContentController extends HttpServlet {
       ArrayList<ChatDto> chatList = chatDao.getChatListByID(cFrom, cTo, cidx);
       if(chatList.size() == 0) return "";
       for(int i = 0; i <  chatList.size(); i++ ) {
-         result.append("[{\"value\":\""+chatList.get(i).getcFrom()+"\"},");
-         result.append("{\"value\":\""+chatList.get(i).getcTo()+"\"},");
+    	   String fromNickname = chatDao.getUserNickname(chatList.get(i).getcFrom());
+           String toNickname = chatDao.getUserNickname(chatList.get(i).getcTo());
+
+           result.append("[{\"fromNickname\":\"" + fromNickname + "\"},");
+           result.append("{\"toNickname\":\"" + toNickname + "\"},");
          result.append("{\"value\":\""+chatList.get(i).getcContents()+"\"},");
          result.append("{\"value\":\""+chatList.get(i).getcTime()+"\"}]");
          if(i !=chatList.size() -1) result.append(",");

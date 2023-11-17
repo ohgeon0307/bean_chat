@@ -1,3 +1,9 @@
+<%@ page import="java.util.List" %>
+<%@ page import="app.dto.ChatDto" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.Collections" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -110,6 +116,7 @@ if (session.getAttribute("cTo") != null) {
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
         crossorigin="anonymous"></script>
     <script type="text/javascript">
+    
         function autoClosingAlert(selector, delay) {
             var alert = $(selector).alert();
             alert.show();
@@ -159,7 +166,7 @@ if (session.getAttribute("cTo") != null) {
                     listType: type
                 },
                 success: function (data) {
-                	
+                	   console.log('Server Response:', data);
                     if (data == "") return;
                     var parsed = JSON.parse(data);
                     
@@ -170,12 +177,17 @@ if (session.getAttribute("cTo") != null) {
                     lastID = Number(parsed.last);
                     
                 },
-
+                error: function (xhr, status, error) {
+                    console.log('Ajax Error:', status, error);
+                }
             });
+
+
             
         }
 
         function addChat(userNickname, cContents, cTime) {
+        	
         	
             $('#chatList').append('<div class="message">' +
                 '<img style="width:30px; height:30px;" src="../images/indexImage/beanchat_char.png" alt="이미지">' +
@@ -192,7 +204,17 @@ if (session.getAttribute("cTo") != null) {
                 '</div>' +
                 '</div>');
             $('#chatList').scrollTop($('#chatList')[0].scrollHeight);
+            
+           
         }
+        
+
+            function getUserNickname() {
+            	   var userId = '<%= (String)session.getAttribute("userId") %>';                var userId = '<%=userId%>';
+                return userId;
+            }
+
+           
 
         function getInfiniteChat() { //몇초간격으로 계속해서 새로운메시지가 왔는지
             setInterval(function () {
@@ -207,17 +229,15 @@ if (session.getAttribute("cTo") != null) {
     
     <textarea id="cContents" placeholder="채팅을 입력하세요." maxlength="1000"></textarea>
     <button onclick="submitFunction()">전송</button>
-    <div class="alert alert-success" id="successMessage" style="dispaly:none;"><strong>메세지 전송에 성공했습니다</strong></div>
-    <div class="alert alert-danger" id="dangerMessage" style="dispaly:none;"><strong>이름과 내용을 입력</strong></div>
-    <div class="alert alert-warning" id="warningMessage" style="dispaly:none;"><strong>데이터베이스 오류</strong></div>
+    <div class="alert alert-success" id="successMessage" style="display:none;"><strong>메세지 전송에 성공했습니다</strong></div>
+    <div class="alert alert-danger" id="dangerMessage" style="display:none;"><strong>이름과 내용을 입력</strong></div>
+    <div class="alert alert-warning" id="warningMessage" style="display:none;"><strong>데이터베이스 오류</strong></div>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
             chatListFunction('ten');
             getInfiniteChat();
-            
-
-            
+	addChat();
         });
     </script>
     

@@ -68,6 +68,7 @@ public class ChatDto {
 	public void setUserNickname(String userNickname) {
 		this.userNickname = userNickname;
 	}
-			
+	
+  
 		
 }

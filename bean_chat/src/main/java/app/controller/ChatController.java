@@ -54,6 +54,12 @@ public class ChatController extends HttpServlet {
             cFrom = URLDecoder.decode(cFrom, "UTF-8");
             cTo = URLDecoder.decode(cTo, "UTF-8");
             cContents = URLDecoder.decode(cContents, "UTF-8");
+            String fromNickname = new ChatDao().getUserNickname(cFrom);
+            String toNickname = new ChatDao().getUserNickname(cTo);
+
+            request.setAttribute("fromNickname", fromNickname);
+            request.setAttribute("toNickname", toNickname);
+
             response.getWriter().write(new ChatDao().submit(cFrom, cTo, cContents) + ""); //submit함수를 실행해서 실행한 결과를 반환할수있게 write해줌
 
          }
@@ -76,6 +82,8 @@ public class ChatController extends HttpServlet {
           
            HttpSession session = request.getSession();
            session.setAttribute("cTo", cTo);
+     
+           
            
           if (cFrom == null || cFrom.equals("") || cTo == null || cTo.equals("") || cContents == null
                 || cContents.equals("")) {
