@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.dbconn.DbConn;
+import app.dto.PasswordEncoder;
 import app.dto.UserDto;
 
 public class UserDao {
@@ -64,13 +65,17 @@ public class UserDao {
 		int exec = 0;
 		
 		String sql = "insert into usertable(uidx,userid,userpwd,username,userbirth,usergender,userphone,usernickname)"
-		        +" values(?,?,?,?,?,?,?)";
+		        +" values(?,?,?,?,?,?,?,?)";
 		try{
 		conn.setAutoCommit(false);
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, udto.getUidx());
 		pstmt.setString(2, udto.getUserId());
-		pstmt.setString(3, udto.getUserPwd());
+		
+		PasswordEncoder passwordencoder = new PasswordEncoder();
+	    String hashPassword = passwordencoder.EncBySha256(udto.getUserPwd());
+	    pstmt.setString(3, hashPassword);
+		
 		pstmt.setString(4, udto.getUserName());
 		pstmt.setString(5, udto.getUserBirth());
 		pstmt.setString(6, udto.getUserGender());
@@ -118,17 +123,16 @@ public class UserDao {
 	
 
 	//로그인하기
-	public int userLoginCheck(String userId, String userPwd) {
+	public int userLoginCheck(String userId) {
 		
 		int value=0;
 		
-		String sql="select uidx from usertable where userid=? and userpwd=?";
+		String sql="select uidx from usertable where userid=?";
 		ResultSet rs = null;
 		
 		try{
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-			pstmt.setString(2, userPwd);
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()){
@@ -181,7 +185,6 @@ public class UserDao {
 			try{
 				rs.close();
 				pstmt.close();
-				conn.close();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -220,6 +223,44 @@ public class UserDao {
 		
 	}
 	
+	public String userHashPassword(String userId) {
+		String userHashPwd = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		 try{
+			 String sql = "SELECT userpwd FROM usertable WHERE userid = ?";
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, userId);
+			 rs = pstmt.executeQuery();
+			 
+			 if (rs.next()) {
+				 userHashPwd = rs.getString("userpwd"); // 데이터베이스에서 가져온 해시된 비밀번호
+		        
+			 }
+	    }catch(Exception e){
+	    	
+	        e.printStackTrace();
+	        // 예외 처리 등
+	    
+	    }finally{
+	    	
+	        // 리소스 해제
+	        try {
+	        	rs.close();
+				pstmt.close();
+	            conn.close();
+	        } catch (SQLException e) {
+	        	
+	            e.printStackTrace();
+	        }
+	    }
+		
+		
+		
+		return userHashPwd;
+		
+		
+	}
 	
 	
 	
