@@ -10,7 +10,11 @@
     <title>beanchat</title>
     <link rel="stylesheet" href="./full-page-js/fullpage.min.css" />
     <link rel="stylesheet" href="./css/index.css">
-    <link rel="icon" href="./images/beanchat_char.png">
+    <link
+      href="../images/indexImage/beanchat_char.png"
+      rel="shortcut icon"
+    />
+    <!--파비콘-->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="./full-page-js/fullpage.min.js"></script>
