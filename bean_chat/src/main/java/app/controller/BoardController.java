@@ -92,7 +92,20 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect(path);
 			}
 
+		}else if(location.equals("boardContents.do")) {
+			String bidx = request.getParameter("bidx");
+			int bidx_int = Integer.parseInt(bidx);
+			
+			BoardDao bdao = new BoardDao();
+			BoardDto bdto = bdao.boardSelectOne(bidx_int);
+			
+			request.setAttribute("bdto", bdto);
+			
+			String path = "/board/board_contents.jsp";
+			
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+		
 		}
-
-	}
+		}
 }

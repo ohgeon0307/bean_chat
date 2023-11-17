@@ -88,4 +88,40 @@ public class BoardDao {
 			}
 			return exec;	
 		}
+	
+	public BoardDto boardSelectOne(int bidx) {
+		BoardDto bdto = null;
+		String sql = "select * from boardtable where bidx=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bidx);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bdto = new BoardDto();
+				bdto.setSubject(rs.getString("subject"));
+				bdto.setContents(rs.getString("contents"));
+				bdto.setWriter(rs.getString("writer"));
+				bdto.setBidx(rs.getInt("bidx"));
+				bdto.setViewCnt(rs.getInt("viewcnt"));
+				bdto.setbList(rs.getString("bList"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try{
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}	
+		
+		return bdto;
+	}
 	}

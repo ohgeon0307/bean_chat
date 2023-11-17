@@ -63,7 +63,7 @@
           <ul>
           <c:forEach items="${alist }" var ="bdto">
             <li>
-              <a href="view.do?bidx=${bdto.bidx}&uidx=${bdto.uidx }">${bdto.subject }</a>
+              <a href="${pageContext.request.contextPath}/board/boardContents.do?bidx=${bdto.bidx}">${bdto.subject }</a>
               <div class="boardContent">
               	<p>닉네임 : ${bdto.writer} 조회수 : ${bdto.viewCnt } 댓글수 : ${bdto.bidx }</p>
                 
