@@ -60,6 +60,7 @@ public class UserController extends HttpServlet{
 			String userGender = request.getParameter("userGender");
 			String userPhone = request.getParameter("userPhone");
 			String userNickname = request.getParameter("userNickname");
+			String userImage = request.getParameter("userImage");
 			
 			String userBirth  = userYear+userMonth+userDay;
 			PasswordEncoder passwordencoder= new PasswordEncoder();
@@ -81,7 +82,7 @@ public class UserController extends HttpServlet{
 			udto.setUserPhone(userPhone);
 			udto.setUserDate(userDay);
 			udto.setUserGender(userGender);
-			udto.setUserImage(userId);
+			udto.setUserImage(userImage);
 			
 			UserDao udao = new UserDao();
 			int exec = udao.userInsert(udto);

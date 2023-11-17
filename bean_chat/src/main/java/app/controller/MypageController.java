@@ -132,12 +132,12 @@ public class MypageController extends HttpServlet{
 			if(value>0){	//성공
 				session.setAttribute("message", "프로필 이미지가 변경되었습니다.");
 				udto.setUserImage(userImage);
-				String path = request.getContextPath()+"/mypage/myprofile.do";
+				String path = request.getContextPath()+"/mypage/myProfile.do";
 				response.sendRedirect(path);
 				
 			}else {
 				session.setAttribute("message", "프로필 이미지 변경 실패 ㅠ.ㅠ");
-				String path = request.getContextPath()+"/mypage/myprofile.do";
+				String path = request.getContextPath()+"/mypage/myProfile.do";
 				response.sendRedirect(path);
 			}
 			

@@ -62,7 +62,7 @@
 
 					
 		<section id="posible">
-		 	<form name="frm">
+		 	<form name="frm" enctype="multipart/form-data">
 		 	<input type="hidden" name="uidx" id="uidx" value="${udto.uidx}">
 		 		<section id="pro_image">
 		 			<div class="pro_image_area">
