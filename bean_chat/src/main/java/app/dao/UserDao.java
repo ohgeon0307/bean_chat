@@ -71,11 +71,7 @@ public class UserDao {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, udto.getUidx());
 		pstmt.setString(2, udto.getUserId());
-		
-		PasswordEncoder passwordencoder = new PasswordEncoder();
-	    String hashPassword = passwordencoder.EncBySha256(udto.getUserPwd());
-	    pstmt.setString(3, hashPassword);
-		
+	    pstmt.setString(3, udto.getUserPwd());
 		pstmt.setString(4, udto.getUserName());
 		pstmt.setString(5, udto.getUserBirth());
 		pstmt.setString(6, udto.getUserGender());
