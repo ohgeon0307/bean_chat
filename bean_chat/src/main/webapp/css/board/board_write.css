@@ -53,6 +53,7 @@ body {
 
 .logo {
     filter: brightness(500%);
+    margin-top : 10px;
 }
 
 h1 {
@@ -183,10 +184,10 @@ footer {
     width: 1920px;
     height: 250px;
     background-color: rgb(56, 56, 56);
-    padding: 50px 160px 30px 180px;
+    padding: 50px 160px 30px 130px;
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    flex-wrap: nowrap;
     margin: 0 auto;
     position: relative;
   }
@@ -202,9 +203,8 @@ footer {
   }
   
   footer img {
-    filter: invert(0.5);
+    filter: invert(0.2);
     margin-bottom: 10px;
-    margin-left: 15px;
   }
   
   footer p {
@@ -233,7 +233,7 @@ footer {
   }
   
   .companyInfo {
-    margin-left: 30px;
+    margin-left: 15px;
     width: 620px;
   }
   
@@ -244,8 +244,8 @@ footer {
   #sns ul {
     display: flex;
     position: absolute;
-    right: 220px;
-    bottom: 50px;
+    right: 160px;
+    bottom: 100px;
   }
   
   #sns li:nth-child(2) {
@@ -268,4 +268,5 @@ footer {
     color: #BCE489;
     border: 1px solid #BCE489;
   }
+  
   
