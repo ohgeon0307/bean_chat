@@ -83,7 +83,9 @@
                                             <form name="frm" id="frm">
 												<div id="main_view">
                                                 <section id="pro_image">
-                                                    <p>NO IMAGE</p>
+                                                	<a href="${contextPath}/member/myPage/profile">
+            											<img src="/community/resources/images/user.png" id="member-profile">
+            										</a>
                                                 </section>
                                                 <section id="pro_info">
                                                     <div class="pro_title">

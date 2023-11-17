@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="app.dto.UserDto" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +64,26 @@
 		<section id="posible">
 		 	<form name="frm">
 		 	<input type="hidden" name="uidx" id="uidx" value="${udto.uidx}">
-		 		<section id="pro_image"><p>NO IMAGE</p></section>
+		 		<section id="pro_image">
+		 			<div class="pro_image_area">
+		 				<c:if test="${empty udto.userImage}">
+                            <img src="${contextPath}/resources/images/user.png" id="profile-image">
+                        </c:if>
+                            
+                        <c:if test="${!empty udto.userImage}">
+                            <img src="${contextPath}${udto.userImage}" id="profile-image">
+                        </c:if>
+		 			
+		 			</div>
+		 			
+		 		 	<div class="pro_img_btn">
+                        <label for="userImage">이미지 선택</label>
+                        <input type="file" name="userImage" id="userImage" accept="image/*">
+                        <input type="submit" value="수정하기" onclick="changeImg()">
+                    </div>
+		 		
+		 		
+		 		</section>
 		 		<section id="imposible">
 					<div class="im_text">
 						<h3>ID(Email) :</h3>
@@ -126,6 +147,8 @@
    						</select>
 
 					</div><!-- //.pro_text -->
+					
+					
 				</section>
 				<input type="button" value="취소하기" onclick="changeForm(1)">
 				<input type="button" value="수정하기" onclick="changeForm(0)">
@@ -136,5 +159,60 @@
 		 		
 	
 	</main>
+	<script>
+	function changeImg(){
+	    
+	    const userImage = document.getElementById("userImage");
+
+	    if(userImage.value == ""){ // 빈 문자열 == 파일 선택 X
+	        alert("이미지를 선택한 후 변경 버튼을 클릭해 주세요.");
+	        return false;
+	    }
+	    
+		var fm = document.frm;
+		
+		fm.method = "post";
+		fm.action = "<%=request.getContextPath()%>/mypage/myImage.do"; //처리하기위해 이동하는 주소
+		fm.submit();
+
+	    return true;
+	}
+	
+	
+	
+	</script>
+	<script>
+	const userImage = document.getElementById("userImage");
+	if(userImage != null){ // inputImage 요소가 화면에 존재할 때
+	
+		userImage.addEventListener("change", function(){
+			
+			if(this.files[0] != undefined){ // 파일이 선택되었을 때
+				const reader = new FileReader();
+				// 자바스크립트의 FileReader
+	            // - 웹 애플리케이션이 비동기적으로 데이터를 읽기 위하여 사용하는 객체
+	            
+				reader.readAsDataURL(this.files[0]);
+		        // FileReader.readAsDataURL(파일)
+		       	// - 지정된 파일의 내용을 읽기 시작함
+		       	
+		        // - 읽어오는 게 완료되면 result 속성 data:에
+		        //   읽어온 파일의 위치를 나타내는 URL이 포함됨
+		        // -> 해당 URL을 이용해서 브라우저에 이미지를 볼 수 있다.
+  				// FileReader.onload = function(){}
+           		//  - FileReader가 파일을 다 읽어온 경우 함수를 수행
+            	reader.onload = function(e){ // 고전 이벤트 모델
+            		// e : 이벤트 발생 객체
+                    // e.target : 이벤트가 발생한 요소 -> FileReader
+                    // e.target.result : FileReader가 읽어온 파일의 URL
+            		 // 프로필 이미지에 src 속성의 값을 FileReader가 읽어온 파일을 URL로 변경
+                    const profileImage = document.getElementById("profile-image");
+                    profileImage.setAttribute("src", e.target.result);
+                    // -> setAttribute() 호출 시 중복되는 속성이 존재하면 덮어쓰기
+           		}
+		}
+	
+	
+	</script>
 </body>
 </html>

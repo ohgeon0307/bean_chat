@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+
 import app.dao.UserDao;
+import app.dto.FileRename;
 import app.dto.UserDto;
 
 @WebServlet("/MypageController")
@@ -102,6 +105,45 @@ public class MypageController extends HttpServlet{
 			}else{
 				out.println("<script>history.back();</script>");	
 			}
+			
+			
+			
+		}else if(location.equals("myImage.do")){
+			
+			int maxSize = 1024 * 1024 * 20;
+			HttpSession session = request.getSession();
+			String root = session.getServletContext().getRealPath("/");
+			String folderPath = "/resources/images/userImage/";
+			String filePath = root + folderPath;
+			String encoding = "UTF-8";
+			MultipartRequest mpReq = new MultipartRequest(request, filePath, maxSize, encoding, new FileRename());
+			
+			int uidx = (Integer)session.getAttribute("uidx");
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(uidx);
+			
+			request.setAttribute("udto", udto);
+			
+			String userImage = folderPath + mpReq.getFilesystemName("userImage");
+			int value = udao.userImageUpdate(uidx, userImage);
+			
+			
+			
+			if(value>0){	//성공
+				session.setAttribute("message", "프로필 이미지가 변경되었습니다.");
+				udto.setUserImage(userImage);
+				String path = request.getContextPath()+"/mypage/myprofile.do";
+				response.sendRedirect(path);
+				
+			}else {
+				session.setAttribute("message", "프로필 이미지 변경 실패 ㅠ.ㅠ");
+				String path = request.getContextPath()+"/mypage/myprofile.do";
+				response.sendRedirect(path);
+			}
+			
+			
+			
+			
 			
 			
 			

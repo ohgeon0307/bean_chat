@@ -262,6 +262,31 @@ public class UserDao {
 		
 	}
 	
+	public int userImageUpdate(int uidx, String userImage) {
+		int exec = 0;
+		String sql ="update usertable set\r\n"
+				+ "userImage = ?\r\n"
+				+ "where uidx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uidx);
+			pstmt.setString(2, userImage);
+			exec = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			
+		}
+		
+		
+		return exec;
+		
+		
+		
+	}
+	
 	
 	
 	
