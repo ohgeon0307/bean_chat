@@ -1,5 +1,6 @@
 package app.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -112,11 +113,16 @@ public class MypageController extends HttpServlet{
 			
 			int maxSize = 1024 * 1024 * 20;
 			HttpSession session = request.getSession();
-			String root = session.getServletContext().getRealPath("/");
-			String folderPath = "/resources/images/userImage/";
-			String filePath = root + folderPath;
+			String savepath = session.getServletContext().getRealPath("/resources/images/userImage/");
+			
+			
 			String encoding = "UTF-8";
-			MultipartRequest mpReq = new MultipartRequest(request, filePath, maxSize, encoding, new FileRename());
+			MultipartRequest mpReq = new MultipartRequest(request, savepath, maxSize, encoding, new FileRename());
+			System.out.println("루트가 어딘디" + savepath);
+			
+			System.out.println(mpReq.getOriginalFileName("userImage"));
+			System.out.println(mpReq.getFilesystemName("userImage"));
+			
 			
 			int uidx = (Integer)session.getAttribute("uidx");
 			UserDao udao = new UserDao();
@@ -124,14 +130,21 @@ public class MypageController extends HttpServlet{
 			
 			request.setAttribute("udto", udto);
 			
-			String userImage = folderPath + mpReq.getFilesystemName("userImage");
+			
+			String userImage = savepath + mpReq.getFilesystemName("userImage");
+			System.out.println(userImage+"이미지파일 최종저장");
 			int value = udao.userImageUpdate(uidx, userImage);
+			System.out.println("value는?"+value);
+			System.out.println("uidx는?"+uidx);
+			System.out.println("udao.userImageUpdate?"+udao.userImageUpdate(uidx, userImage));
 			
 			
 			
 			if(value>0){	//성공
 				session.setAttribute("message", "프로필 이미지가 변경되었습니다.");
 				udto.setUserImage(userImage);
+				System.out.println("userImage?" + udto.getUserImage());
+				//sysout은 set을 못찍는듯
 				String path = request.getContextPath()+"/mypage/myProfile.do";
 				response.sendRedirect(path);
 				

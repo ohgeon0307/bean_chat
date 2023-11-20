@@ -72,7 +72,7 @@ public class UserController extends HttpServlet{
 				// 96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e 최초해싱
 				UserDto udto = new UserDto();
 				udto.setUserPwd(userPwdHash);
-				System.out.println(userPwdHash + "<- 최초해싱값");
+
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -123,7 +123,6 @@ public class UserController extends HttpServlet{
 			    String userPwd = request.getParameter("userPwd"); // 사용자가 입력한 비밀번호
 			    try {
 					userPwd = passwordEncoder.EncBySha256(userPwd);
-					System.out.println(userPwd+ "현재 유저비밀번호");
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -140,15 +139,10 @@ public class UserController extends HttpServlet{
 			        // UserDao를 통해 데이터베이스에서 해당 아이디에 대한 해시된 비밀번호 가져오기
 			        String userHashPwd = udao.userHashPassword(userId);
 			        
-			        System.out.println("원래 저장된 해시된 비밀번호 (DB에서 가져온 것)? " + userHashPwd);
-			        System.out.println("입력받은 비밀번호? " + userPwd);
-			        
 			    
 
 			        // 저장된 해시된 비밀번호와 사용자 입력의 해시된 비밀번호를 비교
 			        if (userHashPwd.equals(userPwd)) {
-			        	System.out.println(userPwd + "최종 userPwd값");
-			        	System.out.println(" 이 값은 -> ? " + userHashPwd.equals(userPwd));
 			            // 비밀번호 일치: 로그인 성공
 			            session.setAttribute("userId", userId);
 			            session.setAttribute("uidx", uidx);

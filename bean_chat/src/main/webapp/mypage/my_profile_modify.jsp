@@ -72,7 +72,7 @@
                             
                         <c:if test="${!empty udto.userImage}">
                             <img src="${contextPath}${udto.userImage}" id="profile-image">
-                        </c:if>
+                        </c:if>	
 		 			
 		 			</div>
 		 			
