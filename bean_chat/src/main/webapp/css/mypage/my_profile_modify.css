@@ -1,13 +1,8 @@
 @charset "utf-8";
 
-body {
-  background-color: #bce489;
-}
-
-
 /* header css */
 
-.container a { text-decoration: none; color: #BCE489;
+.container a { text-decoration: none; color: white;
 font-weight: 900; }
     a:visited { text-decoration: none; }
     a:hover { text-decoration: none; }
@@ -15,7 +10,7 @@ font-weight: 900; }
     a:hover, a:active { text-decoration: none; }
 
 .container {
-    background-color: white;
+    background-color:  #bce489;
     position : fixed;
     z-index: 99;
     display : flex;
@@ -136,10 +131,213 @@ font-weight: 900; }
 
 /*main 시작*/
 main {
-  top:200px;
-  width: 70%;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    top:250px;
+    
 }
 
+main h1 {
+	font-size: 50px;
+	color: #418722;
+}
+
+hr {
+	background: #1e2924;
+	height: 10px;
+	border: 0;
+	width: 250px;
+	margin-left: 0;
+	box-shadow: 0 10px 10px -10px #409968 inset;
+	border-radius: 10px;
+}
+
+
+main h2{
+    margin-top: 50px;
+    font-size:30px;
+    margin-bottom:80px;
+}
+
+
+#high_zone{
+    margin:0 auto;
+    width: 50%;
+    height: 400px;
+    display:flex;
+    justify-content: space-between;
+}
+
+
+#pro_image{
+    width: 260px;       
+}
+
+#profile-image{
+    width:260px;
+    height:330px;
+
+}
+
+
+.pro_img_btn{
+    margin-top:20px;
+    text-align: center;
+}
+
+#userImage{
+    display: none;
+}
+
+.pro_img_btn >label {
+    padding: 5px 18.38px;
+    border: none;
+    background-color: #455ba8;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    margin-right:17.5px;
+    border-radius: 10px;
+}
+
+.pro_img_btn>input{
+    border-radius: 10px;
+    border: none;
+    width: 110px;
+    height: 30px;
+    background-color: #455ba8;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    margin-left:17.5px;
+
+}
+.pro_img_btn>input:hover,.pro_img_btn >label:hover{
+    background-color:pink;
+    color:#000;
+    font-size: bold;
+}
+
+
+#imposible{
+    margin-top: 10px;
+    width:430px;
+    font-weight:bold;
+}
+
+#imposible h3{
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom:20px;
+}
+
+#imposible span{
+    font-size:25px;
+}
+
+#pwdBtn{
+    margin-top:30px;
+    border:none;
+    background-color: white;
+    font-size:25px;
+    cursor: pointer;
+    letter-spacing:1px;
+    font-weight:bold;
+    height:30px;
+    color:#455ba8;
+}
+
+#delBtn{
+    margin-top:30px;
+    border:none;
+    background-color: white;
+    font-size:20px;
+    cursor: pointer;
+    letter-spacing:1px;
+    font-weight:bold;
+    height:30px;
+    color:red;
+}
+
+#imposible button:hover{
+    color:pink;
+}
+
+
+#pro_info{
+    margin:0 auto;
+    width: 50%;
+    text-align: center;
+}
+.pro_text > label{
+    font-size: 25px;
+    font-weight: bold;
+    
+}
+
+.pro_text >input{
+    border: 0;
+    outline: 0;
+    font-size: 25px;
+}
+
+
+
+
+
+.pro_text{
+    text-align: left;
+    margin-top:15px;
+    line-height:280%;
+}
+
+#button_zone{
+    width:280px;
+    margin:0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#backBtn{
+    margin-top: 50px;
+    padding: 0 10px;
+    height: 45px;
+    font-size: 20px;
+    text-align: center;
+    display:inline-block;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    border:none;
+    
+}
+
+#modiBtn{
+    
+    margin-top: 50px;
+    padding: 0 10px;
+    height: 45px;
+    font-size: 20px;
+    text-align: center;
+    display:inline-block;
+    background-color: #A0D468;
+    cursor: pointer;
+    border-radius: 10px;
+    border:none;
+
+}
+
+
+#modiBtn:hover{
+    border:1px solid #000;
+    background-color: #455ba8;
+    color: white;
+}
+
+#backBtn:hover{
+    border:1px solid #000;
+}

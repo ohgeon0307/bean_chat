@@ -12,13 +12,9 @@
     <!-- css연결 -->
 	<link href="../css/reset.css" rel="stylesheet" />
     <link href="../css/mypage/my_profile_modify.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <!-- 제이쿼리 연결 -->
-    <script
-      src="https://code.jquery.com/jquery-3.6.1.min.js"
-      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-      crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
     <script>
 	function changeForm(val){
 		
@@ -64,50 +60,56 @@
 		<section id="posible">
 		 	<form name="frm" enctype="multipart/form-data">
 		 	<input type="hidden" name="uidx" id="uidx" value="${udto.uidx}">
-		 		<section id="pro_image">
+		 	<div id="high_zone">	
+            <section id="pro_image">
 		 			<div class="pro_image_area">
 		 				<c:if test="${empty udto.userImage}">
-                            <img src="${contextPath}/resources/images/user.png" id="profile-image">
+                            <img src="../images/noprofile.png" id="profile-image">
                         </c:if>
                             
-                        <c:if test="${!empty udto.userImage}">
+                        <c:if test="${!empty udto.userImage}" style="display: none;">
                             <img src="${contextPath}${udto.userImage}" id="profile-image">
                         </c:if>	
 		 			
 		 			</div>
-		 			
+
 		 		 	<div class="pro_img_btn">
                         <label for="userImage">이미지 선택</label>
                         <input type="file" name="userImage" id="userImage" accept="image/*">
-                        <input type="submit" value="수정하기" onclick="changeImg()">
+                        <input type="submit" value="변경하기" onclick="changeImg()">
                     </div>
-		 		
-		 		
 		 		</section>
+
 		 		<section id="imposible">
 					<div class="im_text">
-						<h3>ID(Email) :</h3>
-						<span>${udto.userId}</span>
+						<h3>ID(Email)</h3>
+						<span>: ${udto.userId}</span>
 					</div><!-- //.pro_text -->
 					
 					<div class="im_text">
-						<h3>가입일 :</h3> <span>${udto.userDate}</span>
+						<h3>가입일</h3>
+                        <span>: ${udto.userDate}</span>
 					</div><!-- //.pro_text -->
+                    <div class="im_text">
+                        <button id="pwdBtn"><i class="xi-touch"></i>비밀번호 변경할래요!<i class="xi-pen"></i></button>
+                        <button id="delBtn"><i class="xi-error"></i>우리 그만봐요..탈퇴할래요..<i class="xi-emoticon-sad-o"></i></button>
+                    </div>
 				</section>
+            </div>
 				<section id="pro_info">
 					<div class="pro_text">
-						<label>닉네임</label>
+						<label>닉네임 : </label>
 						<input type="text" id="userNickname" name="userNickname" value="${udto.userNickname}" maxlength="10">
 					</div><!-- //.pro_text -->
 					
 					
 					<div class="pro_text">
-						<label>이름 :</label>
+						<label>이름 : </label>
 						<input type="text" name="userName" id="userName" value="${udto.userName}">
 					</div><!-- //.pro_text -->
 					
 					<div class="pro_text">
-						<label>전화번호 :</label>
+						<label>전화번호 : </label>
 						<input type="text" name="userPhone" id="userPhone" value="${udto.userPhone}" maxlength="11">
 					</div><!-- //.pro_text -->
 					
@@ -119,7 +121,7 @@
 						        String userMonth = userBirth.substring(4, 6);
 						        String userDay = userBirth.substring(6, 8);
    						 %>
-						<label>생년월일 :</label><br>
+						<label>생년월일 : </label>
 						
 						<select name="userYear">
 	        				<% 
@@ -150,9 +152,11 @@
 					
 					
 				</section>
-				<input type="button" value="취소하기" onclick="changeForm(1)">
-				<input type="button" value="수정하기" onclick="changeForm(0)">
-			
+                <section id="button_zone">
+                    <input type="button" id="modiBtn" value="변경하기" onclick="changeForm(0)">
+                    <input type="button" id="backBtn" value="취소하기" onclick="changeForm(1)">
+                    
+			    </section>
 		</form>
 		</section>
 		 	
@@ -211,7 +215,8 @@
                     // -> setAttribute() 호출 시 중복되는 속성이 존재하면 덮어쓰기
            		}
 		}
-	
+    })
+}
 	
 	</script>
 </body>
