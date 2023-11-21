@@ -23,6 +23,7 @@ public class UserController extends HttpServlet{
 	public UserController(String location) {
 		this.location = location;		
 	}
+	//ㅇㅇㅇㅇ
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
