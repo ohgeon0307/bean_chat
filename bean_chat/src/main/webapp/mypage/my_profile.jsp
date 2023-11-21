@@ -84,7 +84,7 @@
 												<div id="main_view">
                                                 <section id="pro_image">
                                                 	
-            											<img src="${contextPath}${udto.userImage}" id="member-profile">
+            											<img src="${profileImg}${udto.userImage}" id="member-profile">
             										
                                                 </section>
                                                 <section id="pro_info">
