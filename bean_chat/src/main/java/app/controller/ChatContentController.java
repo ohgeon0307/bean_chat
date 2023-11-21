@@ -19,10 +19,11 @@ public class ChatContentController extends HttpServlet {
    private static final long serialVersionUID = 1L;
    private String location;
 
+
    public ChatContentController(String location) {
       this.location = location;
    }
-
+	//
    protected void doGet(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
       if (location.equals("chatList.do")){
@@ -31,8 +32,8 @@ public class ChatContentController extends HttpServlet {
          RequestDispatcher rd = request.getRequestDispatcher(path);
          rd.forward(request, response);
       }else if (location.equals("chat_one.do")) {
-         request.setCharacterEncoding("UTF-8");
-         response.setContentType("text/html;charset=UTF-8");
+    	
+         response.setContentType("application/json");
          String cFrom = request.getParameter("cFrom");
          String cTo = request.getParameter("cTo");
          String listType = request.getParameter("listType");
@@ -42,21 +43,25 @@ public class ChatContentController extends HttpServlet {
             response.getWriter().write("0");
          }else if(listType.equals("ten")) response.getWriter().write(getTen(URLDecoder.decode( cFrom,"UTF-8"),URLDecoder.decode(cTo,"UTF-8"))); 
          else {
+        	 response.setContentType("application/json");
             try {
-               
                response.getWriter().write(getID(URLDecoder.decode( cFrom,"UTF-8"),URLDecoder.decode(cTo,"UTF-8"), listType));
             }catch(Exception e) {
+            	response.setContentType("application/json");
                response.getWriter().write("");
             }
          
          //   System.out.println("값이담기나?"+cTo);
          }
+         
       }
          
          }
       
    public String getTen(String cFrom , String cTo) {
+	   
       StringBuffer result = new StringBuffer("");
+      
       result.append("{\"result\":[");
       ChatDao chatDao =new ChatDao();
       ArrayList<ChatDto> chatList = chatDao.getChatListByRecent(cFrom, cTo, 10);
@@ -65,21 +70,18 @@ public class ChatContentController extends HttpServlet {
     	  
     	  String fromNickname = chatDao.getUserNickname(chatList.get(i).getcFrom());
           String toNickname = chatDao.getUserNickname(chatList.get(i).getcTo());
-
-          result.append("[{\"fromNickname\":\"" + fromNickname + "\"},");
-          result.append("{\"toNickname\":\"" + toNickname + "\"},");
-         result.append("{\"value\":\""+chatList.get(i).getcContents()+"\"},");
-         result.append("{\"value\":\""+chatList.get(i).getcTime()+"\"}]");
-         
-      
-
-         result.append("]");
-         if(i !=chatList.size() -1) result.append(",");
-         
+          result.append("{");
+          result.append("\"fromNickname\":\"" + fromNickname + "\",");
+          result.append("\"toNickname\":\"" + toNickname + "\",");
+        result.append("\"value\":\""+chatList.get(i).getcContents()+"\",");
+        result.append("\"value\":\""+chatList.get(i).getcTime()+"\"");
+        result.append("}");
+         if(i !=chatList.size() -1)  result.append(",");
          
       }
       result.append("],\"last\":\""+chatList.get(chatList.size()-1).getCidx()+"\"}");
       return result.toString();
+  
    }
    public String getID(String cFrom , String cTo, String cidx) {
       StringBuffer result = new StringBuffer("");
@@ -91,15 +93,17 @@ public class ChatContentController extends HttpServlet {
     	   String fromNickname = chatDao.getUserNickname(chatList.get(i).getcFrom());
            String toNickname = chatDao.getUserNickname(chatList.get(i).getcTo());
 
-           result.append("[{\"fromNickname\":\"" + fromNickname + "\"},");
-           result.append("{\"toNickname\":\"" + toNickname + "\"},");
-         result.append("{\"value\":\""+chatList.get(i).getcContents()+"\"},");
-         result.append("{\"value\":\""+chatList.get(i).getcTime()+"\"}]");
-         if(i !=chatList.size() -1) result.append(",");
-         
+           result.append("{");
+           result.append("\"fromNickname\":\"" + fromNickname + "\",");
+           result.append("\"toNickname\":\"" + toNickname + "\",");
+         result.append("\"value\":\""+chatList.get(i).getcContents()+"\",");
+         result.append("\"value\":\""+chatList.get(i).getcTime()+"\"");
+         result.append("}");
+         if(i !=chatList.size() -1)  result.append(",");
       }
       result.append("],\"last\":\""+chatList.get(chatList.size()-1).getCidx()+"\"}");
       return result.toString();
+      
       
       //
    }
