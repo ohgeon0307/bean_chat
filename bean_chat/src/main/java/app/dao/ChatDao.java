@@ -60,7 +60,7 @@ public class ChatDao {
 	                timeType = "오후";
 	                cTime -= 12;
 	            }
-	            //
+	            
 	            chat.setcTime(rs.getString("cTime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
 	            chatList.add(chat);
 	        }
