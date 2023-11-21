@@ -152,7 +152,7 @@ if (session.getAttribute("cTo") != null) {
         var cTo = '<%= cTo %>';
         $.ajax({
             type: "POST",
-            url: "<%=request.getContextPath()%>/chat/chat_one.do",
+            url: "<%=request.getContextPath()%>/chatcontent/chat_one.do",
             headers: {'Acccpt': 'application/json'},
            
             dataType: "json",
