@@ -53,10 +53,7 @@ public class ChatContentController extends HttpServlet {
          
          //   System.out.println("값이담기나?"+cTo);
          }
-         String path = "/chat/chat_one.jsp";
-         // 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
-         RequestDispatcher rd = request.getRequestDispatcher(path);
-         rd.forward(request, response);
+         
       }
          
          }

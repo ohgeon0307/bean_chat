@@ -60,9 +60,9 @@ function submitFunction(){
 		url: "<%=request.getContextPath()%>/chat/chat_one.do",
 		dataType: "json",
 		data: {
-			cFrom: encodeURICompinent(cFrom),
-			cTo: encodeURIComponent(cTo),
-			cContents: encodeURIComponent(cContents),
+			   cFrom: encodeURIComponent(cFrom),
+	            cTo: encodeURIComponent(cTo),
+	            cContents: encodeURIComponent(cContents),
 		},
 		success: function (result) {
             if (result == 1) {
