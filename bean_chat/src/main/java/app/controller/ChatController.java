@@ -71,7 +71,7 @@ public class ChatController extends HttpServlet {
       }
       else if (location.equals("chat_group.do")) {
     	  response.setContentType("application/json");
-          
+          //
           
           String cFrom = request.getParameter("cFrom");
           String cTo = request.getParameter("cTo");
