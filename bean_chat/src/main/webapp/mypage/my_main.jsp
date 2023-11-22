@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,12 +18,49 @@
 </head>
 
 <body>
-	<header>
-		<div></div>
-	</header>
+	<header><!-- 헤더 시작 -->
+		<div class="container"> 
+			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
+	        <div class="items">
+	            <ul>
+	                <li>
+	                	<c:choose>
+	                		<c:when test="${uidx== null }">
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
+	        				</c:when>
+	            			<c:otherwise>
+	            				<a href="<%=request.getContextPath()%>/user/userLogout.do"><img role="button" src="../images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
+	            			</c:otherwise>
+	            		</c:choose>
+	            	</li>
+	                <li>
+	                	<c:choose>
+	                		<c:when test="${uidx== null }">
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="../images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<a href="<%=request.getContextPath()%>/mypage/myMain.do"><img role="button" src="../images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
+	                		</c:otherwise>
+	                	</c:choose>
+	                </li>
+	                <li><a href="<%=request.getContextPath()%>/board/boardList.do"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a></li>
+	                <li>
+	                	<c:choose>
+	                		<c:when test="${uidx== null }">
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<a href="<%=request.getContextPath()%>/chat/chatList.do"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+	                		</c:otherwise>
+	                	</c:choose>
+	                </li>	
+	            </ul>
+			</div><!-- //.items -->
+		</div> <!-- //.container -->
+	</header><!-- 헤더 종료 -->
 	<main>
 		<h1>My Page</h1>
-		<hr />
+		<hr>
 		<div id="main_zone">
 			<div class="main_button">
 				<a href="<%=request.getContextPath() %>/mypage/myProfile.do">

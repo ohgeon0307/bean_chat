@@ -161,9 +161,10 @@ main h2{
     margin-bottom:80px;
 }
 
+
 #main_view {
 	
-	width: 70%;
+	width: 80%;
 	height: 350px;
     margin:0 auto;
 	display: flex;
@@ -185,20 +186,25 @@ main h2{
 }
 
 .pro_title{
-    font-size:25px;
+	color:#455ba8;
+    font-size:30px;
     font-weight:bold;
 }
+#nickName{
+	display:none;
+}
+
 
 .pro_text{
     text-align: left;
-    margin-top:10px;
+    margin-top:7px;
     line-height:280%;
-    font-size:18px;
+    font-size:20px;
 
 }
 
 #modiBtn{
-    margin-top:150px;
+    margin-top:162.5px;
     border:none;
     background-color: white;
     font-size:25px;
@@ -232,7 +238,7 @@ main h2{
 }
 
 #backBtn:hover{
-    background-color: #418722;
+    background-color: #455ba8;
     color:white;    
 }
 

@@ -226,13 +226,14 @@ main h2{
 #imposible{
     margin-top: 10px;
     width:370px;
-    font-weight:bold;
+    
 }
 
 #imposible h3{
     font-size: 30px;
     margin-top: 20px;
     margin-bottom:20px;
+    font-weight:bold;
 }
 
 #imposible span{
