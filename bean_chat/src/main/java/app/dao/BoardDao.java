@@ -108,6 +108,7 @@ public class BoardDao {
 				bdto.setBidx(rs.getInt("bidx"));
 				bdto.setViewCnt(rs.getInt("viewcnt"));
 				bdto.setbList(rs.getString("bList"));
+				bdto.setWriteDate(rs.getString("writedate"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
