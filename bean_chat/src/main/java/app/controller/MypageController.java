@@ -3,6 +3,7 @@ package app.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,10 +56,10 @@ public class MypageController extends HttpServlet{
 			
 		}else if(location.equals("myModify.do")){
 			HttpSession session = request.getSession();
-			System.out.println(session.getAttribute("uidx"));
+
 			
 			int uidx = (Integer)session.getAttribute("uidx");
-			System.out.println("uidx"+uidx);
+
 			
 			UserDao udao = new UserDao();
 			UserDto udto = udao.UserSelectOne(uidx);
@@ -73,49 +74,53 @@ public class MypageController extends HttpServlet{
 			
 		}else if(location.equals("myModifyAction.do")){
 			
+			
+			
+			
 			HttpSession session = request.getSession();
 			int uidx = (Integer)session.getAttribute("uidx");
+			
+			int maxSize = 1024 * 1024 * 20;
+			String folderPath = "/resources/images/userImage/";
+			String filePath = session.getServletContext().getRealPath(folderPath);
+			String encoding = "UTF-8";
+			
+			MultipartRequest mpReq = new MultipartRequest(request, filePath, maxSize,encoding, new FileRename());
+			
 			System.out.println("getuidx"+uidx);
-			String userNickname = request.getParameter("userNickname");
-			String userName = request.getParameter("userName");
-			String userYear = request.getParameter("userYear");
-			String userMonth = request.getParameter("userMonth");
-			String userDay = request.getParameter("userDay");
-			String userPhone = request.getParameter("userPhone");
+			String userNickname = mpReq.getParameter("userNickname");
+			String userName = mpReq.getParameter("userName");
+			String userYear = mpReq.getParameter("userYear");
+			String userMonth = mpReq.getParameter("userMonth");
+			String userDay = mpReq.getParameter("userDay");
+			String userPhone = mpReq.getParameter("userPhone");
 
 			
 			String userBirth  = userYear+userMonth+userDay;
 			
-			System.out.println("username"+userName);
+
 			
 			UserDto udto = new UserDto();
-			System.out.println("udto.uidx"+udto.getUidx());
-			System.out.println("udto"+udto.getUserNickname());
+
 			udto.setUserNickname(userNickname);
 			udto.setUserName(userName);
 			udto.setUserBirth(userBirth);
 			udto.setUserPhone(userPhone);
 			udto.setUidx(uidx);
-			System.out.println("setuidx"+uidx);
-			System.out.println("setuserName"+userName);
-			System.out.println("setuserBirth"+userBirth);
-			System.out.println("setuserPhone"+userPhone);
-			System.out.println("setuserNickname"+userNickname);
+
 
 			UserDao udao = new UserDao();
 			int value = udao.userModify(udto);
 			
-			System.out.println(udto);
-			System.out.println(udto.getUserNickname());
-			System.out.println(value);
-			System.out.println("path"+request.getContextPath());
+
+
+
 			
 			PrintWriter out = response.getWriter();
 			
 			if(value == 1) {
 				out.println("<script>alert('정상적으로 변경 되었습니다.');"
 						+	"document.location.href='"+request.getContextPath()+"/mypage/myProfile.do'</script>");
-				System.out.println("path"+request.getContextPath());
 			}else{
 				out.println("<script>history.back();</script>");	
 			}
@@ -124,8 +129,8 @@ public class MypageController extends HttpServlet{
 			
 		}else if(location.equals("myImage.do")){
 			
-			int maxSize = 1024 * 1024 * 20;
 			HttpSession session = request.getSession();
+			int maxSize = 1024 * 1024 * 20;
 			String folderPath = "/resources/images/userImage/";
 			String filePath = session.getServletContext().getRealPath(folderPath);
 			
@@ -170,6 +175,12 @@ public class MypageController extends HttpServlet{
 			
 			
 			
+			
+			
+		}else if(location.equals("myChangePwd.do")){
+			String path ="/mypage/my_friend_list.jsp";
+			 RequestDispatcher rd = request.getRequestDispatcher(path);
+			 rd.forward(request, response);
 			
 			
 		}else if(location.equals("myFriend.do")){

@@ -99,8 +99,8 @@
 						</div><!-- //.pro_text -->
 						
 	                    <div class="im_text">
-	                        <button id="pwdBtn"><i class="xi-touch"></i>비밀번호 변경할래요!<i class="xi-pen"></i></button>
-	                        <button id="delBtn"><i class="xi-error"></i>우리 그만봐요..탈퇴할래요..<i class="xi-emoticon-sad-o"></i></button>
+	                        <button id="pwdBtn" onclick="modiPwd()"><i class="xi-touch"></i>비밀번호 변경할래요!<i class="xi-pen"></i></button>
+	                        <button id="delBtn" onclick="byeUser()"><i class="xi-error"></i>우리 그만봐요..탈퇴할래요..<i class="xi-emoticon-sad-o"></i></button>
 	                    </div>
 					</section>
             	</div><!-- //#posible -->
@@ -189,6 +189,29 @@
 		
 	}
 	
+	function modiPwd(){
+		var fm = document.frm;
+		
+		fm.method = "post";
+		fm.action = "<%=request.getContextPath()%>/mypage/myChangePwd.do"; //처리하기위해 이동하는 주소
+		fm.submit();
+
+	    return true;
+		
+		
+	}
+	
+	function byeUser(){
+		var fm = document.frm;
+		
+		fm.method = "post";
+		fm.action = "<%=request.getContextPath()%>/mypage/myDelete.do"; //처리하기위해 이동하는 주소
+		fm.submit();
+
+	    return true;
+		
+		
+	}
 	
 	function changeImg(){
 	    
