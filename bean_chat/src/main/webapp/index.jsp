@@ -80,7 +80,6 @@
                 <div class="main_text_image">
                     <img src="./images/indexImage/BeanchatTitle2.png" alt="" class="Beanchat_title2">
                     <p>우리는 어쩌면 작은 콩들이 아닐까요?</p>
-                    <a href="<%=request.getContextPath()%>/mypage/myModify.do"><img role="button" src="./images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
                     <p> 빈챗의 웹 협업 채팅 어플리케이션은 마치 작은 완두콩처럼 작지만,</p>
                      <p>협업의 힘으로 무한한 가능성을 키우는 도구입니다.</p>
                      <p>작은 콩들이 커져 성장하는 과정을 지원하고, </p>

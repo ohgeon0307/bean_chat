@@ -88,17 +88,21 @@
                                         
                                             <form name="frm" id="frm">
 												<div id="main_view">
-                                                <section id="pro_image">
-                                                	
-            											<img src="${profileImg}${udto.userImage}" id="member-profile">
-            										
-                                                </section>
+                                           			<section id="pro_image_area">
+										 				<c:if test="${empty udto.userImage}">
+								                            <img src="../images/noprofile.png" id="profile-image">
+								                        </c:if>
+								                            
+								                        <c:if test="${!empty udto.userImage}">
+								                            <img src="/profileImg/${udto.userImage}" id="profile-image">
+								                        </c:if>	
+						
+												 	</section>
                                                 <section id="pro_info">
                                                     <div class="pro_title">
                                                         <label id="nickName">닉네임</label>
                                                         <span>${udto.userNickname}</span>
-                                                    </div>
-                                                    <!-- //.pro_text -->
+                                                    </div><!-- //.pro_text -->
 
                                                     <div class="pro_text">
                                                         <label>ID(Email) :</label>

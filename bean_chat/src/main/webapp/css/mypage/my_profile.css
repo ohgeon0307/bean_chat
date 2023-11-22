@@ -171,18 +171,11 @@ main h2{
 	justify-content: space-between;
 }
 
-#pro_image{
+#profile-image{
     width:260px;
     height:330px;
-    background-color: rgb(182, 182, 182);
-}
+    border:2px solid #000;
 
-#pro_image p{
-    text-align:center;
-    font-size:25px;
-    padding-top: 152.5px;
-    letter-spacing:3px;
-    font-weight: bold;
 }
 
 .pro_title{

@@ -15,37 +15,18 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <!-- 제이쿼리 연결 -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
-    <script>
-	function changeForm(val){
-		
-		var fm = document.frm;
-		
-		if(val == "1"){
-			fm.method = "post";
-			fm.action = "<%=request.getContextPath()%>/mypage/myProfile.do"; //처리하기위해 이동하는 주소
-			fm.submit();
-			return;
-		}else if(val == "0"){
-			fm.method = "post";
-			fm.action = "<%=request.getContextPath()%>/mypage/myModifyAction.do"; //처리하기위해 이동하는 주소
-			fm.submit();
-			return;
-		}
-		
-	}
 
-</script>
 </head>
 <body>
 	<header><!-- 헤더 시작 -->
 		<div class="container"> 
 			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
 	        <div class="items">
-	            <ul>
-	                <li>
-	                	<c:choose>
-	                		<c:when test="${uidx== null }">
-	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
+	        	<ul>
+					<li>
+						<c:choose>
+							<c:when test="${uidx== null }">
+								<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
 	        				</c:when>
 	            			<c:otherwise>
 	            				<a href="<%=request.getContextPath()%>/user/userLogout.do"><img role="button" src="../images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
@@ -82,47 +63,48 @@
 		<hr>
 		
 		<h2>내 프로필 수정하기</h2>
+				
 
-					
-		<section id="posible">
 		 	<form name="frm" enctype="multipart/form-data">
-		 	<input type="hidden" name="uidx" id="uidx" value="${udto.uidx}">
-		 	<div id="high_zone">	
-            <section id="pro_image">
-		 			<div class="pro_image_area">
-		 				<c:if test="${empty udto.userImage}">
-                            <img src="../images/noprofile.png" id="profile-image">
-                        </c:if>
-                            
-                        <c:if test="${!empty udto.userImage}">
-                            <img src="${contextPath}${udto.userImage}" id="profile-image">
-                        </c:if>	
-		 			
-		 			</div>
+		 		<input type="hidden" name="uidx" id="uidx" value="${udto.uidx}">
+		 		<div id="posible">	
+					<section id="pro_image">
+			 			<div class="pro_image_area">
+			 				<c:if test="${empty udto.userImage}">
+	                            <img src="../images/noprofile.png" id="profile-image">
+	                        </c:if>
+	                            
+	                        <c:if test="${!empty udto.userImage}">
+	                            <img src="/profileImg/${udto.userImage}" id="profile-image">
+	                        </c:if>	
+			 			</div><!-- //.pro_image_area -->
 
-		 		 	<div class="pro_img_btn">
-                        <label for="userImage">이미지 선택</label>
-                        <input type="file" name="userImage" id="userImage" accept="image/*">
-                        <input type="submit" value="변경하기" onclick="changeImg()">
-                    </div>
-		 		</section>
+			 		 	<div class="pro_img_btn">
+	                        <label for="userImage">이미지 선택</label>
+	                        <input type="file" name="userImage" id="userImage" accept="image/*">
+	                        <input type="submit" value="변경하기" onclick="changeImg()">
+	                    </div>
+                    	<p><i class="xi-check-min"></i>이미지 선택 후 변경하기 버튼을 꼭 눌러주세요!</p>
+		 			</section>
 
-		 		<section id="imposible">
-					<div class="im_text">
-						<h3>ID(Email)</h3>
-						<span>: ${udto.userId}</span>
-					</div><!-- //.pro_text -->
-					
-					<div class="im_text">
-						<h3>가입일</h3>
-                        <span>: ${udto.userDate}</span>
-					</div><!-- //.pro_text -->
-                    <div class="im_text">
-                        <button id="pwdBtn"><i class="xi-touch"></i>비밀번호 변경할래요!<i class="xi-pen"></i></button>
-                        <button id="delBtn"><i class="xi-error"></i>우리 그만봐요..탈퇴할래요..<i class="xi-emoticon-sad-o"></i></button>
-                    </div>
-				</section>
-            </div>
+			 		<section id="imposible">
+						<div class="im_text">
+							<h3>ID(Email)</h3>
+							<span>: ${udto.userId}</span>
+						</div><!-- //.pro_text -->
+						
+						<div class="im_text">
+							<h3>가입일</h3>
+	                        <span>: ${udto.userDate}</span>
+						</div><!-- //.pro_text -->
+						
+	                    <div class="im_text">
+	                        <button id="pwdBtn"><i class="xi-touch"></i>비밀번호 변경할래요!<i class="xi-pen"></i></button>
+	                        <button id="delBtn"><i class="xi-error"></i>우리 그만봐요..탈퇴할래요..<i class="xi-emoticon-sad-o"></i></button>
+	                    </div>
+					</section>
+            	</div><!-- //#posible -->
+            	
 				<section id="pro_info">
 					<div class="pro_text">
 						<label>닉네임 : </label>
@@ -148,50 +130,66 @@
 						        String userMonth = userBirth.substring(4, 6);
 						        String userDay = userBirth.substring(6, 8);
    						 %>
-   						 <div id="userBirth">
-						<label>생년월일 : </label>
+   						<div id="userBirth">
+							<label>생년월일 : </label>
 						
-						<select name="userYear" id="userYear">
-	        				<% 
-	           				 for (int year = 1950; year <= 2023; year++) {
-	           					 String formattedYear = String.format("%04d", year); // 연도를 4자리로 표현
-	       					 %>
-	           				   <option value="<%= formattedYear %>" <%= (formattedYear.equals(userYear)) ? "selected" : "" %>><%= formattedYear %></option>
-	        				<% } %>
-    					</select><p>년</p>
-    					<select name="userMonth" id="userMonth">
-	        				<% 
-	            			for (int month = 1; month <= 12; month++) {
-	            				 String formattedMonth = String.format("%02d", month); // 월을 2자리로 표현
-	       					 %>
-	            			<option value="<%= formattedMonth %>" <%= (formattedMonth.equals(userMonth)) ? "selected" : "" %>><%= formattedMonth %></option>
-	       					 <% } %>
-					    </select><p>월</p>
-					    <select name="userDay" id="userDay">
-					        <% 
-					            for (int day = 1; day <= 31; day++) {
-					            	 String formattedDay = String.format("%02d", day); // 일을 2자리로 표현
-					        %>
-					           <option value="<%= formattedDay %>" <%= (formattedDay.equals(userDay)) ? "selected" : "" %>><%= formattedDay %></option>
-					        <% } %>
-   						</select><p>일</p>
+							<select name="userYear" id="userYear">
+		        				<% 
+		           				 for (int year = 1950; year <= 2023; year++) {
+		           					 String formattedYear = String.format("%04d", year); // 연도를 4자리로 표현
+		       					 %>
+		           				   <option value="<%= formattedYear %>" <%= (formattedYear.equals(userYear)) ? "selected" : "" %>><%= formattedYear %></option>
+		        				<% } %>
+	    					</select>
+	    					<p>년</p>
+	    					<select name="userMonth" id="userMonth">
+		        				<% 
+		            			for (int month = 1; month <= 12; month++) {
+		            				 String formattedMonth = String.format("%02d", month); // 월을 2자리로 표현
+		       					 %>
+		            			<option value="<%= formattedMonth %>" <%= (formattedMonth.equals(userMonth)) ? "selected" : "" %>><%= formattedMonth %></option>
+		       					 <% } %>
+						    </select>
+						    <p>월</p>
+						    <select name="userDay" id="userDay">
+						        <% 
+						            for (int day = 1; day <= 31; day++) {
+						            	 String formattedDay = String.format("%02d", day); // 일을 2자리로 표현
+						        %>
+						           <option value="<%= formattedDay %>" <%= (formattedDay.equals(userDay)) ? "selected" : "" %>><%= formattedDay %></option>
+						        <% } %>
+	   						</select>
+	   						<p>일</p>
 						</div><!-- //#userBirth -->
 					</div><!-- //.pro_text -->
-					
-					
 				</section>
+				
                 <section id="button_zone">
                     <input type="button" id="modiBtn" value="변경하기" onclick="changeForm(0)">
                     <input type="button" id="backBtn" value="취소하기" onclick="changeForm(1)">
-                    
 			    </section>
-		</form>
-		</section>
-		 	
-		 		
-	
+			</form>
 	</main>
 	<script>
+	function changeForm(val){
+		
+		var fm = document.frm;
+		
+		if(val == "1"){
+			fm.method = "post";
+			fm.action = "<%=request.getContextPath()%>/mypage/myProfile.do"; //처리하기위해 이동하는 주소
+			fm.submit();
+			return;
+		}else if(val == "0"){
+			fm.method = "post";
+			fm.action = "<%=request.getContextPath()%>/mypage/myModifyAction.do"; //처리하기위해 이동하는 주소
+			fm.submit();
+			return;
+		}
+		
+	}
+	
+	
 	function changeImg(){
 	    
 	    const userImage = document.getElementById("userImage");
@@ -211,9 +209,6 @@
 	}
 	
 	
-	
-	</script>
-	<script>
 	const userImage = document.getElementById("userImage");
 	if(userImage != null){ // inputImage 요소가 화면에 존재할 때
 	
@@ -242,10 +237,12 @@
                     profileImage.setAttribute("src", e.target.result);
                     // -> setAttribute() 호출 시 중복되는 속성이 존재하면 덮어쓰기
            		}
-		}
-    })
-}
-	
+			}
+   		})
+	}
+
 	</script>
+	
+	
 </body>
 </html>

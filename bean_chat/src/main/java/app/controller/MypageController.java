@@ -86,23 +86,36 @@ public class MypageController extends HttpServlet{
 			
 			String userBirth  = userYear+userMonth+userDay;
 			
+			System.out.println("username"+userName);
 			
 			UserDto udto = new UserDto();
+			System.out.println("udto.uidx"+udto.getUidx());
+			System.out.println("udto"+udto.getUserNickname());
 			udto.setUserNickname(userNickname);
 			udto.setUserName(userName);
 			udto.setUserBirth(userBirth);
 			udto.setUserPhone(userPhone);
 			udto.setUidx(uidx);
 			System.out.println("setuidx"+uidx);
-			
+			System.out.println("setuserName"+userName);
+			System.out.println("setuserBirth"+userBirth);
+			System.out.println("setuserPhone"+userPhone);
+			System.out.println("setuserNickname"+userNickname);
+
 			UserDao udao = new UserDao();
 			int value = udao.userModify(udto);
+			
+			System.out.println(udto);
+			System.out.println(udto.getUserNickname());
+			System.out.println(value);
+			System.out.println("path"+request.getContextPath());
 			
 			PrintWriter out = response.getWriter();
 			
 			if(value == 1) {
 				out.println("<script>alert('정상적으로 변경 되었습니다.');"
 						+	"document.location.href='"+request.getContextPath()+"/mypage/myProfile.do'</script>");
+				System.out.println("path"+request.getContextPath());
 			}else{
 				out.println("<script>history.back();</script>");	
 			}
@@ -113,12 +126,20 @@ public class MypageController extends HttpServlet{
 			
 			int maxSize = 1024 * 1024 * 20;
 			HttpSession session = request.getSession();
-			String savepath = session.getServletContext().getRealPath("/resources/images/userImage/");
-			
+			String folderPath = "/resources/images/userImage/";
+			String filePath = session.getServletContext().getRealPath(folderPath);
 			
 			String encoding = "UTF-8";
-			MultipartRequest mpReq = new MultipartRequest(request, savepath, maxSize, encoding, new FileRename());
-			System.out.println("루트가 어딘디" + savepath);
+			MultipartRequest mpReq = new MultipartRequest(request, filePath, maxSize,encoding, new FileRename());
+			/*
+			 * String savepath =
+			 * session.getServletContext().getRealPath("/resources/images/userImage/");
+			 * 
+			 * 
+			 * String encoding = "UTF-8"; MultipartRequest mpReq = new
+			 * MultipartRequest(request, savepath, maxSize, encoding, new FileRename());
+			 */
+			System.out.println("루트가 어딘디" + filePath);
 			
 			System.out.println(mpReq.getOriginalFileName("userImage"));
 			System.out.println(mpReq.getFilesystemName("userImage"));
@@ -131,7 +152,7 @@ public class MypageController extends HttpServlet{
 			request.setAttribute("udto", udto);
 			
 			
-			String userImage = savepath + mpReq.getFilesystemName("userImage");
+			String userImage = folderPath + mpReq.getFilesystemName("userImage");
 			System.out.println(userImage+"이미지파일 최종저장");
 			int value = udao.userImageUpdate(uidx, userImage);
 			System.out.println("value는?"+value);
