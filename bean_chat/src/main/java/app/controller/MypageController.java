@@ -131,18 +131,9 @@ public class MypageController extends HttpServlet{
 			
 			String encoding = "UTF-8";
 			MultipartRequest mpReq = new MultipartRequest(request, filePath, maxSize,encoding, new FileRename());
-			/*
-			 * String savepath =
-			 * session.getServletContext().getRealPath("/resources/images/userImage/");
-			 * 
-			 * 
-			 * String encoding = "UTF-8"; MultipartRequest mpReq = new
-			 * MultipartRequest(request, savepath, maxSize, encoding, new FileRename());
-			 */
+
 			System.out.println("루트가 어딘디" + filePath);
 			
-			System.out.println(mpReq.getOriginalFileName("userImage"));
-			System.out.println(mpReq.getFilesystemName("userImage"));
 			
 			
 			int uidx = (Integer)session.getAttribute("uidx");
