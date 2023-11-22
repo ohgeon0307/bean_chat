@@ -164,7 +164,7 @@ main h2{
 
 #high_zone{
     margin:0 auto;
-    width: 50%;
+    width: 60%;
     height: 400px;
     display:flex;
     justify-content: space-between;
@@ -225,7 +225,7 @@ main h2{
 
 #imposible{
     margin-top: 10px;
-    width:430px;
+    width:370px;
     font-weight:bold;
 }
 
@@ -260,17 +260,21 @@ main h2{
     letter-spacing:1px;
     font-weight:bold;
     height:30px;
-    color:red;
+    color:#a0a0a0;
 }
 
-#imposible button:hover{
+#pwdBtn:hover{
     color:pink;
+}
+
+#delBtn:hover{
+	color:red;
 }
 
 
 #pro_info{
     margin:0 auto;
-    width: 50%;
+    width: 60%;
     text-align: center;
 }
 .pro_text > label{
@@ -295,6 +299,31 @@ main h2{
     line-height:280%;
 }
 
+
+
+#userBirth{
+	display:flex;
+
+	
+}
+#userBirth > label{
+	font-size:25px;
+	font-weight:bold;
+}
+
+#userYear, #userMonth, #userDay{
+	font-size:18px;
+	margin-left:10px;
+
+}
+
+#userBirth p{
+	margin-left:3px;
+	font-size:18px;
+}
+
+
+
 #button_zone{
     width:280px;
     margin:0 auto;
@@ -313,6 +342,7 @@ main h2{
     cursor: pointer;
     border-radius: 10px;
     border:none;
+    margin-bottom:50px;
     
 }
 
@@ -328,6 +358,7 @@ main h2{
     cursor: pointer;
     border-radius: 10px;
     border:none;
+    margin-bottom:50px;
 
 }
 

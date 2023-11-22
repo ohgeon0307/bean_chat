@@ -67,7 +67,7 @@
                             <img src="../images/noprofile.png" id="profile-image">
                         </c:if>
                             
-                        <c:if test="${!empty udto.userImage}" style="display: none;">
+                        <c:if test="${!empty udto.userImage}">
                             <img src="${contextPath}${udto.userImage}" id="profile-image">
                         </c:if>	
 		 			
@@ -121,33 +121,34 @@
 						        String userMonth = userBirth.substring(4, 6);
 						        String userDay = userBirth.substring(6, 8);
    						 %>
+   						 <div id="userBirth">
 						<label>생년월일 : </label>
 						
-						<select name="userYear">
+						<select name="userYear" id="userYear">
 	        				<% 
 	           				 for (int year = 1950; year <= 2023; year++) {
 	           					 String formattedYear = String.format("%04d", year); // 연도를 4자리로 표현
 	       					 %>
-	           				   <option value="<%= formattedYear %>" <%= (formattedYear.equals(userYear)) ? "selected" : "" %>><%= formattedYear %>년</option>
+	           				   <option value="<%= formattedYear %>" <%= (formattedYear.equals(userYear)) ? "selected" : "" %>><%= formattedYear %></option>
 	        				<% } %>
-    					</select>
-    					<select name="userMonth">
+    					</select><p>년</p>
+    					<select name="userMonth" id="userMonth">
 	        				<% 
 	            			for (int month = 1; month <= 12; month++) {
 	            				 String formattedMonth = String.format("%02d", month); // 월을 2자리로 표현
 	       					 %>
-	            			<option value="<%= formattedMonth %>" <%= (formattedMonth.equals(userMonth)) ? "selected" : "" %>><%= formattedMonth %>월</option>
+	            			<option value="<%= formattedMonth %>" <%= (formattedMonth.equals(userMonth)) ? "selected" : "" %>><%= formattedMonth %></option>
 	       					 <% } %>
-					    </select>
-					    <select name="userDay">
+					    </select><p>월</p>
+					    <select name="userDay" id="userDay">
 					        <% 
 					            for (int day = 1; day <= 31; day++) {
 					            	 String formattedDay = String.format("%02d", day); // 일을 2자리로 표현
 					        %>
-					           <option value="<%= formattedDay %>" <%= (formattedDay.equals(userDay)) ? "selected" : "" %>><%= formattedDay %>일</option>
+					           <option value="<%= formattedDay %>" <%= (formattedDay.equals(userDay)) ? "selected" : "" %>><%= formattedDay %></option>
 					        <% } %>
-   						</select>
-
+   						</select><p>일</p>
+						</div><!-- //#userBirth -->
 					</div><!-- //.pro_text -->
 					
 					
