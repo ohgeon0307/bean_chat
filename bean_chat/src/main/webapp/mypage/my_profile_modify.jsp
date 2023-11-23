@@ -76,6 +76,7 @@
 	                            
 	                        <c:if test="${!empty udto.userImage}">
 	                            <img src="../${udto.userImage}" id="profile-image">
+	                            
 	                        </c:if>	
 			 			</div><!-- //.pro_image_area -->
 
