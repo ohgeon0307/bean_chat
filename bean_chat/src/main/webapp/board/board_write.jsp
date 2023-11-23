@@ -10,15 +10,13 @@
 <link href="../images/indexImage/beanchat_char.png" rel="shortcut icon" />
 <!--파비콘-->
 <!-- include libraries(jQuery, bootstrap) -->
-<link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
-    />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script
 	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-	
+
 
 <!-- include summernote css/js-->
 
@@ -117,57 +115,47 @@
     </script>
 
 <script>
-	$(function(){
-		$(".write").click(function(){
-			var title = $(".title").val();		
-			var content = $(".content").val();
+function check(){
 
-			if(title == ""){
-				alert("제목을 입력해주세요.");
-				document.frm.title.focus();
-				return false;
-			}else if(content
-					== ""){
-				alert("내용을 입력해주세요.");
-				document.frm.content.focus();
-				return false;
-			}
-			
-			return true;
-		});
-		
-		$(".cancel").on("click", function(){
-			
-			location.href ="list.do?page=${searchVo.page}"
-						  +"&category=${searchVo.category}"
-						  +"&order=${searchVo.order}"
-				   		  +"&perPageNum=${searchVo.perPageNum}"
-				   	 	  +"&searchType=${searchVo.searchType}"
-				   		  +"&searchVal=${searchVo.searchVal}";
-		})
-	});
+    var fm = document.frm;
+
+    if (fm.subject.value == "") {
+      alert("제목을 입력해주세요.");
+      fm.subject.focus();
+      return false;
+    } else if (fm.contents.value == "") {
+      alert("내용을 입력해주세요.");
+      fm.contents.focus();
+      return false;
+    }
+  
+	fm.action = "<%=request.getContextPath()%>/board/boardWriteAction.do";
+	fm.method = "post";
+	fm.submit();
+	return;
+}
 	</script>
 
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
 <link href="../css/board/board_write.css" rel="stylesheet" />
 <!--css 연결-->
 </head>
 <body>
-	<form action="boardWriteAction.do" method="post" name="frm">
+	<form name="frm">
 		<input type="hidden" value="${udto.userNickname}" name="writer">
 		<div id="topMenu">
 			<div class="leftElement">
 				<a href="#" class="logo"> <img
-					src="../images/indexImage/beanchat_text.png"
-					
-              width="220px" />
+					src="../images/indexImage/beanchat_text.png" width="220px" />
 				</a>
 				<h1>글쓰기 Editor</h1>
 			</div>
 			<!--end: .leftElement-->
 			<div class="rightElement">
 				<a href="#" class="cancel">취소</a>
-				<button class="write">등록</button>
+				<button class="write" onclick="check();">등록</button>
 				<p class="nickname">
 					<span>${udto.userNickname}</span> 님
 				</p>
@@ -186,8 +174,8 @@
 					<option>후기</option>
 				</select> <input type="text" name="subject" class="title" minlength="2"
 					maxlength="40" placeholder="제목을 입력하세요" /> <span
-					style="color: #aaa; font-size: 15.5px" id="counter">(0
-					/ 40)</span> <br /> <span class="errorMsg"></span>
+					style="color: #aaa; font-size: 15.5px" id="counter">(0 / 40)</span>
+				<br /> <span class="errorMsg"></span>
 			</div>
 			<!--end: title-->
 			<textarea id="summernote" class="content" name="contents">
@@ -211,50 +199,40 @@
 		<!--end: main-->
 	</form>
 	<!--end: form-->
-		<footer>
-      <div id="slogan">
-        <img
-          src="../images/indexImage/beanchat_char.png"
-          width="200px"
-        />
-        <p>Beanchat, the collaborative chat web application System.</p>
-      </div>
-      <!--end: #slogan-->
-      <div id="footerMenu">
-        <ul>
-          <li><a href="#">팀 소개</a></li>
-          <p>&#124;</p>
-          <li><a href="#">개인정보처리방침</a></li>
-          <p>&#124;</p>
-          <li><a href="#">이용약관</a></li>
-          <p>&#124;</p>
-          <li><a href="#">도움말</a></li>
-          <p>&#124;</p>
-          <li><a href="#">공지사항</a></li>
-        </ul>
-        <p class="companyInfo">
-          빈챗 &#124; 팀원 : 최다혜 안기현 임세현 오 건 <br/>Beanchat &#124; 전주시 덕진구 백제대로
-          572 4층 이젠컴퓨터아트서비스학원
-          <br />
-          © 2023 Beanchat Ltd. All rights reserved.
-        </p>
-        <!--end: .companyInfo-->
-      </div>
-      <!--end: #footerMenu-->
-      <div id="sns">
-        <ul>
-          <li>
-            <a href="#"><i class="xi-instagram xi-2x"></i></a>
-          </li>
-          <li>
-            <a href="#"><i class="xi-facebook xi-2x"></i></a>
-          </li>
-          <li>
-            <a href="#"><i class="xi-kakaotalk xi-2x"></i></a>
-          </li>
-        </ul>
-      </div>
-      <!--end: #sns-->
-    </footer>
+	<footer>
+		<div id="slogan">
+			<img src="../images/indexImage/beanchat_char.png" width="200px" />
+			<p>Beanchat, the collaborative chat web application System.</p>
+		</div>
+		<!--end: #slogan-->
+		<div id="footerMenu">
+			<ul>
+				<li><a href="#">팀 소개</a></li>
+				<p>&#124;</p>
+				<li><a href="#">개인정보처리방침</a></li>
+				<p>&#124;</p>
+				<li><a href="#">이용약관</a></li>
+				<p>&#124;</p>
+				<li><a href="#">도움말</a></li>
+				<p>&#124;</p>
+				<li><a href="#">공지사항</a></li>
+			</ul>
+			<p class="companyInfo">
+				빈챗 &#124; 팀원 : 최다혜 안기현 임세현 오 건 <br />Beanchat &#124; 전주시 덕진구 백제대로
+				572 4층 이젠컴퓨터아트서비스학원 <br /> © 2023 Beanchat Ltd. All rights
+				reserved.
+			</p>
+			<!--end: .companyInfo-->
+		</div>
+		<!--end: #footerMenu-->
+		<div id="sns">
+			<ul>
+				<li><a href="#"><i class="xi-instagram xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-facebook xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-kakaotalk xi-2x"></i></a></li>
+			</ul>
+		</div>
+		<!--end: #sns-->
+	</footer>
 </body>
 </html>

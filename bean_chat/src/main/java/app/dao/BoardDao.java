@@ -125,4 +125,75 @@ public class BoardDao {
 		
 		return bdto;
 	}
+	
+	public int boardModify(BoardDto bdto) {
+		int exec = 0;
+		String sql = "update boardtable set\r\n"
+				+ "subject = ?, \r\n"
+				+ "contents = ?, \r\n"
+				+ "writer = ?, \r\n"
+				+ "modifydate = now() \r\n"
+				+ "where bidx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bdto.getSubject());
+			pstmt.setString(2, bdto.getContents());
+			pstmt.setString(3, bdto.getWriter());
+			pstmt.setInt(4, bdto.getBidx());
+			
+			exec = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return exec;
+	}
+	
+	public int boardDelete(int bidx) {
+		int exec = 0;
+		
+		String sql = "update boardtable set\r\n"
+				+ "bDelYn = 'Y', \r\n"
+				+ "modifydate = now() \r\n"
+				+ "where bidx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bidx);
+			
+			exec = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return exec;
+	}
+	
+	 public String getAuthorUidx(int bidx) {
+	        String authorUidx = null;
+
+	        // 해당 글의 작성자 uidx를 가져오는 SQL 쿼리
+	        String sql = "SELECT uidx FROM boardtable WHERE bidx = ?";
+
+	        try {
+	            // 데이터베이스 연결 등의 초기 작업 수행
+
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setInt(1, bidx);
+	            ResultSet rs = pstmt.executeQuery();
+
+	            if (rs.next()) {
+	                // 결과에서 작성자 ID를 가져옴
+	            	authorUidx = rs.getString("uidx");
+	            }
+
+	            // 사용한 자원 반환 등의 마무리 작업 수행
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return authorUidx;
+	    }
+	
+	
 	}

@@ -101,7 +101,7 @@
         });
         
         $(".logo").click(function(){	
-        	if(!confirm("메인으로 돌아가시겠습니까? 작성하신 내용은 저장되지 않습니다.")){
+        	if(!confirm("메인으로 돌아가시겠습니까?")){
 				return false;
         	}else{
         		location.href="<%=request.getContextPath()%>";
@@ -152,6 +152,14 @@
 		})
 	});
 	</script>
+	
+	<script>
+  function confirmDelete(bidx) {
+    if (confirm("게시글을 삭제하시겠습니까?")) {
+      location.href = '<%=request.getContextPath()%>/board/boardDeleteAction.do?bidx=' + bidx;
+    }
+  }
+</script>
 
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <link href="../css/board/board_contents.css" rel="stylesheet" />
@@ -209,9 +217,9 @@
 				<%=bdto.getContents() %>
 			</p>
             <div class="center-buttons">
-            <a href="#"><button>목록</button></a>
-            <a href="#"><button>수정</button></a>
-            <a href="#"><button>삭제</button></a>
+            <a href="${pageContext.request.contextPath}/board/boardList.do"><button>목록</button></a>
+            <button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardModify.do?bidx=<%=bdto.getBidx()%>'">수정</button>
+            <button type="button" onclick="confirmDelete('<%=bdto.getBidx()%>')">삭제</button>
             </div>
 		</div>
     </div>
