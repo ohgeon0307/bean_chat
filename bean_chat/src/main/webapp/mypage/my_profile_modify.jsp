@@ -73,7 +73,7 @@
 			 				<c:if test="${empty udto.userImage}">
 	                            <img src="../images/noprofile.png" id="profile-image">
 	                        </c:if>
-	                            
+	                             
 	                        <c:if test="${!empty udto.userImage}">
 	                            <img src="../${udto.userImage}" id="profile-image">
 	                            

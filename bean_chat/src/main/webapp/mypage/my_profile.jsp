@@ -96,7 +96,7 @@
 								                        <c:if test="${!empty udto.userImage}">
 								                            <img src="../${udto.userImage}" id="profile-image">
 								                        </c:if>	
-						  
+						   
 												 	</section>
                                                 <section id="pro_info">
                                                     <div class="pro_title">
