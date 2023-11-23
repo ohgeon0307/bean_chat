@@ -94,7 +94,7 @@
 								                        </c:if>
 								                            
 								                        <c:if test="${!empty udto.userImage}">
-								                            <img src="/profileImg/${udto.userImage}" id="profile-image">
+								                            <img src="../${udto.userImage}" id="profile-image">
 								                        </c:if>	
 						
 												 	</section>
