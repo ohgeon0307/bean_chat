@@ -162,7 +162,6 @@
 	              <span class="required">*</span>
 	              생년월일
 	            </label>
-
 	            <!-- 생년월일  input창 -->
 	            <div class="input_area">
 							<select name="userYear" id="userYear">
@@ -170,8 +169,8 @@
 		           				 for (int year = 1950; year <= 2023; year++) {
 		           					 String formattedYear = String.format("%04d", year); // 연도를 4자리로 표현
 		       					 %>
-		           				   <option value="<%= formattedYear %>" <%= "selected" : "" %>><%= formattedYear %></option>
-		        				<% } %>
+		           				  <option value="<%= formattedYear %>" <%= (year == 2000) ? "selected" : "" %>><%= formattedYear %></option>
+    							<% } %>
 	    					</select>
 	    					<p>년</p>
 	    					<select name="userMonth" id="userMonth">
