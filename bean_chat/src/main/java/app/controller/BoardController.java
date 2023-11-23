@@ -65,7 +65,7 @@ public class BoardController extends HttpServlet {
 			} else {
 				System.out.println("udto is null or empty.");
 			}
-
+ 
 			String path = "/board/board_write.jsp";
 
 			RequestDispatcher rd = request.getRequestDispatcher(path);
