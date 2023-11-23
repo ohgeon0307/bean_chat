@@ -116,6 +116,7 @@ public class UserController extends HttpServlet{
 				rd.forward(request, response);
 				
 				
+				
 			//로그인 수행	
 			}else if (location.equals("userLoginAction.do")) {
 
@@ -159,12 +160,14 @@ public class UserController extends HttpServlet{
 			    }
 			}else if(location.equals("userLogout.do")) {
 				
+				
 				HttpSession session = request.getSession();
 				session.removeAttribute("userId");
 				session.removeAttribute("uidx");
 				session.invalidate();
 				
 				response.sendRedirect(request.getContextPath() + "/index.jsp");
+				
 			
 				
 				

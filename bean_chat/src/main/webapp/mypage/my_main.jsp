@@ -29,7 +29,7 @@
 	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
 	        				</c:when>
 	            			<c:otherwise>
-	            				<a href="<%=request.getContextPath()%>/user/userLogout.do"><img role="button" src="../images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
+	            				<a href="<%=request.getContextPath()%>/user/userLogout.do"  onclick="return confirm('로그아웃 하시겠습니까?')"><img role="button" src="../images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
 	            			</c:otherwise>
 	            		</c:choose>
 	            	</li>
