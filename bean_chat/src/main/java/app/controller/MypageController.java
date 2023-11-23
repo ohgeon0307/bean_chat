@@ -157,7 +157,7 @@ public class MypageController extends HttpServlet{
 			
 			
 			
-			if(value>0){	//성공
+			if(value > 0){	//성공
 				session.setAttribute("message", "프로필 이미지가 변경되었습니다.");
 				udto.setUserImage(userImage);
 				System.out.println("userImage?" + udto.getUserImage());

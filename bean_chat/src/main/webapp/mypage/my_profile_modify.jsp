@@ -75,7 +75,7 @@
 	                        </c:if>
 	                            
 	                        <c:if test="${!empty udto.userImage}">
-	                            <img src="/profileImg/${udto.userImage}" id="profile-image">
+	                            <img src="../${udto.userImage}" id="profile-image">
 	                        </c:if>	
 			 			</div><!-- //.pro_image_area -->
 
@@ -220,7 +220,7 @@
 	    if(userImage.value == ""){ // 빈 문자열 == 파일 선택 X
 	        alert("이미지를 선택한 후 변경 버튼을 클릭해 주세요.");
 	        return false;
-	    }
+	    }else{
 	    
 		var fm = document.frm;
 		
@@ -229,6 +229,7 @@
 		fm.submit();
 
 	    return true;
+	    }
 	}
 	
 	

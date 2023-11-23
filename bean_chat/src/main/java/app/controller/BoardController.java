@@ -65,7 +65,7 @@ public class BoardController extends HttpServlet {
 			} else {
 				System.out.println("udto is null or empty.");
 			}
- 
+
 			String path = "/board/board_write.jsp";
 
 			RequestDispatcher rd = request.getRequestDispatcher(path);
@@ -142,8 +142,8 @@ public class BoardController extends HttpServlet {
 				// 권한이 있는 경우에만 수정 페이지로 이동
 				UserDao udao = new UserDao();
 				UserDto udto = udao.UserSelectOne(uidx);
-				
-				if(udto != null) {
+
+				if (udto != null) {
 					request.setAttribute("udto", udto);
 				} else {
 					response.sendRedirect(request.getContextPath() + "/board/errorPage.jsp");
@@ -205,12 +205,13 @@ public class BoardController extends HttpServlet {
 				// 로그인된 사용자의 ID를 가져옴 (세션에서 또는 사용자 인증 시스템에서)
 				uidx = (Integer) session.getAttribute("uidx");
 			} else {
-				 // 로그인되지 않은 상태이므로 로그인이 필요합니다. 알림 메시지 출력 및 로그인 페이지로 이동
+				// 로그인되지 않은 상태이므로 로그인이 필요합니다. 알림 메시지 출력 및 로그인 페이지로 이동
 				response.setContentType("text/html;charset=UTF-8");
-		        PrintWriter out = response.getWriter();
-		        out.println("<script>alert('로그인이 필요합니다.'); location.href='" + request.getContextPath() + "/user/user_login.jsp';</script>");
-		        out.close();
-		        return;
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('로그인이 필요합니다.'); location.href='" + request.getContextPath()
+						+ "/user/user_login.jsp';</script>");
+				out.close();
+				return;
 			}
 
 			String bidx = request.getParameter("bidx");
