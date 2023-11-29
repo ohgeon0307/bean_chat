@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <!-- 제이쿼리 연결 -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </head>
 <body>
@@ -65,8 +68,8 @@
 		<h2>내 프로필 수정하기</h2>
 				
 
-		 	<form name="frm" enctype="multipart/form-data">
-		 		<input type="hidden" name="uidx" id="uidx" value="${udto.uidx}">
+		 	<form name=pFrm enctype="multipart/form-data">
+		 	<input type="hidden" name="uidx" id="uidx" value="${uidx}">
 		 		<div id="posible">	
 					<section id="pro_image">
 			 			<div class="pro_image_area">
@@ -100,12 +103,59 @@
 						</div><!-- //.pro_text -->
 						
 	                    <div class="im_text">
-	                        <button id="pwdBtn" onclick="modiPwd()"><i class="xi-touch"></i>비밀번호 변경할래요!<i class="xi-pen"></i></button>
+	                        <button type="button" id="pwdBtn" data-toggle="modal" data-value="${udto.uidx}"><i class="xi-touch"></i>비밀번호 변경할래요!<i class="xi-pen"></i></button>
+	                        <!-- 비밀번호 변경 클릭 시 -->
+							<!-- The Modal -->
+							<div class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered">
+							    <div class="modal-content">
+							
+							      <!-- Modal Header -->
+							      <div class="modal-header">
+							        <h4 class="modal-title" id="modalLabel">비밀번호 변경</h4>
+							         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							      </div>
+							
+							      <!-- Modal body -->
+							      <div class="modal-body">
+							              <!-- 현재 비밀번호, 변경할 비밀번호, 비밀번호 확인 -->
+							              <!-- 회원정보 식별할 회원 아이디도 데이터를 보내야한다. 
+							                   이때 hidden으로 처리(보여줄 필요가 없기 때문.) -->
+							                   
+							              
+						              <div class="myPage-row">
+							              <label>현재 비밀번호</label>
+							              <input type="password" name="userPwd" id="userPwd" maxlength="30">
+						              </div>
+						
+						              <div class="myPage-row">
+							              <label>새 비밀번호</label>
+							              <input type="password" name="newPwd" id="newPwd" maxlength="30">
+						              </div>
+						                    
+						              <div class="myPage-row">
+							              <label>새 비밀번호 확인</label>
+							              <input type="password" name="newPwd2" id="newPwd2" maxlength="30">
+						              </div>
+						              <span class="message" id="pwdMessage" >영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.</span>
+											
+						              <button type="submit" id="newPwdBtn" onclick="allCheck();">수정하기</button>
+						              <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+						         
+							
+							       
+							      </div>
+							    </div>
+							  </div>
+							</div>
 	                        <button id="delBtn" onclick="byeUser()"><i class="xi-error"></i>우리 그만봐요..탈퇴할래요..<i class="xi-emoticon-sad-o"></i></button>
 	                    </div>
 					</section>
+					
             	</div><!-- //#posible -->
-            	
+            </form>
+            <form name="frm">
+		 	<input type="hidden" name="uidx" id="uidx" value="${uidx}">
 				<section id="pro_info">
 					<div class="pro_text">
 						<label>닉네임 : </label>
@@ -174,7 +224,7 @@
 	<script>
 	function changeForm(val){
 		
-		var fm = document.frm;
+		var fm = document.getElementsByName("frm")[0];
 		
 		if(val == "1"){
 			fm.method = "post";
@@ -190,17 +240,7 @@
 		
 	}
 	
-	function modiPwd(){
-		var fm = document.frm;
-		
-		fm.method = "post";
-		fm.action = "<%=request.getContextPath()%>/mypage/myChangePwd.do"; //처리하기위해 이동하는 주소
-		fm.submit();
 
-	    return true;
-		
-		
-	}
 	
 	function byeUser(){
 		var fm = document.frm;
@@ -213,6 +253,8 @@
 		
 		
 	}
+	</script>
+	<script>
 	
 	function changeImg(){
 	    
@@ -223,11 +265,11 @@
 	        return false;
 	    }else{
 	    
-		var fm = document.frm;
+		var pfm = document.pFrm;
 		
-		fm.method = "post";
-		fm.action = "<%=request.getContextPath()%>/mypage/myImage.do"; //처리하기위해 이동하는 주소
-		fm.submit();
+		pfm.method = "post";
+		pfm.action = "<%=request.getContextPath()%>/mypage/myImage.do"; //처리하기위해 이동하는 주소
+		pfm.submit();
 
 	    return true;
 	    }
@@ -265,9 +307,136 @@
 			}
    		})
 	}
-
-	</script>
 	
+	document.getElementById("pwdBtn").onclick = function(){
+		document.getElementById("modal").style.display="block";
+	}
+	
+		const checkObj = {
+	        
+	        newPwd: false,
+	        newPwd2: false,
+	        
+	      };
+	
+	
+	
+	  
+         
+
+        	// 비밀번호 유효성 검사
+        	  const userPwd = document.getElementById("userPwd");
+        	  const newPwd = document.getElementById("newPwd");
+        	  const newPwd2 = document.getElementById("newPwd2");
+        	  
+        	  const pwdMessage = document.getElementById("pwdMessage");
+
+        	  newPwd.addEventListener("input", function(){
+
+        	      if(newPwd.value.trim().length == 0){
+        	          pwdMessage.innerText = "영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.";
+        	          pwdMessage.classList.remove("success", "error");
+
+        	          checkObj.newPwd = false; // 유효 X 기록
+        	          return;
+        	      }
+
+        	      // const regExp = /^[a-zA-Z0-9!@#_-]{6,30}$/;
+        	      const regExp = /^[\w!@#_-]{6,30}$/;
+
+        	      if(regExp.test(newPwd.value)){ // 비밀번호 유효한 경우
+
+        	          checkObj.newPwd = true; // 유효 O 기록
+
+        	          if(newPwd.value.trim().length == 0){ // 비밀번호 유효, 비밀번호 확인 작성 X
+        	              pwdMessage.innerText = "유효한 비밀번호 형식입니다.";
+        	              pwdMessage.classList.add("success");
+        	              pwdMessage.classList.remove("error");
+
+        	          }else{ // 비밀번호 유효, 확인 작성 O
+        	              checkPwd(); // 비밀번호 일치 검사 함수 호출()
+        	          }
+
+        	      } else{
+        	          pwdMessage.innerText = "비밀번호 형식이 유효하지 않습니다.";
+        	          pwdMessage.classList.add("error");
+        	          pwdMessage.classList.remove("success");
+        	          checkObj.newPwd = false; // 유효 X 기록
+        	      }
+
+        	  })
+          
+
+        	  // 비밀번호 확인 유효성 검사
+
+        	  // 함수명() : 함수 호출(수행)
+        	  // 함수명   : 함수에 작성된 코드 반환
+
+        	  newPwd2.addEventListener("input", checkPwd);
+        	  // -> 이벤트가 발생되었을 때 정의된 함수를 호출하겠다.
+
+        	  function checkPwd(){ // 비밀번호 일치 검사
+
+        	      // 비밀번호 / 비밀번호 확인이 같을 경우
+        	      if(newPwd2.value == newPwd.value){
+        	          pwdMessage.innerText = "비밀번호가 일치합니다.";
+        	          pwdMessage.classList.add("success");
+        	          pwdMessage.classList.remove("error");
+        	          checkObj.newPwd2 = true; // 유효 O 기록
+
+        	      }else{
+        	          pwdMessage.innerText = "비밀번호가 일치하지 않습니다.";
+        	          pwdMessage.classList.add("error");
+        	          pwdMessage.classList.remove("success");
+        	          checkObj.newPwd2 = false; // 유효 X 기록
+        	      }
+        	  }
+        	  
+          
+        	  
+        	 
+        	  
+        	  function allCheck(){
+
+        		    // checkObj에 있는 모든 속성을 반복 접근하여
+        		    // false가 하나라도 있는 경우에는 form태그 기본 이벤트 제거
+
+        		    let str;
+
+        		    for(let key in checkObj){ // 객체용 향상된 for문
+
+        		        // 현재 접근 중인 key의 value가 false인 경우
+        		        if(!checkObj[key]){
+
+        		            switch(key){
+        		                case "newPwd"         : str = "비밀번호가"; break;
+        		                case "newPwd2"  : str = "비밀번호 확인이"; break;
+        		            }
+
+        		            str += " 유효하지 않습니다.";
+
+        		            alert(str);
+
+        		            document.getElementById(key).focus();
+
+        		            return false; // form태그 기본 이벤트 제거
+        		        }
+        		    }
+        		    var pfm = document.pFrm;
+            		
+            		pfm.method = "post";
+            		pfm.action = "<%=request.getContextPath()%>/mypage/userUpdatePwd.do"; //처리하기위해 이동하는 주소
+            		pfm.submit();
+        		    return true; // form태그 기본 이벤트 수행
+
+        		}
+
+
+        	    
+
+        	
+          
+          </script>
 	
 </body>
 </html>

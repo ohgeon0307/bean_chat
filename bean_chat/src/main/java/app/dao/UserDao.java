@@ -283,6 +283,29 @@ public class UserDao {
 		
 	}
 	
+	public int userPwdUpdate(int uidx, String userPwd) {
+		int exec = 0;
+		String sql ="update usertable set\r\n"
+				+ "userPwd = ?\r\n"
+				+ "where uidx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userPwd);
+			pstmt.setInt(2, uidx);
+			exec = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			
+		}
+		
+		
+		return exec;
+	
+	
+	}
 	
 	
 	

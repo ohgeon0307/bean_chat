@@ -17,6 +17,7 @@ import com.oreilly.servlet.MultipartRequest;
 
 import app.dao.UserDao;
 import app.dto.FileRename;
+import app.dto.PasswordEncoder;
 import app.dto.UserDto;
 
 @WebServlet("/MypageController")
@@ -80,20 +81,17 @@ public class MypageController extends HttpServlet{
 			HttpSession session = request.getSession();
 			int uidx = (Integer)session.getAttribute("uidx");
 			
-			int maxSize = 1024 * 1024 * 20;
-			String folderPath = "/resources/images/userImage/";
-			String filePath = session.getServletContext().getRealPath(folderPath);
-			String encoding = "UTF-8";
 			
-			MultipartRequest mpReq = new MultipartRequest(request, filePath, maxSize,encoding, new FileRename());
+			
+			
 			
 			System.out.println("getuidx"+uidx);
-			String userNickname = mpReq.getParameter("userNickname");
-			String userName = mpReq.getParameter("userName");
-			String userYear = mpReq.getParameter("userYear");
-			String userMonth = mpReq.getParameter("userMonth");
-			String userDay = mpReq.getParameter("userDay");
-			String userPhone = mpReq.getParameter("userPhone");
+			String userNickname =request.getParameter("userNickname");
+			String userName = request.getParameter("userName");
+			String userYear = request.getParameter("userYear");
+			String userMonth = request.getParameter("userMonth");
+			String userDay = request.getParameter("userDay");
+			String userPhone =request.getParameter("userPhone");
 
 			
 			String userBirth  = userYear+userMonth+userDay;
@@ -177,11 +175,72 @@ public class MypageController extends HttpServlet{
 			
 			
 			
-		}else if(location.equals("myChangePwd.do")){
-			String path ="/mypage/my_friend_list.jsp";
-			 RequestDispatcher rd = request.getRequestDispatcher(path);
-			 rd.forward(request, response);
+		}else if(location.equals("userUpdatePwd.do")) {
 			
+			//세션에 uidx에서 비밀번호 비교를 위한 id값 가져오기
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(uidx);
+			
+			request.setAttribute("udto", udto);
+			
+			PasswordEncoder passwordEncoder = new PasswordEncoder();
+			//input(userPwd) 해싱하기
+			String userPwd = request.getParameter("userPwd"); // 사용자가 입력한 비밀번호
+			String userPwdHash = null;
+		    try {
+		    	userPwdHash = passwordEncoder.EncBySha256(userPwd);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		    System.out.println("userPwd"+userPwd);
+		    System.out.println("userPwdHash"+userPwdHash);
+		    
+		    
+			
+		    PrintWriter out = response.getWriter();
+
+		   
+		    try {
+		      // UserDao를 통해 데이터베이스에서 해당 아이디에 대한 해시된 비밀번호 가져오기
+		        String userHashPwd = udao.userHashPassword(udto.getUserId());
+		      //udto.getUserId=>세션에 담겨있는 아이디
+		    System.out.println("인풋해쉬"+userPwdHash);
+		    System.out.println("원래유저비밀번호해쉬값"+userHashPwd);
+
+		        // 저장된 해시된 비밀번호와 사용자 입력의 해시된 비밀번호를 비교
+		        if (userHashPwd.equals(userPwdHash)) {
+		            // 비밀번호 일치: 비밀번호 변경할 준비됨
+		        	String newPwd = request.getParameter("newPwd");
+		        	System.out.println("변경할비번"+newPwd);
+					String newPwdHash = null;
+						try {
+							newPwdHash = passwordEncoder.EncBySha256(newPwd);
+							udto.setUserPwd(newPwdHash);
+
+							
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+				udto.setUserPwd(newPwdHash);
+				System.out.println("변경할비번해수ㅣ"+newPwdHash);
+				int exec = udao.userPwdUpdate(uidx, newPwdHash);  
+				if(exec==1) {
+					out.println("<script>alert('정상적으로 비밀번호 변경 되었습니다..');"
+							+	"document.location.href='"+request.getContextPath()+"/mypage/myModify.do'</script>");
+						}else{
+							out.println("<script>history.back();</script>");	
+						}
+		        } else {
+		    		out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');"
+							+	"document.location.href='"+request.getContextPath()+"/mypage/myModify.do'</script>");
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 			
 		}else if(location.equals("myFriend.do")){
 			String path ="/mypage/my_friend_list.jsp";
