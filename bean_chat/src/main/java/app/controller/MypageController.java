@@ -188,9 +188,11 @@ public class MypageController extends HttpServlet{
 			PasswordEncoder passwordEncoder = new PasswordEncoder();
 			//input(userPwd) 해싱하기
 			String userPwd = request.getParameter("userPwd"); // 사용자가 입력한 비밀번호
+			System.out.println(userPwd + "기존에 갖고있던 pwd값");
 			String userPwdHash = null;
 		    try {
 		    	userPwdHash = passwordEncoder.EncBySha256(userPwd);
+		    	System.out.println(userPwdHash+ "해쉬한 userPwdHash값.");
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
