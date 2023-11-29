@@ -26,7 +26,7 @@ public class ChatDao {
 		  
 	}
 	
-	public ArrayList<ChatDto> getChatListByID(String cFrom, String cTo, String cidx) {
+	public ArrayList<ChatDto> getChatListByID(String cFrom, String cTo, String cidx	) {
 	    ArrayList<ChatDto> chatList = null;
 	    Connection conn = null;
 	    PreparedStatement pstmt = null;

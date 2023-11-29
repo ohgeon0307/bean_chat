@@ -22,7 +22,7 @@
 			
 	
 			<div class="btn1">
-				<a href="<%=request.getContextPath()%>/chat/chat_one.do"><p>1:1 채팅</p>
+				<a href="<%=request.getContextPath()%>/chat/chatOne.do"><p>1:1 채팅</p>
 			<img src="../images/logo/BeanchatChar1.png" alt="1:1 채팅">
 				</a>
 			</div><!-- //.btn1 -->
