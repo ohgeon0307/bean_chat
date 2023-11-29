@@ -244,7 +244,7 @@ public class UserDao {
 	        try {
 	        	rs.close();
 				pstmt.close();
-	            conn.close();
+	      
 	        } catch (SQLException e) {
 	        	
 	            e.printStackTrace();
@@ -259,6 +259,7 @@ public class UserDao {
 	}
 	
 	public int userImageUpdate(int uidx, String userImage) {
+		
 		int exec = 0;
 		String sql ="update usertable set\r\n"
 				+ "userimage = ?\r\n"
@@ -284,6 +285,7 @@ public class UserDao {
 	}
 	
 	public int userPwdUpdate(int uidx, String userPwd) {
+	
 		int exec = 0;
 		String sql ="update usertable set\r\n"
 				+ "userPwd = ?\r\n"
@@ -295,12 +297,16 @@ public class UserDao {
 			pstmt.setInt(2, uidx);
 			exec = pstmt.executeUpdate();
 			
-		}catch(Exception e) {
+		} catch (SQLException e) {			
 			e.printStackTrace();
-			
-			
-		}
-		
+		}finally{
+			try{
+				
+				pstmt.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}	
 		
 		return exec;
 	

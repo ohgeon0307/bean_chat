@@ -185,9 +185,16 @@ public class MypageController extends HttpServlet{
 			
 			request.setAttribute("udto", udto);
 			
+			
 			PasswordEncoder passwordEncoder = new PasswordEncoder();
+			int maxSize = 1024 * 1024 * 20;
+			String folderPath = "/resources/images/userImage/";
+			String filePath = session.getServletContext().getRealPath(folderPath);
+			
+			String encoding = "UTF-8";
+			MultipartRequest mpReq = new MultipartRequest(request, filePath, maxSize,encoding, new FileRename());
 			//input(userPwd) 해싱하기
-			String userPwd = request.getParameter("userPwd"); // 사용자가 입력한 비밀번호
+			String userPwd = mpReq.getParameter("userPwd"); // 사용자가 입력한 비밀번호
 			System.out.println(userPwd + "기존에 갖고있던 pwd값");
 			String userPwdHash = null;
 		    try {
@@ -215,7 +222,7 @@ public class MypageController extends HttpServlet{
 		        // 저장된 해시된 비밀번호와 사용자 입력의 해시된 비밀번호를 비교
 		        if (userHashPwd.equals(userPwdHash)) {
 		            // 비밀번호 일치: 비밀번호 변경할 준비됨
-		        	String newPwd = request.getParameter("newPwd");
+		        	String newPwd = mpReq.getParameter("newPwd");
 		        	System.out.println("변경할비번"+newPwd);
 					String newPwdHash = null;
 						try {
