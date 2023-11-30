@@ -8,13 +8,9 @@
 <meta charset="UTF-8">
 <title>아이디 찾기 결과</title>
 <!-- 제이쿼리 연결 -->
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-	integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-	crossorigin="anonymous"> </script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
 <!-- 부트스트랩 연결 -->
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- css연결 -->
@@ -41,13 +37,13 @@
 		<form name="frm">
 
 			<c:choose>
-				<c:when test="${userId != null }">
+				<c:when test="${userId != 'null'}">
 
 
 					<div class="container">
 						<div class="found-success">
 							<h4>회원님의 아이디는</h4>
-							<div class="found-id">${userId}</div>
+							  <c:out value="${userId}" />
 							<h4>입니다</h4>
 						</div>
 						<div class="found-login">
@@ -55,7 +51,12 @@
 						</div>
 					</div>
 				</c:when>
+				
+				
+				
 				<c:otherwise>
+				  <c:choose>
+				   <c:when test="${userId == 'null'}">
 					<div class="container">
 						<div class="found-fail">
 							<h4>등록된 정보가 없습니다</h4>
@@ -66,12 +67,14 @@
 								value="회원가입" onClick="joinin()" />
 						</div>
 					</div>
-				</c:otherwise>
-			</c:choose>
 			<div class="adcontainer">
 				<img src="../images/indexImage/BeanChatWater.png" />
 			</div>
-
+			 </c:when>
+			
+			</c:choose>
+		 </c:otherwise>
+     </c:choose>
 		</form>
 	</main>
 </body>

@@ -391,11 +391,6 @@
 	        
 	      };
 	
-	
-	
-	  
-         
-
         	// 비밀번호 유효성 검사
         	  const userPwd = document.getElementById("userPwd");
         	  const newPwd = document.getElementById("newPwd");
