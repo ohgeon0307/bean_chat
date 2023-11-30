@@ -313,6 +313,25 @@ public class UserDao {
 	
 	}
 	
+	public int userDelete(int uidx) {
+		int exec = 0;
+		
+		String sql = "update usertable set\r\r"
+				+ "uDelYn = 'Y' \r\n"
+				+ "where uidx = ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uidx);
+			
+			exec = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return exec;
+		
+	}
+	
 	
 	
 }

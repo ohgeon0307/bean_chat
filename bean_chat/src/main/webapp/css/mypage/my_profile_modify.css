@@ -401,3 +401,50 @@ main h2{
   color: red;
   font-size: 12px;
 }
+#modalBox .modal-title{
+	font-size:20px;
+	color:#455ba8;
+	font-weight:bold;
+	text-align:center;
+}
+.modal-body{
+	 line-height:30px;
+}
+.newPwd{
+	color: #418722;
+}
+
+.myPage-row{
+	 line-height:50px;
+	 font-size:18px;
+	 text-align:left;
+}
+.myPage-row input{
+	height:30px;
+	width:250px;
+}
+.myPage-row label{
+	width:150px;
+}
+.myPage-row input::placeholder{
+	font-size:12px;
+}
+
+#delModal .modal-title{
+	font-size:20px;
+	color:red;
+	font-weight:bold;
+	text-align:center;
+}
+#main_text{
+	text-align:left;
+	font-size:18px;
+	
+}
+
+.btn btn-default{
+	margin-left:20px;
+
+	}
+
+

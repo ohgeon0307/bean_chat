@@ -31,12 +31,15 @@ public class MypageController extends HttpServlet{
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//마이페이지 메인
 		if (location.equals("myMain.do")) {
 			
 			String path ="/mypage/my_main.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);
 			 rd.forward(request, response);
+		
 			 
+		//내 정보보기
 		}else if(location.equals("myProfile.do")){
 			HttpSession session = request.getSession();
 			
@@ -55,6 +58,8 @@ public class MypageController extends HttpServlet{
 			 RequestDispatcher rd = request.getRequestDispatcher(path); 
 			 rd.forward(request, response);
 			
+			 
+		//내정보 수정 링크	 
 		}else if(location.equals("myModify.do")){
 			HttpSession session = request.getSession();
 
@@ -73,17 +78,12 @@ public class MypageController extends HttpServlet{
 			 rd.forward(request, response);
 			
 			
+		
+		//내정보 수정	 
 		}else if(location.equals("myModifyAction.do")){
-			
-			
-			
 			
 			HttpSession session = request.getSession();
 			int uidx = (Integer)session.getAttribute("uidx");
-			
-			
-			
-			
 			
 			System.out.println("getuidx"+uidx);
 			String userNickname =request.getParameter("userNickname");
@@ -93,10 +93,7 @@ public class MypageController extends HttpServlet{
 			String userDay = request.getParameter("userDay");
 			String userPhone =request.getParameter("userPhone");
 
-			
 			String userBirth  = userYear+userMonth+userDay;
-			
-
 			
 			UserDto udto = new UserDto();
 
@@ -110,10 +107,6 @@ public class MypageController extends HttpServlet{
 			UserDao udao = new UserDao();
 			int value = udao.userModify(udto);
 			
-
-
-
-			
 			PrintWriter out = response.getWriter();
 			
 			if(value == 1) {
@@ -124,7 +117,8 @@ public class MypageController extends HttpServlet{
 			}
 			
 			
-			
+		
+		//프로필 사진 업로드
 		}else if(location.equals("myImage.do")){
 			
 			HttpSession session = request.getSession();
@@ -174,7 +168,7 @@ public class MypageController extends HttpServlet{
 			
 			
 			
-			
+		//비밀번호 변경	
 		}else if(location.equals("userUpdatePwd.do")) {
 			
 			//세션에 uidx에서 비밀번호 비교를 위한 id값 가져오기
@@ -250,8 +244,71 @@ public class MypageController extends HttpServlet{
 		    } catch (Exception e) {
 		        e.printStackTrace();
 		    }
+		
+		    
+		    
+		    
+		    
+		//회원탈퇴
+		}else if(location.equals("userBye.do")){
 			
-		}else if(location.equals("myFriend.do")){
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(uidx);
+			
+			request.setAttribute("udto", udto);
+		
+			PasswordEncoder passwordEncoder = new PasswordEncoder();
+			
+			int maxSize = 1024 * 1024 * 20;
+			String folderPath = "/resources/images/userImage/";
+			String filePath = session.getServletContext().getRealPath(folderPath);
+			String encoding = "UTF-8";
+			
+			MultipartRequest mpReq = new MultipartRequest(request, filePath, maxSize,encoding, new FileRename());
+			//input(userPwd) 해싱하기
+			String userPwd = mpReq.getParameter("delUserPwd"); // 사용자가 입력한 비밀번호
+			String userPwdHash = null;
+		    try {
+		    	userPwdHash = passwordEncoder.EncBySha256(userPwd);
+		    	System.out.println(userPwdHash+ "해쉬한 userPwdHash값.");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
+		    
+		    PrintWriter out = response.getWriter();
+
+		    try {
+			      // UserDao를 통해 데이터베이스에서 해당 아이디에 대한 해시된 비밀번호 가져오기
+			        String userHashPwd = udao.userHashPassword(udto.getUserId());
+			      //udto.getUserId=>세션에 담겨있는 아이디
+			        
+			        if (userHashPwd.equals(userPwdHash)) {
+			            // 비밀번호 일치: 
+			        	int exec=udao.userDelete(uidx);
+			        	
+					if(exec==1) {
+						session.removeAttribute("uidx");
+						session.removeAttribute("userId");
+						session.invalidate();
+						out.println("<script>alert('정상적으로 회원 탈퇴 되었습니다..');"
+								+	"document.location.href='"+request.getContextPath() + "/index.jsp'</script>");
+							}else{
+								out.println("<script>history.back();</script>");
+							}
+			        } else {
+			    		out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');"
+								+	"document.location.href='"+request.getContextPath()+"/mypage/myModify.do'</script>");
+			        }
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			    }
+				
+			
+		 }else if(location.equals("myFriend.do")){
 			String path ="/mypage/my_friend_list.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);
 			 rd.forward(request, response);
