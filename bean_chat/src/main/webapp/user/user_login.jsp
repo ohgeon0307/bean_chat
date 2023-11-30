@@ -31,7 +31,7 @@
 
 		<div id="join_find_area">
 			<a href="<%=request.getContextPath()%>/user/userJoin.do">>회원가입</a>
-			<a href="<%=request.getContextPath()%>/user/userFindIdpwd.do">>ID/PW 찾기</a>
+			<a href="<%=request.getContextPath()%>/user/userFindId.do">>ID/PW 찾기</a>
 		</div>
 		
 		<div>	

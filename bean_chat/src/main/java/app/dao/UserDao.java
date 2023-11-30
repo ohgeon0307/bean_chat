@@ -332,6 +332,29 @@ public class UserDao {
 		
 	}
 	
+	public String userFindId(String userName, String userPhone) {
+		String userId="null";
+		ResultSet rs = null;
+		try {
+			String sql = "select userId from usertable where username=? and userphone=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userPhone);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				userId = rs.getString("userId");
+			}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userId;
+		
+		
+	}
+	
 	
 	
 }
