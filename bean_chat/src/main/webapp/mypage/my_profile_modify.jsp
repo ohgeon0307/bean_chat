@@ -11,16 +11,17 @@
 
     <!-- css연결 -->
 	<link href="../css/reset.css" rel="stylesheet" />
-    <link href="../css/mypage/my_profile_modify.css" rel="stylesheet" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <!-- 제이쿼리 연결 -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="../css/mypage/my_profile_modify.css" rel="stylesheet" />
 
 
 </head>
 <body>
+
 	<header><!-- 헤더 시작 -->
 		<div class="container"> 
 			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
@@ -103,53 +104,11 @@
 						</div><!-- //.pro_text -->
 						
 	                    <div class="im_text">
-	                        <button type="button" id="pwdBtn" data-toggle="modal" data-value="${udto.uidx}"><i class="xi-touch"></i>비밀번호 변경할래요!<i class="xi-pen"></i></button>
-	                        <!-- 비밀번호 변경 클릭 시 -->
-							<!-- The Modal -->
-							<div class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-							  <div class="modal-dialog modal-dialog-centered">
-							    <div class="modal-content">
+	                        <button type="button" id="pwdBtn" data-value="${udto.uidx}"><i class="xi-touch"></i>비밀번호 변경할래요!<i class="xi-pen"></i></button>
+	
 							
-							      <!-- Modal Header -->
-							      <div class="modal-header">
-							        <h4 class="modal-title" id="modalLabel">비밀번호 변경</h4>
-							         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							      </div>
-							
-							      <!-- Modal body -->
-							      <div class="modal-body">
-							              <!-- 현재 비밀번호, 변경할 비밀번호, 비밀번호 확인 -->
-							              <!-- 회원정보 식별할 회원 아이디도 데이터를 보내야한다. 
-							                   이때 hidden으로 처리(보여줄 필요가 없기 때문.) -->
-							                   
-							              
-						              <div class="myPage-row">
-							              <label>현재 비밀번호</label>
-							              <input type="password" name="userPwd" id="userPwd" maxlength="30">
-						              </div>
-						
-						              <div class="myPage-row">
-							              <label>새 비밀번호</label>
-							              <input type="password" name="newPwd" id="newPwd" maxlength="30">
-						              </div>
-						                    
-						              <div class="myPage-row">
-							              <label>새 비밀번호 확인</label>
-							              <input type="password" name="newPwd2" id="newPwd2" maxlength="30">
-						              </div>
-						              <span class="message" id="pwdMessage" >영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.</span>
-											
-						              <button type="submit" id="newPwdBtn" onclick="allCheck();">수정하기</button>
-						              <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-						         
-							
-							       
-							      </div>
-							    </div>
-							  </div>
-							</div>
 	                        <button id="delBtn" onclick="byeUser()"><i class="xi-error"></i>우리 그만봐요..탈퇴할래요..<i class="xi-emoticon-sad-o"></i></button>
-	                    </div>
+	                    </div><!-- //.im_text -->
 					</section>
 					
             	</div><!-- //#posible -->
@@ -221,6 +180,62 @@
 			    </section>
 			</form>
 	</main>
+	                        <!-- 비밀번호 변경 클릭 시 -->
+							<!-- The Modal -->
+							<div class="modal"  id="modalBox" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered">
+							    <div class="modal-content">
+							
+							      <!-- Modal Header -->
+							      	<div class="modal-header">
+							        	<h4 class="modal-title" id="modalLabel">비밀번호 변경</h4>
+							         	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+									</div>
+							
+							      <!-- Modal body -->
+							      <div class="modal-body">
+							              <!-- 현재 비밀번호, 변경할 비밀번호, 비밀번호 확인 -->
+							              <!-- 회원정보 식별할 회원 아이디도 데이터를 보내야한다. 
+							                   이때 hidden으로 처리(보여줄 필요가 없기 때문.) -->
+							                   
+							              
+						              <div class="myPage-row">
+							              <label>현재 비밀번호</label>
+							              <input type="password" name="userPwd" id="userPwd" maxlength="30">
+						              </div>
+						
+						              <div class="myPage-row">
+							              <label>새 비밀번호</label>
+							              <input type="password" name="newPwd" id="newPwd" maxlength="30">
+						              </div>
+						                    
+						              <div class="myPage-row">
+							              <label>새 비밀번호 확인</label>
+							              <input type="password" name="newPwd2" id="newPwd2" maxlength="30">
+						              </div>
+						              
+						              <span class="message" id="pwdMessage" >영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.</span>
+						              
+									<div class="modal-footer">	
+						              <button type="submit" id="newPwdBtn" onclick="allCheck();">수정하기</button>
+						              <button type="button" id="closeModalBtn"  class="btn btn-default" data-dismiss="modal">취소</button>
+						         	</div>
+							
+							       
+							      </div><!-- //.modal-body -->
+							      
+							    </div><!-- //.modal-content -->
+							  </div><!-- //.modal-dialog modal-dialog-centered -->
+							</div><!-- //.modal -->
+	<script>  // 모달 버튼에 이벤트를 건다.  
+	$('#pwdBtn').on('click', function(){
+		$('#modalBox').modal('show');  });  
+	// 모달 안의 취소 버튼에 이벤트를 건다.  
+	$('#closeModalBtn').on('click', function(){
+		$('#modalBox').modal('hide');  });
+	
+	</script>
+
 	<script>
 	function changeForm(val){
 		
@@ -308,9 +323,12 @@
    		})
 	}
 	
-	document.getElementById("pwdBtn").onclick = function(){
-		document.getElementById("modal").style.display="block";
-	}
+	
+	/* document.getElementById('modal').addEventListener('shown.bs.modal', function () {
+		  document.getElementById('userPwd').focus();
+		}); */
+	
+	
 	
 		const checkObj = {
 	        

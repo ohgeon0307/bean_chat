@@ -40,6 +40,7 @@ font-weight: 900; }
     100% {
         opacity: 1;
         visibility: visible;
+        max-width: 1140vmax;
     }
 }
 
@@ -237,8 +238,8 @@ main h2{
 
 #imposible h3{
     font-size: 30px;
-    margin-top: 30px;
-    margin-bottom:30px;
+    margin-top: 10px;
+    margin-bottom:20px;
     font-weight:bold;
 }
 
@@ -314,9 +315,10 @@ main h2{
 
 #userBirth{
 	display:flex;
-
 	
 }
+
+
 #userBirth > label{
 	font-size:25px;
 	font-weight:bold;
@@ -325,12 +327,15 @@ main h2{
 #userYear, #userMonth, #userDay{
 	font-size:18px;
 	margin-left:15px;
+	height:28px;
+	margin-top:10px;
 
 }
 
 #userBirth p{
 	margin-left:5px;
 	font-size:18px;
+	margin-top:5px;
 }
 
 
@@ -382,4 +387,17 @@ main h2{
 
 #backBtn:hover{
     border:1px solid #000;
+}
+
+.message {
+	font-size: 12px;
+}
+
+.success {
+  color: green;
+  font-size: 12px;
+}
+.error {
+  color: red;
+  font-size: 12px;
 }
