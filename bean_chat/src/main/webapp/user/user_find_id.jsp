@@ -79,8 +79,8 @@
 
 <main>
 	<ul class="nav nav-tabs">
-		<li class="nav-item"><a class="nav-link active"	aria-current="page" href="#">Active</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+		<li class="nav-item"><a class="nav-link active"	aria-current="page" href="#">아이디 찾기</a></li>
+		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user/userFindPwd.do">비밀번호 찾기</a></li>
 	</ul>
 	<form name="frm">
 				<div class = "search-title">
@@ -89,12 +89,10 @@
 				</div>
 			<section class = "form-search">
 				<div class = "find-name">
-					<label>이름</label>
-					<input type="text" name="userName" class = "btn-name" placeholder = "등록한 이름">
+					<label>이름 :</label><input type="text" name="userName" class = "btn-name" placeholder = "등록한 이름">
 				</div>
 				<div class = "find-phone">
-					<label>전화번호</label>
-					<input type="text" name="userPhone" class = "btn-phone" placeholder = "휴대폰번호를 '-'없이 입력">
+					<label>전화번호 :</label><input type="text" name="userPhone" class = "btn-phone" placeholder = "휴대폰번호를 '-'없이 입력">
 				</div>
 		</section>
 		<div class ="btnSearch">

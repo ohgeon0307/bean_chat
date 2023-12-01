@@ -159,14 +159,14 @@ form{
 }
 
 .search-title p{
-	font-size:25px;
+	font-size:22px;
 	margin-top:30px;
 }
 
 .form-search{
 	margin:0 auto;
 	text-align:center;
-	width:60%;
+	width:65%;
 }
 
 
@@ -174,7 +174,7 @@ form{
 .form-search label{
 	height:30px;
 	width:30%;
-	font-size:28px;
+	font-size:25px;
 }
 
 .find-name{
@@ -192,12 +192,12 @@ form{
 
 
 .form-search input{
-	width:55%;
+	width:60%;
 	height:40px;
 }
 
 input::placeholder{
-	font-size:20px;
+	font-size:18px;
 }
 
 .btnSearch{
@@ -205,7 +205,7 @@ input::placeholder{
 	text-align:center;
 	display:flex;
 	justify-content: space-between;
-	width:35%;
+	width:45%;
 }
 
 #findBtn{

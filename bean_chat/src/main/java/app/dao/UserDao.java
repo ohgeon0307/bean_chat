@@ -352,7 +352,28 @@ public class UserDao {
 		}
 		return userId;
 		
-		
+	
+	}
+	
+	public UserDto userFindPwd(String userName, String userId) {
+	    UserDto udto = null;
+	    ResultSet rs = null;
+	    try {
+	        String sql = "SELECT userPwd FROM usertable WHERE username = ? AND userId = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, userName);
+	        pstmt.setString(2, userId);
+	        
+	        rs = pstmt.executeQuery();
+	        
+	        if (rs.next()) {
+	        	udto = new UserDto();
+	        	udto.setUserPwd(rs.getString("userPwd"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return udto;
 	}
 	
 	
