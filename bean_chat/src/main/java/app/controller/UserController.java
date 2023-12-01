@@ -172,15 +172,43 @@ public class UserController extends HttpServlet{
 				
 				
 			//아이디 비밀번호찾기		
-			}else if(location.equals("userFindIdpwd.do")) {
+			}else if(location.equals("userFindId.do")) {
 				
-			String path ="/user/user_find_idpwd.jsp";
+			String path ="/user/user_find_id.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
 			
+			}else if(location.equals("userFindIdAction.do")) {
+				
+				
+				String userName = request.getParameter("userName");
+				String userPhone = request.getParameter("userPhone");
+				UserDao udao = new UserDao();
+				
+				String userId = udao.userFindId(userName, userPhone);
+				request.setAttribute("userId", userId);
+						
+				String path ="/user/user_find_id_after.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(path);
+				rd.forward(request, response);
 			
-		
-			}
+			
+			} /*
+				 * else if(location.equals("userFindIdAfter.do")) {
+				 * 
+				 * String userName = request.getParameter("userName"); String userPhone =
+				 * request.getParameter("userPhone"); UserDao udao = new UserDao();
+				 * 
+				 * String userId = udao.userFindId(userName, userPhone);
+				 * request.setAttribute("userId", userId);
+				 * 
+				 * 
+				 * 
+				 * String path ="/user/user_find_id.jsp"; RequestDispatcher rd =
+				 * request.getRequestDispatcher(path); rd.forward(request, response);
+				 * 
+				 * }
+				 */
 				
 				
 				
