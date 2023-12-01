@@ -24,7 +24,7 @@ if (request.getParameter("cTo") != null) {
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="../css/chat/chat_Content.css" rel="stylesheet" />
+<link href="../css/chat/chat_one.css" rel="stylesheet" />
 <title>채팅방</title>
 
 
@@ -145,6 +145,7 @@ if (request.getParameter("cTo") != null) {
 </script>
 </head>
 <body>
+<header>
 	<div class="container">
 		<img src="../images/indexImage/beanchat_text.png" alt=""
 			class="beanchat_text">
@@ -185,9 +186,11 @@ if (request.getParameter("cTo") != null) {
 			</ul>
 		</div>
 	</div>
+	</header>
+	<main>
 	<div id="realmainzone">
 		<h3>1대1 채팅</h3>
-		<br />
+		<br>
 		<div id="main_main">
 			<div id="fdlist"></div>
 			<div id="chat_area">
@@ -215,7 +218,7 @@ if (request.getParameter("cTo") != null) {
 	</div><!-- #realmainzone-->
 
 
-
+</main>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			chatListFunction('ten');

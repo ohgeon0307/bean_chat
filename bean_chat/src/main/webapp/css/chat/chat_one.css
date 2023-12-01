@@ -136,7 +136,7 @@ main {
     margin: 0 auto;
     position: relative;
     z-index: 1;
-    top:250px;
+    top:150px;
     
 }
 
@@ -208,7 +208,7 @@ button {
 	width: 100px;
 	padding: 30px;
 	margin: 10px;
-	background-color: rgb(255, 255, 255);
+	background-color: white;
 	color: rgb(255, 128, 128);
 	border: none;
 	border-radius: 4px;
@@ -247,11 +247,10 @@ button {
 	border-color: #faebcc;
 }
 
-#realmainzone {
-	margin: 150px;
-	position: sticky;
-	top: 100px;
-}
+/* #realmainzone {
+	margin: -120x;
+
+} */
 
 #fdlist {
 	width: 350px;
