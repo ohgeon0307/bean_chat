@@ -26,9 +26,9 @@ public class ChatController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (location.equals("chatList.do")) {
+		if (location.equals("chatRoomList.do")) {
 
-			String path = "/chat/chat_list.jsp";
+			String path = "/chat/chat_room_list.jsp";
 			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
