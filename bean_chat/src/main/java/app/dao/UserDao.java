@@ -356,6 +356,7 @@ public class UserDao {
 	}
 	
 	public UserDto userFindPwd(String userName, String userId) {
+		PreparedStatement pstmt = null;
 	    UserDto udto = null;
 	    ResultSet rs = null;
 	    try {
@@ -373,7 +374,14 @@ public class UserDao {
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    }
+	    }finally{
+			try{
+				rs.close();
+				pstmt.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 	    return udto;
 	}
 	
