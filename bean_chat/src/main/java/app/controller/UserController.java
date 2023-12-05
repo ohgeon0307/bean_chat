@@ -216,7 +216,7 @@ public class UserController extends HttpServlet{
 			rd.forward(request, response);
 			
 			}else if(location.equals("userFindPwdAction.do")) {
-				 PrintWriter out = response.getWriter();
+				PrintWriter out = response.getWriter();
 				String userName = request.getParameter("userName");
 				String userId = request.getParameter("userId");
 				UserDao udao = new UserDao();
@@ -299,12 +299,14 @@ public class UserController extends HttpServlet{
 					}
 					
 					int uidx = udto.getUidx();
+					System.out.println("바꿀 비밀번호uidx???"+uidx);
 					int exec = udao.userPwdUpdate(uidx, userPwdHash);
+					System.out.println("결과값?"+ exec);
 					if(exec==1) {
-						out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');"
+						out.println("<script>alert('임시비밀번호가 메일로 전송되었습니다.');"
 								+	"document.location.href='"+request.getContextPath()+"/user/userLogin.do'</script>");
 					}else {
-						  out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); history.back();</script>");
+						  out.println("<script>alert('비밀번호 변경에 실패하였습니다.'); history.back();</script>");
 					}
 					
 				}else {
