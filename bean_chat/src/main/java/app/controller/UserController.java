@@ -170,6 +170,7 @@ public class UserController extends HttpServlet{
 			            out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); history.back();</script>");
 			        }
 			    } catch (Exception e) {
+			    	out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); history.back();</script>");
 			        e.printStackTrace();
 			    }
 			}else if(location.equals("userLogout.do")) {
@@ -180,7 +181,7 @@ public class UserController extends HttpServlet{
 				session.removeAttribute("uidx");
 				session.invalidate();
 				
-
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
 
 				
 			
@@ -310,6 +311,7 @@ public class UserController extends HttpServlet{
 					}else {
 						  out.println("<script>alert('비밀번호 변경에 실패하였습니다.'); history.back();</script>");
 					}
+				
 					
 				}else {
 					 out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); history.back();</script>");
