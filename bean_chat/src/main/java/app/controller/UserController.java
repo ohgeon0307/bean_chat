@@ -222,6 +222,8 @@ public class UserController extends HttpServlet{
 				UserDao udao = new UserDao();
 				
 				UserDto udto = udao.userFindPwd(userName, userId);
+				System.out.println("utdo 최초값은 ? : " + udto);
+				System.out.println("udto의 getUidx값은? : " +udto.getUidx());
 				
 				if(udto != null) {
 					Random ran = new Random();

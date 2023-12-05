@@ -3,193 +3,105 @@ package app.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
+import app.dbconn.DbConn;
 import app.dto.ChatDto;
 
 public class ChatDao {
+	private Connection conn;
+	private PreparedStatement pstmt;
 
-	DataSource dataSource;
-	
 	public ChatDao() {
+		DbConn dbconn = new DbConn();
+		this.conn = dbconn.getConnection();
+
+	}
+
+	public int userLogin(String userId, String userPwd) {
+
+		int value = 0;
+
+		String sql = "select uidx from users where userId=? and userPwd = ?";
+		ResultSet rs = null;
+
 		try {
-			InitialContext initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env"); 
-			dataSource = (DataSource) envContext.lookup("jdbc/bean_chat");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				value = rs.getInt("uidx");
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		  
-	}
-	
-	public ArrayList<ChatDto> getChatListByID(String cFrom, String cTo, String cidx	) {
-	    ArrayList<ChatDto> chatList = null;
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
+
+		return value;
+
+	} public void saveChatMessage(ChatDto chatDto) {
+	    String sql = "INSERT INTO chat_messages (uidx, sender, message) VALUES (?, ?, ?)";
+
 	    try {
-	    	 conn = dataSource.getConnection();// 데이터 소스 연결
-	        String chatListSQL = "SELECT *, " +
-	                             "(SELECT userNickname FROM UserTable WHERE userId = ChatTable.cFrom) AS fromNickname, " +
-	                             "(SELECT userNickname FROM UserTable WHERE userId = ChatTable.cTo) AS toNickname " +
-	                             "FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND cidx > ? ORDER BY cTime";
-	        pstmt = conn.prepareStatement(chatListSQL);
-	        
-	        pstmt.setString(1, cFrom);
-	        pstmt.setString(2, cTo);
-	        pstmt.setString(3, cTo);
-	        pstmt.setString(4, cFrom);
-	        pstmt.setInt(5, Integer.parseInt(cidx));
-	        rs = pstmt.executeQuery();
-	        chatList = new ArrayList<ChatDto>();
-	        while (rs.next()) {
-	            // getChatListByRecent와 유사한 수정 사항
-	            ChatDto chat = new ChatDto();
-	            chat.setCidx(rs.getInt("cidx"));
-	            chat.setcFrom(rs.getString("fromNickname").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-	            chat.setUserNickname(rs.getString("userNickname").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-	            chat.setcTo(rs.getString("toNickname").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-	            chat.setcContents(rs.getString("cContents").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-	            int cTime = Integer.parseInt(rs.getString("cTime").substring(11,13));
-	            String timeType = "오전";
-	            if(cTime >= 12) {
-	                timeType = "오후";
-	                cTime -= 12;
-	            }
-	            
-	            chat.setcTime(rs.getString("cTime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
-	            chatList.add(chat);
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, chatDto.getUidx());
+	        pstmt.setString(2, chatDto.getSender()); // 추가: sender 정보 저장
+	        pstmt.setString(3, chatDto.getMessage());
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            pstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
 	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	    	try {
-	    		if(rs != null) rs.close();
-	    		if(pstmt != null) pstmt.close();
-	    		if(conn != null) conn.close();
-	    	} catch (Exception e) {
-	    		e.printStackTrace();
-	    	}
 	    }
-		
-	    return chatList;  
 	}
 	
-	public ArrayList<ChatDto> getChatListByRecent(String cFrom, String cTo, int number) {
-	    ArrayList<ChatDto> chatList = null;
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    String SQL = "SELECT *, " +
-	                 "(SELECT userNickname FROM UserTable WHERE userId = ChatTable.cFrom) AS fromNickname, " +
-	                 "(SELECT userNickname FROM UserTable WHERE userId = ChatTable.cTo) AS toNickname " +
-	                 "FROM ChatTable WHERE ((cFrom = ? AND cTo = ?) OR (cFrom = ? AND cTo = ?)) AND cidx > (SELECT MAX(cidx) - ? FROM ChatTable) ORDER BY cTime";
+	public List<ChatDto> getRecentChatMessages(int count) {
+	    List<ChatDto> chatMessages = new ArrayList<>();
+	    String sql = "SELECT u.userId, c.message FROM chat_messages c " +
+	                 "JOIN users u ON c.uidx = u.uidx ORDER BY c.timestamp DESC LIMIT ?";
+
 	    try {
-	        conn = dataSource.getConnection();
-	        pstmt = conn.prepareStatement(SQL);
-	        pstmt.setString(1, cFrom);
-	        pstmt.setString(2, cTo);
-	        pstmt.setString(3, cTo);
-	        pstmt.setString(4, cFrom);
-	        pstmt.setInt(5, number);
-	        rs = pstmt.executeQuery();
-	        chatList = new ArrayList<ChatDto>();
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, count);
+	        ResultSet rs = pstmt.executeQuery();
+
 	        while (rs.next()) {
-	            ChatDto chat = new ChatDto();
-	            chat.setCidx(rs.getInt("cidx"));
-	            chat.setcFrom(rs.getString("fromNickname").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-	            chat.setUserNickname(rs.getString("userNickname").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-	            chat.setcTo(rs.getString("toNickname").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-	            chat.setcContents(rs.getString("cContents").replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-	            int cTime = Integer.parseInt(rs.getString("cTime").substring(11,13));
-	            String timeType = "오전";
-	            if(cTime >= 12) {
-	                timeType = "오후";
-	                cTime -= 12;
-	            }
-	            chat.setcTime(rs.getString("cTime").substring(0, 11)+ " " + timeType + " " + cTime + " " + ":" + rs.getString("cTime").substring(14, 16) + "");
-	            chatList.add(chat);
-	        } 
-	    } catch (Exception e) {
+	            String sender = rs.getString("userId");
+	            String message = rs.getString("message");
+
+	            ChatDto chatDto = new ChatDto(0, sender, message);
+	            chatMessages.add(chatDto);
+	        }
+	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {
-	    	try {
-	    		if(rs != null) rs.close();
-	    		if(pstmt != null) pstmt.close();
-	    		if(conn != null) conn.close();
-	    	} catch (Exception e) {
-	    		e.printStackTrace();
-	    	}
+	        try {
+	            pstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
 	    }
-	    
-		return chatList;
-   }//
-	
-	public int submit(String cFrom, String cTo, String cContents) { //채팅을 보내는 submit
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String SQL = "insert into chattable(cfrom, cto, ccontents, ctime)"
-					+" values(?,?,?,now())";
-	    try {
-             conn = dataSource.getConnection();
-             pstmt = conn.prepareStatement(SQL);
-             pstmt.setString(1, cFrom);
-             pstmt.setString(2, cTo);
-             pstmt.setString(3, cContents);
-             
-             return pstmt.executeUpdate(); //실행한결과를 반환
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    } finally {
-	    	try {
-	    		if(rs != null) rs.close();
-	    		if(pstmt != null) pstmt.close();
-	    		if(conn != null) conn.close();
-	    	} catch (Exception e) {
-	    		e.printStackTrace();
-	    	}
-	    	
-	    
-	    }
-		return -1; // 데이터베이스 오류
 
-}
-
-	public String getUserNickname(String userId) {
-		 String nickname = "";
-		    Connection conn = null;
-		    PreparedStatement pstmt = null;
-		    ResultSet rs = null;
-
-		    try {
-		        conn = dataSource.getConnection();
-		        String SQL = "SELECT userNickname FROM UserTable WHERE userId = ?";
-		        pstmt = conn.prepareStatement(SQL);
-		        pstmt.setString(1, userId);
-		        rs = pstmt.executeQuery();
-
-		        if (rs.next()) {
-		            nickname = rs.getString("userNickname");
-		        }
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    } finally {
-		    	try {
-		    		if(rs != null) rs.close();
-		    		if(pstmt != null) pstmt.close();
-		    		if(conn != null) conn.close();
-		    	} catch (Exception e) {
-		    		e.printStackTrace();
-		    	}
-		    }
-		   
-
-		    return nickname;
+	    Collections.reverse(chatMessages);
+	    return chatMessages;
 	}
-
+	
 }
