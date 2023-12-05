@@ -359,7 +359,7 @@ public class UserDao {
 	    UserDto udto = null;
 	    ResultSet rs = null;
 	    try {
-	        String sql = "SELECT userPwd FROM usertable WHERE username = ? AND userId = ?";
+	        String sql = "SELECT userPwd, uidx FROM usertable WHERE username = ? AND userId = ?";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, userName);
 	        pstmt.setString(2, userId);
@@ -368,6 +368,7 @@ public class UserDao {
 	        
 	        if (rs.next()) {
 	        	udto = new UserDto();
+	        	udto.setUidx(rs.getInt("uidx"));
 	        	udto.setUserPwd(rs.getString("userPwd"));
 	        }
 	    } catch (Exception e) {
