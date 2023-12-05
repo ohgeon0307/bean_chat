@@ -16,5 +16,5 @@ public class MailAuth extends Authenticator{
     
     public PasswordAuthentication getPasswordAuthentication() {
         return pa;
-    }
+    }                                                     
 }
