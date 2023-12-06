@@ -63,7 +63,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "<%= request.getContextPath() %>/user/saveMessage.do",
+                url: "<%= request.getContextPath() %>/chat/saveMessage.do",
                 data: {
                     message: message,
                     userId: userId

@@ -21,40 +21,8 @@ public class ChatDao {
 
 	}
 
-	public int userLogin(String userId, String userPwd) {
-
-		int value = 0;
-
-		String sql = "select uidx from users where userId=? and userPwd = ?";
-		ResultSet rs = null;
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, userPwd);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				value = rs.getInt("uidx");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				pstmt.close();
-				conn.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return value;
-
-	} public void saveChatMessage(ChatDto chatDto) {
-	    String sql = "INSERT INTO chat_messages (uidx, sender, message) VALUES (?, ?, ?)";
+	public void saveChatMessage(ChatDto chatDto) {
+	    String sql = "INSERT INTO chattable (uidx, sender, message) VALUES (?, ?, ?)";
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
@@ -75,8 +43,8 @@ public class ChatDao {
 	
 	public List<ChatDto> getRecentChatMessages(int count) {
 	    List<ChatDto> chatMessages = new ArrayList<>();
-	    String sql = "SELECT u.userId, c.message FROM chat_messages c " +
-	                 "JOIN users u ON c.uidx = u.uidx ORDER BY c.timestamp DESC LIMIT ?";
+	    String sql = "SELECT u.userId, c.message FROM chattable c " +
+	                 "JOIN usertable u ON c.uidx = u.uidx ORDER BY c.timestamp DESC LIMIT ?";
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
