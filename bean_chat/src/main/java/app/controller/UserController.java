@@ -39,8 +39,6 @@ public class UserController extends HttpServlet {
 		this.location = location;
 	}
 	// ㅇㅇㅇㅇ
-
-	@SuppressWarnings("unused")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -204,13 +202,25 @@ public class UserController extends HttpServlet {
 		} else if (location.equals("userFindPwdAction.do")) {
 			PrintWriter out = response.getWriter();
 			String userName = request.getParameter("userName");
+			System.out.println(userName);
 			String userId = request.getParameter("userId");
+			System.out.println(userId);
+			
+			
+			if(userName==null || userName=="" ) {
+				out.println("<script>alert('아이디 또는 이름이 일치하지 않습니다.'); history.back();</script>");
+			}else if(userId==null || userId=="" ) {
+				out.println("<script>alert('아이디 또는 이름이 일치하지 않습니다.'); history.back();</script>");
+			}else {
+			
+			// name / id 넘어오지 않거나 ""일경우 처리
 			UserDao udao = new UserDao();
 
 			UserDto udto = udao.userFindPwd(userName, userId);
-			System.out.println("utdo 최초값은 ? : " + udto);
-			System.out.println("udto의 getUidx값은? : " + udto.getUidx());
-			
+			if( udto == null ) {
+				out.println("<script>alert('아이디 또는 이름이 일치하지 않습니다.'); history.back();</script>");
+			}
+		
 			if (udto != null && udto.getUidx() != 0) {
 				Random ran = new Random();
 				StringBuffer buffer = new StringBuffer();
@@ -296,6 +306,7 @@ public class UserController extends HttpServlet {
 					out.println("<script>alert('비밀번호 변경에 실패하였습니다.'); history.back();</script>");
 				}
 			} 
+			}
 		}
 	}
 

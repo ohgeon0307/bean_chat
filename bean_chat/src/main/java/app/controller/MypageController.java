@@ -3,6 +3,7 @@ package app.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
@@ -15,8 +16,12 @@ import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import app.dao.BoardDao;
+import app.dao.FriendDao;
 import app.dao.UserDao;
+import app.dto.BoardDto;
 import app.dto.FileRename;
+import app.dto.FriendDto;
 import app.dto.PasswordEncoder;
 import app.dto.UserDto;
 
@@ -65,10 +70,12 @@ public class MypageController extends HttpServlet{
 
 			
 			int uidx = (Integer)session.getAttribute("uidx");
+			System.out.println("uidx>?"+uidx);
 
 			
 			UserDao udao = new UserDao();
 			UserDto udto = udao.UserSelectOne(uidx);
+			System.out.println("udto?"+udto);
 			
 			request.setAttribute("udto", udto);
 			
@@ -84,7 +91,7 @@ public class MypageController extends HttpServlet{
 			
 			HttpSession session = request.getSession();
 			int uidx = (Integer)session.getAttribute("uidx");
-			
+			System.out.println("uidx>?"+uidx);
 			System.out.println("getuidx"+uidx);
 			String userNickname =request.getParameter("userNickname");
 			String userName = request.getParameter("userName");
@@ -309,7 +316,54 @@ public class MypageController extends HttpServlet{
 				
 			
 		 }else if(location.equals("myFriend.do")){
+			 
+			
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+			UserDao udao = new UserDao();
+			FriendDao fdao = new FriendDao();
+			ArrayList<FriendDto> alist = fdao.friendSelectAll(uidx);
+			System.out.println(alist);
+
+			ArrayList<UserDto> frInfo = new ArrayList<>();
+			
+			    for (FriendDto fdto : alist) {
+			        int fUidx = (uidx == fdto.getUidx1()) ? fdto.getUidx2() : fdto.getUidx1();
+			        UserDto fInfo = udao.UserSelectOne(fUidx);
+			        System.out.println(fInfo);
+			        if(fInfo != null) {
+			        	frInfo.add(fInfo);
+			        }
+			    }
+			    
+			    
+			request.setAttribute("alist", alist);
+			request.setAttribute("frInfo", frInfo);
+			 
 			String path ="/mypage/my_friend_list.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+			
+			
+		}else if(location.equals("myFriendAdd.do")){
+			
+			HttpSession session = request.getSession();
+			//내 uidx
+			int uidx = (Integer)session.getAttribute("uidx");
+			
+			String findId =request.getParameter("findId");
+			FriendDao fdao = new FriendDao();
+			//친구의 uidx
+			int fuidx = fdao.friendFindId(findId);
+			
+			
+			
+			
+			
+			
+			
+			
+			String path ="/mypage/my_list.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);
 			 rd.forward(request, response);
 			
