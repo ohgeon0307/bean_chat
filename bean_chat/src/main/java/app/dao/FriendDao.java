@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import app.dbconn.DbConn;
 import app.dto.FriendDto;
+import app.dto.FriendRequestDto;
 import app.dto.UserDto;
 
 public class FriendDao {
@@ -43,8 +45,6 @@ public class FriendDao {
 			fdto.setFidx(rs.getInt("fidx"));
 			fdto.setUidx1(rs.getInt("uidx1"));
 			fdto.setUidx2(rs.getInt("uidx2"));
-			fdto.setfAddYn(rs.getString("fAddYn"));
-			fdto.setfLike(rs.getString("fLike"));
 			alist.add(fdto);
 		}
 		}catch(Exception e) {
@@ -85,30 +85,25 @@ public class FriendDao {
 	}
 	
 	//친구추가 전송
-	public int friendInsert(FriendDto fdto){
+	public int friendSend(FriendRequestDto frdto){
 	      int exec = 0;
-	      UserDao udao = new UserDao();
-	      UserDto udto = udao.UserSelectOne(fdto.getUidx2());
+			/*
+			 * UserDao udao = new UserDao(); UserDto udto =
+			 * udao.UserSelectOne(fdto.getUidx2());
+			 */
 	      
 	      
-	      String sql = "insert into friendtable(fidx,uidx1, uidx2, fAddYn)"
+	      String sql = "insert into friend_requesttable(Fridx,fromUidx, toUidx, fState)"
 	              +" values(?,?,?,'W')";
 	      try{
 	      conn.setAutoCommit(false);
 	      pstmt = conn.prepareStatement(sql);
-	      pstmt.setInt(1, fdto.getFidx());
-	      pstmt.setInt(2, fdto.getUidx1());
-	      pstmt.setInt(3, fdto.getUidx2());
-	      
-	      
+	      pstmt.setInt(1, frdto.getFridx());
+	      pstmt.setInt(2, frdto.getFromUidx());
+	      pstmt.setInt(3, frdto.getToUidx());
 	      
 	      exec = pstmt.executeUpdate();
 	      conn.commit();
-	      
-	      
-	      if (udto != null) {
-	            System.out.println("상대방 정보: " + udto.getUserName() + ", " + udto.getUserNickname());
-	        }
 	      
 	      
 	      }catch(Exception e){
@@ -122,8 +117,77 @@ public class FriendDao {
 	      return exec;   
 	   }
 
+		/*
+		 * public ArrayList<FriendRequestDto> requestSelectAll(int toUidx) {
+		 * 
+		 * ArrayList<FriendRequestDto> alist = new ArrayList<FriendRequestDto>();
+		 * 
+		 * ResultSet rs = null;
+		 * 
+		 * String sql ="SELECT fromuidx\r\n" + "FROM friend_requesttable\r\n" +
+		 * "WHERE touidx = ?";
+		 * 
+		 * try { pstmt = conn.prepareStatement(sql); pstmt.setInt(1, toUidx); rs =
+		 * pstmt.executeQuery();
+		 * 
+		 * 
+		 * while(rs.next()) { FriendRequestDto frdto = new FriendRequestDto();
+		 * frdto.setFromUidx(rs.getInt("fromUidx")); alist.add(frdto); }
+		 * }catch(Exception e) { e.printStackTrace(); }finally { try{ rs.close();
+		 * pstmt.close(); //conn.close(); }catch(Exception e){ e.printStackTrace(); } }
+		 * 
+		 * return alist; }
+		 */
 	
 	
+	
+	public List<UserDto> requestSelectAll(int toUidx) {
+	    List<UserDto> alist = new ArrayList<>();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    String sql = "SELECT u.* " +
+	                 "FROM friend_requesttable fr " +
+	                 "JOIN usertable u ON fr.fromUidx = u.uidx " +
+	                 "WHERE fr.toUidx = ?";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, toUidx);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            UserDto udto = new UserDto();
+	            udto.setUidx(rs.getInt("uidx"));
+	            udto.setUserId(rs.getString("userId"));
+	            udto.setUserName(rs.getString("userName"));
+	            udto.setUserBirth(rs.getString("userBirth"));
+	            udto.setUserNickname(rs.getString("userNickname"));
+	            udto.setUserPhone(rs.getString("userPhone"));
+	            udto.setUserDate(rs.getString("userDate"));
+	            udto.setuDelYn(rs.getString("uDelYn"));
+	            udto.setUserImage(rs.getString("userImage"));
+
+	            alist.add(udto);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) {
+	                rs.close();
+	            }
+	            if (pstmt != null) {
+	                pstmt.close();
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return alist;
+	}
+
 	
 	
 	
