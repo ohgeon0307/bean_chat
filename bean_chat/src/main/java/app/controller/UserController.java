@@ -147,9 +147,11 @@ public class UserController extends HttpServlet {
 			try {
 				// UserDao를 통해 데이터베이스에서 해당 아이디에 대한 해시된 비밀번호 가져오기
 				String userHashPwd = udao.userHashPassword(userId);
-
+				if(userHashPwd == null ) {
+					out.println("<script>alert('아이디 또는 이름이 일치하지 않습니다.'); history.back();</script>");
+				}
 				// 저장된 해시된 비밀번호와 사용자 입력의 해시된 비밀번호를 비교
-				if (userHashPwd.equals(userPwd)) {
+				else if (userHashPwd.equals(userPwd)) {
 					// 비밀번호 일치: 로그인 성공
 					session.setAttribute("userId", userId);
 					session.setAttribute("uidx", uidx);
