@@ -86,29 +86,42 @@ public class FriendDao {
 	
 	//친구추가 전송
 	public int friendInsert(FriendDto fdto){
-		int exec = 0;
-		
-		String sql = "insert into friendtable(uidx1, uidx2, fAddYn)"
-		        +" values(?,?,1)";
-		try{
-		conn.setAutoCommit(false);
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, fdto.getFidx());
-		pstmt.setInt(2, fdto.getUidx1());
-		pstmt.setInt(2, fdto.getUidx2());
-		pstmt.setString(2, fdto.getfAddYn());
-		exec = pstmt.executeUpdate();
-		conn.commit();
-		}catch(Exception e){
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {				
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		}
-		return exec;	
-	}
+	      int exec = 0;
+	      UserDao udao = new UserDao();
+	      UserDto udto = udao.UserSelectOne(fdto.getUidx2());
+	      
+	      
+	      String sql = "insert into friendtable(fidx,uidx1, uidx2, fAddYn)"
+	              +" values(?,?,?,'W')";
+	      try{
+	      conn.setAutoCommit(false);
+	      pstmt = conn.prepareStatement(sql);
+	      pstmt.setInt(1, fdto.getFidx());
+	      pstmt.setInt(2, fdto.getUidx1());
+	      pstmt.setInt(3, fdto.getUidx2());
+	      
+	      
+	      
+	      exec = pstmt.executeUpdate();
+	      conn.commit();
+	      
+	      
+	      if (udto != null) {
+	            System.out.println("상대방 정보: " + udto.getUserName() + ", " + udto.getUserNickname());
+	        }
+	      
+	      
+	      }catch(Exception e){
+	         try {
+	            conn.rollback();
+	         } catch (SQLException e1) {            
+	            e1.printStackTrace();
+	         }
+	         e.printStackTrace();
+	      }
+	      return exec;   
+	   }
+
 	
 	
 	

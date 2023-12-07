@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 
 import app.dao.BoardDao;
@@ -316,59 +317,83 @@ public class MypageController extends HttpServlet{
 				
 			
 		 }else if(location.equals("myFriend.do")){
-			 
-			
-			HttpSession session = request.getSession();
-			int uidx = (Integer)session.getAttribute("uidx");
-			UserDao udao = new UserDao();
-			FriendDao fdao = new FriendDao();
-			ArrayList<FriendDto> alist = fdao.friendSelectAll(uidx);
-			System.out.println(alist);
+	         
+             /*
+              * HttpSession session = request.getSession(); int uidx =
+              * (Integer)session.getAttribute("uidx"); UserDao udao = new UserDao();
+              * FriendDao fdao = new FriendDao(); ArrayList<FriendDto> alist =
+              * fdao.friendSelectAll(uidx); System.out.println(alist);
+              * 
+              * ArrayList<UserDto> frInfo = new ArrayList<>();
+              * 
+              * for (FriendDto fdto : alist) { int fUidx = (uidx == fdto.getUidx1()) ?
+              * fdto.getUidx2() : fdto.getUidx1(); UserDto fInfo = udao.UserSelectOne(fUidx);
+              * System.out.println(fInfo); if(fInfo != null) { frInfo.add(fInfo); } }
+              * 
+              * 
+              * request.setAttribute("alist", alist); request.setAttribute("frInfo", frInfo);
+              */
+           
+           String path ="/mypage/my_friend_list.jsp"; 
+           RequestDispatcher rd =request.getRequestDispatcher(path);
+           rd.forward(request, response);
+           
+           
+           }
+           else if(location.equals("searchFriend.do")){
+              
+              String friendId = request.getParameter("friendId");
+              FriendDao fdao = new FriendDao();
+              int fUidx= fdao.friendFindId(friendId);
+              UserDao udao = new UserDao();
+              UserDto udto = udao.UserSelectOne(fUidx);
+              
+              response.setContentType("application/json;charset=UTF-8");
+              
+               PrintWriter out = response.getWriter();
 
-			ArrayList<UserDto> frInfo = new ArrayList<>();
-			
-			    for (FriendDto fdto : alist) {
-			        int fUidx = (uidx == fdto.getUidx1()) ? fdto.getUidx2() : fdto.getUidx1();
-			        UserDto fInfo = udao.UserSelectOne(fUidx);
-			        System.out.println(fInfo);
-			        if(fInfo != null) {
-			        	frInfo.add(fInfo);
-			        }
-			    }
-			    
-			    
-			request.setAttribute("alist", alist);
-			request.setAttribute("frInfo", frInfo);
-			 
-			String path ="/mypage/my_friend_list.jsp";
-			RequestDispatcher rd = request.getRequestDispatcher(path);
-			rd.forward(request, response);
-			
-			
-		}else if(location.equals("myFriendAdd.do")){
-			
-			HttpSession session = request.getSession();
-			//내 uidx
-			int uidx = (Integer)session.getAttribute("uidx");
-			
-			String findId =request.getParameter("findId");
-			FriendDao fdao = new FriendDao();
-			//친구의 uidx
-			int fuidx = fdao.friendFindId(findId);
-			
-			
-			
-			
-			
-			
-			
-			
-			String path ="/mypage/my_list.jsp";
-			 RequestDispatcher rd = request.getRequestDispatcher(path);
-			 rd.forward(request, response);
-			
-			
-		}else if(location.equals("myList.do")){
+                 Gson gson = new Gson();
+                 String json = (udto != null) ? gson.toJson(udto) : "{}";
+
+                 out.print(json);
+                 out.flush();
+              
+                /*
+                 * String path ="/mypage/my_friend_list.jsp"; RequestDispatcher rd =
+                 * request.getRequestDispatcher(path); rd.forward(request, response);
+                 */
+       
+       
+    }else if(location.equals("addFriend.do")){
+       String addId= request.getParameter("addId");
+        FriendDao fdao = new FriendDao();
+        int fUidx= fdao.friendFindId(addId);
+       
+         PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
+        int uidx = (Integer)session.getAttribute("uidx");
+           
+        if (fUidx != 0) {
+        Gson gson = new Gson();
+         FriendDto fdto = new FriendDto();
+         fdto.setUidx1(uidx);
+         fdto.setUidx2(fUidx);
+         
+         int exec = fdao.friendInsert(fdto);
+
+            String json = gson.toJson(exec);
+            response.getWriter().write(json);
+        }else {
+           out.println("<script>alert('유효한 아이디가 아닙니다.'); history.back();</script>");
+        }
+       
+       /*
+        * String path ="/mypage/my_list.jsp"; RequestDispatcher rd =
+        * request.getRequestDispatcher(path); rd.forward(request, response);
+        */
+       
+       
+    }else if(location.equals("myList.do")){
 			String path ="/mypage/my_list.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);
 			 rd.forward(request, response);
