@@ -20,7 +20,7 @@
     </c:if>
 
     <c:if test="${empty chatRooms}">
-        <p>참여 중인 채팅방이 없습니다.</p>
+        <p>참여 중인 채팅방이 없습니다. </p>
     </c:if>
 </body>
 </html>
