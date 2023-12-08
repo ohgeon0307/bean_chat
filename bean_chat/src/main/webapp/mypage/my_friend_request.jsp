@@ -33,8 +33,13 @@
 
                         var acceptBtn = $('<button>').text('수락');
                         
+                        
+                        
                         acceptBtn.click(function() {
-	                        myRequestAccept(data[i].userId); // 수락 버튼 이벤트 할당
+                            var userId = data[i].userId;
+                            var listItemRemove = $(this).closest('li'); // 클릭한 버튼의 부모 li 요소를 찾음
+                            
+                            myRequestAccept(userId, listItemRemove);
                         });
                         
                         listItem.append(userInfo, profileImage, acceptBtn);
@@ -48,20 +53,19 @@
         }
 
 
-        function myRequestAccept(requestId) {
+        function myRequestAccept(userId, listItem) {
             return function () {
                 $.ajax({
-                    url: '/bean_chat/mypage/myRequestAccept.do',
+                    url: '/bean_chat/mypage/myRequestAccept.do?userId=' + userId,
                     type: 'POST',
                     dataType: 'json',
-                    data: { requestId: requestId },
                     success: function (data) {
 
                         if (data.success) {
-                            $('#result').html('친구 요청을 수락했습니다.');
-
+                        	alert('친구 요청을 수락했습니다.');
+                        	listItem.remove(); // 해당 요청자에 대한 요소 삭제
                         } else {
-                            $('#result').html('친구 요청 수락에 실패했습니다.');
+                        	alert('친구 요청 수락에 실패했습니다.');
                         }
                     },
                     error: function (error) {

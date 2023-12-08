@@ -117,29 +117,7 @@ public class FriendDao {
 	      return exec;   
 	   }
 
-		/*
-		 * public ArrayList<FriendRequestDto> requestSelectAll(int toUidx) {
-		 * 
-		 * ArrayList<FriendRequestDto> alist = new ArrayList<FriendRequestDto>();
-		 * 
-		 * ResultSet rs = null;
-		 * 
-		 * String sql ="SELECT fromuidx\r\n" + "FROM friend_requesttable\r\n" +
-		 * "WHERE touidx = ?";
-		 * 
-		 * try { pstmt = conn.prepareStatement(sql); pstmt.setInt(1, toUidx); rs =
-		 * pstmt.executeQuery();
-		 * 
-		 * 
-		 * while(rs.next()) { FriendRequestDto frdto = new FriendRequestDto();
-		 * frdto.setFromUidx(rs.getInt("fromUidx")); alist.add(frdto); }
-		 * }catch(Exception e) { e.printStackTrace(); }finally { try{ rs.close();
-		 * pstmt.close(); //conn.close(); }catch(Exception e){ e.printStackTrace(); } }
-		 * 
-		 * return alist; }
-		 */
-	
-	
+		
 	
 	public List<UserDto> requestSelectAll(int toUidx) {
 	    List<UserDto> alist = new ArrayList<>();
@@ -149,7 +127,7 @@ public class FriendDao {
 	    String sql = "SELECT u.* " +
 	                 "FROM friend_requesttable fr " +
 	                 "JOIN usertable u ON fr.fromUidx = u.uidx " +
-	                 "WHERE fr.toUidx = ?";
+	                 "WHERE fr.toUidx = ? AND fr.fState = 'W'";
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
@@ -188,8 +166,82 @@ public class FriendDao {
 	    return alist;
 	}
 
+	public int findFridxByUidx(int fromUidx, int toUidx) {
+	    int fridx = 0;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = "SELECT Fridx FROM friend_requesttable WHERE fromUidx = ? AND toUidx = ?";
+	    
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, fromUidx);
+	        pstmt.setInt(2, toUidx);
+	        rs = pstmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            fridx = rs.getInt("Fridx");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    return fridx;
+	}
 	
 	
+	public int friendAccept(int fridx) {
+		
+		int exec = 0;
+		String sql ="update friend_requesttable set\r\n"
+				+ "fstate = 'Y'\r\n"
+				+ "where fridx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, fridx);
+			exec = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return exec;
+
+		
+	}
+	
+	public int friendInsert(FriendDto fdto){
+		int exec = 0;
+		
+		String sql = "insert into friendtable(fidx, uidx1, uidx2)"
+		        +" values(?,?,?)";
+		try{
+		conn.setAutoCommit(false);
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, fdto.getFidx());
+		pstmt.setInt(2, fdto.getUidx1());
+		pstmt.setInt(3, fdto.getUidx2());
+		
+		exec = pstmt.executeUpdate();
+		conn.commit();
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		return exec;	
+	}
 	
 	
 	

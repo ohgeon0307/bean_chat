@@ -412,8 +412,7 @@ public class MypageController extends HttpServlet{
 				//세션에서 내 uidx가져옴
 				HttpSession session = request.getSession();
 				int uidx = (Integer)session.getAttribute("uidx");
-				System.out.println("");
-				
+								
 				FriendDao fdao =new FriendDao();
 				
 				List<UserDto> alist = fdao.requestSelectAll(uidx);
@@ -440,6 +439,48 @@ public class MypageController extends HttpServlet{
 				out.flush();
 				
 			
+		}else if(location.equals("myRequestAccept.do")){
+			
+			PrintWriter out = response.getWriter();
+			String userId = request.getParameter("userId");
+			FriendDao fdao = new FriendDao();
+            
+			//아이디로 상대 uidx 찾아서 fuidx변수에 넣어줌
+			//상대 uidx== fuidx
+			int fUidx= fdao.friendFindId(userId);
+			
+			//세션에서 내uidx가져옴
+			//내 uidx == uidx
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+			
+			//내uidx와 상대uidx로 fridx가져옴
+			//가져오는이유 :: fridx를 알아야 수락으로 상태변경 해주니깐..
+			int fridx = fdao.findFridxByUidx(fUidx, uidx);
+			
+			//fridx의 fstate값을 'Y'로 변경
+			int exec = fdao.friendAccept(fridx);
+			
+			if(exec != 0) {
+				FriendDto fdto = new FriendDto();
+				fdto.setUidx1(uidx);	//친구요청을 보내는 사람 == 나
+				fdto.setUidx2(fUidx);		//받는사람 == 상대
+				 
+				//Uidx=uidx1, touidx=uidx2, fstate='Y' 로 변경
+
+				int result = fdao.friendInsert(fdto);
+				//결과값 json으로 파싱
+				if(result !=0) {
+					String jsonResponse = "{\"success\": true}";
+
+				    response.setContentType("application/json;charset=UTF-8");
+				    response.getWriter().write(jsonResponse);
+				    
+				}else{
+					out.println("<script>alert('친구 추가에 실패했어요 ㅠ.ㅠ'); history.back();</script>");}
+			}else{
+				out.println("<script>alert('친구 추가에 실패했어요 ㅠ.ㅠ'); history.back();</script>");}
+		
 		}else if(location.equals("myModify.do")){
 			String path ="/mypage/my_profile_modify.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);
