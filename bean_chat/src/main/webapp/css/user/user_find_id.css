@@ -142,15 +142,70 @@ main {
     position: relative;
     z-index: 1;
     top:250px;
+    background-color:white;
+    border-radius:20px;
+    overflow:hidden;
 }
 
-form{
+/*탭 부분 css */
+#myTab {
+    display: flex;
+    width: 100%;
+    height:70px;
+}
+
+#myTab .nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+#myTab button {
+    width: 100%;
+    height:100%;
+    font-size:25px;
+    font-weight:bold;
+    
+}
+
+/* 선택된 탭의 스타일 */
+.nav-item .nav-link.active {
+    background-color: #418722; /* 선택된 탭의 배경색을 변경 */
+    color: white; /* 선택된 탭의 글자색을 변경 */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 1px solid #418722; /* 선택된 탭의 테두리 스타일 추가 */
+}
+
+/* 선택되지 않은 탭의 스타일 */
+.nav-item .nav-link:not(.active) {
+    background-color: #f5f5f5; /* 선택되지 않은 탭의 배경색을 변경 */
+    color: #555; /* 선택되지 않은 탭의 글자색을 변경 */
+    border: 1px solid transparent; /* 선택되지 않은 탭의 테두리 스타일 추가 */
+    border-bottom-color: #ccc; /* 선택되지 않은 탭의 하단 테두리 스타일 추가 */
+}
+
+/* 마우스를 올렸을 때 탭의 스타일 */
+.nav-item .nav-link:not(.active):hover {
+    background-color: #e5e5e5; /* 마우스를 올렸을 때의 배경색 변경 */
+}
+
+.tab-content .tab-pane {
+    display: none;
+}
+
+.tab-content .tab-pane.active {
+    display: block;
+}
+
+/* 폼 css*/
+#myTabContent{
 	width:70%;
 	margin: 0 auto;
-	
 }
+
+
 .search-title{
-	margin:70px auto;
+	margin:80px auto;
 	text-align:center;
 }
 
@@ -190,6 +245,13 @@ form{
 	width:100%;
 }
 
+.find-email{
+	display:flex;
+	justify-content: space-between;
+	margin-top:20px;
+	width:100%;
+}
+
 
 .form-search input{
 	width:60%;
@@ -208,46 +270,225 @@ input::placeholder{
 	width:45%;
 }
 
-#findBtn{
+.findBtn{
 	margin-top: 60px;
     padding: 0 40px;
     height: 45px;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
     display:inline-block;
-    background-color: #455ba8;
+    background-color: #4CAF50;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 5px;
     border:none;
-    margin-bottom:50px;
+    margin-bottom:60px;
     color:white;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
 }
 
-#backBtn{
+.backBtn{
     margin-top: 60px;
     padding: 0 40px;
+    font-size: 18px;
     height: 45px;
-    font-size: 20px;
+    background-color: #fff;
     text-align: center;
     display:inline-block;
-    background-color: #bce489;
+    color: #555;
     cursor: pointer;
-    border-radius: 10px;
-    border:none;
-    margin-bottom:50px;
+     border-radius: 5px;
+   border: 1px solid #ccc;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
+    margin-bottom:60px;
     
 }
 
-#findBtn:hover{
-    border:1px solid #000;
-    background-color: pink;
-    color: #000;
-}
-#backBtn:hover{
-    border:1px solid #000;
-    color: white;
+.findBtn:hover{
+   background-color: #45a049;
 }
 
+.findBtn:active {
+    background-color: #3e8e41;
+}
+
+.backBtn:hover {
+    background-color: #f2f2f2;
+    border-color: #aaa;
+    color: #333;
+}
+
+.backBtn:active {
+    background-color: #e6e6e6;
+    border-color: #999;
+    color: #222;
+}
+
+/*모달 css*/
+.modal-title{
+	font-size:20px;
+	color:#455ba8;
+	font-weight:bold;
+	text-align:center;
+}
+
+
+.found-success h4{
+	font-size:15px;
+}
+
+
+#userIdText{
+	font-size:23px;
+	color:bule;
+	font-weight:bold;
+}
+
+.result_img img{
+	max-width: 100%; /* 최대 너비를 화면에 맞게 조절 */
+    height: auto; /* 가로 세로 비율을 유지하면서 이미지 크기 조절 */
+}
+
+#btnLogin {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 버튼에 호버 효과 */
+#btnLogin:hover {
+    background-color: #2980b9;
+}
+
+#clodelModalBtn:hover{
+	border:1px solid black;
+}
+
+.found-fail h4{
+	font-size:20px;
+}
+
+#btnJoin{
+	display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;	
+}
+
+#btnJoin:hover{
+	background-color: #2980b9;
+}
+
+
+/*푸터 css*/
+
+footer {
+    width: 100%;
+    height: 250px;
+    background-color: rgb(56, 56, 56);
+    padding: 50px 160px 30px 130px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+    position: relative;
+    top:500px;
+  }
+  
+  #slogan {
+    width: 620px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    flex-basis: 50px;
+    padding-bottom: 30px;
+    margin: 0;
+  }
+  
+  footer img {
+    filter: invert(0.2);
+    margin-bottom: 10px;
+  }
+  
+  footer p {
+    display: inline-block;
+    color: rgb(99, 99, 99);
+  }
+  
+  #footerMenu {
+    margin: 0;
+    width: 600px;
+  }
+  
+  #footerMenu ul {
+    margin: 0;
+    display: flex;
+    width: 600px;
+    padding-bottom: 30px;
+  }
+  
+  #footerMenu a {
+    color: rgb(99, 99, 99);
+  }
+  
+  #footerMenu a:hover {
+    color: #BCE489;
+  }
+  
+  .companyInfo {
+    margin-left: 15px;
+    width: 620px;
+  }
+  
+  #sns {
+    width: 500px;
+  }
+  
+  #sns ul {
+    display: flex;
+    position: absolute;
+    right: 160px;
+    bottom: 100px;
+  }
+  
+  #sns li:nth-child(2) {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  
+  #sns a {
+    padding: 25px 10px 10px 10px;
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 25%;
+    color: rgb(99, 99, 99);
+  }
+  
+  #sns a:visited {
+    color: rgb(99, 99, 99);
+  }
+  
+  #sns a:hover {
+    color: #BCE489;
+    border: 1px solid #BCE489;
+  }
 
 
 
