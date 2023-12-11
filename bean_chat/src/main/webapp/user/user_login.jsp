@@ -60,10 +60,23 @@
 			</div><!-- //.items -->
 		</div> <!-- //.container -->
 	</header><!-- 헤더 종료 -->
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link" href="<%=request.getContextPath()%>/user/userJoin.do" id="userJoinBtn">회원가입하기</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="<%=request.getContextPath()%>/user/userFindIdPwd.do" id="userFindBtn">ID/PW 찾기</a>
+		</li>
+	</ul>
 	<main>
 	<form name="frm">
-		<h1>로그인페이지</h1>
-		
+	<div id="title_zone">
+		<img src="../images/indexImage/beanchat.png">
+		<div id="title_text">
+			<h1>로그인</h1>
+			<p>로그인하여 빈챗의 서비스를 이용하세요!</p>
+		</div>
+	</div>
 		<div id="input_zone">
 			<div class="user_input">
 				<label for="userId">ID(이메일) :</label> 
@@ -92,14 +105,7 @@
 			</label>
 		</div> -->
 	</form>
-	<ul class="nav nav-tabs">
-		<li class="nav-item">
-			<a class="nav-link" href="<%=request.getContextPath()%>/user/userJoin.do">회원가입</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="<%=request.getContextPath()%>/user/userFindIdPwd.do">ID/PW 찾기</a>
-		</li>
-	</ul>
+	
 	</main>
 	
 	<footer>

@@ -137,51 +137,82 @@ font-weight: 900; }
 
 /*main 시작*/
 main {
-    width: 50%;
+    width: 40%;
     margin-left: auto;
   	margin-right: auto;
  	margin-top: 250px; 
-    margin-bottom: 300px; 
+    margin-bottom: 150px; 
     background-color:white;
     border-radius:20px;
     overflow:hidden;
     height:auto;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
 }
-
-main h1{
-	margin:80px auto;
-	text-align:center;
-	font-size:40px;
-}
-
 form[name="frm"]{
-	width:70%;
+	width:100%;
 	margin: 0 auto;
+
 }
+
+#title_zone{
+	display:flex;
+	justify-content: flex-start;
+	width:80%;
+	
+}
+
+#title_text{
+	margin:50px auto;
+	width:60%;
+}
+
+#title_text h1{
+	text-align:center;
+	font-size:30px;
+}
+
+#title_text p{
+	text-align:center;
+	font-size:18px;
+	margin-top:30px;
+}
+
+
+#title_zone img{
+	width:40%;
+}
+
+
 
 
 #input_zone{
 	margin:0 auto;
 	text-align:center;
-	width:65%;
+	width:80%;
 }
 
 .user_input{
 	display:flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	margin-top:20px;
-	width:100%;
+	width:80%;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 .user_input label{
 	height:30px;
 	width:30%;
-	font-size:25px;
+	font-size:20px;
+	font-weight:bold;
 }
 
 .user_input input{
-	width:60%;
-	height:40px;
+	width:50%;
+	height:30px;
 }
 
 #input2{
@@ -207,7 +238,7 @@ form[name="frm"]{
     cursor: pointer;
     border-radius: 5px;
     border:none;
-    margin-bottom:60px;
+    margin-bottom:40px;
     color:white;
     transition: background-color 0.3s, color 0.3s;
     outline: none;
@@ -227,7 +258,7 @@ form[name="frm"]{
    border: 1px solid #ccc;
     transition: background-color 0.3s, color 0.3s;
     outline: none;
-    margin-bottom:60px;
+    margin-bottom:40px;
     
 }
 
@@ -247,46 +278,46 @@ form[name="frm"]{
 
 
 
-#oin_find_area{
-	margin:0 auto;
-	text-align:center;
-	display:flex;
-	justify-content: space-between;
-	width:45%;
-}
-
-.nav nav-tabs{
-	 display: flex;
-    width: 100%;
-    height:70px;
+/* 탭 스타일 */
+.nav-tabs {
+  display: flex;
+  flex-direction: column; /* 세로로 배치 */
+  justify-content: flex-start; /* 위에서 아래로 정렬 */
+  align-items: flex-start; /* 왼쪽 정렬 */
+  height: auto;
+  width: 9%; /* 탭의 너비 조정 */
+  background-color: #d1f2eb;
+  color: #27ae60;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  overflow: hidden;
+  padding: 10px;
+  position: absolute;
+  top: 330px;
+  transform: translateY(-50%);
+  left: 21%; /* 탭을 폼 왼쪽에 배치 */
 }
 
 .nav-item {
-    flex: 1;
-    text-align: center;
+	width:100%;
+  margin-bottom: 10px; /* 탭 간 간격 조정 */
 }
 
-.nav-link{
-	width: 100%;
-    height:100%;
-    font-size:25px;
-    font-weight:bold;
-	
+/* 탭 링크 스타일 */
+.nav-link {
+width:90%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #555;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-
-/* 선택된 탭의 스타일 */
-.nav-item .nav-link:not(.active) {
-    background-color: #418722; /* 선택된 탭의 배경색을 변경 */
-    color: white; /* 선택된 탭의 글자색을 변경 */
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border: 1px solid #418722; /* 선택된 탭의 테두리 스타일 추가 */
-}
-
-/* 마우스를 올렸을 때 탭의 스타일 */
-.nav-item .nav-link:not(.active):hover {
-    background-color: #e5e5e5; /* 마우스를 올렸을 때의 배경색 변경 */
+.nav-link:hover {
+  color: white;
+  background-color: #2ecc71; 
 }
 
 
