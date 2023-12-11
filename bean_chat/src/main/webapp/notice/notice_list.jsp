@@ -9,7 +9,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>빈챗 자유게시판</title>
+    <title>빈챗 공지사항</title>
     <link
       href="../images/indexImage/beanchat_char.png"
       rel="shortcut icon"
@@ -49,7 +49,7 @@
                 	</c:choose>
                 </li>
                 <li><a href="<%=request.getContextPath()%>/board/boardList.do"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a></li>
-                <li><a  href="<%=request.getContextPath()%>/board/noticeList.do"><img role="button" src="../images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a></li>
+                <li><a  href="<%=request.getContextPath()%>/notice/noticeList.do"><img role="button" src="../images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a></li>
                 <li>
                 	<c:choose>
                 		<c:when test="${uidx== null }">
@@ -65,7 +65,7 @@
   </div>
     <!--end: nav-->
     <main>
-      <h1>자유게시판</h1>
+      <h1>공지사항</h1>
       <div id="inner">
         <div class="boardSet">
           <div class="boardSearch">

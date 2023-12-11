@@ -45,7 +45,13 @@ public class FrontController extends HttpServlet {
 			ChatController cc = new ChatController(location);
 			cc.doGet(request, response);
 			
-		} /*
+		} else if(str.equals("noticeList")) {
+			NoticeController nc = new NoticeController(location);
+			nc.doGet(request, response);
+		
+		
+		}
+		/*
 			 * else if(str.equals("chatsubmit")) { ChatSubmitController csc = new
 			 * ChatSubmitController(location); csc.doGet(request, response);
 			 * 

@@ -29,7 +29,7 @@ public class NoticeController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (location.equals("boardList.do")) {
+		if (location.equals("noticeList.do")) {
 			NoticeDao ndao = new NoticeDao();
 			ArrayList<BoardDto> alist = ndao.boardSelectAll();
 
