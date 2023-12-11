@@ -7,20 +7,19 @@
   <head>
     <meta charset="utf-8" />
     <title>회원가입</title>
-    <!-- css연결 -->
-	<link href="../css/reset.css" rel="stylesheet" />
-    <link href="../css/user/user_join.css" rel="stylesheet" />
     <!-- 제이쿼리 연결 -->
     <script
-      src="https://code.jquery.com/jquery-3.6.1.min.js"
-      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-      crossorigin="anonymous">
+      src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
     </script>
+    <!-- css연결 -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+	<link href="../css/reset.css" rel="stylesheet" />
+    <link href="../css/user/user_join.css" rel="stylesheet" />
   </head>
   <body>
 	<header><!-- 헤더 시작 -->
 		<div class="container"> 
-			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
+			<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a> 
 	        <div class="items">
 	            <ul>
 	                <li>
@@ -62,59 +61,65 @@
     <main><!-- 메인 시작 -->
 		<div id="main_zone">
 			<form name="frm" onsubmit="return allCheck()">
-          
+				<div id="title_text">
+					<h1>회원가입</h1>
+					<p>빈챗의 회원이 되어 우리 함께해요<i class="xi-emoticon-happy-o"></i></p>
+				</div><!-- //#title_text -->
 				<!-- 아이디 -->
-				<label for="userId">
-					<span class="required">*</span> 
-					아이디(이메일)
-				</label>
-
-				<!-- 아이디 input창 -->
-				<div class="input_area">
-					<input type="text" id="userId" name="userId" placeholder="아이디(이메일)" maxlength="30" autocomplete="off" required/>
-					<!-- autocomplete="off" : 자동 완성 미사용 -->
-					<!-- required : 필수 작성 input 태그 -->
-
-					<button type="button" class="custom-button">인증번호 받기</button>
-            	</div><!-- //.input_area -->
-
+				<div class="fake">
+					<label for="userId">
+						<img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
+						아이디(이메일)
+					</label>
+		
+					<!-- 아이디 input창 -->
+					<div class="input_area">
+						<input type="text" id="userId" name="userId" placeholder="아이디(이메일)" maxlength="30" autocomplete="off" required/>
+						<!-- autocomplete="off" : 자동 완성 미사용 -->
+						<!-- required : 필수 작성 input 태그 -->
+	
+						<button type="button" class="custom-button">인증번호 받기</button>
+	            	</div><!-- //.input_area -->
+					<!-- 이메일 인증번호 -->
+			</div>
 				<!-- 아이디 message -->
 				<span class="message" id="idMessage">
             		메일을 받을 수 있는 이메일을 입력해 주세요.
 				</span >
 				<br />
 
-				<!-- 이메일 인증번호 -->
-				<label for="emailCheck">
-					<span class="required">*</span>
-					인증번호
-            	</label>
-
 				<!-- 인증번호 input창 -->
+			<div class="fake">
+					<label for="emailCheck">
+						<img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
+						인증번호
+	            	</label>
 				<div class="input_area">
 					<input type="text" id="emailCheck" placeholder="인증번호 입력" maxlength="6" autocomplete="off"/>
 					<button type="button" class="custom-button">인증하기</button>
             	</div><!-- //.input_area -->
-
+			</div>
 				<!-- 인증번호 message -->
 				<!-- <span class="message_success">인증되었습니다.</span> -->
 
 				<!-- 비밀번호 -->
-				<label for="userPwd">
-					<span class="required">*</span>
-					비밀번호
-				</label>
-
-	            <!-- 비밀번호 input창 -->
-	            <div class="input_area">
-	              <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호" maxlength="30"/>
-	            </div><!-- //.input_area -->
-
-	            <!-- 비밀번호확인 input창 -->
-	            <div class="input_area">
-	              <input type="password" id="userPwd2"placeholder="비밀번호 확인" maxlength="30"/>
-	            </div><!-- //.input_area -->
-
+				<div class="fake">
+					<label for="userPwd">
+						<img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
+						비밀번호
+					</label>
+	
+		            <!-- 비밀번호 input창 -->
+		            <div class="input_area" id="userPwdInput">
+		              <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호" maxlength="30"/>
+		            </div><!-- //.input_area -->
+				</div>
+	
+		            <!-- 비밀번호확인 input창 -->
+		            <div class="input_area" id="userPwd2Input">
+		              <input type="password" id="userPwd2"placeholder="비밀번호 확인" maxlength="30"/>
+		            </div><!-- //.input_area -->
+				
 	            <!-- 비밀번호 message -->
 				<span class="message" id="pwdMessage" >
 						영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.
@@ -122,107 +127,150 @@
 				<br />
              
 	            <!-- 이름 -->
-	            <label for="userName"> 
-	            	<span class="required">*</span> 
-	            	이름 
-	            </label>
-
-	            <!-- 이름 input창 -->
-	            <div class="input_area">
-	              <input type="text" name="userName" />
-	            </div><!-- //.input_area -->
+	            <div class="fake">
+		            
+		            <label for="userName"> 
+		            	<img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
+		            	이름 
+		            </label>
+	
+		            <!-- 이름 input창 -->
+		            <div class="input_area">
+		              <input type="text" name="userName" />
+		            </div><!-- //.input_area -->
+		        </div>
 
 	            <!-- 닉네임 -->
-	            <label for="userNickname">
-	              <span class="required">*</span>
-	              닉네임
-	            </label>
-
-	            <!-- 닉네임 input창 -->
-	            <div class="input_area">
-	              <input type="text" id="userNickname" name="userNickname" placeholder="닉네임" maxlength="10"/>
-	            </div><!-- //.input_area -->
-
+	            <div class="fake">
+	            
+		            <label for="userNickname">
+		              <img  class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
+		              닉네임
+		            </label>
+	
+		            <!-- 닉네임 input창 -->
+		            <div class="input_area">
+		              <input type="text" id="userNickname" name="userNickname" placeholder="닉네임" maxlength="10"/>
+		            </div><!-- //.input_area -->
+				</div>
+				
 	            <!-- 닉네임 message -->
 	            <span class="message" id="nicknameMessage">
 	            	영어/숫자/한글 2~10글자 사이로 작성해주세요.
 	            </span>
-	            <br />
+	            
 	            
 	            <!-- 생년월일 -->
+	            <div class="fake">
 	            
-	            <label for="userBirth">
-	              <span class="required">*</span>
-	              생년월일
-	            </label>
-	            <!-- 생년월일  input창 -->
-	            <div class="input_area">
-					<select name="userYear" id="userYear">
-        				<% 
-           				 for (int year = 1950; year <= 2023; year++) {
-           					 String formattedYear = String.format("%04d", year); // 연도를 4자리로 표현
-       					 %>
-           				  <option value="<%= formattedYear %>" <%= (year == 2000) ? "selected" : "" %>><%= formattedYear %></option>
-  							<% } %>
-   					</select>
-   					<p>년</p>
-   					<select name="userMonth" id="userMonth">
-        				<% 
-            			for (int month = 1; month <= 12; month++) {
-            				 String formattedMonth = String.format("%02d", month); // 월을 2자리로 표현
-       					 %>
-            			 <option value="<%= formattedMonth %>" <%= (month == 1) ? "selected" : "" %>><%= formattedMonth %></option>
-  							<% } %>
-				    </select>
-				    <p>월</p>
-				    <select name="userDay" id="userDay">
-				        <% 
-				            for (int day = 1; day <= 31; day++) {
-				            	 String formattedDay = String.format("%02d", day); // 일을 2자리로 표현
-				        %>
-				        <option value="<%= formattedDay %>" <%= (day == 1) ? "selected" : "" %>><%= formattedDay %></option>
-  						<% } %>
-  					</select>
-  					<p>일</p>
-	            </div><!-- //.input_area -->
-
+		            <label for="userBirth">
+		              <img  class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
+		              생년월일
+		            </label>
+		            <!-- 생년월일  input창 -->
+		            <div class="input_area">
+						<select name="userYear" id="userYear">
+	        				<% 
+	           				 for (int year = 1950; year <= 2023; year++) {
+	           					 String formattedYear = String.format("%04d", year); // 연도를 4자리로 표현
+	       					 %>
+	           				  <option value="<%= formattedYear %>" <%= (year == 2000) ? "selected" : "" %>><%= formattedYear %></option>
+	  							<% } %>
+	   					</select>
+	   					<p>년</p>
+	   					<select name="userMonth" id="userMonth">
+	        				<% 
+	            			for (int month = 1; month <= 12; month++) {
+	            				 String formattedMonth = String.format("%02d", month); // 월을 2자리로 표현
+	       					 %>
+	            			 <option value="<%= formattedMonth %>" <%= (month == 1) ? "selected" : "" %>><%= formattedMonth %></option>
+	  							<% } %>
+					    </select>
+					    <p>월</p>
+					    <select name="userDay" id="userDay">
+					        <% 
+					            for (int day = 1; day <= 31; day++) {
+					            	 String formattedDay = String.format("%02d", day); // 일을 2자리로 표현
+					        %>
+					        <option value="<%= formattedDay %>" <%= (day == 1) ? "selected" : "" %>><%= formattedDay %></option>
+	  						<% } %>
+	  					</select>
+	  					<p>일</p>
+		           	 </div><!-- //.input_area -->
+				</div>
+				
+				
 	            <!-- 성별 -->
-	            <label for="userGender">
-	              <span class="required">*</span>
-	              성별
-	            </label>
+	            <div class="fake">
+		            
+		            <label for="userGender">
+		              <img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
+		              성별
+		            </label>
 
-	            <!-- 성별 input창 -->
-	            <div class="input_area">
-	              <input type="radio" name="userGender" value="남성" style="width: 20px; height: 20px; border: 1px solid black; font-size: 120%; "/>
-					남성
-
-	              <input type="radio" name="userGender" value="여성" style="width: 20px;height: 20px; border: 1px solid black; font-size: 120%; margin-left: 40%;" checked/>
-					여성
-				</div> <!-- //.input_area -->
+		            <!-- 성별 input창 -->
+		            <div class="input_area">
+		              <input type="radio" name="userGender" value="남성" style="width: 20px; height: 20px; border: 1px solid black; font-size: 120%; "/>
+						남성
+	
+		              <input type="radio" name="userGender" value="여성" style="width: 20px;height: 20px; border: 1px solid black; font-size: 120%; margin-left: 40%;" checked/>
+						여성
+					</div> <!-- //.input_area -->
+				</div>
 
 
 	            <!-- 전화번호 -->
-	            <label for="userPhone">
-	              <span class="required">*</span>
-	              전화번호
-	            </label>
-
-	            <!-- 전화번호 input창 -->
-	            <div class="input_area">
-	              <input type="text" id="userPhone" name="userPhone" placeholder="(- 없이 숫자만 입력)" maxlength="11" />
-	            </div><!-- //.input_area -->
+	            <div class="fake">
+		            <label for="userPhone">
+		              <img  class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
+		              전화번호
+		            </label>
+	
+		            <!-- 전화번호 input창 -->
+		            <div class="input_area">
+		              <input type="text" id="userPhone" name="userPhone" placeholder="(- 없이 숫자만 입력)" maxlength="11" />
+		            </div><!-- //.input_area -->
+		          </div>
 
 	            <!-- 전화번호 message -->
-	            <span class="message" id="phoneMessage">전화번호를 입력해주세요.(- 제외)</span>
-
-				<button type="submit" id="btn">가입하기</button>
+					<span class="message" id="phoneMessage">전화번호를 입력해주세요.(- 제외)</span>
+				<div class="button_zone">
+					<input type="submit" id="btn" value="가입">
+					<input type="button" class="backBtn" name="cancle" value="취소"onClick="history.back()">
+				</div>
           	</form>
 		</div><!-- //#main_zone -->
 	</main>
-    <footer>
-		<div>푸터입니당</div>
-    </footer>
+    	<footer>
+		<div id="slogan">
+	        <img src="../images/indexImage/beanchat_char.png" width="200px" />
+	        <p>Beanchat, the collaborative chat web application System.</p>
+		</div><!--end: #slogan-->
+		<div id="footerMenu">
+			<ul>
+				<li><a href="#">팀 소개</a></li>
+					<p>&#124;</p>
+				<li><a href="#">개인정보처리방침</a></li>
+					<p>&#124;</p>
+				<li><a href="#">이용약관</a></li>
+					<p>&#124;</p>
+				<li><a href="#">도움말</a></li>
+					<p>&#124;</p>
+				<li><a href="#">공지사항</a></li>
+			</ul>
+	        <p class="companyInfo">빈챗 &#124; 팀원 : 최다혜 안기현 임세현 오 건 <br/>
+	        	Beanchat &#124; 전주시 덕진구 백제대로 572 4층 이젠컴퓨터아트서비스학원<br />
+				© 2023 Beanchat Ltd. All rights reserved.
+			</p><!--end: .companyInfo-->
+		</div><!--end: #footerMenu-->
+		<div id="sns">
+			<ul>
+				<li><a href="#"><i class="xi-instagram xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-facebook xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-kakaotalk xi-2x"></i></a></li>
+			</ul>
+		</div><!--end: #sns-->
+	</footer>
 
     <script>
       const checkObj = {

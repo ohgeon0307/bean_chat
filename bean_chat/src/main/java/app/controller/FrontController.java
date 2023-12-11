@@ -25,7 +25,7 @@ public class FrontController extends HttpServlet {
 		String str = ary[1];
 		String location = ary[2];
 		
-		//Usercontroller 분기
+		//UserController 분기
 		if (str.equals("user")) {
 			UserController uc = new UserController(location);
 			uc.doGet(request, response);

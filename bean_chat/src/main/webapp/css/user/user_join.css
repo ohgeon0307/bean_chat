@@ -1,5 +1,4 @@
 @charset "utf-8";
-
 body {
   background-color: #bce489;
 }
@@ -7,19 +6,21 @@ body {
 
 /* header css */
 
-.container a { text-decoration: none; color: #BCE489;
-font-weight: 900; }
-    a:visited { text-decoration: none; }
+.container a {
+	text-decoration: none; color: #bce489;
+	font-weight: 900; 
+	}
+	a:visited { text-decoration: none; }
     a:hover { text-decoration: none; }
     a:focus { text-decoration: none; }
     a:hover, a:active { text-decoration: none; }
 
 .container {
-    background-color: white;
+    background-color:  #fff;
     position : fixed;
-    z-index: 99;
+    z-index: 1000;
     display : flex;
-    left: 50%;
+    left: 50%; 
     transform: translateX(-50%);
     display: flex;
     width: 100%;
@@ -28,7 +29,7 @@ font-weight: 900; }
     -webkit-box-pack: justify;
     justify-content: space-between;
     padding: 40px 0px 0px 6%;
-    top: 0px;
+    top: 0;
     box-sizing: border-box;
     opacity: 0;
     animation: 1.5s ease 0.3s 1 normal forwards running headerbar;
@@ -45,6 +46,7 @@ font-weight: 900; }
     100% {
         opacity: 1;
         visibility: visible;
+        max-width: 1140vmax;
     }
 }
 
@@ -134,59 +136,96 @@ font-weight: 900; }
 }
 /* header css 종료 */
 
+
 /*main 시작*/
 main {
-  width: 70%;
+  width: 40%;
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
 }
 
 #main_zone {
-  position: relative;
-  top:200px;
-  margin:0 auto;
-  width: 600px;
-  background-color: white;
-  display: flex;
-  justify-content: center; /* 메인 콘텐츠를 수평 가운데 정렬 */
-  align-items: flex-start; /* 메인 콘텐츠를 수직 가운데 정렬 */
-  min-height: 60vh; /* 최소 높이를 브라우저 창 높이와 같게 설정 (가운데 정렬을 위해) */
-  height: 50%;
-  border: 1px solid #000;
-  border-radius: 10px;
+
+	margin: 250px auto;
+	background-color: white;
+	display: flex;
+	justify-content: center; 
+	align-items: center; 
+	flex-direction: column; 
+	padding: 30px;
+	overflow:hidden;
+	border-radius:20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-/* 필수 */
-.required {
-  color: red;
-  padding: 0 5px;
+#title_text{
+	margin:20px auto;
+	width:60%;
 }
+
+#title_text h1{
+	text-align:center;
+	font-size:30px;
+}
+
+#title_text p{
+	text-align:center;
+	font-size:18px;
+	margin-top:30px;
+}
+
 
 /* 회원가입 폼 */
 form[name="frm"] {
-  margin-top: 30px;
-  width: 70%;
+  margin-top: 20px;
+  width: 80%;
 }
 
+
 /* 회원가입 폼 내부 input 제목(label) */
-form[name="frm"] > label {
-  display: block;
-  margin-top: 5%;
-  font-size: 18px;
+label {
+	width:30%;
+	display: block;
+  margin-top: 10px;
+  font-size: 20px;
   font-weight: bold;
+  
+}
+
+.fake{
+	margin-top:10px;
+	display:flex;
+	justify-content: space-around;
+	width:100%;
+}
+
+.laBean {
+  width:20px;
+  height:20px;
 }
 
 /* input을 감싸고 있는 div */
 form[name="frm"] .input_area {
-  font-size: 100%;
-  width: 100%;
-  height: 30px;
-  margin-bottom: 2px;
+  width: 70%;
+  margin-bottom: 15px;
   border-bottom: 2px solid #ddd;
   display: flex;
   align-items: center; /* 세로 중앙 */
+}
+
+.form-control {
+  width: 70%;
+  height: 30px;
+  font-size: 90%;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #ddd;
+}
+#userPwdInput{
+	margin-top:15px;
+}
+#userPwd2Input{
+	margin-left:30%;
+	margin-top:25px;
 }
 
 /* input에 포커스가 맞춰졌을 때 밑줄 색 변화 */
@@ -198,7 +237,7 @@ form[name="frm"] .input_area {
 /* input 태그 */
 form[name="frm"] .input_area > input {
   width: 70%;
-  height: 90%;
+  height: 30px;
   font-size: 90%;
   border: 0;
   outline: 0; /* input 선택 시 테두리 */
@@ -212,6 +251,10 @@ form[name="frm"] .input_area > input {
   border: 1px solid gray;
   cursor: pointer;
   border-radius: 4px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 14px;
+  margin-left: 10px;
 }
 
 .custom-button:hover {
@@ -221,7 +264,7 @@ form[name="frm"] .input_area > input {
 
 .input_area > select {
   width: 20%;
-  height: 70%;
+  height: 30px;
   margin-right: 2%;
   font-size: 80%;
 }
@@ -233,48 +276,180 @@ form[name="frm"] .input_area > input {
 }
 
 .input_area input[type="radio"] {
-  font-size: 10px;
+  font-size: 12px;
 }
 form[name="frm"] .message {
-  font-size: 70%;
-  letter-spacing: -1px; /* 자간 */
+	float:right;
+  font-size: 14px;
+  color: red;
+  margin-bottom:20px;
 }
 
 .success {
   color: green;
-  font-size: 70%;
+  font-size: 14px;
 }
 .error {
   color: red;
-  font-size: 70%;
+  font-size: 14px;
 }
 
 /* 가입하기 버튼 */
-#btn {
-  width: 100%;
-  padding: 4%;
-  margin: 30px 0;
-  border: 0;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  background-color: #418722;
-  cursor: pointer;
-  height: 60%;
-  border-radius: 10px;
+
+#button_zone{
+	margin: 0 auto;
+	text-align:center;
+	display:flex;
+	justify-content: space-between;
+	width:100%;
 }
 
-#btn:hover {
-  color: #000;
-  background-color: plum;
+#btn{
+	margin-top: 60px;
+    padding: 0 40px;
+    height: 45px;
+    font-size: 18px;
+    text-align: center;
+    display:inline-block;
+    background-color: #4CAF50;
+    cursor: pointer;
+    border-radius: 5px;
+    border:none;
+    margin-bottom:40px;
+    color:white;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
 }
+
+.backBtn{
+    margin-top: 60px;
+    padding: 0 40px;
+    font-size: 18px;
+    height: 45px;
+    background-color: #fff;
+    text-align: center;
+    display:inline-block;
+    color: #555;
+    cursor: pointer;
+     border-radius: 5px;
+   border: 1px solid #ccc;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
+    margin-bottom:40px;
+    
+}
+
+#btn:hover{
+   background-color: #45a049;
+}
+
+#btn:active {
+    background-color: #3e8e41;
+}
+
+.backBtn:active {
+    background-color: #e6e6e6;
+    border-color: #999;
+    color: #222;
+}
+
+
+
+/*푸터 css*/
 
 footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  height: 15%;
-  position: absolute;
+  box-sizing: border-box;
+  height:auto;
+  background-color: rgb(56, 56, 56);
+  padding: 30px 0; /* 높이 조정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(99, 99, 99);
 }
-footer div {
-  height: 100%;
+
+#slogan {
   width: 100%;
+  max-width: 600px;
+  text-align: center;
+  margin-bottom: 10px; /* 높이 조정 */
 }
+
+footer img {
+  filter: invert(0.2);
+  margin-bottom: 5px;
+}
+
+#footerMenu, .companyInfo, #sns {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px; /* 높이 조정 */
+}
+
+#footerMenu ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+#footerMenu li {
+  margin-right: 20px;
+}
+
+#footerMenu a {
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+#footerMenu a:hover {
+  color: #BCE489;
+}
+
+.companyInfo {
+  max-width: 400px;
+}
+
+#sns {
+  max-width: 300px;
+}
+
+#sns ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 추가 */
+  justify-content: center; /* 가로 중앙 정렬 추가 */
+}
+
+#sns li {
+  margin-right: 15px;
+}
+
+#sns a {
+  display: flex; /* 아이콘을 세로 중앙 정렬하기 위해 추가 */
+  align-items: center; /* 세로 중앙 정렬 추가 */
+  padding: 10px;
+  border: 1px solid rgb(99, 99, 99);
+  border-radius: 50%;
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+#sns a:visited {
+  color: rgb(99, 99, 99);
+}
+
+#sns a:hover {
+  color: #BCE489;
+  border: 1px solid #BCE489;
+}
+
+
+
