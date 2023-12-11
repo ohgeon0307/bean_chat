@@ -180,9 +180,9 @@ public class UserController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 
 			// 아이디 비밀번호찾기
-		} else if (location.equals("userFindId.do")) {
+		} else if (location.equals("userFindIdPwd.do")) {
 
-			String path = "/user/user_find_id.jsp";
+			String path = "/user/user_find_id_pwd.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
 

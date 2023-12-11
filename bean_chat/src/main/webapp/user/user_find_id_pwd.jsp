@@ -15,67 +15,49 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<!-- css연결 -->
 	<link href="../css/reset.css" rel="stylesheet" />
-	<link href="../css/user/user_find_id.css" rel="stylesheet" />
+	<link href="../css/user/user_find_id_pwd.css" rel="stylesheet" />
 </head>
 <body>
-	<header>
-		<!-- 헤더 시작 -->
-		<div class="container">
-			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">
-			<div class="items">
-				<ul>
-					<li>
-					<c:choose>
-						<c:when test="${uidx== null }">
-							<a href="<%=request.getContextPath()%>/user/userLogin.do">
-								<img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span>
-							</a>
-						</c:when>
-						<c:otherwise>
-							<a href="<%=request.getContextPath()%>/user/userLogout.do">
-								<img role="button" src="../images/indexImage/logout_icon.png" alt=""><span>로그아웃</span>
-							</a>
-						</c:otherwise>
-					</c:choose>
-					</li>
-					<li>
-					<c:choose>
-						<c:when test="${uidx== null }">
-							<a href="<%=request.getContextPath()%>/user/userLogin.do">
-								<img role="button" src="../images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span>
-							</a>
-						</c:when>
-						<c:otherwise>
-							<a href="<%=request.getContextPath()%>/mypage/myMain.do">
-								<img role="button" src="../images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span>
-							</a>
-							</c:otherwise>
-						</c:choose>
-					</li>
-					<li>
-						<a href="<%=request.getContextPath()%>/board/boardList.do">
-							<img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span>
-						</a>
-					</li>
-					<li>
-					<c:choose>
-						<c:when test="${uidx== null }">
-							<a href="<%=request.getContextPath()%>/user/userLogin.do">
-								<img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span>
-							</a>
-						</c:when>
-						<c:otherwise>
-							<a href="<%=request.getContextPath()%>/chat/chatList.do">
-								<img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span>
-							</a>
-						</c:otherwise>
-						</c:choose>
-					</li>
-				</ul>
+	<header><!-- 헤더 시작 -->
+		<div class="container"> 
+			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
+	        <div class="items">
+	            <ul>
+	                <li>
+	                	<c:choose>
+	                		<c:when test="${uidx== null }">
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
+	        				</c:when>
+	            			<c:otherwise>
+	            				<a href="<%=request.getContextPath()%>/user/userLogout.do" onclick="return confirm('로그아웃 하시겠습니까?')"><img role="button" src="../images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
+	            			</c:otherwise>
+	            		</c:choose>
+	            	</li>
+	                <li>
+	                	<c:choose>
+	                		<c:when test="${uidx== null }">
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<a href="<%=request.getContextPath()%>/mypage/myMain.do"><img role="button" src="../images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
+	                		</c:otherwise>
+	                	</c:choose>
+	                </li>
+	                <li><a href="<%=request.getContextPath()%>/board/boardList.do"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a></li>
+	                <li>
+	                	<c:choose>
+	                		<c:when test="${uidx== null }">
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<a href="<%=request.getContextPath()%>/chat/chatList.do"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+	                		</c:otherwise>
+	                	</c:choose>
+	                </li>	
+	            </ul>
 			</div><!-- //.items -->
-		</div><!-- //.container -->
-	</header>
-	<!-- 헤더 종료 -->
+		</div> <!-- //.container -->
+	</header><!-- 헤더 종료 -->
 
 	<main>
 		<!-- 아이디/비밀번호 탭 -->
