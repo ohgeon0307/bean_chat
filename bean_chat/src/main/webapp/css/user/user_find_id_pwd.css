@@ -1,0 +1,498 @@
+@charset "UTF-8";
+
+body {
+  background-color: #bce489;
+}
+
+
+/* header css */
+
+.container a { text-decoration: none; color: #bce489;
+font-weight: 900; }
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+
+.container {
+    background-color:  #fff;
+    position : fixed;
+    z-index: 1000;
+    display : flex;
+    left: 50%; 
+    transform: translateX(-50%);
+    display: flex;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 40px 0px 0px 6%;
+    top: 0;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: 1.5s ease 0.3s 1 normal forwards running headerbar;
+    color : white;
+    height : 140px;
+}
+
+@keyframes headerbar {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+        max-width: 1140vmax;
+    }
+}
+
+.beanchat_text {
+    position : relative;
+    left : 165px;
+    bottom : 20px;
+    max-width : 250px;
+}
+
+.container ul img {
+    position : relative;
+    right : 0px;
+    object-fit: contain;
+    display: flex;
+    float: none;
+    width: 150%;
+    height: auto;
+    max-width : 250px;
+}
+
+.items {
+    position: relative;
+    bottom : 20px;
+    display: flex;
+    flex-flow: wrap;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin : 0;
+    padding : 0;
+}
+
+.items li:hover img {
+    opacity : 0;
+}
+
+.items li span {
+    position: absolute;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 150px;
+    height: 30px;
+    bottom : 20px;
+}
+
+.items li:hover span {
+    position : absolute;
+    opacity : 1;
+    transition-delay: 0.3s;
+}
+
+.container ul {
+    display: flex;
+    list-style: none;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 48px;
+    margin-right : 200px;
+    padding : 0;
+}
+
+.container ul li:not(:last-child) {
+    margin-right : 25px;
+}
+
+.container ul li {
+    width: 60px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 방지 */
+    text-align: center; /* 가로 정렬을 위해 텍스트 가운데 정렬 */
+    margin: 0;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.items li img {
+    opacity: 1;
+    transition: opacity 0.3s;
+    width : 45px;
+    height: 45px;
+}
+/* header css 종료 */
+
+/*main 시작*/
+main {
+    width: 50%;
+    margin-left: auto;
+  	margin-right: auto;
+ 	margin-top: 250px; 
+    margin-bottom: 150px; 
+    background-color:white;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+/*탭 부분 css */
+#myTab {
+    display: flex;
+    width: 100%;
+    height:70px;
+}
+
+#myTab .nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+#myTab button {
+    width: 100%;
+    height:100%;
+    font-size:25px;
+    font-weight:bold;
+    
+}
+
+/* 선택된 탭의 스타일 */
+.nav-item .nav-link.active {
+    background-color: #418722; /* 선택된 탭의 배경색을 변경 */
+    color: white; /* 선택된 탭의 글자색을 변경 */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 1px solid #418722; /* 선택된 탭의 테두리 스타일 추가 */
+}
+
+/* 선택되지 않은 탭의 스타일 */
+.nav-item .nav-link:not(.active) {
+    background-color: #f5f5f5; /* 선택되지 않은 탭의 배경색을 변경 */
+    color: #555; /* 선택되지 않은 탭의 글자색을 변경 */
+    border: 1px solid transparent; /* 선택되지 않은 탭의 테두리 스타일 추가 */
+    border-bottom-color: #ccc; /* 선택되지 않은 탭의 하단 테두리 스타일 추가 */
+}
+
+/* 마우스를 올렸을 때 탭의 스타일 */
+.nav-item .nav-link:not(.active):hover {
+    background-color: #e5e5e5; /* 마우스를 올렸을 때의 배경색 변경 */
+}
+
+.tab-content .tab-pane {
+    display: none;
+}
+
+.tab-content .tab-pane.active {
+    display: block;
+}
+
+/* 폼 css*/
+#myTabContent{
+	width:70%;
+	margin: 0 auto;
+}
+
+
+.search-title{
+	margin:80px auto;
+	text-align:center;
+}
+
+.search-title h1{
+	font-size:40px;
+}
+
+.search-title p{
+	font-size:22px;
+	margin-top:30px;
+}
+
+.form-search{
+	margin:0 auto;
+	text-align:center;
+	width:65%;
+}
+
+
+
+.form-search label{
+	height:30px;
+	width:30%;
+	font-size:25px;
+}
+
+.find-name{
+	width:100%;
+	display:flex;
+	justify-content: space-between;
+}
+
+.find-phone{
+	display:flex;
+	justify-content: space-between;
+	margin-top:20px;
+	width:100%;
+}
+
+.find-email{
+	display:flex;
+	justify-content: space-between;
+	margin-top:20px;
+	width:100%;
+}
+
+
+.form-search input{
+	width:60%;
+	height:40px;
+}
+
+input::placeholder{
+	font-size:18px;
+}
+
+.btnSearch{
+	margin:0 auto;
+	text-align:center;
+	display:flex;
+	justify-content: space-between;
+	width:45%;
+}
+
+.findBtn{
+	margin-top: 60px;
+    padding: 0 40px;
+    height: 45px;
+    font-size: 18px;
+    text-align: center;
+    display:inline-block;
+    background-color: #4CAF50;
+    cursor: pointer;
+    border-radius: 5px;
+    border:none;
+    margin-bottom:60px;
+    color:white;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
+}
+
+.backBtn{
+    margin-top: 60px;
+    padding: 0 40px;
+    font-size: 18px;
+    height: 45px;
+    background-color: #fff;
+    text-align: center;
+    display:inline-block;
+    color: #555;
+    cursor: pointer;
+     border-radius: 5px;
+   border: 1px solid #ccc;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
+    margin-bottom:60px;
+    
+}
+
+.findBtn:hover{
+   background-color: #45a049;
+}
+
+.findBtn:active {
+    background-color: #3e8e41;
+}
+
+.backBtn:hover {
+    background-color: #f2f2f2;
+    border-color: #aaa;
+    color: #333;
+}
+
+.backBtn:active {
+    background-color: #e6e6e6;
+    border-color: #999;
+    color: #222;
+}
+
+/*모달 css*/
+.modal-title{
+	font-size:20px;
+	color:#455ba8;
+	font-weight:bold;
+	text-align:center;
+}
+
+
+.found-success h4{
+	font-size:15px;
+}
+
+
+#userIdText{
+	font-size:23px;
+	color:bule;
+	font-weight:bold;
+}
+
+.result_img img{
+	max-width: 100%; /* 최대 너비를 화면에 맞게 조절 */
+    height: auto; /* 가로 세로 비율을 유지하면서 이미지 크기 조절 */
+}
+
+#btnLogin {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 버튼에 호버 효과 */
+#btnLogin:hover {
+    background-color: #2980b9;
+}
+
+#clodelModalBtn:hover{
+	border:1px solid black;
+}
+
+.found-fail h4{
+	font-size:20px;
+}
+
+#btnJoin{
+	display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;	
+}
+
+#btnJoin:hover{
+	background-color: #2980b9;
+}
+
+
+/*푸터 css*/
+
+footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  height:auto;
+  background-color: rgb(56, 56, 56);
+  padding: 30px 0; /* 높이 조정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(99, 99, 99);
+}
+
+#slogan {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  margin-bottom: 10px; /* 높이 조정 */
+}
+
+footer img {
+  filter: invert(0.2);
+  margin-bottom: 5px;
+}
+
+#footerMenu, .companyInfo, #sns {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px; /* 높이 조정 */
+}
+
+#footerMenu ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+#footerMenu li {
+  margin-right: 20px;
+}
+
+#footerMenu a {
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+#footerMenu a:hover {
+  color: #BCE489;
+}
+
+.companyInfo {
+  max-width: 400px;
+}
+
+#sns {
+  max-width: 300px;
+}
+
+#sns ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 추가 */
+  justify-content: center; /* 가로 중앙 정렬 추가 */
+}
+
+#sns li {
+  margin-right: 15px;
+}
+
+#sns a {
+  display: flex; /* 아이콘을 세로 중앙 정렬하기 위해 추가 */
+  align-items: center; /* 세로 중앙 정렬 추가 */
+  padding: 10px;
+  border: 1px solid rgb(99, 99, 99);
+  border-radius: 50%;
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+#sns a:visited {
+  color: rgb(99, 99, 99);
+}
+
+#sns a:hover {
+  color: #BCE489;
+  border: 1px solid #BCE489;
+}
+
+
+

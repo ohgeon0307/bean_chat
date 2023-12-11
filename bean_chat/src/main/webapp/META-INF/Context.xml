@@ -7,10 +7,10 @@
 	loginTimeout="10"
 	validationQuery="SELECT 1 FROM DUAL"
 	maxWait="5000"
-	username="root"
-	password="1234"
+	username="beanchat"
+	password="bORPmB)Ez8DeiBI0"
 	testOnBorrow="true"
-	url="jdbc:mysql://192.168.0.132:3306/beanchat"/>
+	url="jdbc:mysql://silverwoods.synology.me:3306/beanchat"/>
 	<ResourceLink type="javax.sql.data.DataSouce"
 	name="jdbc/beanchat"
 	global="jdbc/beanchat"/>

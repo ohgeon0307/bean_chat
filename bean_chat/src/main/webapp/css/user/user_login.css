@@ -1,0 +1,388 @@
+@charset "UTF-8";
+
+body {
+  background-color: #bce489;
+}
+
+
+/* header css */
+
+.container a { text-decoration: none; color: #bce489;
+font-weight: 900; }
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+
+.container {
+    background-color:  #fff;
+    position : fixed;
+    z-index: 1000;
+    display : flex;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 40px 0px 0px 6%;
+    top: 0px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: 1.5s ease 0.3s 1 normal forwards running headerbar;
+    color : white;
+    height : 140px;
+}
+
+@keyframes headerbar {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+        max-width: 1140vmax;
+    }
+}
+
+.beanchat_text {
+    position : relative;
+    left : 165px;
+    bottom : 20px;
+    max-width : 250px;
+}
+
+.container ul img {
+    position : relative;
+    right : 0px;
+    object-fit: contain;
+    display: flex;
+    float: none;
+    width: 150%;
+    height: auto;
+    max-width : 250px;
+}
+
+.items {
+    position: relative;
+    bottom : 20px;
+    display: flex;
+    flex-flow: wrap;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin : 0;
+    padding : 0;
+}
+
+.items li:hover img {
+    opacity : 0;
+}
+
+.items li span {
+    position: absolute;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 150px;
+    height: 30px;
+    bottom : 20px;
+}
+
+.items li:hover span {
+    position : absolute;
+    opacity : 1;
+    transition-delay: 0.3s;
+}
+
+.container ul {
+    display: flex;
+    list-style: none;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 48px;
+    margin-right : 200px;
+    padding : 0;
+}
+
+.container ul li:not(:last-child) {
+    margin-right : 25px;
+}
+
+.container ul li {
+    width: 60px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 방지 */
+    text-align: center; /* 가로 정렬을 위해 텍스트 가운데 정렬 */
+    margin: 0;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.items li img {
+    opacity: 1;
+    transition: opacity 0.3s;
+    width : 45px;
+    height: 45px;
+}
+/* header css 종료 */
+
+/*main 시작*/
+main {
+    width: 50%;
+    margin-left: auto;
+  	margin-right: auto;
+ 	margin-top: 250px; 
+    margin-bottom: 300px; 
+    background-color:white;
+    border-radius:20px;
+    overflow:hidden;
+    height:auto;
+}
+
+main h1{
+	margin:80px auto;
+	text-align:center;
+	font-size:40px;
+}
+
+form[name="frm"]{
+	width:70%;
+	margin: 0 auto;
+}
+
+
+#input_zone{
+	margin:0 auto;
+	text-align:center;
+	width:65%;
+}
+
+.user_input{
+	display:flex;
+	justify-content: space-between;
+	margin-top:20px;
+	width:100%;
+}
+
+.user_input label{
+	height:30px;
+	width:30%;
+	font-size:25px;
+}
+
+.user_input input{
+	width:60%;
+	height:40px;
+}
+
+#input2{
+	margin-top:20px;
+}
+
+#button_zone{
+	margin:0 auto;
+	text-align:center;
+	display:flex;
+	justify-content: space-between;
+	width:45%;
+}
+
+#smtBtn{
+	margin-top: 60px;
+    padding: 0 40px;
+    height: 45px;
+    font-size: 18px;
+    text-align: center;
+    display:inline-block;
+    background-color: #4CAF50;
+    cursor: pointer;
+    border-radius: 5px;
+    border:none;
+    margin-bottom:60px;
+    color:white;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
+}
+
+.backBtn{
+    margin-top: 60px;
+    padding: 0 40px;
+    font-size: 18px;
+    height: 45px;
+    background-color: #fff;
+    text-align: center;
+    display:inline-block;
+    color: #555;
+    cursor: pointer;
+     border-radius: 5px;
+   border: 1px solid #ccc;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
+    margin-bottom:60px;
+    
+}
+
+#smtBtn:hover{
+   background-color: #45a049;
+}
+
+#smtBtn:active {
+    background-color: #3e8e41;
+}
+
+.backBtn:active {
+    background-color: #e6e6e6;
+    border-color: #999;
+    color: #222;
+}
+
+
+
+#oin_find_area{
+	margin:0 auto;
+	text-align:center;
+	display:flex;
+	justify-content: space-between;
+	width:45%;
+}
+
+.nav nav-tabs{
+	 display: flex;
+    width: 100%;
+    height:70px;
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+.nav-link{
+	width: 100%;
+    height:100%;
+    font-size:25px;
+    font-weight:bold;
+	
+}
+
+
+/* 선택된 탭의 스타일 */
+.nav-item .nav-link:not(.active) {
+    background-color: #418722; /* 선택된 탭의 배경색을 변경 */
+    color: white; /* 선택된 탭의 글자색을 변경 */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid #418722; /* 선택된 탭의 테두리 스타일 추가 */
+}
+
+/* 마우스를 올렸을 때 탭의 스타일 */
+.nav-item .nav-link:not(.active):hover {
+    background-color: #e5e5e5; /* 마우스를 올렸을 때의 배경색 변경 */
+}
+
+
+
+/*푸터 css*/
+
+footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  height:auto;
+  background-color: rgb(56, 56, 56);
+  padding: 30px 0; /* 높이 조정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(99, 99, 99);
+}
+
+#slogan {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  margin-bottom: 10px; /* 높이 조정 */
+}
+
+footer img {
+  filter: invert(0.2);
+  margin-bottom: 5px;
+}
+
+#footerMenu, .companyInfo, #sns {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px; /* 높이 조정 */
+}
+
+#footerMenu ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+#footerMenu li {
+  margin-right: 20px;
+}
+
+#footerMenu a {
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+#footerMenu a:hover {
+  color: #BCE489;
+}
+
+.companyInfo {
+  max-width: 400px;
+}
+
+#sns {
+  max-width: 300px;
+}
+
+#sns ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 추가 */
+  justify-content: center; /* 가로 중앙 정렬 추가 */
+}
+
+#sns li {
+  margin-right: 15px;
+}
+
+#sns a {
+  display: flex; /* 아이콘을 세로 중앙 정렬하기 위해 추가 */
+  align-items: center; /* 세로 중앙 정렬 추가 */
+  padding: 10px;
+  border: 1px solid rgb(99, 99, 99);
+  border-radius: 50%;
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+#sns a:visited {
+  color: rgb(99, 99, 99);
+}
+
+#sns a:hover {
+  color: #BCE489;
+  border: 1px solid #BCE489;
+}

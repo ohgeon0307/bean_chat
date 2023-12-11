@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
@@ -23,6 +25,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import app.dao.UserDao;
 import app.dto.MailAuth;
@@ -176,24 +180,38 @@ public class UserController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 
 			// 아이디 비밀번호찾기
-		} else if (location.equals("userFindId.do")) {
+		} else if (location.equals("userFindIdPwd.do")) {
 
-			String path = "/user/user_find_id.jsp";
+			String path = "/user/user_find_id_pwd.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
 
-		} else if (location.equals("userFindIdAction.do")) {
+		}  else if (location.equals("userFindIdAction.do")) {
 
 			String userName = request.getParameter("userName");
 			String userPhone = request.getParameter("userPhone");
 			UserDao udao = new UserDao();
 
-			String userId = udao.userFindId(userName, userPhone);
-			request.setAttribute("userId", userId);
-
-			String path = "/user/user_find_id_after.jsp";
-			RequestDispatcher rd = request.getRequestDispatcher(path);
-			rd.forward(request, response);
+			String userIdFind = udao.userFindId(userName, userPhone);
+			System.out.println(userIdFind);
+			// 문자열로 응답 생성=> 전송.
+			// JSON 응답을 위한 Map 구성
+		
+			 Map<String, String> responseData = new HashMap<>();
+			 responseData.put("userIdFind", userIdFind);
+			 
+			  // Gson 객체 생성 
+			 Gson gson = new Gson();
+			 
+			  // JSON 형식으로 응답 구성 
+			 String jsonResponse = gson.toJson(responseData);
+			 
+			 response.setContentType("application/json");
+			 PrintWriter out =response.getWriter(); 
+			 out.print(jsonResponse);
+			 out.flush();
+			 
+			
 
 		} else if (location.equals("userFindPwd.do")) {
 

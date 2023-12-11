@@ -11,19 +11,23 @@
 <title>친구리스트</title>
 	<!-- 제이쿼리 연결 -->
    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
+  
    <script>
     // 친구 검색
     function searchFriend() {
         var friendId = $('#friendId').val();
 
         $.ajax({
-            url: '/bean_chat_clone/mypage/searchFriend.do?friendId=' + friendId,
+            url: '/bean_chat/mypage/searchFriend.do?friendId=' + friendId,
             type: 'POST',
             dataType: 'json',
             success: function (data) {
                 // 검색 결과 표시
                 $('#searchResult').html('친구 ID: ' + data.userId + '<br>' +
-                                        '친구 이름: ' + data.userName);
+                                        '친구 이름: ' + data.userName+'<br>' +
+                                        '친구 닉네임: ' + data.userNickname+'<br>' +
+                                        '친구 이미지: <img src="../' + data.userImage + '" id="profile-image"><br>' +
+                                        '친구 생일: ' + data.userBirth);
             },
             error: function (error) {
                 console.error(error);
@@ -36,8 +40,9 @@
         var addId = $('#addId').val();
 
         $.ajax({
-            url: '/bean_chat_clone/mypage/addFriend.do?addId=' + addId,
+            url: '/bean_chat/mypage/addFriend.do?addId=' + addId,
             type: 'POST',
+            dataType: 'json',
             success: function (data) {
                 // 추가 결과 표시
                 $('#addResult').html('상대방에게 요청메세지를 보냈어요!');
@@ -70,6 +75,8 @@
    
    <!-- 추가 결과 표시 -->
    <div id="addResult"></div>
+   
+   <a href="<%=request.getContextPath()%>/mypage/myFriendRequest.do">친구요청수락하러가기</a>
     
 </body>
 </html>
