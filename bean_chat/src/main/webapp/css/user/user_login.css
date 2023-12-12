@@ -151,9 +151,11 @@ main {
     
 }
 form[name="frm"]{
+	padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px; 
 	width:100%;
 	margin: 0 auto;
-
 }
 
 #title_zone{
@@ -203,15 +205,33 @@ form[name="frm"]{
 }
 
 .user_input label{
+	text-align:left;
+	display: block;
+  margin-top: 5px;
 	height:30px;
 	width:30%;
 	font-size:20px;
 	font-weight:bold;
 }
 
+.input_area {
+  width: 70%;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #ddd;
+  display: flex;
+  align-items: center; /* 세로 중앙 */
+}
+
+.input_area:focus-within {
+  border-bottom: 2px solid #455ba8;
+}
+
 .user_input input{
-	width:50%;
-	height:30px;
+	 width: 70%;
+  height: 30px;
+  font-size: 90%;
+  border: 0;
+  outline: 0; /* input 선택 시 테두리 */
 }
 
 #input2{
@@ -275,6 +295,11 @@ form[name="frm"]{
     color: #222;
 }
 
+.backBtn:hover {
+    background-color: #f2f2f2;
+    border-color: #aaa;
+    color: #333;
+}
 
 
 /* 탭 스타일 */
@@ -284,28 +309,35 @@ form[name="frm"]{
   justify-content: flex-start; /* 위에서 아래로 정렬 */
   align-items: flex-start; /* 왼쪽 정렬 */
   height: auto;
-  width: 9%; /* 탭의 너비 조정 */
+  width: 7%; /* 탭의 너비 조정 */
   background-color: #d1f2eb;
-  color: #27ae60;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   overflow: hidden;
-  padding: 10px;
   position: absolute;
-  top: 330px;
+  top: 350px;
   transform: translateY(-50%);
-  left: 21%; /* 탭을 폼 왼쪽에 배치 */
+  left: 23%; /* 탭을 폼 왼쪽에 배치 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .nav-item {
+	padding-top:8px;
+	padding-bottom:8px;
+	padding-left:8px;
 	width:100%;
   margin-bottom: 10px; /* 탭 간 간격 조정 */
 }
 
+.nav-tabs > li:first-child {
+	border-bottom:0.5px solid #ccc;
+
+	}
+
 /* 탭 링크 스타일 */
 .nav-link {
-	width:90%;
-	padding: 15px;
+	width:95%;
+	padding: 10px;
 	font-size: 18px;
 	font-weight: bold;
 	text-decoration: none;

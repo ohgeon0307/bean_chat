@@ -25,7 +25,7 @@
 	                <li>
 	                	<c:choose>
 	                		<c:when test="${uidx== null }">
-	                			<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
 	        				</c:when>
 	            			<c:otherwise>
 	            				<a href="<%=request.getContextPath()%>/user/userLogout.do" onclick="return confirm('로그아웃 하시겠습니까?')"><img role="button" src="../images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
@@ -65,11 +65,13 @@
 					<h1>회원가입</h1>
 					<p>빈챗의 회원이 되어 우리 함께해요<i class="xi-emoticon-happy-o"></i></p>
 				</div><!-- //#title_text -->
+				
+				<div id="user_input">
 				<!-- 아이디 -->
 				<div class="fake">
 					<label for="userId">
 						<img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
-						아이디(이메일)
+						ID(이메일) :
 					</label>
 		
 					<!-- 아이디 input창 -->
@@ -86,13 +88,12 @@
 				<span class="message" id="idMessage">
             		메일을 받을 수 있는 이메일을 입력해 주세요.
 				</span >
-				<br />
 
 				<!-- 인증번호 input창 -->
 			<div class="fake">
 					<label for="emailCheck">
 						<img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
-						인증번호
+						인증번호 :
 	            	</label>
 				<div class="input_area">
 					<input type="text" id="emailCheck" placeholder="인증번호 입력" maxlength="6" autocomplete="off"/>
@@ -106,7 +107,7 @@
 				<div class="fake">
 					<label for="userPwd">
 						<img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
-						비밀번호
+						비밀번호 :
 					</label>
 	
 		            <!-- 비밀번호 input창 -->
@@ -124,14 +125,14 @@
 				<span class="message" id="pwdMessage" >
 						영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.
 				</span>
-				<br />
+
              
 	            <!-- 이름 -->
 	            <div class="fake">
 		            
 		            <label for="userName"> 
 		            	<img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
-		            	이름 
+		            	이름 :
 		            </label>
 	
 		            <!-- 이름 input창 -->
@@ -145,7 +146,7 @@
 	            
 		            <label for="userNickname">
 		              <img  class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
-		              닉네임
+		              닉네임 :
 		            </label>
 	
 		            <!-- 닉네임 input창 -->
@@ -165,7 +166,7 @@
 	            
 		            <label for="userBirth">
 		              <img  class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
-		              생년월일
+		              생년월일 :
 		            </label>
 		            <!-- 생년월일  input창 -->
 		            <div class="input_area">
@@ -205,15 +206,15 @@
 		            
 		            <label for="userGender">
 		              <img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
-		              성별
+		              성별 :
 		            </label>
 
 		            <!-- 성별 input창 -->
-		            <div class="input_area">
-		              <input type="radio" name="userGender" value="남성" style="width: 20px; height: 20px; border: 1px solid black; font-size: 120%; "/>
+		            <div class="input_area" id="genderInput">
+		              <input type="radio" name="userGender" value="남성" style="width: 20px; height: 20px; border: 1px solid black; font-size: 14px; "/>
 						남성
 	
-		              <input type="radio" name="userGender" value="여성" style="width: 20px;height: 20px; border: 1px solid black; font-size: 120%; margin-left: 40%;" checked/>
+		              <input type="radio" name="userGender" value="여성" style="width: 20px;height: 20px; border: 1px solid black; font-size: 14px; margin-left: 40%;" checked/>
 						여성
 					</div> <!-- //.input_area -->
 				</div>
@@ -223,7 +224,7 @@
 	            <div class="fake">
 		            <label for="userPhone">
 		              <img  class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
-		              전화번호
+		              전화번호 :
 		            </label>
 	
 		            <!-- 전화번호 input창 -->
@@ -234,18 +235,20 @@
 
 	            <!-- 전화번호 message -->
 					<span class="message" id="phoneMessage">전화번호를 입력해주세요.(- 제외)</span>
+				</div>
 				<div class="button_zone">
-					<input type="submit" id="btn" value="가입">
-					<input type="button" class="backBtn" name="cancle" value="취소"onClick="history.back()">
+					<button type="submit" id="btn" value="가입">가입</button>
+					<button type="button" class="backBtn" name="cancle" value="취소"onClick="history.back()">취소</button>
 				</div>
           	</form>
 		</div><!-- //#main_zone -->
 	</main>
-    	<footer>
+	<footer>
 		<div id="slogan">
 	        <img src="../images/indexImage/beanchat_char.png" width="200px" />
 	        <p>Beanchat, the collaborative chat web application System.</p>
 		</div><!--end: #slogan-->
+		
 		<div id="footerMenu">
 			<ul>
 				<li><a href="#">팀 소개</a></li>

@@ -26,7 +26,7 @@
 	                <li>
 	                	<c:choose>
 	                		<c:when test="${uidx== null }">
-	                			<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
 	        				</c:when>
 	            			<c:otherwise>
 	            				<a href="<%=request.getContextPath()%>/user/userLogout.do" onclick="return confirm('로그아웃 하시겠습니까?')"><img role="button" src="../images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
@@ -84,11 +84,19 @@
 					
 					<section class = "form-search">
 						<div class = "find-name">
-							<label>이름 :</label><input type="text" name="userName" id="userName" class = "btn-name" placeholder = "등록한 이름">
+							
+							<label><img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지"> 이름 :</label>
+							<div class="input_area">
+								<input type="text" name="userName" id="userName" class = "btn-name" placeholder = "등록한 이름">
+							</div>
 						</div><!-- //.find-name -->
 						
 						<div class = "find-phone">
-							<label>전화번호 :</label><input type="text" name="userPhone" id="userPhone" class = "btn-phone" placeholder = "휴대폰번호를 '-'없이 입력" maxlength="11">
+							
+							<label><img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지"> 전화번호 :</label>
+							<div class="input_area">
+								<input type="text" name="userPhone" id="userPhone" class = "btn-phone" placeholder = "휴대폰번호를 '-'없이 입력" maxlength="11">
+							</div>
 						</div><!-- //.find-phone -->
 					</section><!-- form-search -->
 					
@@ -113,11 +121,19 @@
 					
 					<section class = "form-search">
 						<div class = "find-name">
-							<label>이름 :</label><input type="text" name="userName" class = "btn-name" placeholder = "등록한 이름">
+							
+							<label><img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지"> 이름 :</label>
+							<div class="input_area">
+								<input type="text" name="userName" class = "btn-name" placeholder = "등록한 이름">
+							</div>
 						</div><!-- //.find-name -->
 						
 						<div class = "find-email">
-							<label>이메일(ID) :</label><input type="text" name="userId" class = "btn-Email" placeholder = "메일주소를 정확히 입력해주세요">
+							
+							<label><img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지"> 이메일(ID) :</label>
+							<div class="input_area">
+								<input type="text" name="userId" class = "btn-Email" placeholder = "메일주소를 정확히 입력해주세요">
+							</div>
 						</div><!-- //.find-email -->
 					</section><!-- //.form-search -->
 					

@@ -28,7 +28,7 @@
 	                <li>
 	                	<c:choose>
 	                		<c:when test="${uidx== null }">
-	                			<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="../images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
 	        				</c:when>
 	            			<c:otherwise>
 	            				<a href="<%=request.getContextPath()%>/user/userLogout.do" onclick="return confirm('로그아웃 하시겠습니까?')"><img role="button" src="../images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
@@ -80,12 +80,16 @@
 		<div id="input_zone">
 			<div class="user_input">
 				<label for="userId">ID(이메일) :</label> 
-				<input type="text" id="userId" name="userId" placeholder="아이디(이메일)" maxlength="30" autocomplete="off" required>
+				<div class="input_area">
+					<input type="text" id="userId" name="userId" placeholder="아이디(이메일)" maxlength="30" autocomplete="off" required>
+				</div><!-- //.input_area -->
 			</div><!-- //.user_input(아이디) -->
 			
 			<div class="user_input" id="input2">
 				<label for="userPwd">비밀번호 :</label> 
-				<input type="password" name="userPwd" name="userPwd" placeholder="비밀번호" maxlength="30">
+				<div class="input_area">
+					<input type="password" name="userPwd" name="userPwd" placeholder="비밀번호" maxlength="30">
+				</div><!-- //.input_area -->
 			</div><!-- //.user_input(비밀번호) -->
 		</div><!-- //#input_zone -->
 		
