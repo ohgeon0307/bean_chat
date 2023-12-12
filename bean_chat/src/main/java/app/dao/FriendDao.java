@@ -218,6 +218,28 @@ public class FriendDao {
 		
 	}
 	
+public int friendreject(int fridx) {
+		
+		int exec = 0;
+		String sql ="update friend_requesttable set\r\n"
+				+ "fstate = 'N'\r\n"
+				+ "where fridx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, fridx);
+			exec = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return exec;
+
+		
+	}
+	
 	public int friendInsert(FriendDto fdto){
 		int exec = 0;
 		

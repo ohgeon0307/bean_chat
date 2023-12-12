@@ -481,6 +481,35 @@ public class MypageController extends HttpServlet{
 			}else{
 				out.println("<script>alert('친구 추가에 실패했어요 ㅠ.ㅠ'); history.back();</script>");}
 		
+		}else if(location.equals("myRequestreject.do")){
+			
+			PrintWriter out = response.getWriter();
+			String userId = request.getParameter("userId");
+			FriendDao fdao = new FriendDao();
+            
+			//아이디로 상대 uidx 찾아서 fuidx변수에 넣어줌
+			//상대 uidx== fuidx
+			int fUidx= fdao.friendFindId(userId);
+			
+			//세션에서 내uidx가져옴
+			//내 uidx == uidx
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+			
+			//내uidx와 상대uidx로 fridx가져옴
+			int fridx = fdao.findFridxByUidx(fUidx, uidx);
+			
+			//fridx의 fstate값을 'N'로 변경
+			int exec = fdao.friendAccept(fridx);
+			
+			Gson gson = new Gson();
+			String json = gson.toJson(exec);
+			//데이터->http응답생성->클라이언트
+			//getWriter->PrintWriter객체 반환==>텍스트데이터 클라이언트 보낼수 있게함(OutputStream)
+			//.write(json)=> 'json'저장된 데이터 출력 (PrintWriter사용)
+			response.getWriter().write(json);
+			
+		
 		}else if(location.equals("myModify.do")){
 			String path ="/mypage/my_profile_modify.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);
