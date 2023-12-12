@@ -31,7 +31,7 @@
         var userId = "<%= userId %>";
 
         // EventSource for receiving SSE messages
-        var eventSource = new EventSource('<%= request.getContextPath() %>/ChatSSEServlet');
+        var eventSource = new EventSource('<%= request.getContextPath() %>/ChatSSEServlet?chatRoomId=<%= session.getAttribute("chatRoomId") %>');
 
         eventSource.onmessage = function (event) {
             var message = event.data;

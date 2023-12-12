@@ -30,9 +30,12 @@ public class ChatSSEServlet extends HttpServlet {
         PrintWriter writer = response.getWriter();
         clients.add(response);
 
+        String chatRoomId = request.getParameter("chatRoomId");
+        
+        System.out.println(chatRoomId + "<- 챗룸아이디.");
         // 예시로 최근 10개의 메시지를 가져오도록 함
         ChatDao cdao = new ChatDao();
-        List<ChatDto> messages = cdao.getRecentChatMessages(10);
+        List<ChatDto> messages = cdao.getRecentChatMessages(Integer.parseInt(chatRoomId), 10);
 
         for (ChatDto chatDto : messages) {
             sendMessageToClient(writer, chatDto.getSender() + ": " + chatDto.getMessage());

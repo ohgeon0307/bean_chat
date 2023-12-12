@@ -40,57 +40,66 @@ public class ChatDao {
 		}
 	}
 
-	public List<ChatDto> getRecentChatMessages(int count) {
-		List<ChatDto> chatMessages = new ArrayList<>();
-		String sql = "SELECT u.userId, c.message FROM chattable c "
-				+ "JOIN usertable u ON c.uidx = u.uidx ORDER BY c.timestamp DESC LIMIT ?";
+	public List<ChatDto> getRecentChatMessages(int chatRoomId, int count) {
+	    List<ChatDto> chatMessages = new ArrayList<>();
+	    String sql = "SELECT u.userId, c.message FROM chattable c "
+	            + "JOIN usertable u ON c.uidx = u.uidx "
+	            + "JOIN chatparticipant cp ON c.id = cp.id "
+	            + "WHERE cp.chatRoomId = ? ORDER BY c.timestamp DESC LIMIT ?";
 
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, count);
-			ResultSet rs = pstmt.executeQuery();
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, chatRoomId);
+	        pstmt.setInt(2, count);
+	        ResultSet rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				String sender = rs.getString("userId");
-				String message = rs.getString("message");
+	        while (rs.next()) {
+	            String sender = rs.getString("userId");
+	            String message = rs.getString("message");
 
-				ChatDto chatDto = new ChatDto(0, sender, message);
-				chatMessages.add(chatDto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeResources();
-		}
+	            ChatDto chatDto = new ChatDto(0, sender, message);
+	            chatMessages.add(chatDto);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResources();
+	    }
 
-		Collections.reverse(chatMessages);
-		return chatMessages;
+	    Collections.reverse(chatMessages);
+	    return chatMessages;
 	}
 
 	public int createChatRoom(String roomName, HttpServletRequest request) {
 		String sql = "INSERT INTO chatroom (roomName) VALUES (?)";
-		ResultSet generatedKeys = null;
+	    ResultSet generatedKeys = null;
 
-		try {
-			pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, roomName);
-			pstmt.executeUpdate();
+	    try {
+	        pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+	        pstmt.setString(1, roomName);
+	        pstmt.executeUpdate();
 
-			generatedKeys = pstmt.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				int chatRoomId = generatedKeys.getInt(1);
+	        generatedKeys = pstmt.getGeneratedKeys();
+	        if (generatedKeys.next()) {
+	            int chatRoomId = generatedKeys.getInt(1);
 
-				// chatparticipant 테이블에 사용자와 채팅 방의 관계를 추가.
-				addUserToChatRoom(chatRoomId, getCurrentUserId(request));
+	            // 사용자 추가
+	            HttpSession session = request.getSession();
+	            Object userIdObject = session.getAttribute("uidx");
 
-				return chatRoomId; // 새로 생성된 채팅 방의 ID 반환
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeResources(generatedKeys);
-		}
-		return -1; // 실패 시 -1 반환
+	            if (userIdObject != null && userIdObject instanceof Integer) {
+	                int userId = (Integer) userIdObject;
+	                addUserToChatRoom(chatRoomId, userId);
+	            }
+
+	            return chatRoomId;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResources(generatedKeys);
+	    }
+	    return -1;
 	}
 
 	// 사용자를 채팅 방에 추가하는 메소드
@@ -138,19 +147,18 @@ public class ChatDao {
 	// ResultSet을 닫는 메소드
 	private void closeResources(ResultSet rs) {
 		try {
-			if (rs != null) {
-				rs.close();
-			}
-			closeResources();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	        if (pstmt != null && !pstmt.isClosed()) {
+	            pstmt.close();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
-	
+
 	public List<ChatRoomDto> getChatRoomsByUserId(int userId) {
 	    List<ChatRoomDto> chatRooms = new ArrayList<>();
-	    String sql = "SELECT cr.Id, cr.roomName FROM chatroom cr " +
-	                 "JOIN chatparticipant cp ON cr.Id = cp.Id " +
+	    String sql = "SELECT cr.id, cr.roomName FROM chatroom cr " +
+	                 "JOIN chatparticipant cp ON cr.Id = cp.chatRoomId " +
 	                 "WHERE cp.uidx = ?";
 
 	    try {
@@ -159,7 +167,7 @@ public class ChatDao {
 	        ResultSet rs = pstmt.executeQuery();
 
 	        while (rs.next()) {
-	            int chatRoomId = rs.getInt("Id"); //chatRoomId - 건
+	            int chatRoomId = rs.getInt("Id");
 	            String roomName = rs.getString("roomName");
 
 	            ChatRoomDto chatRoomDto = new ChatRoomDto(chatRoomId, roomName);
@@ -168,15 +176,39 @@ public class ChatDao {
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {
-	        try {
-	            pstmt.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
+	        closeResources(); // 수정된 부분
 	    }
 
 	    return chatRooms;
 	}
-	
-	
+
+	public List<ChatDto> getChatMessagesByRoomId(int roomId) {
+	    List<ChatDto> chatMessages = new ArrayList<>();
+	    String sql = "SELECT u.userId, c.message FROM chattable c "
+	            + "JOIN usertable u ON c.uidx = u.uidx WHERE c.id = ? ORDER BY c.timestamp DESC";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, roomId);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            String sender = rs.getString("userId");
+	            String message = rs.getString("message");
+
+	            ChatDto chatDto = new ChatDto(0, sender, message);
+	            chatMessages.add(chatDto);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResources();
+	    }
+
+	    Collections.reverse(chatMessages);
+	    return chatMessages;
+	}
+
+	// ... (이전 코드 유지)
+
 }
