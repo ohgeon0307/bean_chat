@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import app.dao.ChatDao;
 import app.dao.UserDao;
@@ -28,14 +29,13 @@ public class ChatSSEServlet extends HttpServlet {
         response.setHeader("Connection", "keep-alive");
 
         PrintWriter writer = response.getWriter();
-        clients.add(response);
 
-        String chatRoomId = request.getParameter("chatRoomId");
-        
-        System.out.println(chatRoomId + "<- 챗룸아이디.");
+        HttpSession session = request.getSession();
+        int chatRoomId = (int) session.getAttribute("chatRoomId");
+
         // 예시로 최근 10개의 메시지를 가져오도록 함
         ChatDao cdao = new ChatDao();
-        List<ChatDto> messages = cdao.getRecentChatMessages(Integer.parseInt(chatRoomId), 10);
+        List<ChatDto> messages = cdao.getRecentChatMessages(chatRoomId, 10);
 
         for (ChatDto chatDto : messages) {
             sendMessageToClient(writer, chatDto.getSender() + ": " + chatDto.getMessage());

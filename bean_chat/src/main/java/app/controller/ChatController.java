@@ -39,22 +39,26 @@ public class ChatController extends HttpServlet {
 			rd.forward(request, response);
 
 		} else if (location.equals("saveMessage.do")) {
-			HttpSession session = request.getSession();
-			int uidx = (int) session.getAttribute("uidx");
-			String sender = (String) session.getAttribute("userId"); // 추가: sender 정보
+		    HttpSession session = request.getSession();
+		    int uidx = (int) session.getAttribute("uidx");
+		    String sender = (String) session.getAttribute("userId"); // 추가: sender 정보
+		    int chatRoomId = (int) session.getAttribute("chatRoomId"); // 추가: chatRoomId 정보
 
-			// 사용자가 입력한 메시지를 가져옴
-			String message = request.getParameter("message");
-			System.out.println("메세지 뭐라보냈니 ? : " + message);
+		    // 사용자가 입력한 메시지를 가져옴
+		    String message = request.getParameter("message");
+		    System.out.println("메세지 뭐라보냈니 ? : " + message);
 
-			// ChatDto를 생성하고 정보 설정
-			ChatDto chatDto = new ChatDto(uidx, sender, message); // 수정: sender 정보 추가
+		    // ChatDto를 생성하고 정보 설정
+		    ChatDto chatDto = new ChatDto();
+		    chatDto.setUidx(uidx);
+		    chatDto.setSender(sender);
+		    chatDto.setMessage(message);
+		    chatDto.setChatRoomId(chatRoomId); // 수정: ChatRoomId 추가
 
-			// ChatDao를 통해 채팅 메시지를 DB에 저장
-			ChatDao cdao = new ChatDao();
-			cdao.saveChatMessage(chatDto);
-
-		} 
+		    // ChatDao를 통해 채팅 메시지를 DB에 저장
+		    ChatDao cdao = new ChatDao();
+		    cdao.saveChatMessage(chatDto);
+		}
 		
 		else if (location.equals("createChatRoom.do")) {
 
