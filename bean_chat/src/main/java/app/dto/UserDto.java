@@ -13,8 +13,14 @@ public class UserDto {
 	private String userDate;  
 	private String uDelYn;
 	private String userImage;
+	private String adminYn;
 	
-	
+	public String getAdminYn() {
+		return adminYn;
+	}
+	public void setAdminYn(String adminYn) {
+		this.adminYn = adminYn;
+	}
 	public int getUidx() {
 		return uidx;
 	}

@@ -93,14 +93,14 @@ public class NoticeController extends HttpServlet {
 			int value = ndao.boardInsert(bdto);
 
 			if (value == 0) {
-				String path = request.getContextPath() + "/board/boardWrite.do";
+				String path = request.getContextPath() + "/notice/noticeWrite.do";
 				response.sendRedirect(path);
 			} else {
-				String path = request.getContextPath() + "/board/boardList.do";
+				String path = request.getContextPath() + "/notice/noticeList.do";
 				response.sendRedirect(path);
 			}
 
-		} else if (location.equals("boardContents.do")) {
+		} else if (location.equals("noticeContents.do")) {
 			String bidx = request.getParameter("bidx");
 			int bidx_int = Integer.parseInt(bidx);
 

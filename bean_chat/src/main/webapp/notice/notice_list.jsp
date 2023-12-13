@@ -63,6 +63,7 @@
             </ul>
       </div>
   </div>
+  
     <!--end: nav-->
     <main>
       <h1>공지사항</h1>
@@ -91,7 +92,7 @@
           <ul>
           <c:forEach items="${alist }" var ="bdto">
             <li>
-              <a href="${pageContext.request.contextPath}/board/boardContents.do?bidx=${bdto.bidx}">${bdto.subject }</a>
+              <a href="${pageContext.request.contextPath}/notice/noticeContents.do?bidx=${bdto.bidx}">${bdto.subject }</a>
               <div class="boardContent">
               	<p>닉네임 : ${bdto.writer} 조회수 : ${bdto.viewCnt } 댓글수 : ${bdto.bidx }</p>
                 
@@ -107,7 +108,7 @@
           <div class="pager"><p>◀ pager가 들어갈 자리입니다 ▶</p></div>
           <!--end: .pager-->
           <div class="btnBar">
-            <a href="${pageContext.request.contextPath}/board/boardWrite.do">글쓰기</a>
+            <a href="${pageContext.request.contextPath}/notice/noticeWrite.do">글쓰기</a>
           </div>
           <!--end:.bthBar-->
         </div>

@@ -156,8 +156,8 @@
 	<script>
   function confirmDelete(bidx) {
     if (confirm("게시글을 삭제하시겠습니까?")) {
-      location.href = '<%=request.getContextPath()%>/board/boardDeleteAction.do?bidx=' + bidx;
-    }
+      location.href = '<%=request.getContextPath()%>/board/boardDeleteAction.do?bidx=' + bidx; 
+    } <!-- 확인하기 -->
   }
 </script>
 
@@ -217,8 +217,8 @@
 				<%=bdto.getContents() %>
 			</p>
             <div class="center-buttons">
-            <a href="${pageContext.request.contextPath}/board/boardList.do"><button>목록</button></a>
-            <button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardModify.do?bidx=<%=bdto.getBidx()%>'">수정</button>
+            <a href="${pageContext.request.contextPath}/notice/noticeList.do"><button>목록</button></a>
+            <button type="button" onclick="location.href='<%=request.getContextPath()%>/notice/noticeModify.do?bidx=<%=bdto.getBidx()%>'">수정</button>
             <button type="button" onclick="confirmDelete('<%=bdto.getBidx()%>')">삭제</button>
             </div>
 		</div>

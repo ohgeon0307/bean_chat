@@ -291,7 +291,7 @@ public class UserDao {
 				+ "userPwd = ?\r\n"
 				+ "where uidx = ?";
 		
-		try {
+		try { 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userPwd);
 			pstmt.setInt(2, uidx);
@@ -384,7 +384,6 @@ public class UserDao {
 		}
 	    return udto;
 	}
-	
 	
 	
 }
