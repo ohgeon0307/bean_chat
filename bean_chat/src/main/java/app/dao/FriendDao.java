@@ -218,11 +218,10 @@ public class FriendDao {
 		
 	}
 	
-public int friendreject(int fridx) {
+public int friendReject(int fridx) {
 		
 		int exec = 0;
-		String sql ="update friend_requesttable set\r\n"
-				+ "fstate = 'N'\r\n"
+		String sql ="delete from friend_requesttable\r\n"
 				+ "where fridx = ?";
 		
 		try {

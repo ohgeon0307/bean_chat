@@ -18,7 +18,7 @@
         var friendId = $('#friendId').val();
 
         $.ajax({
-            url: '/bean_chat/mypage/searchFriend.do?friendId=' + friendId,
+            url: '/bean_chat/friend/searchFriend.do?friendId=' + friendId,
             type: 'POST',
             dataType: 'json',
             success: function (data) {
@@ -40,7 +40,7 @@
         var addId = $('#addId').val();
 
         $.ajax({
-            url: '/bean_chat/mypage/addFriend.do?addId=' + addId,
+            url: '/bean_chat/friend/addFriend.do?addId=' + addId,
             type: 'POST',
             dataType: 'json',
             success: function (data) {
@@ -76,7 +76,7 @@
    <!-- 추가 결과 표시 -->
    <div id="addResult"></div>
    
-   <a href="<%=request.getContextPath()%>/mypage/myFriendRequest.do">친구요청수락하러가기</a>
+   <a href="<%=request.getContextPath()%>/friend/myFriendRequest.do">친구요청수락하러가기</a>
     
 </body>
 </html>
