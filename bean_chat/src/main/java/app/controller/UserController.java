@@ -143,6 +143,7 @@ public class UserController extends HttpServlet {
 
 			UserDao udao = new UserDao();
 			int uidx = udao.userLoginCheck(userId); // 사용자의 아이디로부터 uidx 가져오기
+			
 
 			HttpSession session = request.getSession();
 			PrintWriter out = response.getWriter();
@@ -157,12 +158,25 @@ public class UserController extends HttpServlet {
 				// 저장된 해시된 비밀번호와 사용자 입력의 해시된 비밀번호를 비교
 				else if (userHashPwd.equals(userPwd)) {
 					// 비밀번호 일치: 로그인 성공
+					
+					String adminYn = udao.getUserAdminYn(userId);
+					//관리자 여부 확인
+					if(adminYn.equals("Y")) {
+						//세션에 admin담아줌
+						session.setAttribute("admin", "admin");
+						session.setAttribute("userId", userId);
+						session.setAttribute("uidx", uidx);
+						session.setMaxInactiveInterval(3600);
+
+						response.sendRedirect(request.getContextPath() + "/index.jsp");
+					}else{
 					session.setAttribute("userId", userId);
 					session.setAttribute("uidx", uidx);
 					session.setMaxInactiveInterval(3600);
 
 					response.sendRedirect(request.getContextPath() + "/index.jsp");
-				} else {
+					} 
+				}else {
 					// 비밀번호 불일치: 로그인 실패
 					out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); history.back();</script>");
 				}

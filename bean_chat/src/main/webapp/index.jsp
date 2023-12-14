@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>beanchat</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <link rel="stylesheet" href="./full-page-js/fullpage.min.css" />
     <link rel="stylesheet" href="./css/index.css">
     <link
@@ -26,6 +27,11 @@
         <img src="./images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
         <div class="items">
             <ul>
+            	<li>
+            		<c:if test="${admin == 'admin' }">
+            			<a href="<%=request.getContextPath()%>/user/userList.do"><i class="xi-crown xi-5x"></i></a>
+            		</c:if>
+            	</li>
                 <li>
                 	<c:choose>
                 		<c:when test="${uidx== null }">

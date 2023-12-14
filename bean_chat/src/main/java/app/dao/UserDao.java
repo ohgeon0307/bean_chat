@@ -25,7 +25,7 @@ public class UserDao {
 	public ArrayList<UserDto> userSelectAll(){
 		ArrayList<UserDto> alist = new ArrayList<UserDto>();
 		ResultSet rs = null;
-		String sql = "Select * from usertable where udelyn='N' order by uidx desc";
+		String sql = "Select * from usertable where udelyn='N' and adminyn='N' order by uidx desc";
 		try{
 	
 			
@@ -385,6 +385,29 @@ public class UserDao {
 		}
 	    return udto;
 	}
+	
+    public String getUserAdminYn(String userId) {
+        String adminYn = ""; // 관리자 여부를 저장할 변수
+
+        try {
+            String sql = "SELECT adminYn FROM usertable WHERE userId = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                adminYn = rs.getString("adminYn"); // 관리자 여부 가져오기
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return adminYn;
+    }
+	
 
 	
 }
