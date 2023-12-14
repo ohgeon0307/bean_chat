@@ -32,7 +32,14 @@ public class NoticeController extends HttpServlet {
 		if (location.equals("noticeList.do")) {
 			NoticeDao ndao = new NoticeDao();
 			ArrayList<BoardDto> alist = ndao.noticeBoardSelectAll();
-
+			
+			HttpSession session = request.getSession();
+		    UserDto loginUser = (UserDto) session.getAttribute("loginUser");
+		    
+			System.out.println(loginUser + "<-LoginUser Session");
+			
+			request.setAttribute("loginUser", loginUser);
+			
 			request.setAttribute("alist", alist);
 
 			String path = "/notice/notice_list.jsp";
