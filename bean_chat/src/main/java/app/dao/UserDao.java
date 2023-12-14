@@ -341,6 +341,7 @@ public class UserDao {
 			pstmt.setString(1, userName);
 			pstmt.setString(2, userPhone);
 			
+			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
