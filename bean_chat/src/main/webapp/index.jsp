@@ -40,7 +40,7 @@
             			<c:otherwise>
             				<a href="<%=request.getContextPath()%>/user/userLogout.do"><img role="button" src="./images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
             			</c:otherwise>
-            		</c:choose>
+            		</c:choose> 
             	</li>
                 <li>
                 	<c:choose>
