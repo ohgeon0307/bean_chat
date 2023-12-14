@@ -25,6 +25,8 @@ public class BoardDao {
 		ArrayList<BoardDto> alist = new ArrayList<BoardDto>();
 		ResultSet rs = null;
 		System.out.println("searchType"+scri);
+		System.out.println("keyword"+scri.getKeyword());
+		
 		String str= "";
 		if (!scri.getKeyword().equals("")) {
 			str =" and "+scri.getSearchType()+" like concat('%','"+scri.getKeyword()+"','%') ";
