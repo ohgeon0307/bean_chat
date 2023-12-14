@@ -12,7 +12,14 @@ public class BoardDto {
 	private String fileName;
 	private String bList;
 	private int Uidx;
+	private int commentCount;
 	
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
 	public int getBidx() {
 		return bidx;
 	}

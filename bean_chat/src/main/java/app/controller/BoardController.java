@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import app.dao.BoardDao;
 import app.dao.UserDao;
 import app.dto.BoardDto;
+import app.dto.PageMakerDto;
 import app.dto.SearchCriteriaDto;
 import app.dto.UserDto;
 
@@ -32,8 +33,10 @@ public class BoardController extends HttpServlet {
 			throws ServletException, IOException {
 		if (location.equals("boardList.do")) {
 			String searchType = request.getParameter("searchType");
+			System.out.println(searchType + "<-- searchType");
 			if (searchType ==null) searchType="subject";
 			String keyword = request.getParameter("keyword");
+			System.out.println(keyword + "<-- keyword");
 			if (keyword ==null) keyword="";			
 			String page = request.getParameter("page");
 			if (page ==null) page ="1";
@@ -43,11 +46,18 @@ public class BoardController extends HttpServlet {
 			scri.setSearchType(searchType);
 			scri.setKeyword(keyword);
 			
+			PageMakerDto pmdto = new PageMakerDto();
+			pmdto.setScri(scri);
+			
 			BoardDao bdao = new BoardDao();
 			ArrayList<BoardDto> alist = bdao.boardSelectAll(scri);
-
+			int cnt = bdao.boardTotalCount(scri);
+			
+			pmdto.setTotalCount(cnt);
+			
 			request.setAttribute("alist", alist);
-
+			request.setAttribute("pmdto", pmdto);
+			
 			String path = "/board/board_list.jsp";
 
 			RequestDispatcher rd = request.getRequestDispatcher(path);
@@ -118,6 +128,7 @@ public class BoardController extends HttpServlet {
 			int bidx_int = Integer.parseInt(bidx);
 
 			BoardDao bdao = new BoardDao();
+			int exec = bdao.boardCntUpdate(bidx_int);
 			BoardDto bdto = bdao.boardSelectOne(bidx_int);
 
 			request.setAttribute("bdto", bdto);

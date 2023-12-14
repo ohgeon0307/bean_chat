@@ -37,6 +37,7 @@
 <script src="/resources/summernote-lite.js"></script>
 <script src="/resources/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="/resources/summernote-lite.css">
+<link rel="stylesheet" href="../css/board/board_comments.css">
 
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
@@ -222,8 +223,34 @@
             <button type="button" onclick="confirmDelete('<%=bdto.getBidx()%>')">삭제</button>
             </div>
 		</div>
+		
     </div>
+    
+     
+    
+    
 	</main>
+	<div id="commentSection">
+            <h2>댓글</h2>
+            <%-- 댓글 목록 출력 --%>
+            <ul class="commentList">
+                <c:forEach items="${commentList}" var="comment">
+                    <li>
+                        <p class="commentWriter">${comment.getWriter()}</p>
+                        <p class="commentContent">${comment.getContent()}</p>
+                        <p class="commentDate">${comment.getWriteDate()}</p>
+                    </li>
+                </c:forEach>
+            </ul>
+            <%-- 댓글 작성 폼 --%>
+            <form action="${pageContext.request.contextPath}/board/addComment.do" method="post">
+                <input type="hidden" name="bidx" value="${bdto.getBidx()}">
+                <label for="commentContent">댓글 작성:</label>
+                <textarea id="commentContent" name="content" rows="4" cols="50"></textarea>
+                <button type="submit">댓글 등록</button>
+            </form>
+        </div>
+	
 	<!--end: main-->
 	<!--end: form-->
 		<footer>

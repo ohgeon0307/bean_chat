@@ -21,51 +21,60 @@ public class BoardDao {
 	}
 	
 	public ArrayList<BoardDto> boardSelectAll(SearchCriteriaDto scri) {
-		
-		ArrayList<BoardDto> alist = new ArrayList<BoardDto>();
-		ResultSet rs = null;
-		System.out.println("searchType"+scri);
-		String str= "";
-		if (!scri.getKeyword().equals("")) {
-			str =" and "+scri.getSearchType()+" like concat('%','"+scri.getKeyword()+"','%') ";
-		}		
-		//System.out.println("str?"+str);
-		String sql = "select bidx, subject,writer,viewcnt,writedate\r\n"
-					+ "from boardtable\r\n"
-					+ "where bDelYn ='N'\r\n"
-		+ str
-		+ "order by bidx desc limit ?,?";
+	    ArrayList<BoardDto> alist = new ArrayList<>();
+	    ResultSet rs = null;
 
-		try {
-			pstmt = conn.prepareStatement(sql);
-		
-			pstmt.setInt(1, (scri.getPage()-1)*scri.getPerPageNum());
-			pstmt.setInt(2, scri.getPerPageNum());
-			
-			rs = pstmt.executeQuery();
-		
-		while(rs.next()) {
-			BoardDto bdto = new BoardDto();
-			bdto.setBidx(rs.getInt("bidx"));
-			bdto.setSubject(rs.getString("subject"));
-			bdto.setWriter(rs.getString("writer"));
-			bdto.setViewCnt(rs.getInt("viewCnt"));
-			bdto.setWriteDate(rs.getString("writeDate"));
-			alist.add(bdto);
-		}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try{
-				rs.close();
-				pstmt.close();
-				//conn.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-		
-		return alist;
+	    String str = "";
+	    if (!scri.getKeyword().equals("")) {
+	        str = " and " + scri.getSearchType() + " like concat('%', ?, '%') ";
+	    }
+
+	    String sql = "SELECT bidx, subject, writer, viewcnt, writedate "
+	            + "FROM boardtable "
+	            + "WHERE bDelYn = 'N' "
+	            + str
+	            + "ORDER BY bidx DESC LIMIT ?,?";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+
+	        if (!scri.getKeyword().equals("")) {
+	            pstmt.setString(1, scri.getKeyword());
+	            pstmt.setInt(2, (scri.getPage() - 1) * scri.getPerPageNum());
+	            pstmt.setInt(3, scri.getPerPageNum());
+	        } else {
+	            pstmt.setInt(1, (scri.getPage() - 1) * scri.getPerPageNum());
+	            pstmt.setInt(2, scri.getPerPageNum());
+	        }
+
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            BoardDto bdto = new BoardDto();
+	            bdto.setBidx(rs.getInt("bidx"));
+	            bdto.setSubject(rs.getString("subject"));
+	            bdto.setWriter(rs.getString("writer"));
+	            bdto.setViewCnt(rs.getInt("viewCnt"));
+
+	            // 날짜 형식을 변환하여 저장
+	            java.util.Date utilDate = rs.getDate("writeDate");
+	            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	            bdto.setWriteDate(sqlDate.toString());
+
+	            alist.add(bdto);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            rs.close();
+	            pstmt.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return alist;
 	}
 	
 	public int boardInsert(BoardDto bdto) {
@@ -205,6 +214,71 @@ public class BoardDao {
 
 	        return authorUidx;
 	    }
+	 
+	 public int boardTotalCount(SearchCriteriaDto scri) {
+		 int value = 0;
+		 
+		 String str = "";
+		 if (!scri.getKeyword().equals("")) {
+			 str =" and " +scri.getSearchType()+" like concat('%', '"+scri.getKeyword()+"', '%') ";
+		 }
+		 
+		 String sql="select count(*) as cnt from boardtable where bDelYn='N' "+str;
+		 ResultSet rs = null;
+		 try {
+			 pstmt = conn.prepareStatement(sql);
+			 rs = pstmt.executeQuery();
+			 
+			 if (rs.next()) {
+				 value = rs.getInt("cnt");
+			 }
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		 return value;
+	 }
+	 
+	 public int boardCntUpdate(int bidx) {
+		    int exec = 0;
+
+		    String sql = "UPDATE boardtable SET viewCnt = viewCnt + 1 WHERE bidx = ?";
+
+		    try {
+		        conn.setAutoCommit(false);
+		        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		            pstmt.setInt(1, bidx);
+		            exec = pstmt.executeUpdate();
+		        }
+		        conn.commit();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        try {
+		            if (conn != null) {
+		                conn.rollback();
+		            }
+		        } catch (SQLException rollbackEx) {
+		            rollbackEx.printStackTrace();
+		        }
+		    } finally {
+		        try {
+		            if (conn != null) {
+		                conn.setAutoCommit(true);
+		            }
+		        } catch (SQLException autoCommitEx) {
+		            autoCommitEx.printStackTrace();
+		        }
+		    }
+
+		    return exec;
 	
 	
 	}
+}
