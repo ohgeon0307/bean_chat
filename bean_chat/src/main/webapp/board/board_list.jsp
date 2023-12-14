@@ -112,7 +112,7 @@
     </main>
     <!--end: main-->
     
-    <c:set var="keyword" value="${scri.keyword}" />
+    <c:set var="keyword" value="${scri.keyword}" /> 
 	<c:set var="parm" value="&searchType=${scri.searchType}&keyword=${scri.keyword}" />
     
     <footer>
