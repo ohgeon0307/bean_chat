@@ -2,6 +2,7 @@ package app.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -228,7 +229,33 @@ public class FriendController extends HttpServlet{
 				out.println("<script>alert('친구 추가에 실패했어요 ㅠ.ㅠ'); history.back();</script>");
 			}
 				
-		}else if(location.equals("myModify.do")){
+		}else if(location.equals("myFriendList.do")){
+			
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+							
+			FriendDao fdao =new FriendDao();
+			
+			ArrayList<UserDto> alist = fdao.friendSelectAll(uidx);
+			
+
+			
+			PrintWriter out = response.getWriter();
+			
+			String json = new Gson().toJson(alist);
+	        
+	        // 응답으로 JSON 데이터 전송
+	        response.setContentType("application/json");
+	        response.setCharacterEncoding("UTF-8");
+	        response.getWriter().write(json);
+			
+			
+			
+			
+			
+			
+			
+		}else if(location.equals("myFriendListwwwwwwwwww.do")){
 			String path ="/mypage/my_profile_modify.jsp";
 			 RequestDispatcher rd = request.getRequestDispatcher(path);
 			 rd.forward(request, response);
