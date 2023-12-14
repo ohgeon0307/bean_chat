@@ -332,7 +332,7 @@ hr {
 
 main {
     width: 1522.39px;
-    height: 2050px;
+    height: auto;
     margin-top: 100px;
   }
 
@@ -344,7 +344,7 @@ main {
 
   #inner {
     width: 1300px;
-    height: 1785px;
+    height: auto;
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
@@ -424,7 +424,7 @@ main {
 
   .boardList {
     width: 1200px;
-    height: 1485px;
+    height: auto;
   }
 
   .boardList ul {

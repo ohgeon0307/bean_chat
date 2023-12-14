@@ -10,22 +10,17 @@
 <head>
 <meta charset="utf-8">
 <title>회원목록</title>
-    <link
-      href="../images/indexImage/beanchat_char.png"
-      rel="shortcut icon"
-    />
     <!--파비콘-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
-    />
+    <link href="../images/indexImage/beanchat_char.png" rel="shortcut icon"/>
     <!--검색 버튼 아이콘-->
-    <link href="../css/board/board_list.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"/>
     <!--css 연결-->
+    <link href="../css/admin/admin_user_list.css" rel="stylesheet" />
+    <link href="../css/reset.css" rel="stylesheet" />
 </head>
 <body>
 	<header>
-			<div class="container"> 
+		<div class="container"> 
 			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
 	        <div class="items">
 	            <ul>
@@ -72,40 +67,70 @@
 	<main>
 		<h1>회원 관리</h1>
 		<div id="inner">
-			<div class="boardSet">
-				<div class="boardSearch">
-					<select class="searchFilter">
-						<option>uidx</option>
-						<option>아이디</option>
-						<option>닉네임</option>
-						<option>이름</option>
-					</select>
-					<input type="text" placeholder="검색어를 입력하세요" />
-					<button type="submit" class="bSearchBtn"> 검색</button>
-				</div><!-- //.boardSearch-->
-			</div><!--//.boardSet-->
+			<div class="userSet">
+				<div class="userSearch">
+					<form name="frm" action="${pageContext.request.contextPath}/admin/userList.do" method="post">
+						<select name="searchType" class="searchFilter">
+							<option value="uidx">UIDX</option>
+							<option value="userId">아이디</option>
+							<option value="userName">이름</option>
+							<option value="userNickname">닉네임</option>
+						</select>
+						<input type="text" placeholder="검색어를 입력하세요" name="keyword" /> 
+						<input type="submit" name="sbt" class="uSearchBtn" value="검색">
+					</form>
+				</div><!-- //.userSearch-->
+			</div><!--//.userSet-->
         
-			<div class="boardList">
+			<div class="userList">
 				<ul>
 					<c:forEach items="${alist }" var ="udto">
 					<li>
 						<a href="${pageContext.request.contextPath}/admin/adminUserDelete.do?uidx=${udto.uidx}">
 							<span class="boardContent">
+							<input type="checkbox" name="userIds" value="${udto.uidx}">
 								uidx: ${udto.uidx}  아이디 : ${udto.userId } 이름 : ${udto.userName }  닉네임 : ${udto.userNickname }  가입일 : ${udto.userDate }
 							</span><!-- //.boardContent -->
 						</a>
 					</li>
 					</c:forEach>
 				</ul>
-			</div> <!--//.boardList-->
-	        <div id="boardOption">
-				<div class="pager"><p>◀ pager가 들어갈 자리입니다 ▶</p></div><!--end: .pager-->
+			</div> <!--//.userList-->
+			<div id="pageOption">
+				<div class="pager">
+					<c:if test="${pmdto.prev}">
+						<a href="${pageContext.request.contextPath}/admin/userList.do?page=${pmdto.startPage - 1}&searchType=${scri.searchType}&keyword=${scri.keyword}">&lt;</a>
+					</c:if>
+
+					<c:forEach begin="${pmdto.startPage}" end="${pmdto.endPage}" var="pageNum">
+						<c:choose>
+						
+							<c:when test="${pageNum eq scri.page}">
+								<span class="current">${pageNum}</span>
+							</c:when>
+							
+							<c:otherwise>
+								<a href="${pageContext.request.contextPath}/admin/userList.do?page=${pageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">${pageNum}</a>
+							</c:otherwise>
+							
+						</c:choose>
+					</c:forEach>
+
+					<c:if test="${pmdto.next}">
+						<a href="${pageContext.request.contextPath}/admin/userList.do?page=${pmdto.endPage + 1}&searchType=${scri.searchType}&keyword=${scri.keyword}">&gt;</a>
+					</c:if>
+				</div><!--end: .pager-->
+				
 				<div class="btnBar">
 					<a href="${pageContext.request.contextPath}/board/boardWrite.do">글쓰기</a>
-				</div> <!--//.bthBar-->
-			</div><!--//#boardOption-->
-		</div><!--// #inner-->
+				</div><!--end:.bthBar-->
+				
+			</div><!--end: #pageOption-->
+		</div><!--end: #inner-->
+		
 	</main>
+
+
     <footer>
       <div id="slogan">
         <img src="../images/indexImage/beanchat_char.png" width="200px" />

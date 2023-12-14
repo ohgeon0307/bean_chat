@@ -1,0 +1,462 @@
+@charset "utf-8";
+/* header css */
+
+.container a {
+	text-decoration: none; color: #fff;
+	font-weight: 900; 
+	}
+	a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+
+.container {
+    background-color:  #bce489;
+    position : fixed;
+    z-index: 1000;
+    display : flex;
+    left: 50%; 
+    transform: translateX(-50%);
+    display: flex;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 40px 0px 0px 6%;
+    top: 0;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: 1.5s ease 0.3s 1 normal forwards running headerbar;
+    color : white;
+    height : 140px;
+}
+
+@keyframes headerbar {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+        max-width: 1140vmax;
+    }
+}
+
+.beanchat_text {
+    position : relative;
+    left : 165px;
+    bottom : 20px;
+    max-width : 250px;
+}
+
+.container ul img {
+    position : relative;
+    right : 0px;
+    object-fit: contain;
+    display: flex;
+    float: none;
+    width: 150%;
+    height: auto;
+    max-width : 250px;
+}
+
+.items {
+    position: relative;
+    bottom : 20px;
+    display: flex;
+    flex-flow: wrap;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin : 0;
+    padding : 0;
+}
+
+.items li:hover img {
+    opacity : 0;
+}
+
+.items li span {
+    position: absolute;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 150px;
+    height: 30px;
+    bottom : 20px;
+}
+
+.items li:hover span {
+    position : absolute;
+    opacity : 1;
+    transition-delay: 0.3s;
+}
+
+.container ul {
+    display: flex;
+    list-style: none;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 48px;
+    margin-right : 200px;
+    padding : 0;
+}
+
+.container ul li:not(:last-child) {
+    margin-right : 25px;
+}
+
+.container ul li {
+    width: 60px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 방지 */
+    text-align: center; /* 가로 정렬을 위해 텍스트 가운데 정렬 */
+    margin: 0;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.items li img {
+    opacity: 1;
+    transition: opacity 0.3s;
+    width : 45px;
+    height: 45px;
+}
+/* header css 종료 */
+
+
+#searchBar {
+  display: flex;
+  width: 666px;
+  height: 49px;
+  border: 3px solid #BCE489;
+  margin-top: 10px;
+  margin-right: 220px;
+}
+
+#searchBar input {
+  width: 597px;
+  height: 47px;
+  padding-left: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  font-family: "Pretendard-Regular";
+}
+
+#searchBar input:focus {
+  outline: none;
+}
+
+#searchBar input::placeholder {
+  font-size: 20px;
+  color: rgb(182, 182, 182);
+}
+
+.searchBtn {
+  border: none;
+  color: #BCE489;
+  padding: 8.5px 16px 7px 7px;
+  background: none;
+}
+
+.searchBtn:hover {
+  color: #BCE489;
+  cursor: pointer;
+}
+
+.searchBtn i {
+  display: inline-block;
+}
+
+
+hr {
+  background: rgb(182, 182, 182);
+  height: 1px;
+  border: none;
+}
+
+
+main {
+    width: 70%;
+    margin-top: 200px; 
+    margin-right:auto;
+    margin-left:auto;
+    margin-bottom: 150px; 
+    height:auto;
+  }
+
+  main h1 {
+  	width: 68%;
+  	font-weight:bold;
+    font-size: 44px;
+    color: #BCE489;
+    margin: 0 auto;
+    
+    
+  }
+
+  #inner {
+    width: 75%;
+    margin-top: 20px;
+    margin-right:auto;
+    margin-left:auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  .userSet {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+
+.userSearch {
+  margin-left: 750px;
+} 
+
+.userSearch select {
+    padding: 4px;
+    font-size: 15px;
+    outline: none;
+    margin-right: 12px;
+    background: none;
+}
+
+.userSearch select:hover {
+    border: 1px solid #BCE489;
+    border-radius: 3px;
+}
+
+
+  .userSearch input[type=text] {
+    width: 268px;
+    padding: 10px;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #BCE489;
+    background: none;
+}
+
+  .uSearchBtn {
+    margin-left: 20px;
+    padding: 10px 17px;
+    background-color: #BCE489;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .uSearchBtn:hover {
+    background-color: #BCE489;
+  }
+
+  /*end: .userSearch*/
+
+
+  .userSelect select {
+    padding: 8px;
+    font-size: 15px;
+    outline: none;
+    margin-right: 10px;
+    display: inline-block;
+  }
+
+  .userSelect select:focus {
+    border: 1px solid #BCE489;
+    border-radius: 3px;
+  }
+/*end: .userSelect*/
+
+  .userList {
+    width: 90%;
+    margin:0 auto;
+  }
+
+  .userList ul {
+   text-align: left;
+   padding-top: 15px;
+  }
+
+  .userList li {
+    border-top: none;
+    border-bottom: 1px solid rgb(136, 136, 136);
+    padding-top: 20px;
+    line-height: 50px;
+  }
+
+
+  .userList li:last-child {
+    border-bottom: none !important;
+  }
+
+  .userList a {
+    width: 635px;
+    height: 55px;
+    font-size: 32px;
+    color: rgb(54, 54, 54);
+    text-align: left;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+    .userList a:hover {
+      color: #BCE489;
+    }
+
+
+  .userContent {
+    float: right;
+  }
+
+  .userContent span {
+    height: 20px;
+    border: 1px solid rgb(177, 177, 177);
+    padding: 4px 10px;
+    background-color: rgb(243, 243, 243);
+    color:rgb(56, 56, 56);
+    font-size: 18px;
+    filter: opacity(0.9);
+  }
+
+  .boardContent p {
+    display: inline-block;
+    font-size: 16px;
+    color:rgb(70, 70, 70);
+    margin-left: 15px;
+  }
+  
+  .pager {
+    width: 1300px;
+    height: 64px;
+    background-color: rgb(192, 192, 192);
+    text-align: center;
+    padding-top: 40px;
+  }
+
+  .btnBar {
+    width: 1300px;
+    height: 64px;
+}
+
+  .btnBar a {
+    font-size: 17px;
+    padding: 10px 20px;
+    border: 1px solid #BCE489;
+    border-radius: 5px;
+    float: right;
+    color: #BCE489;
+    font-weight: bold;
+  }
+
+  .btnBar a:hover {
+    background-color: #BCE489;
+    color: white;
+    transition: all 0.2s ease-in-out;
+  }
+
+  
+footer {
+  width: 100%;
+  box-sizing: border-box;
+  height: auto;
+  background-color: rgb(56, 56, 56);
+  padding: 30px 0; /* 높이 조정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(99, 99, 99);
+}
+
+#slogan {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  margin-bottom: 10px; /* 높이 조정 */
+}
+
+footer img {
+  filter: invert(0.2);
+  margin-bottom: 5px;
+}
+
+#footerMenu, .companyInfo, #sns {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px; /* 높이 조정 */
+}
+
+#footerMenu ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+#footerMenu li {
+  margin-right: 20px;
+}
+
+#footerMenu a {
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+#footerMenu a:hover {
+  color: #BCE489;
+}
+
+.companyInfo {
+  max-width: 400px;
+}
+
+#sns {
+  max-width: 300px;
+}
+
+#sns ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 추가 */
+  justify-content: center; /* 가로 중앙 정렬 추가 */
+}
+
+#sns li {
+  margin-right: 15px;
+}
+
+#sns a {
+  display: flex; /* 아이콘을 세로 중앙 정렬하기 위해 추가 */
+  align-items: center; /* 세로 중앙 정렬 추가 */
+  padding: 10px;
+  border: 1px solid rgb(99, 99, 99);
+  border-radius: 50%;
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+#sns a:visited {
+  color: rgb(99, 99, 99);
+}
+
+#sns a:hover {
+  color: #BCE489;
+  border: 1px solid #BCE489;
+}

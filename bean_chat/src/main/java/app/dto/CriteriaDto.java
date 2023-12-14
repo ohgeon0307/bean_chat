@@ -8,7 +8,7 @@ public class CriteriaDto {
 	
 	public CriteriaDto() {
 		this.page = 1;
-		this.perPageNum = 15;
+		this.perPageNum = 10;
 	}
 	
 	public int getPage() {
