@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./css/index.css">
     <link
       href="../images/indexImage/beanchat_char.png"
-      rel="shortcut icon"
+      rel="shortcut icon" 
     />
     <!--파비콘-->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
