@@ -74,7 +74,7 @@
 					<p>내 프로필 수정할래요!</p> </a>
 			</div><!--//.main_button-->
 			<div class="main_button">
-				<a href="<%=request.getContextPath() %>/mypage/myFriend.do">
+				<a href="<%=request.getContextPath() %>/friend/myFriend.do">
 					<img src="../images/logo/BeanchatChar3.png" alt="친구 관리하기" />
 					<p>친구를 확인 할래요!</p>
 				</a>

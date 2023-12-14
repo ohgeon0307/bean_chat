@@ -21,46 +21,50 @@ public class FriendDao {
 		DbConn dbconn = new DbConn();
 		this.conn = dbconn.getConnection();
 	}
+	
+	public ArrayList<UserDto> friendSelectAll(int uidx) {
+		ArrayList<UserDto> alist = new ArrayList<>();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    try {
+	    	String sql = "SELECT u.* " +
+	    			"FROM friendtable f " +
+	    			"JOIN usertable u ON (f.Uidx1 = u.uidx OR f.Uidx2 = u.uidx) " +
+	    			"WHERE (f.Uidx1 = ? OR f.Uidx2 = ?) AND u.uidx != ?";
+	    	pstmt = conn.prepareStatement(sql);
+	    	pstmt.setInt(1, uidx);
+	    	pstmt.setInt(2, uidx);
+	    	pstmt.setInt(3, uidx);
+	    	rs = pstmt.executeQuery();
+	    	while (rs.next()) {    	
+	    		UserDto udto= new UserDto();
+	    		udto.setUidx(rs.getInt("uidx"));
+	    		udto.setUserId(rs.getString("userId"));
+	    		udto.setUserName(rs.getString("userName"));
+	    		udto.setUserBirth(rs.getString("userBirth"));
+	    		udto.setUserNickname(rs.getString("userNickname"));
+	    		udto.setUserPhone(rs.getString("userPhone"));
+	    		udto.setUserDate(rs.getString("userDate"));
+	    		udto.setuDelYn(rs.getString("uDelYn"));
+	    		udto.setUserImage(rs.getString("userImage"));
+
+	    		alist.add(udto);
+	    	}
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    // 리소스 해제
+	    } finally {
+	    	try {
+	    		if (rs != null) rs.close();
+	    		if (pstmt != null) pstmt.close();
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+			}
+	    }
+	    return alist;
+	}
 
 	
-	public ArrayList<FriendDto> friendSelectAll(int uidx) {
-	
-		ArrayList<FriendDto> alist = new ArrayList<FriendDto>();
-	
-		ResultSet rs = null;
-		
-		String sql ="SELECT *\r\n"
-				+ "FROM friendtable\r\n"
-				+ "WHERE uidx1 = ? OR uidx2 = ?";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			 pstmt.setInt(1, uidx);
-			 pstmt.setInt(2, uidx);
-			rs = pstmt.executeQuery();
-	
-		
-		while(rs.next()) {
-			FriendDto fdto = new FriendDto();
-			fdto.setFidx(rs.getInt("fidx"));
-			fdto.setUidx1(rs.getInt("uidx1"));
-			fdto.setUidx2(rs.getInt("uidx2"));
-			alist.add(fdto);
-		}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try{
-				rs.close();
-				pstmt.close();
-				//conn.close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-		
-		return alist;
-	}
 	
 	public int friendFindId(String userId) {
 		int uidx=0;
@@ -218,11 +222,10 @@ public class FriendDao {
 		
 	}
 	
-public int friendreject(int fridx) {
+public int friendReject(int fridx) {
 		
 		int exec = 0;
-		String sql ="update friend_requesttable set\r\n"
-				+ "fstate = 'N'\r\n"
+		String sql ="delete from friend_requesttable\r\n"
 				+ "where fridx = ?";
 		
 		try {

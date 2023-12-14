@@ -5,15 +5,7 @@ public class FriendDto {
 	private int fidx;
 	private int uidx1;
 	private int uidx2;
-	private UserDto fInfo;
 	
-
-	public UserDto getfInfo() {
-		return fInfo;
-	}
-	public void setfInfo(UserDto fInfo) {
-		this.fInfo = fInfo;
-	}
 	public int getFidx() {
 		return fidx;
 	}

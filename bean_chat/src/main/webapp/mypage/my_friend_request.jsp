@@ -10,7 +10,7 @@
 	<script type="text/javascript">
 	function myRequestList() {
 	    $.ajax({
-	        url: '/bean_chat/mypage/myRequestList.do',
+	        url: '/bean_chat/friend/myRequestList.do',
 	        type: 'POST',
 	        dataType: 'json',
 	        success: function (data) {
@@ -31,14 +31,18 @@
 
 	                var acceptBtn = $('<button>').text('수락');
 	                var rejectBtn = $('<button>').text('거절');
-
+	                
+	                acceptBtn.attr('data-userId', data[i].userId);
+	                rejectBtn.attr('data-userId', data[i].userId);
+	                
 	                // 수락 버튼 클릭 시 이벤트 핸들러
-	                acceptBtn.click(function (userId) {
-	                    return function () {
-	                        var listItemRemove = $(this).closest('li'); // 클릭한 버튼의 부모 li 요소를 찾음
+	                acceptBtn.click(function () {
 
+	                        var listItemRemove = $(this).closest('li'); // 클릭한 버튼의 부모 li 요소를 찾음
+	                        var currentUserId = $(this).attr('data-userId'); // data() 대신 attr() 사용
+	                        
 	                        $.ajax({
-	                            url: '/bean_chat/mypage/myRequestAccept.do?userId=' + userId,
+	                            url: '/bean_chat/friend/myRequestAccept.do?userId=' + currentUserId,
 	                            type: 'POST',
 	                            dataType: 'json',
 	                            success: function (data) {
@@ -53,17 +57,16 @@
 	                                console.error(error);
 	                            }
 	                        });
-	                    };
-	                }(data[i].userId)); // 클로저를 사용하여 userId 전달
+	                });
 	                
 	                
 	                
-	                rejectBtn.click(function (userId) {
-	                    return function () {
+	         	 rejectBtn.click(function () {
 	                        var listItemRemove = $(this).closest('li'); // 클릭한 버튼의 부모 li 요소를 찾음
-
+	                        var currentUserId = $(this).attr('data-userId'); // data() 대신 attr() 사용
+	                        
 	                        $.ajax({
-	                            url: '/bean_chat/mypage/myRequestreject.do?userId=' + userId,
+	                            url: '/bean_chat/friend/myRequestReject.do?userId=' + currentUserId,
 	                            type: 'POST',
 	                            dataType: 'json',
 	                            success: function (data) {
@@ -71,18 +74,17 @@
 	                                    alert('친구 요청을 거절했습니다.');
 	                                    listItemRemove.remove(); // 해당 요청자에 대한 요소 삭제
 	                                } else {
-	                                    alert('친구 요청 수락에 실패했습니다.');
+	                                    alert('친구 요청 거절에 실패했습니다.');
 	                                }
 	                            },
 	                            error: function (error) {
 	                                console.error(error);
 	                            }
 	                        });
-	                    };
-	                }(data[i].userId)); // 클로저를 사용하여 userId 전달
+	                });
 	                
 	    
-	                listItem.append(userInfo, profileImage, acceptBtn);
+	                listItem.append(userInfo, profileImage, acceptBtn, rejectBtn);
 	                requestList.append(listItem);
 	            }
 	        },
