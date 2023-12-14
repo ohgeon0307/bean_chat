@@ -58,6 +58,10 @@ public class ChatController extends HttpServlet {
 		    // ChatDao를 통해 채팅 메시지를 DB에 저장
 		    ChatDao cdao = new ChatDao();
 		    cdao.saveChatMessage(chatDto);
+		    
+		 // 새로운 메시지를 클라이언트에게 전송
+		    List<ChatDto> newMessages = cdao.getRecentChatMessages(chatRoomId, 1);
+		    response.getWriter().write(messagesToJson(newMessages));
 		}
 		
 		else if (location.equals("createChatRoom.do")) {
@@ -133,6 +137,20 @@ public class ChatController extends HttpServlet {
 		// 채팅방 목록을 보여줄 JSP 페이지로 포워드
 		RequestDispatcher rd = request.getRequestDispatcher("/chat/chat_room_list.jsp");
 		rd.forward(request, response);
+	}
+	
+	private String messagesToJson(List<ChatDto> messages) {
+	    // 여기에 messages를 JSON 형식으로 변환하는 로직을 작성
+	    // 예시: 간단한 JSON 배열로 변환
+	    StringBuilder json = new StringBuilder("[");
+	    for (ChatDto message : messages) {
+	        json.append("{\"sender\":\"").append(message.getSender()).append("\",\"message\":\"").append(message.getMessage()).append("\"},");
+	    }
+	    if (!messages.isEmpty()) {
+	        json.deleteCharAt(json.length() - 1); // 마지막 쉼표 제거
+	    }
+	    json.append("]");
+	    return json.toString();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
