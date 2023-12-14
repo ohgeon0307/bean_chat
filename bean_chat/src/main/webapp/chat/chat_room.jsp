@@ -38,6 +38,42 @@
             appendMessage(message);
         };
 
+        
+
+        function send(event) {
+            var message = document.getElementById('input_msg').value;
+
+            $.ajax({
+                type: "POST",
+                url: "<%= request.getContextPath() %>/chat/saveMessage.do",
+                data: {
+                    message: message,
+                    userId: userId
+                },
+                success: function (response) {
+                	getNewMessages();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        
+        function getNewMessages() {
+            // 서버로부터 새로운 메시지 목록을 받아와서 텍스트 에어리어에 표시
+            $.ajax({
+                type: "GET",
+                url: "<%= request.getContextPath() %>/ChatSSEServlet?chatRoomId=<%= session.getAttribute("chatRoomId") %>",
+                success: function (messages) {
+                    // 받아온 메시지를 표시
+                    appendMessages(message);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        
         function appendMessage(message) {
         	var chatTextArea = document.getElementById('textarea_chat');
             // 현재 텍스트 에어리어의 내용을 가져옴
@@ -54,25 +90,6 @@
 
             // 스크롤을 가장 아래로 이동하여 최신 메시지가 보이도록 함
             chatTextArea.scrollTop = chatTextArea.scrollHeight;
-        }
-
-        function send(event) {
-            var message = document.getElementById('input_msg').value;
-
-            $.ajax({
-                type: "POST",
-                url: "<%= request.getContextPath() %>/chat/saveMessage.do",
-                data: {
-                    message: message,
-                    userId: userId
-                },
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
         }
     </script>
 </body>

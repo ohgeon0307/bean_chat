@@ -31,7 +31,7 @@ public class NoticeController extends HttpServlet {
 			throws ServletException, IOException {
 		if (location.equals("noticeList.do")) {
 			NoticeDao ndao = new NoticeDao();
-			ArrayList<BoardDto> alist = ndao.boardSelectAll();
+			ArrayList<BoardDto> alist = ndao.noticeBoardSelectAll();
 
 			request.setAttribute("alist", alist);
 
@@ -90,7 +90,7 @@ public class NoticeController extends HttpServlet {
 			bdto.setUidx(uidx);
 
 			NoticeDao ndao = new NoticeDao();
-			int value = ndao.boardInsert(bdto);
+			int value = ndao.noticeBoardInsert(bdto);
 
 			if (value == 0) {
 				String path = request.getContextPath() + "/notice/noticeWrite.do";

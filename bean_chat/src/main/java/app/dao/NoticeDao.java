@@ -19,14 +19,14 @@ public class NoticeDao {
 		this.conn = dbconn.getConnection();
 	}
 	
-	public ArrayList<BoardDto> boardSelectAll() {
+	public ArrayList<BoardDto> noticeBoardSelectAll() {
 		
 		ArrayList<BoardDto> alist = new ArrayList<BoardDto>();
 		ResultSet rs = null;
 		
 		String sql = "select bidx, subject,writer,viewcnt,writedate\r\n"
 					+ "from boardtable\r\n"
-					+ "where bDelYn ='N'";
+					+ "where bDelYn ='N' AND bList='N'";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -57,11 +57,11 @@ public class NoticeDao {
 		return alist;
 	}
 	
-	public int boardInsert(BoardDto bdto) {
+	public int noticeBoardInsert(BoardDto bdto) {
 		int exec = 0;
 		
-		String sql = "INSERT INTO boardtable(bidx,subject,contents,writer,uidx,filename)\r\n"
-				+ "VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO boardtable(bidx,subject,contents,writer,uidx,filename,bList)\r\n"
+				+ "VALUES(?,?,?,?,?,?,'N')";
 		
 		try{
 			conn.setAutoCommit(false);
