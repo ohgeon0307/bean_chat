@@ -69,17 +69,12 @@
       <div id="inner">
         <div class="boardSet">
           <div class="boardSearch">
-            <select class="searchFilter">
-              <option>제목</option>
-              <option>내용</option>
-              <option>작성자</option>
+            <select name="searchType" class="searchFilter">
+              <option value="subject">제목</option>
+              <option value="writer">작성자</option>
             </select>
-            <input type="text" placeholder="검색어를 입력하세요" /><button
-              type="submit"
-              class="bSearchBtn"
-            >
-              검색
-            </button>
+            <input type="text" placeholder="검색어를 입력하세요" name="keyword"/>
+            <input type="submit" name="sbt" class="bSearchBtn" value="검색">
           </div>
           <!--end: .boardSearch-->
           
@@ -116,6 +111,10 @@
       <!--end: #inner-->
     </main>
     <!--end: main-->
+    
+    <c:set var="keyword" value="${scri.keyword}" />
+	<c:set var="parm" value="&searchType=${scri.searchType}&keyword=${scri.keyword}" />
+    
     <footer>
       <div id="slogan">
         <img

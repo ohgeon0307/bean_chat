@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import app.dao.BoardDao;
 import app.dao.UserDao;
 import app.dto.BoardDto;
+import app.dto.SearchCriteriaDto;
 import app.dto.UserDto;
 
 @WebServlet("/BoardController")
@@ -30,8 +31,20 @@ public class BoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (location.equals("boardList.do")) {
+			String searchType = request.getParameter("searchType");
+			if (searchType ==null) searchType="subject";
+			String keyword = request.getParameter("keyword");
+			if (keyword ==null) keyword="";			
+			String page = request.getParameter("page");
+			if (page ==null) page ="1";
+			
+			SearchCriteriaDto scri = new SearchCriteriaDto();
+			scri.setPage(Integer.parseInt(page));	
+			scri.setSearchType(searchType);
+			scri.setKeyword(keyword);
+			
 			BoardDao bdao = new BoardDao();
-			ArrayList<BoardDto> alist = bdao.boardSelectAll();
+			ArrayList<BoardDto> alist = bdao.boardSelectAll(scri);
 
 			request.setAttribute("alist", alist);
 

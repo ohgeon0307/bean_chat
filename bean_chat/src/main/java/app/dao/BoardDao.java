@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import app.dbconn.DbConn;
 import app.dto.BoardDto;
+import app.dto.SearchCriteriaDto;
 
 public class BoardDao {
 	
@@ -19,19 +20,29 @@ public class BoardDao {
 		this.conn = dbconn.getConnection();
 	}
 	
-	public ArrayList<BoardDto> boardSelectAll() {
+	public ArrayList<BoardDto> boardSelectAll(SearchCriteriaDto scri) {
 		
 		ArrayList<BoardDto> alist = new ArrayList<BoardDto>();
 		ResultSet rs = null;
-		
+		System.out.println("searchType"+scri);
+		String str= "";
+		if (!scri.getKeyword().equals("")) {
+			str =" and "+scri.getSearchType()+" like concat('%','"+scri.getKeyword()+"','%') ";
+		}		
+		//System.out.println("str?"+str);
 		String sql = "select bidx, subject,writer,viewcnt,writedate\r\n"
 					+ "from boardtable\r\n"
-					+ "where bDelYn ='N'";
-		
+					+ "where bDelYn ='N'\r\n"
+		+ str
+		+ "order by bidx desc limit ?,?";
+
 		try {
 			pstmt = conn.prepareStatement(sql);
+		
+			pstmt.setInt(1, (scri.getPage()-1)*scri.getPerPageNum());
+			pstmt.setInt(2, scri.getPerPageNum());
+			
 			rs = pstmt.executeQuery();
-	
 		
 		while(rs.next()) {
 			BoardDto bdto = new BoardDto();
