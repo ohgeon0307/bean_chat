@@ -48,19 +48,7 @@ public class UserController extends HttpServlet {
 
 		PasswordEncoder passwordEncoder = new PasswordEncoder();
 
-		// 관리자 페이지 이동
-		if (location.equals("userList.do")) {
-			UserDao udao = new UserDao();
-			ArrayList<UserDto> list = udao.userSelectAll();
-
-			request.setAttribute("list", list);
-
-			String path = "/user/admin_user_manage.jsp";
-			RequestDispatcher rd = request.getRequestDispatcher(path);
-			rd.forward(request, response);
-
-			// 회원가입 페이지 이동
-		} else if (location.equals("userJoin.do")) {
+		if (location.equals("userJoin.do")) {
 
 			String path = "/user/user_join.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(path);

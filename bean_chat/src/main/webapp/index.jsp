@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./css/index.css">
     <link
       href="../images/indexImage/beanchat_char.png"
-      rel="shortcut icon"
+      rel="shortcut icon" 
     />
     <!--파비콘-->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -29,7 +29,7 @@
             <ul>
             	<li> 
             		<c:if test="${admin == 'admin' }">
-            			<a href="<%=request.getContextPath()%>/user/userList.do"><i class="xi-crown xi-5x"></i></a>
+            			<a href="<%=request.getContextPath()%>/admin/userList.do"><i class="xi-crown xi-4x" style="color:gold;"></i></a>
             		</c:if>
             	</li>
                 <li>
@@ -60,7 +60,7 @@
                 			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
                 		</c:when>
                 		<c:otherwise>
-                			<a href="<%=request.getContextPath()%>/chat/chatRoomList.do"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+                			<a href="<%=request.getContextPath()%>/chat/chatIndex.do"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
                 		</c:otherwise>
                 	</c:choose>
                 </li>	
