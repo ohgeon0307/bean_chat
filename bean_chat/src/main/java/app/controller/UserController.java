@@ -334,5 +334,4 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
