@@ -49,12 +49,15 @@ public class FrontController extends HttpServlet {
 			NoticeController nc = new NoticeController(location);
 			nc.doGet(request, response);
 	
-		
-		//MypageController 분기
+		//FriendController 분기
 		}else if(str.equals("friend")) {
 			FriendController fc = new FriendController(location);
 			fc.doGet(request, response);
-				
+			
+		//AdminController 분기		
+		}else if(str.equals("admin")) {
+			AdminController ac = new AdminController(location);
+			ac.doGet(request, response);
 		}
 		/*
 			 * else if(str.equals("chatsubmit")) { ChatSubmitController csc = new

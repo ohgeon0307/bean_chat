@@ -29,7 +29,7 @@
             <ul>
             	<li> 
             		<c:if test="${admin == 'admin' }">
-            			<a href="<%=request.getContextPath()%>/user/userList.do"><i class="xi-crown xi-5x"></i></a>
+            			<a href="<%=request.getContextPath()%>/admin/userList.do"><i class="xi-crown xi-4x" style="color:gold;"></i></a>
             		</c:if>
             	</li>
                 <li>
