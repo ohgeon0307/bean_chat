@@ -25,6 +25,11 @@
 			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
 	        <div class="items">
 	            <ul>
+		           <li> 
+	            		<c:if test="${admin == 'admin' }">
+	            			<a href="<%=request.getContextPath()%>/admin/userList.do"><i class="xi-crown xi-4x" style="color:gold;"></i></a>
+	            		</c:if>
+	            	</li>
 	                <li>
 	                	<c:choose>
 	                		<c:when test="${uidx== null }">
