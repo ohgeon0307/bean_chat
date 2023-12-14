@@ -27,7 +27,7 @@
         <img src="./images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
         <div class="items">
             <ul>
-            	<li>
+            	<li> 
             		<c:if test="${admin == 'admin' }">
             			<a href="<%=request.getContextPath()%>/user/userList.do"><i class="xi-crown xi-5x"></i></a>
             		</c:if>
