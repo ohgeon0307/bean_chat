@@ -21,7 +21,7 @@ public class BoardDao {
 	}
 	
 	public ArrayList<BoardDto> boardSelectAll(SearchCriteriaDto scri) {
-	    ArrayList<BoardDto> alist = new ArrayList<>();
+	    ArrayList<BoardDto> alist = new ArrayList<BoardDto>();
 	    ResultSet rs = null;
 
 	    String str = "";
@@ -33,7 +33,7 @@ public class BoardDao {
 	            + "FROM boardtable "
 	            + "WHERE bDelYn = 'N' "
 	            + str
-	            + "ORDER BY bidx DESC LIMIT ?,?";
+	            + "ORDER BY bidx DESC LIMIT ?, ?";
 
 	    try {
 	        pstmt = conn.prepareStatement(sql);
@@ -54,22 +54,26 @@ public class BoardDao {
 	            bdto.setBidx(rs.getInt("bidx"));
 	            bdto.setSubject(rs.getString("subject"));
 	            bdto.setWriter(rs.getString("writer"));
-	            bdto.setViewCnt(rs.getInt("viewCnt"));
+	            bdto.setViewCnt(rs.getInt("viewcnt"));
 
 	            // 날짜 형식을 변환하여 저장
-	            java.util.Date utilDate = rs.getDate("writeDate");
+	            java.util.Date utilDate = rs.getDate("writedate");
 	            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 	            bdto.setWriteDate(sqlDate.toString());
 
 	            alist.add(bdto);
 	        }
-	    } catch (Exception e) {
+	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {
 	        try {
-	            rs.close();
-	            pstmt.close();
-	        } catch (Exception e) {
+	            if (rs != null) {
+	                rs.close();
+	            }
+	            if (pstmt != null) {
+	                pstmt.close();
+	            }
+	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	    }

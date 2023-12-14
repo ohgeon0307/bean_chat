@@ -32,6 +32,7 @@ public class BoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (location.equals("boardList.do")) {
+			
 			String searchType = request.getParameter("searchType");
 			System.out.println(searchType + "<-- searchType");
 			if (searchType ==null) searchType="subject";
