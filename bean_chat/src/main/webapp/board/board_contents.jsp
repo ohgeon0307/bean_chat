@@ -164,6 +164,122 @@
   }
 </script>
 
+<script>
+$(document).ready(function(){
+	$.boardCommentList();
+	
+	// 버튼을 클릭하면 입력된 데이터를 가지고 commentWrite.do로 넘겨서 DB에 입력한다
+	$("#save").on("click",function(){
+		//alert("클릭");
+		
+		let rwriter = $("#rwriter").val();
+		let rcontents = $("#rcontents").val();
+		let bidx = <%=bdto.getBidx()%>;
+		let uidx = <%=session.getAttribute("uidx")%>;
+		
+		$.ajax({
+			type : "post",
+			url : "<%=request.getContextPath()%>/comment/commentWrite.do",
+			dataType : "json",
+			data : {
+				"bidx" : bidx,
+				"uidx" : uidx,
+				"cwriter" : rwriter,
+				"ccontents" : rcontents
+			},
+			
+			cache : false,
+			success : function(data){
+				//alert("통신성공");
+				//alert("data.value");
+				//if(data.value ==1){
+					//alert("등록성공");
+				//}
+			$.boardCommentList();     // 새로고침없이 바로등록됨
+			$("#rwriter").val("");
+			$("#rcontents").val("");
+			},
+			error : function(){
+				alert("통신오류 실패");
+			}
+		});
+	});
+});
+
+$.boardCommentList = funtion(){
+	$.ajax({
+		type : "get",
+		url : "<%=request.getContextPath()%>/comment/commentList.do",
+		dataType : "json",
+		cache : false,
+		success : function(data){
+			//alert("통신성공");
+		        
+			commentList(data);
+			//$.each(data,function(index){
+				//alert(index);
+				//alert(data[index].replyidx);
+			//})
+		
+		},
+		error : function(){
+			alert("통신오류 실패");
+		}
+	});
+}
+
+function commentDel(replyidx){
+	
+	$.ajax({
+		type : "get",
+		url : "<%=request.getContextPath()%>/comment/commentDelete.do?replyidx="+replyidx,
+		dataType : "json",
+		cache : false,
+		success : function(data){
+			//alert("통신성공");
+			if(data.value == 1){
+				alert("삭제성공");
+			}
+		        
+			$.commentList();
+			//$.each(data,function(index){
+				//alert(index);
+				//alert(data[index].cidx);
+			//})
+		},
+		error : function(){
+			alert("통신오류 실패");
+		}
+	});
+	return;
+}
+
+function commentList(data){
+	
+	var str ="";
+	str = "<tr><td>번호</td><td>작성자</td><td>내용</td><td>등록일</td></tr>"
+	
+	var delBtn = "";
+	
+	var loginUidx = "<%=session.getAttribute("uidx")%>";
+	
+	$(data).each(function(){
+		
+		if(loginUidx == this.uidx){
+			delBtn="<button type='button' id='btn' onclick='commentDel("+this.replyidx+");'>삭제</button>";
+		}else {
+			delBtn="";
+		}
+		
+		str = str + "<tr><td>"+this.replyidx+"</td><td>"+this.rwriter+"</td><td>"+this.rcontents+"</td><td>"+this.rdate+"</td><td>"+delBtn+"</td></tr>"
+	});
+	
+	%("#tbl").html("<table border=1 style='width:600px>'"+str+"</table>");
+	
+	return;
+}
+</script>
+
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <link href="../css/board/board_contents.css" rel="stylesheet" />
 <!--css 연결-->
