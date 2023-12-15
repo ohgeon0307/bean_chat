@@ -17,6 +17,7 @@ import app.dao.ChatDao;
 import app.dao.UserDao;
 import app.dto.ChatDto;
 import app.dto.ChatRoomDto;
+import app.dto.UserDto;
 
 @WebServlet("/ChatController")
 public class ChatController extends HttpServlet {
@@ -103,6 +104,19 @@ public class ChatController extends HttpServlet {
 		    // 여기서 채팅방의 채팅 내용을 가져와서 request에 설정
 		    List<ChatDto> chatMessages = chatDao.getChatMessagesByRoomId(selectedChatRoomId);
 		    request.setAttribute("chatMessages", chatMessages);
+		    
+		    //다혜 추가
+	         
+	          int uidx = (Integer) session.getAttribute("uidx");
+	          
+	          UserDao udao = new UserDao(); 
+	          UserDto udto = udao.UserSelectOne(uidx);
+	          String sender =udto.getUserName();
+	          request.setAttribute("userName", sender);
+	         
+	         request.setAttribute("udto", udto);
+	         //다혜추가 끝
+		    
 
 		    // 채팅방 페이지로 포워드
 		    RequestDispatcher rd = request.getRequestDispatcher("/chat/chat_room.jsp");
