@@ -184,8 +184,8 @@ $(document).ready(function(){
 			data : {
 				"bidx" : bidx,
 				"uidx" : uidx,
-				"cwriter" : rwriter,
-				"ccontents" : rcontents
+				"rwriter" : rwriter,
+				"rcontents" : rcontents
 			},
 			
 			cache : false,
