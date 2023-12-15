@@ -1,22 +1,34 @@
 package app.dto;
 
-import java.sql.Date;
-
 public class CommentsDto {
 	
-	private int ReplyiDx;
-	private int Bidx;
-	private int Uidx;
-    private String rWriter;
-    private String rContent;
-    private String rDate; 
+	private int ReplyiDX;
+	private int ReplyLikeCnt;
+	private String LikeCheck;
+    private int Bidx;
+    private int Uidx;
+	private String rWriter; 
+    private String rDate;
     private String rDelYn;
+    private String rContent;
     
-	public int getReplyiDx() {
-		return ReplyiDx;
+    public int getReplyiDX() {
+		return ReplyiDX;
 	}
-	public void setReplyiDx(int replyiDx) {
-		ReplyiDx = replyiDx;
+	public void setReplyiDX(int replyiDX) {
+		ReplyiDX = replyiDX;
+	}
+	public int getReplyLikeCnt() {
+		return ReplyLikeCnt;
+	}
+	public void setReplyLikeCnt(int replyLikeCnt) {
+		ReplyLikeCnt = replyLikeCnt;
+	}
+	public String getLikeCheck() {
+		return LikeCheck;
+	}
+	public void setLikeCheck(String likeCheck) {
+		LikeCheck = likeCheck;
 	}
 	public int getBidx() {
 		return Bidx;
@@ -36,12 +48,6 @@ public class CommentsDto {
 	public void setrWriter(String rWriter) {
 		this.rWriter = rWriter;
 	}
-	public String getrContent() {
-		return rContent;
-	}
-	public void setrContent(String rContent) {
-		this.rContent = rContent;
-	}
 	public String getrDate() {
 		return rDate;
 	}
@@ -54,4 +60,13 @@ public class CommentsDto {
 	public void setrDelYn(String rDelYn) {
 		this.rDelYn = rDelYn;
 	}
+	public String getrContent() {
+		return rContent;
+	}
+	public void setrContent(String rContent) {
+		this.rContent = rContent;
+	}
+
+    
+	
 }
