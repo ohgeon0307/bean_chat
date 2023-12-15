@@ -54,5 +54,4 @@ public class CommentsDto {
 	public void setrDelYn(String rDelYn) {
 		this.rDelYn = rDelYn;
 	}
-	
 }
