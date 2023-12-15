@@ -309,7 +309,7 @@ form[name="frm"]{
   justify-content: flex-start; /* 위에서 아래로 정렬 */
   align-items: flex-start; /* 왼쪽 정렬 */
   height: auto;
-  width: 7%; /* 탭의 너비 조정 */
+  width: 8%; /* 탭의 너비 조정 */
   background-color: #d1f2eb;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -317,7 +317,7 @@ form[name="frm"]{
   position: absolute;
   top: 350px;
   transform: translateY(-50%);
-  left: 23%; /* 탭을 폼 왼쪽에 배치 */
+  left: 22%; /* 탭을 폼 왼쪽에 배치 */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 

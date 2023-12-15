@@ -87,8 +87,8 @@
 					<c:forEach items="${alist }" var ="udto">
 					<li>
 						<a href="${pageContext.request.contextPath}/admin/adminUserDelete.do?uidx=${udto.uidx}">
-							<span class="boardContent">
 							<input type="checkbox" name="userIds" value="${udto.uidx}">
+							<span class="boardContent">
 								uidx: ${udto.uidx}  아이디 : ${udto.userId } 이름 : ${udto.userName }  닉네임 : ${udto.userNickname }  가입일 : ${udto.userDate }
 							</span><!-- //.boardContent -->
 						</a>
