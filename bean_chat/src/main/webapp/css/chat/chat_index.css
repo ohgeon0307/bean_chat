@@ -1,0 +1,206 @@
+@charset "utf-8";
+
+
+/* header css */
+
+main a:visited,
+main a:hover,
+main a:active {
+    color: black; /* 클릭, 방문, 호버 시 텍스트 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+.container a { text-decoration: none; color: white;
+font-weight: 900; }
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+
+.container {
+    background-color: #bce489;
+    position : fixed;
+    z-index: 99;
+    display : flex;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 40px 0px 0px 6%;
+    top: 0px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: 1.5s ease 0.3s 1 normal forwards running headerbar;
+    color : white;
+    height : 140px;
+}
+
+@keyframes headerbar {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.beanchat_text {
+    position : relative;
+    left : 165px;
+    bottom : 20px;
+    max-width : 250px;
+}
+
+.container ul img {
+    position : relative;
+    right : 0px;
+    object-fit: contain;
+    display: flex;
+    float: none;
+    width: 150%;
+    height: auto;
+    max-width : 250px;
+}
+
+.items {
+    position: relative;
+    bottom : 20px;
+    display: flex;
+    flex-flow: wrap;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin : 0;
+    padding : 0;
+}
+
+.items li:hover img {
+    opacity : 0;
+}
+
+.items li span {
+    position: absolute;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 150px;
+    height: 30px;
+    bottom : 20px;
+}
+
+.items li:hover span {
+    position : absolute;
+    opacity : 1;
+    transition-delay: 0.3s;
+}
+
+.container ul {
+    display: flex;
+    list-style: none;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 48px;
+    margin-right : 200px;
+    padding : 0;
+}
+
+.container ul li:not(:last-child) {
+    margin-right : 25px;
+}
+
+.container ul li {
+    width: 60px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 방지 */
+    text-align: center; /* 가로 정렬을 위해 텍스트 가운데 정렬 */
+    margin: 0;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.items li img {
+    opacity: 1;
+    transition: opacity 0.3s;
+    width : 45px;
+    height: 45px;
+}
+/* header css 종료 */
+
+/*main 시작*/
+main {
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    top:200px;
+}
+
+main h1 {
+	font-size: 45px;
+	color: #418722;
+}
+
+hr {
+	background: #1e2924;
+	height: 10px;
+	border: 0;
+	width: 250px;
+	margin-left: 0;
+	box-shadow: 0 10px 10px -10px #409968 inset;
+	border-radius: 10px;
+}
+
+
+#main_zone {
+	
+	width: 100%;
+	height: 350px;
+	margin-top: 12%;
+	display: flex;
+	justify-content: center;
+}
+
+.chat_button {
+	width: 25%;
+	height: 120%;
+	border-radius: 10px;
+	border: 2px solid #000;
+	background-color: #a0d468;
+}
+
+.chat_button a {
+	
+	width: 100%;
+	height: 100%;
+}
+
+.chat_button a img {
+	width: 80%;
+	height: 70%;
+	margin: 10% 10%;
+}
+
+.chat_button a p {
+	font-size: 130%;
+	font-weight: bold;
+	text-align: center;
+}
+
+.chat_button:hover {
+	transform: scale(1.1);
+}
+
+.chat_button.second {
+	margin-left : 250px;
+}
