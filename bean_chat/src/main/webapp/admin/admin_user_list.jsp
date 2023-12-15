@@ -10,13 +10,35 @@
 <head>
 <meta charset="utf-8">
 <title>회원목록</title>
+	<!-- 제이쿼리 연결 -->
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
     <!--파비콘-->
     <link href="../images/indexImage/beanchat_char.png" rel="shortcut icon"/>
     <!--검색 버튼 아이콘-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"/>
     <!--css 연결-->
-    <link href="../css/admin/admin_user_list.css" rel="stylesheet" />
     <link href="../css/reset.css" rel="stylesheet" />
+    <link href="../css/admin/admin_user_list.css" rel="stylesheet" />
+	<script>
+	    $(document).ready(function() {
+	        // '전체 선택/해제' 체크박스 클릭 시 동작
+	        $('#selectAllCheckbox').on('click', function() {
+	            // 모든 사용자 체크박스들의 상태를 전체 선택/해제 체크박스와 동일하게 설정
+	            $('input[name="uidx"]').prop('checked', $(this).prop('checked'));
+	        });
+	
+	        // 사용자 체크박스 클릭 시 전체 선택/해제 체크박스 상태 변경
+	        $('input[name="uidx"]').on('click', function() {
+	            var allChecked = true;
+	            $('input[name="uidx"]').each(function() {
+	                if (!$(this).prop('checked')) {
+	                    allChecked = false;
+	                }
+	            });
+	            $('#selectAllCheckbox').prop('checked', allChecked);
+	        });
+	    });
+	</script>
 </head>
 <body>
 	<header>
@@ -67,9 +89,8 @@
 	<main>
 		<h1>회원 관리</h1>
 		<div id="inner">
-			<div class="userSet">
 				<div class="userSearch">
-					<form name="frm" action="${pageContext.request.contextPath}/admin/userList.do" method="post">
+					<form name="sFrm" id="sFrm" action="${pageContext.request.contextPath}/admin/userList.do" method="post">
 						<select name="searchType" class="searchFilter">
 							<option value="uidx">UIDX</option>
 							<option value="userId">아이디</option>
@@ -78,24 +99,38 @@
 						</select>
 						<input type="text" placeholder="검색어를 입력하세요" name="keyword" /> 
 						<input type="submit" name="sbt" class="uSearchBtn" value="검색">
-					</form>
+					</form><!-- searchForm -->
 				</div><!-- //.userSearch-->
-			</div><!--//.userSet-->
-        
-			<div class="userList">
-				<ul>
-					<c:forEach items="${alist }" var ="udto">
-					<li>
-						<a href="${pageContext.request.contextPath}/admin/adminUserDelete.do?uidx=${udto.uidx}">
-							<input type="checkbox" name="userIds" value="${udto.uidx}">
-							<span class="boardContent">
-								uidx: ${udto.uidx}  아이디 : ${udto.userId } 이름 : ${udto.userName }  닉네임 : ${udto.userNickname }  가입일 : ${udto.userDate }
-							</span><!-- //.boardContent -->
-						</a>
-					</li>
-					</c:forEach>
-				</ul>
-			</div> <!--//.userList-->
+			<form name="frm" id="frm" action="${pageContext.request.contextPath}/admin/adminUserDelete.do" method="post">
+				<input type="checkbox" id="selectAllCheckbox"> 전체 선택/해제
+				<table class="userList">
+					<thead>
+			            <tr>
+			                <th>선택</th>
+			                <th>UIDX</th>
+			                <th>아이디</th>
+			                <th>이름</th>
+			                <th>닉네임</th>
+			                <th>가입일</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+						<c:forEach items="${alist }" var ="udto">
+							<tr>
+								<td><input type="checkbox" name="uidx" value="${udto.uidx}"></td>
+								<td>${udto.uidx}</td>
+			                    <td>${udto.userId}</td>
+			                    <td>${udto.userName}</td>
+			                    <td>${udto.userNickname}</td>
+			                    <td>${udto.userDate}</td>
+							</tr>
+	            		</c:forEach>
+					</tbody>
+				</table> <!--//.userList-->
+				<div class="btnBar">
+					<input type="submit" name="delBtn" class="delBtn" value="선택된 회원 탈퇴">
+				</div>
+			</form><!-- deleteForm -->
 			<div id="pageOption">
 				<div class="pager">
 					<c:if test="${pmdto.prev}">
@@ -120,54 +155,43 @@
 						<a href="${pageContext.request.contextPath}/admin/userList.do?page=${pmdto.endPage + 1}&searchType=${scri.searchType}&keyword=${scri.keyword}">&gt;</a>
 					</c:if>
 				</div><!--end: .pager-->
-				
-				<div class="btnBar">
-					<a href="${pageContext.request.contextPath}/board/boardWrite.do">글쓰기</a>
-				</div><!--end:.bthBar-->
-				
+								
 			</div><!--end: #pageOption-->
 		</div><!--end: #inner-->
-		
+
 	</main>
 
 
     <footer>
-      <div id="slogan">
-        <img src="../images/indexImage/beanchat_char.png" width="200px" />
-        <p>Beanchat, the collaborative chat web application System.</p>
-      </div> <!--end: #slogan-->
-      <div id="footerMenu">
-        <ul>
-          <li><a href="#">팀 소개</a></li>
-          <p>&#124;</p>
-          <li><a href="#">개인정보처리방침</a></li>
-          <p>&#124;</p>
-          <li><a href="#">이용약관</a></li>
-          <p>&#124;</p>
-          <li><a href="#">도움말</a></li>
-          <p>&#124;</p>
-          <li><a href="#">공지사항</a></li>
-        </ul>
-        <p class="companyInfo">
-          빈챗 &#124; 팀원 : 최다혜 안기현 임세현 오 건 <br/>
-          Beanchat &#124; 전주시 덕진구 백제대로 572 4층 이젠컴퓨터아트서비스학원<br />
-          © 2023 Beanchat Ltd. All rights reserved.
-        </p> <!--end: .companyInfo-->
-      </div><!--end: #footerMenu-->
-      <div id="sns">
-        <ul>
-          <li>
-            <a href="#"><i class="xi-instagram xi-2x"></i></a>
-          </li>
-          <li>
-            <a href="#"><i class="xi-facebook xi-2x"></i></a>
-          </li>
-          <li>
-            <a href="#"><i class="xi-kakaotalk xi-2x"></i></a>
-          </li>
-        </ul>
-      </div><!--end: #sns-->
-    </footer><!--end: footer-->
+		<div id="slogan">
+	        <img src="../images/indexImage/beanchat_char.png" width="200px" />
+	        <p>Beanchat, the collaborative chat web application System.</p>
+		</div><!--end: #slogan-->
+		<div id="footerMenu">
+			<ul>
+				<li><a href="#">팀 소개</a></li>
+					<p>&#124;</p>
+				<li><a href="#">개인정보처리방침</a></li>
+					<p>&#124;</p>
+				<li><a href="#">이용약관</a></li>
+					<p>&#124;</p>
+				<li><a href="#">도움말</a></li>
+					<p>&#124;</p>
+				<li><a href="#">공지사항</a></li>
+			</ul>
+	        <p class="companyInfo">빈챗 &#124; 팀원 : 최다혜 안기현 임세현 오 건 <br/>
+	        	Beanchat &#124; 전주시 덕진구 백제대로 572 4층 이젠컴퓨터아트서비스학원<br />
+				© 2023 Beanchat Ltd. All rights reserved.
+			</p><!--end: .companyInfo-->
+		</div><!--end: #footerMenu-->
+		<div id="sns">
+			<ul>
+				<li><a href="#"><i class="xi-instagram xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-facebook xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-kakaotalk xi-2x"></i></a></li>
+			</ul>
+		</div><!--end: #sns-->
+	</footer>
 </body>
 
 
