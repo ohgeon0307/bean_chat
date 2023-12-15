@@ -65,7 +65,7 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-        <!-- 세션에서 담아줌 -->
+        <!-- 세션에서 담아줌 -->  
         <!-- 쉽게 말하면 action.do가 아니고 페이지 포워드 되는데서 udto를 세션에 담았음다
            원래 action.do같은데따 담아두셨음. -->
             <p>안녕하세요, ${udto.userName}님!</p>
