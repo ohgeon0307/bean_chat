@@ -511,6 +511,15 @@
         fm.submit(); //전송시킴
         return true;
       }
+      
+      $(".logo").click(function(){	
+      	if(!confirm("메인으로 돌아가시겠습니까?")){
+				return false;
+      	}else{
+      		location.href="<%=request.getContextPath()%>";
+      	}
+      	
+       });
     </script>
   </body>
 </html>

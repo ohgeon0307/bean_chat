@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import app.dao.NoticeDao;
 import app.dao.UserDao;
 import app.dto.BoardDto;
+import app.dto.PageMakerDto;
+import app.dto.SearchCriteriaDto;
 import app.dto.UserDto;
 
 @WebServlet("/NoticeController")
@@ -30,8 +32,33 @@ public class NoticeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (location.equals("noticeList.do")) {
+			
+			String searchType = request.getParameter("searchType");
+			System.out.println(searchType + "<-- searchType");
+			if (searchType ==null) searchType="subject";
+			String keyword = request.getParameter("keyword");
+			System.out.println(keyword + "<-- keyword");
+			if (keyword ==null) keyword="";
+			String page = request.getParameter("page");
+			if (page ==null) page ="1";
+			
+			SearchCriteriaDto scri = new SearchCriteriaDto();
+			scri.setPage(Integer.parseInt(page));	
+			scri.setSearchType(searchType);
+			scri.setKeyword(keyword);
+			
+			PageMakerDto pmdto = new PageMakerDto();
+			pmdto.setScri(scri);
+			
 			NoticeDao ndao = new NoticeDao();
-			ArrayList<BoardDto> alist = ndao.noticeBoardSelectAll();
+			ArrayList<BoardDto> alist = ndao.noticeBoardSelectAll(scri);
+			int cnt = ndao.noticeTotalCount(scri);
+			
+			pmdto.setTotalCount(cnt);
+			
+			request.setAttribute("alist", alist);
+			request.setAttribute("pmdto", pmdto);
+			
 			
 			HttpSession session = request.getSession();
 		    UserDto loginUser = (UserDto) session.getAttribute("loginUser");
@@ -40,7 +67,7 @@ public class NoticeController extends HttpServlet {
 			
 			request.setAttribute("loginUser", loginUser);
 			
-			request.setAttribute("alist", alist);
+			
 
 			String path = "/notice/notice_list.jsp";
 

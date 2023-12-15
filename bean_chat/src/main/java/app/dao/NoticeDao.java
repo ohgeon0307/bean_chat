@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import app.dbconn.DbConn;
 import app.dto.BoardDto;
+import app.dto.SearchCriteriaDto;
 
 public class NoticeDao {
 	
@@ -19,17 +20,34 @@ public class NoticeDao {
 		this.conn = dbconn.getConnection();
 	}
 	
-	public ArrayList<BoardDto> noticeBoardSelectAll() {
+	public ArrayList<BoardDto> noticeBoardSelectAll(SearchCriteriaDto scri) {
 		
 		ArrayList<BoardDto> alist = new ArrayList<BoardDto>();
 		ResultSet rs = null;
 		
+		 String str = "";
+		    if (!scri.getKeyword().equals("")) {
+		        str = " and " + scri.getSearchType() + " like concat('%', ?, '%') ";
+		    }
+		
 		String sql = "select bidx, subject,writer,viewcnt,writedate\r\n"
 					+ "from boardtable\r\n"
-					+ "where bDelYn ='N' AND bList='N'";
+					+ "where bDelYn ='N' AND bList='N' "
+					+ str
+					+ "ORDER BY bidx DESC LIMIT ?, ?"
+					;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			if (!scri.getKeyword().equals("")) {
+	            pstmt.setString(1, scri.getKeyword());
+	            pstmt.setInt(2, (scri.getPage() - 1) * scri.getPerPageNum());
+	            pstmt.setInt(3, scri.getPerPageNum());
+	        } else {
+	            pstmt.setInt(1, (scri.getPage() - 1) * scri.getPerPageNum());
+	            pstmt.setInt(2, scri.getPerPageNum());
+	        }
+			
 			rs = pstmt.executeQuery();
 	
 		
@@ -194,6 +212,37 @@ public class NoticeDao {
 
 	        return authorUidx;
 	    }
+
+	public int noticeTotalCount(SearchCriteriaDto scri) {
+		 int value = 0;
+		 
+		 String str = "";
+		 if (!scri.getKeyword().equals("")) {
+			 str =" and " +scri.getSearchType()+" like concat('%', '"+scri.getKeyword()+"', '%') ";
+		 }
+		 
+		 String sql="select count(*) as cnt from boardtable where bDelYn='N' "+str;
+		 ResultSet rs = null;
+		 try {
+			 pstmt = conn.prepareStatement(sql);
+			 rs = pstmt.executeQuery();
+			 
+			 if (rs.next()) {
+				 value = rs.getInt("cnt");
+			 }
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		 return value;
+	 }
 	
 	
 	}

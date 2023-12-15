@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
-	<!-- 제이쿼리 연결 -->
+	<!-- 제이쿼리 연결 -->	
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
 	<!-- 부트스트랩 연결 -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 <body>
 	<header><!-- 헤더 시작 -->
 		<div class="container"> 
-			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
+			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text logo">    
 	        <div class="items">
 	            <ul>
 		           <li> 
@@ -169,6 +169,15 @@
 			fm.submit(); //전송시킴
 			return true;	
 		}
+		
+		 $(".logo").click(function(){	
+	        	if(!confirm("메인으로 돌아가시겠습니까?")){
+					return false;
+	        	}else{
+	        		location.href="<%=request.getContextPath()%>";
+	        	}
+	        	
+	         });
 	
 	</script>
 

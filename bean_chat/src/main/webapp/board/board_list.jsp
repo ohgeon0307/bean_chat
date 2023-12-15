@@ -4,7 +4,7 @@
 <%@ page import="app.dto.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="ko"> 
+<html lang="ko">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,11 +17,18 @@
 <!--검색 버튼 아이콘-->
 <link href="../css/board/board_list.css" rel="stylesheet" />
 <!--css 연결-->
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+
+
 </head>
 <body>
 	<div class="container">
 		<img src="../images/indexImage/beanchat_text.png" alt=""
-			class="beanchat_text">
+			class="beanchat_text logo">
 		<div class="items">
 			<ul>
 				<li><c:choose>
@@ -174,5 +181,15 @@
 		<!--end: #sns-->
 	</footer>
 	<!--end: footer-->
+	<script>
+$(".logo").click(function(){	
+	if(!confirm("메인으로 돌아가시겠습니까?")){
+		return false;
+	}else{
+		location.href="<%=request.getContextPath()%>";
+			}
+
+		});
+	</script>
 </body>
 </html>

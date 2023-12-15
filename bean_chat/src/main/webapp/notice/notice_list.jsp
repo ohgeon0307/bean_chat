@@ -12,6 +12,11 @@
 <title>빈챗 공지사항</title>
 <link href="../images/indexImage/beanchat_char.png" rel="shortcut icon" />
 <!--파비콘-->
+
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
 <!--검색 버튼 아이콘-->
@@ -21,7 +26,7 @@
 <body>
 	<div class="container">
 		<img src="../images/indexImage/beanchat_text.png" alt=""
-			class="beanchat_text">
+			class="beanchat_text logo">
 		<div class="items">
 			<ul>
 				<li><c:choose>
@@ -90,7 +95,7 @@
 							href="${pageContext.request.contextPath}/notice/noticeContents.do?bidx=${bdto.bidx}">${bdto.subject }</a>
 							<div class="boardContent">
 								<p>닉네임 : ${bdto.writer} 조회수 : ${bdto.viewCnt } 댓글수 :
-									${bdto.bidx }</p>
+									${bdto.commentCount }</p>
 
 							</div> <!--end: boardContent--></li>
 					</c:forEach>
@@ -100,7 +105,27 @@
 			<!--end: .boardList-->
 			<div id="boardOption">
 				<div class="pager">
-					<p>◀ pager가 들어갈 자리입니다 ▶</p>
+					<c:if test="${pmdto.prev}">
+						<a
+							href="${pageContext.request.contextPath}/notice/noticeList.do?page=${pmdto.startPage - 1}&searchType=${scri.searchType}&keyword=${scri.keyword}">&lt;</a>
+					</c:if>
+
+					<c:forEach begin="${pmdto.startPage}" end="${pmdto.endPage}" var="pageNum">
+						<c:choose>
+							<c:when test="${pageNum eq scri.page}">
+								<span class="current">${pageNum}</span>
+							</c:when>
+							<c:otherwise>
+								<a
+									href="${pageContext.request.contextPath}/notice/noticeList.do?page=${pageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">${pageNum}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+
+					<c:if test="${pmdto.next}">
+						<a
+							href="${pageContext.request.contextPath}/notice/noticeList.do?page=${pmdto.endPage + 1}&searchType=${scri.searchType}&keyword=${scri.keyword}">&gt;</a>
+					</c:if>
 				</div>
 				<!--end: .pager-->
 				<div class="btnBar">
@@ -153,6 +178,17 @@
 		</div>
 		<!--end: #sns-->
 	</footer>
+
 	<!--end: footer-->
+	<script>
+$(".logo").click(function(){	
+	if(!confirm("메인으로 돌아가시겠습니까?")){
+		return false;
+	}else{
+		location.href="<%=request.getContextPath()%>";
+			}
+
+		});
+	</script>
 </body>
 </html>
