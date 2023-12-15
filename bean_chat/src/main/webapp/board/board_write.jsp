@@ -30,6 +30,7 @@
 <script src="/resources/summernote-lite.js"></script>
 <script src="/resources/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="/resources/summernote-lite.css">
+<link href="../css/reset.css" rel="stylesheet" />
 
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>

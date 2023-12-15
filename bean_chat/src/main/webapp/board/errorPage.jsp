@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="../css/reset.css" rel="stylesheet" />
 <meta charset="UTF-8">
 <title>에러 페이지!</title>
 <style>

@@ -1,250 +1,61 @@
-@charset "utf-8";
-
-@font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "TTTtangsbudaejjigaeB";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/TTTtangsbudaejjigaeB.woff2")
-    format("woff2");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'GongGothicMedium';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-* {
-  margin: 0 auto;
-  padding: 0;
-  text-decoration: none;
-  font-family: "Pretendard-Regular", "GongGothicMedium", "ONE-Mobile-POP", San-serif",
-    "Arial";
-  -webkit-user-select: none;
-  -ms-use-select: none;
-}
-
-ul {
-  list-style: none;
-}
-
-table {
-  -webkit-border-horizontal-spacing: 0px;
-  -webkit-border-vertical-spacing: 0px;
-}
-
-.section {
-  color: white;
-}
-/* header css */
-.container a { text-decoration: none; color: #BCE489;
-font-weight: 900; }
-  a:visited { text-decoration: none; }
-  a:hover { text-decoration: none; }
-  a:focus { text-decoration: none; }
-  a:hover, a:active { text-decoration: none; }
-
-.container {
-  background-color: whitesmoke;
-  position : fixed;
-  z-index: 99;
-  display : flex;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  width: 100%;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  padding: 40px 0px 0px 6%;
-  top: 0px;
-  box-sizing: border-box;
-  opacity: 0;
-  animation: 1.5s ease 0.3s 1 normal forwards running headerbar;
-  color : white;
-  height : 100px;
-}
-
-@keyframes headerbar {
-  0% {
-      opacity: 0;
-      visibility: hidden;
-  }
-
-  100% {
-      opacity: 1;
-      visibility: visible;
-  }
-}
-
-.beanchat_text {
-  position : relative;
-  left : 0;
-  margin-left : 100px;
-  bottom : 20px;
-  max-width : 250px;
-}
-
-.container ul img {
-  position : relative;
-  right : 0px;
-  object-fit: contain;
-  display: flex;
-  float: none;
-  width: 150%;
-  height: auto;
-  max-width : 250px;
-}
-
-.items {
-  position: relative;
-  bottom : 20px;
-  right : 100px;
-  display: flex;
-  flex-flow: wrap;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  margin : 0;
-  padding : 0;
-}
-
-.items li:hover img {
-  opacity : 0;
-}
-
-.items li span {
-  position: absolute;
-  top: 55%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.5s;
-  width: 150px;
-  height: 30px;
-  bottom : 20px;
-}
-
-.items li:hover span {
-  position : absolute;
-  opacity : 1;
-  transition-delay: 0.3s;
-}
-
-
-
-.container ul {
-  display: flex;
-  list-style: none;
-  -webkit-box-align: center;
-  align-items: center;
-  min-height: 48px;
-  margin-right : 200px;
-  padding : 0;
-}
-
-.container ul li:not(:last-child) {
-  margin-right : 25px;
- 
-}
-
-.container ul li {
-  width: 60px;
-  display: flex;
-  flex-direction: column; /* 세로 정렬 방지 */
-  text-align: center; /* 가로 정렬을 위해 텍스트 가운데 정렬 */
-  margin: 0;
-  list-style: none;
-  position: relative;
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-
-.items li img {
-  opacity: 1;
-  transition: opacity 0.3s;
-  width : 45px;
-  height: 45px;
-}
-/* header css 종료 */
-
 body {
-	background-color: #BCE489;
+    font-family: 'Nanum Gothic', sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
-/* main */
-main h1 {
-
-  position : relative;
-  margin-left : 150px;  
-  top : 30px;
+h2 {
+    color: white;
+    background-color: #bce489;
+    padding: 15px;
+    margin: 0;
 }
 
-main {
-    width: 1522.39px;
-    height: 2050px;
-    margin-top: 100px;
-  }
-
-  main h1 {
-    font-size: 44px;
-    color: #fff;
+#chatList {
+    width: 80%;
+    height: 400px;
+    resize: none;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 10px;
-  }
+    margin: 20px auto;
+}
 
-  #inner {
-    width: 1300px;
-    height: 1585px;
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-  }
-  
-   .chatList {
-    width: 1200px;
-    height: 1485px;
-  }
+#chatList a {
+    display: block;
+    color: #333;
+    background-color: #bce489;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative; /* 추가 */
+}
 
-  .chatList ul {
-   text-align: left;
-   padding-top: 15px;
-  }
+#chatList a:hover {
+    background-color: #98cc72;
+}
 
-  .chatList li {
-    border-top: none;
-    border-bottom: 1px solid rgb(136, 136, 136);
-    padding-top: 0px;
-    line-height: 30px;
-  }
-
-
-  .chatList li:last-child {
-    border-bottom: none !important;
-  }
-
-  .chatList a {
-    width: 635px;
-    height: 55px;
-    font-size: 32px;
-    color: #000;
-    text-align: left;
+#chatList a:hover::after {
+    content: "방 입장하기";
     display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    margin: 0;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    position: absolute; /* 수정 */
+    top: 0; /* 수정 */
+    right: 0%; /* 수정 */
+}
 
-    .chatList a:hover {
-      color: #BCE489;
-    }
+.Beanchat_title2 {
+	width : 600px;
+	height: 450px;
+}

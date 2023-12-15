@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>빈챗 글쓰기</title>
 <!--검색 버튼 아이콘-->
@@ -37,6 +38,7 @@
 <script src="/resources/summernote-lite.js"></script>
 <script src="/resources/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="/resources/summernote-lite.css">
+<link href="../css/reset.css" rel="stylesheet" />
 <link rel="stylesheet" href="../css/board/board_comments.css">
 
 <script

@@ -20,6 +20,7 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
 <!--검색 버튼 아이콘-->
+<link href="../css/reset.css" rel="stylesheet" />
 <link href="../css/board/board_list.css" rel="stylesheet" />
 <!--css 연결-->
 </head>

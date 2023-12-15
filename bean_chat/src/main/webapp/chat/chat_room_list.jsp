@@ -1,26 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
     <meta charset="UTF-8">
-    <title>Chat Room List</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅방 목록</title>
+    <link href="../css/reset.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/chat/chat_room_list.css">
+    <style>
+        
+    </style>
 </head>
 <body>
     <h2>내 채팅방 목록</h2>
-
-    <c:if test="${not empty chatRooms}">
-        <ul>
+	<img src="../images/indexImage/beanchat_char.png" alt="" class="Beanchat_title2 logo">
+    <div id="chatList">
+        <c:if test="${not empty chatRooms}">
             <c:forEach var="chatRoom" items="${chatRooms}">
-                <li><a href="${pageContext.request.contextPath}/chat/selectChatRoom.do?selectedChatRoomId=${chatRoom.id}">${chatRoom.roomName}</a></li>
+                <a data-chatroomid="${chatRoom.id}">${chatRoom.roomName}</a>
             </c:forEach>
-        </ul>
-    </c:if>
+        </c:if>
 
-    <c:if test="${empty chatRooms}">
-        <p>참여 중인 채팅방이 없습니다. </p>
-    </c:if>
+        <c:if test="${empty chatRooms}">
+            <p>참여 중인 채팅방이 없습니다.</p>
+        </c:if>
+    </div>
+
+    <p>채팅방 목록이 여기에 표시됩니다.</p>
+
+    <script>
+        // 채팅방 목록 클릭 시 해당 채팅방으로 이동
+        document.getElementById("chatList").addEventListener("click", function(event) {
+            var target = event.target;
+            if (target.tagName === "A") {
+                var chatRoomId = target.getAttribute("data-chatroomid");
+                if (chatRoomId) {
+                    window.location.href = "<%= request.getContextPath() %>/chat/selectChatRoom.do?selectedChatRoomId=" + chatRoomId;
+                }
+            }
+        });
+        
+        $(".logo").click(function(){	
+        	if(!confirm("메인으로 돌아가시겠습니까?")){
+        		return false;
+        	}else{
+        		location.href="<%=request.getContextPath()%>";
+        			}
+
+        		});
+    </script>
 </body>
 </html>

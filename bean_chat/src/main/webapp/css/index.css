@@ -1,5 +1,7 @@
 /* beanchat index.css*/
 
+@import url("font/s-core-dream.css");
+
 .section {
     color: white;
 }
@@ -209,6 +211,7 @@ font-weight: 900; }
 }
 
 .s0 p {
+	font-family: "s-core-dream-bold", sans-serif !important;
     position : relative;
     left : 0;
     right: 500px;
@@ -219,6 +222,7 @@ font-weight: 900; }
 }
 
 .s1 p {
+	font-family: "s-core-dream-bold", sans-serif !important;
     position : relative;
     left : 0;
     right: 500px;

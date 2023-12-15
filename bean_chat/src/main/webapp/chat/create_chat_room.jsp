@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Chat Room</title>
+    <link href="../css/reset.css" rel="stylesheet" />
     <link href="../css/chat/create_chat_room.css" rel="stylesheet" />
 </head>
 <script>
