@@ -271,7 +271,7 @@ function commentList(data){
 			delBtn="";
 		}
 		
-		str = str + "<tr><td>"+this.replyidx+"</td><td>"+this.rwriter+"</td><td>"+this.rcontents+"</td><td>"+this.rdate+"</td><td>"+delBtn+"</td></tr>"
+		str = str + "<tr><td>"+this.replyidx+"</td><td>"+this.rwriter+"</td><td>"+this.rcontent+"</td><td>"+this.rdate+"</td><td>"+delBtn+"</td></tr>"
 	});
 	
 	%("#tbl").html("<table border=1 style='width:600px>'"+str+"</table>");
