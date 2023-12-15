@@ -187,6 +187,38 @@
 			
 		</form><!-- end frm form -->
 	</main>
+	<footer>
+		<div id="slogan">
+	        <img src="../images/indexImage/beanchat_char.png" width="200px" />
+	        <p>Beanchat, the collaborative chat web application System.</p>
+		</div><!--end: #slogan-->
+		
+		<div id="footerMenu">
+			<ul>
+				<li><a href="#">팀 소개</a></li>
+					<p>&#124;</p>
+				<li><a href="#">개인정보처리방침</a></li>
+					<p>&#124;</p>
+				<li><a href="#">이용약관</a></li>
+					<p>&#124;</p>
+				<li><a href="#">도움말</a></li>
+					<p>&#124;</p>
+				<li><a href="#">공지사항</a></li>
+			</ul>
+	        <p class="companyInfo">빈챗 &#124; 팀원 : 최다혜 안기현 임세현 오 건 <br/>
+	        	Beanchat &#124; 전주시 덕진구 백제대로 572 4층 이젠컴퓨터아트서비스학원<br />
+				© 2023 Beanchat Ltd. All rights reserved.
+			</p><!--end: .companyInfo-->
+		</div><!--end: #footerMenu-->
+		<div id="sns">
+			<ul>
+				<li><a href="#"><i class="xi-instagram xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-facebook xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-kakaotalk xi-2x"></i></a></li>
+			</ul>
+		</div><!--end: #sns-->
+
+	</footer>
 	<!-- 모달은 position fixed,relative안에 있으면 동작안해서 메인밖으로 뺌 -->
 	<!-- 모달시작 -->
 	<form name="mFrm" enctype="multipart/form-data">

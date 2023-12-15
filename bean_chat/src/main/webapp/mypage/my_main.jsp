@@ -9,11 +9,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- 제이쿼리 연결 -->
-<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<!-- 아이콘 연결 -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <!-- css연결 -->
-<link href="../css/reset.css" rel="stylesheet" />
-<link href="../css/mypage/my_main.css" rel="stylesheet" />
+	<link href="../css/reset.css" rel="stylesheet" />
+	<link href="../css/mypage/my_main.css" rel="stylesheet" />
 <title>마이페이지 메인</title>
 </head>
 
@@ -63,30 +64,62 @@
 		<h1>My Page</h1>
 		<hr>
 		<div id="main_zone">
-			<div class="main_button">
-				<a href="<%=request.getContextPath() %>/mypage/myProfile.do">
-				<img src="../images/logo/BeanchatChar1.png" alt="프로필 보기" />
-					<p>나의 프로필 볼래요!</p> </a>
-			</div><!--//.main_button-->
-			<div class="main_button">
-				<a href="<%=request.getContextPath() %>/mypage/myModify.do">
+			<a href="<%=request.getContextPath() %>/mypage/myProfile.do">
+					<img src="../images/logo/BeanchatChar1.png" alt="프로필 보기" />
+				<span class="main_button">
+					나의 프로필 볼래요!
+				</span><!--//.main_button-->
+			</a>
+			<a href="<%=request.getContextPath() %>/mypage/myModify.do">
 				<img src="../images/logo/BeanchatChar2.png" alt="프로필 수정하기" />
-					<p>내 프로필 수정할래요!</p> </a>
-			</div><!--//.main_button-->
-			<div class="main_button">
-				<a href="<%=request.getContextPath() %>/friend/myFriend.do">
+			<span class="main_button">
+				내 프로필 수정할래요!
+			</span><!--//.main_button-->
+			 </a>
+			<a href="<%=request.getContextPath() %>/friend/myFriend.do">
 					<img src="../images/logo/BeanchatChar3.png" alt="친구 관리하기" />
-					<p>친구를 확인 할래요!</p>
-				</a>
-			</div><!--//.main_button-->
-			<div class="main_button">
-				<a href="<%=request.getContextPath() %>/mypage/myList.do">
+				<span class="main_button">
+					친구를 확인 할래요!
+				</span><!--//.main_button-->
+			</a>
+			<a href="<%=request.getContextPath() %>/mypage/myList.do">
 					<img src="../images/logo/BeanchatChar4.png" alt="내가 쓴 글 보기" />
-					<p>내가 쓴 글을 볼래요!</p>
-				</a>
-			</div><!--//.main_button-->
+				<span class="main_button">
+					내가 쓴 글을 볼래요!
+				</span><!--//.main_button-->
+			</a>
 		</div><!-- //#main_zone -->
 	</main>
-	<footer></footer>
+	<footer>
+		<div id="slogan">
+		        <img src="../images/indexImage/beanchat_char.png" width="200px" />
+		        <p>Beanchat, the collaborative chat web application System.</p>
+			</div><!--end: #slogan-->
+			
+			<div id="footerMenu">
+				<ul>
+					<li><a href="#">팀 소개</a></li>
+						<p>&#124;</p>
+					<li><a href="#">개인정보처리방침</a></li>
+						<p>&#124;</p>
+					<li><a href="#">이용약관</a></li>
+						<p>&#124;</p>
+					<li><a href="#">도움말</a></li>
+						<p>&#124;</p>
+					<li><a href="#">공지사항</a></li>
+				</ul>
+		        <p class="companyInfo">빈챗 &#124; 팀원 : 최다혜 안기현 임세현 오 건 <br/>
+		        	Beanchat &#124; 전주시 덕진구 백제대로 572 4층 이젠컴퓨터아트서비스학원<br />
+					© 2023 Beanchat Ltd. All rights reserved.
+				</p><!--end: .companyInfo-->
+			</div><!--end: #footerMenu-->
+			<div id="sns">
+				<ul>
+					<li><a href="#"><i class="xi-instagram xi-2x"></i></a></li>
+					<li><a href="#"><i class="xi-facebook xi-2x"></i></a></li>
+					<li><a href="#"><i class="xi-kakaotalk xi-2x"></i></a></li>
+				</ul>
+			</div><!--end: #sns-->
+	</footer>
 </body>
 </html>
