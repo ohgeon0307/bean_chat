@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import app.dao.ChatDao;
 import app.dao.UserDao;
 import app.dto.ChatDto;
+import app.dto.UserDto;
 
 @WebServlet("/ChatSSEServlet")
 public class ChatSSEServlet extends HttpServlet {
@@ -31,6 +32,13 @@ public class ChatSSEServlet extends HttpServlet {
         PrintWriter writer = response.getWriter();
 
         HttpSession session = request.getSession();
+		int uidx = (Integer)session.getAttribute("uidx");
+		
+		UserDao udao = new UserDao();
+		UserDto udto = udao.UserSelectOne(uidx);
+		
+		request.setAttribute("udto", udto);
+        
         int chatRoomId = (int) session.getAttribute("chatRoomId");
 
         // 예시로 최근 10개의 메시지를 가져오도록 함

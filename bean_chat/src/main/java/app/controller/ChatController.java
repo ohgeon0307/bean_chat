@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.Session;
+
 import app.dao.ChatDao;
 import app.dao.UserDao;
 import app.dto.ChatDto;
 import app.dto.ChatRoomDto;
+import app.dto.UserDto;
 
 @WebServlet("/ChatController")
 public class ChatController extends HttpServlet {
@@ -32,6 +35,7 @@ public class ChatController extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (location.equals("chatIndex.do")) {
+		
 
 			String path = "/chat/chat_index.jsp";
 			// 화면용도의 주소는 포워드로 토스해서 해당 찐주소로 보낸다
