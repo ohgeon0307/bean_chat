@@ -29,15 +29,16 @@ public class ChatSSEServlet extends HttpServlet {
         response.setHeader("Cache-Control", "no-cache");
         response.setHeader("Connection", "keep-alive");
 
+        HttpSession session = request.getSession();
         PrintWriter writer = response.getWriter();
 
-        HttpSession session = request.getSession();
-		int uidx = (Integer)session.getAttribute("uidx");
-		
-		UserDao udao = new UserDao(); 
-		UserDto udto = udao.UserSelectOne(uidx);
-		
-		request.setAttribute("udto", udto);
+		/*
+		 * int uidx = (Integer)session.getAttribute("uidx");
+		 * 
+		 * UserDao udao = new UserDao(); UserDto udto = udao.UserSelectOne(uidx);
+		 * 
+		 * request.setAttribute("udto", udto);
+		 */
         
         int chatRoomId = (int) session.getAttribute("chatRoomId");
 

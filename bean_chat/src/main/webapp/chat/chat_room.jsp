@@ -3,9 +3,6 @@
 <%@ page import="app.dao.UserDao"%>
 <%@ page import="app.dto.UserDto"%>
 
-<%
-    UserDto udto = (UserDto) session.getAttribute("udto");
-%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -68,7 +65,7 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <p>안녕하세요, <%=udto.getUserName()%>!</p>
+            <p>안녕하세요, ${udto.userName}님!</p>
         </div>
         <div id="chat-content" class="chat-content"></div>
         <form id="chatForm">
@@ -79,7 +76,7 @@
 
     <script type="text/javascript">
         var inputMsg = document.getElementById('input_msg');
-        var userId = "<%=udto.getUserName()%>";
+        var userName = "${udto.userName}";
 
         function send(event) {
             var message = inputMsg.value;
@@ -89,7 +86,7 @@
                 url: "<%= request.getContextPath() %>/chat/saveMessage.do",
                 data: {
                     message: message,
-                    userId: userId
+                    userName: userName
                 },
                 success: function (response) {
                     getNewMessages();

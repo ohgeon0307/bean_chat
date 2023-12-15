@@ -44,7 +44,7 @@ public class ChatDao {
 
 	 public List<ChatDto> getRecentChatMessages(int chatRoomId, int count) {
 		    List<ChatDto> chatMessages = new ArrayList<>();
-		    String sql = "SELECT u.userId, c.message, c.timestamp FROM chattable c " +
+		    String sql = "SELECT u.userName, c.message, c.timestamp FROM chattable c " +
 		            "JOIN usertable u ON c.uidx = u.uidx " +
 		            "WHERE c.chatRoomId = ? ORDER BY c.timestamp DESC LIMIT ?";
 
@@ -55,7 +55,7 @@ public class ChatDao {
 		        ResultSet rs = pstmt.executeQuery();
 
 		        while (rs.next()) {
-		            String sender = rs.getString("userId");
+		            String sender = rs.getString("userName");
 		            String message = rs.getString("message");
 		            Timestamp timestamp = rs.getTimestamp("timestamp");
 		            long timeInMillis = timestamp.getTime();

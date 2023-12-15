@@ -44,8 +44,14 @@ public class ChatController extends HttpServlet {
 
 		} else if (location.equals("saveMessage.do")) {
 		    HttpSession session = request.getSession();
-		    int uidx = (int) session.getAttribute("uidx");
-		    String sender = (String) session.getAttribute("userId"); // 추가: sender 정보
+		    int uidx = (Integer) session.getAttribute("uidx");
+		    
+		    UserDao udao = new UserDao(); 
+			UserDto udto = udao.UserSelectOne(uidx);
+		    String sender =udto.getUserName();
+		    request.setAttribute("userName", sender);
+			
+		    //String sender = (String) session.getAttribute("userId"); // 추가: sender 정보
 		    int chatRoomId = (int) session.getAttribute("chatRoomId"); // 추가: chatRoomId 정보
 
 		    // 사용자가 입력한 메시지를 가져옴
@@ -107,7 +113,18 @@ public class ChatController extends HttpServlet {
 		    // 여기서 채팅방의 채팅 내용을 가져와서 request에 설정
 		    List<ChatDto> chatMessages = chatDao.getChatMessagesByRoomId(selectedChatRoomId);
 		    request.setAttribute("chatMessages", chatMessages);
-
+		    //다혜 추가
+			
+		    int uidx = (Integer) session.getAttribute("uidx");
+		    
+		    UserDao udao = new UserDao(); 
+			UserDto udto = udao.UserSelectOne(uidx);
+		    String sender =udto.getUserName();
+		    request.setAttribute("userName", sender);
+			
+			request.setAttribute("udto", udto);
+			//다혜추가 끝
+			
 		    // 채팅방 페이지로 포워드
 		    RequestDispatcher rd = request.getRequestDispatcher("/chat/chat_room.jsp");
 		    rd.forward(request, response);
