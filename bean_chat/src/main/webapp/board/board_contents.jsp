@@ -169,11 +169,11 @@ $(document).ready(function(){
 	$.boardCommentList();
 	
 	// 버튼을 클릭하면 입력된 데이터를 가지고 commentWrite.do로 넘겨서 DB에 입력한다
-	$("#save").on("click",function(){
+	$("#addComment").on("click",function(){
 		//alert("클릭");
 		
-		let rwriter = $("#rwriter").val();
-		let rcontents = $("#rcontents").val();
+		let cWriter = $("#cWriter").val();
+		let cWontents = $("#cContent").val();
 		let bidx = <%=bdto.getBidx()%>;
 		let uidx = <%=session.getAttribute("uidx")%>;
 		
@@ -184,8 +184,8 @@ $(document).ready(function(){
 			data : {
 				"bidx" : bidx,
 				"uidx" : uidx,
-				"rwriter" : rwriter,
-				"rcontents" : rcontents
+				"cWriter" : cWriter,
+				"cContent" :cContent
 			},
 			
 			cache : false,
@@ -196,8 +196,8 @@ $(document).ready(function(){
 					//alert("등록성공");
 				//}
 			$.boardCommentList();     // 새로고침없이 바로등록됨
-			$("#rwriter").val("");
-			$("#rcontents").val("");
+			$("#cWriter").val("");
+			$("#cContents").val("");
 			},
 			error : function(){
 				alert("통신오류 실패");
@@ -343,11 +343,7 @@ function commentList(data){
 		</div>
 		
     </div>
-    
-     
-    
-    
-	</main>
+
 	<div id="commentSection">
             <h2>댓글</h2>
             <%-- 댓글 목록 출력 --%>
@@ -361,13 +357,16 @@ function commentList(data){
                 </c:forEach>
             </ul>
             <%-- 댓글 작성 폼 --%>
-            <form action="${pageContext.request.contextPath}/board/addComment.do" method="post">
+            <form name="rFrm">
                 <input type="hidden" name="bidx" value="${bdto.getBidx()}">
-                <label for="commentContent">댓글 작성:</label>
-                <textarea id="commentContent" name="content" rows="4" cols="50"></textarea>
-                <button type="submit">댓글 등록</button>
+                <label for="cWriter">작성자 : </label>
+                	<input type="text" value="${uidx.userNickname }" name="cWriter" id="cWriter">
+                <label for="cContent">댓글 작성:</label>
+                <textarea id="cContent" name="rContent" rows="4" cols="50"></textarea>
+                <button type="submit" id="addReply">댓글 등록</button>
             </form>
         </div>
+	</main>
 	
 	<!--end: main-->
 	<!--end: form-->

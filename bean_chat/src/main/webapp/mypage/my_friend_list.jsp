@@ -34,16 +34,7 @@
             }
         });
     });
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+
     // 친구 검색
     function searchFriend() {
         var friendId = $('#friendId').val();
