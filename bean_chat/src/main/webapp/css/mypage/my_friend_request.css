@@ -157,6 +157,114 @@ hr {
 	border-radius: 10px;
 }
 
+/*탭 부분 css */
+
+#myTab {
+	display: flex;
+    width: 50%;
+    background-color: #d1f2eb; /* 탭의 전체 배경색 변경 */
+	justify-content: center; /* 탭을 가운데 정렬 */
+    margin-bottom: 20px; /* 아래 여백 설정 */
+    margin-top: 50px; 
+    height:50px;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+#myTab .nav-item {
+    text-align: center;
+    font-size:18px;
+    font-weight:bold;
+    border: none;
+    text-decoration: none;
+    border-radius: 3px;
+    color: #555;
+    transition: background-color 0.3s ease, color 0.3s ease; /* 색상 전환 효과 추가 */
+}
+
+#myTab .nav-link {
+	width:170px;
+	height:50px;
+	color: #333;
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 30px; /* 탭 버튼 간격 조정 */
+    padding: 10px 20px; /* 탭 버튼 내부 여백 설정 */
+   /*  border-radius: 5px 5px 0 0; 탭 버튼 모서리 둥글게 설정 */
+   border-radius:5px;
+    border-bottom: 3px solid transparent; /* 선택된 탭의 아래 테두리 설정 */
+    transition: border-bottom-color 0.3s ease; /* 테두리 색상 전환 효과 */
+}
+
+
+
+
+
+
+/* 선택된 탭의 스타일 */
+.nav-item .nav-link.active {
+	color: #fff !important;
+    background-color: #2ecc71 !important;
+    border-bottom-color: #238e68 !important; /* 선택된 탭의 테두리 색상 설정 */
+}
+
+/* 선택되지 않은 탭의 스타일 */
+.nav-item .nav-link:not(.active) {
+	color: #555 !important; /* 비활성화된 탭의 텍스트 색상 변경 */
+    background-color: transparent !important; /* 배경색을 투명으로 설정하여 효과적으로 변경됩니다 */
+    border-bottom: 2px solid transparent; /* 선택되지 않은 탭의 하단 테두리 스타일 */
+}
+
+/* 마우스를 올렸을 때 탭의 스타일 */
+.nav-item .nav-link:not(.active):hover {
+	color: white !important; /* 호버 시 텍스트 색상 */
+    background-color:#007bff  !important; /* 호버 시 배경색 */
+}
+
+.tab-content .tab-pane {
+    display: none;
+}
+
+.tab-content .tab-pane.active {
+    display: block;
+}
+
+/* 폼 css*/
+#myTabContent{
+	min-height: 500px; /* 최소 높이 지정 */
+	padding: 20px;
+    border: 1px solid #ccc;
+    border-radius:10px;
+    width:50%;
+    margin-right:auto;
+    margin-left:auto;
+    
+}
+
+.search-title{
+	margin:35px auto;
+	text-align:center;
+}
+
+.search-title h2{
+	font-size:30px;
+}
+
+.search-title p{
+	font-size:18px;
+	margin-top:30px;
+}
+
+.form-search{
+	margin:0 auto;
+	text-align:center;
+	width:70%;
+}
+
+
+
 
 main h2{
     margin-top: 50px;
@@ -164,194 +272,83 @@ main h2{
     margin-bottom:40px;
 }
 
-/* 테이블 전체 스타일 */
-#friendTable {
-    width: 100%;
-    border-collapse: collapse;
-    min-height: 200px; /* 최소 높이 지정 */
-
+/* 친구 요청 목록 스타일 */
+#requestList,#sendRequestList {
+  list-style-type: none;
+  padding: 0;
 }
 
-/* 테이블 헤더 스타일 */
-#friendTable th {
-    background-color: #f2f2f2;
-    text-align: center;
-    vertical-align:middle;
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    font-size:18px;
-    font-weight:bold;
-}
-
-/* 테이블 데이터 셀 스타일 */
-#friendTable td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    vertical-align:middle;
-    text-align:center;
-}
-
-/* 짝수 행 배경색 지정 */
-#friendTable tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-/* 마우스 호버 시 행 배경색 변경 */
-#friendTable tr:hover {
-    background-color: #f2f2f2;
-}
-
-/* 모달 헤더 */
-.modal-header {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ccc;
-  padding: 15px;
-  text-align: center;
-}
-
-.modal-header h4 {
-  margin: 0;
-  font-size: 1.5em;
-  color: #333;
-}
-
-/* 모달 바디 */
-.modal-body {
-  padding: 20px;
-  font-size: 1.1em;
-  color: #555;
-}
-
-/* 친구 검색 입력과 버튼 */
-label {
-  margin-right: 8px;
-  font-weight: bold;
-  color: #333;
-}
-
-#friendId {
-  padding: 8px;
-  margin-right: 8px;
+#requestList li,#sendRequestList li {
   border: 1px solid #ccc;
-}
-
-
-/* 검색 및 추가 결과 표시 */
-#searchAndAddResult {
-  margin-top: 20px;
-}
-
-/* 모달 푸터 */
-.modal-footer {
-  background-color: #f8f9fa;
-  border-top: 1px solid #ccc;
+  margin-bottom: 15px;
   padding: 15px;
-  text-align: right;
+  display: flex;
+  align-items: center;
 }
 
-#addFriend{
-	float:right;
-	margin-bottom:40px;
+#requestList li img,#sendRequestList li img {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 50%;
 }
 
-/* 기본 버튼 색상 */
-button {
-  padding: 10px 20px;
-  background-color: #20c997; /* 기본 버튼 배경색 */
-  color: #fff;
+#requestList li div ,#sendRequestList li div{
+  flex: 1;
+}
+
+#requestList li button {
+  padding: 8px 15px;
+  margin-right: 10px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
 }
 
-/* 기본 버튼 호버시 색상 */
-button:hover {
-  background-color: #17a2b8; /* 기본 버튼 호버 배경색 */
+#requestList li button:nth-child(1) {
+  background-color: #007bff; /* 새로운 배경색 지정 */
+  color: white; /* 버튼 텍스트 색상 */
 }
 
-/* 추가 버튼 */
-.modal-footer button {
-  padding: 10px 20px;
-  background-color: #007bff; /* 추가 버튼 배경색 */
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+#requestList li button:nth-child(2) {
+  background-color: #dc3545;
+  color: white;
 }
 
-/* 추가 버튼 호버시 색상 */
-.modal-footer button:hover {
-  background-color: #0056b3; /* 추가 버튼 호버 배경색 */
+/* 버튼 호버 시 색상 변경 */
+#requestList li button:hover {
+  opacity: 0.8;
 }
 
-
-/* 취소 버튼 */
-#clodelModalBtn {
-  padding: 10px 20px;
-  background-color: #dc3545; /* 취소 버튼 배경색 */
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-/* 취소 버튼 호버시 색상 */
-#clodelModalBtn:hover {
-  background-color: #c82333; /* 취소 버튼 호버 배경색 */
-}
-/* 프로필 이미지 */
-#profile-image {
-  max-width: 100px;
-  max-height: 100px;
-  margin-bottom: 10px;
-}
-
-#button_zone{
-	width:500px;
-	display:flex;
-	justify-content:space-between;
+.button_zone{
+	width:300px;
+	text-align:center;
 	margin-right:auto;
 	margin-left:auto;
 	margin-top:80px;
 	margin-bottom:60px;
 }
-
-.myButton {
+.backBtn {
   display: inline-block;
   padding: 20px 20px;
   font-size: 18px;
   text-align: center;
   text-decoration: none;
-  
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
-}
-
-.myButton.primary {
   background-color: #4CAF50;
   color: white;
   border: none;
 }
 
-.myButton.secondary {
-  background-color: #fff;
-  color: #555;
-  border: 1px solid #ccc;
+.backBtn:hover{
+	background-color: #45a049;
 }
 
-.myButton.primary:hover {
-  background-color: #45a049;
-}
 
-.myButton.secondary:hover {
-  background-color: #f2f2f2;
-  border-color: #aaa;
-  color: #333;
-}
+
+
 
 /*푸터 css*/
 

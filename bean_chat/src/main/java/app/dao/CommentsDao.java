@@ -52,15 +52,18 @@ public class CommentsDao {
 
     public int commentInsert(CommentsDto cdto) {
         int exec = 0;
-        String sql = "insert into replytable(rwriter,rcontent,rdate,bidx,replyidx,uidx) values(?,?,?,?,?,?)";
+        String sql = "INSERT INTO replytable(ReplyiDX, Bidx, Uidx, rWriter, rDate, rDelYn, rContent,ReplyLikeCnt,LikeCheck) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, cdto.getrWriter());
-            pstmt.setString(2, cdto.getrContent());
-            pstmt.setString(3, cdto.getrDate());
-            pstmt.setInt(4, cdto.getBidx());
-            pstmt.setInt(5, cdto.getReplyiDX());
-            pstmt.setInt(6, cdto.getUidx());
+            pstmt.setInt(1, cdto.getReplyiDX());
+            pstmt.setInt(2, cdto.getBidx());
+            pstmt.setInt(3, cdto.getUidx());
+            pstmt.setString(4, cdto.getrWriter());
+            pstmt.setString(5, cdto.getrDate());
+            pstmt.setString(6, cdto.getrDelYn());
+            pstmt.setString(7, cdto.getrContent());
+            pstmt.setInt(8, cdto.getReplyLikeCnt());
+            pstmt.setString(9, cdto.getLikeCheck());
             exec = pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

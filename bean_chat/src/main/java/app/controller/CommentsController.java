@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import app.dao.CommentsDao;
+import app.dao.UserDao;
 import app.dto.CommentsDto;
+import app.dto.UserDto;
 
 @WebServlet("/CommentsController")
 public class CommentsController extends HttpServlet {
@@ -30,11 +32,13 @@ public class CommentsController extends HttpServlet {
         if (location.equals("commentList.do")) {
         	
         	HttpSession session = request.getSession();
-			
-			
 			int uidx = (Integer)session.getAttribute("uidx");
+
 			
-			session.setAttribute("uidx", uidx);
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(uidx);
+			
+			request.setAttribute("udto", udto);
 
             CommentsDao rdao = new CommentsDao();
             ArrayList<CommentsDto> list = rdao.commentSelectAll();
@@ -55,22 +59,31 @@ public class CommentsController extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println(str);
 
-        } else if (location.equals("commentWrite.do")) {
+        } else if (location.equals("commentWrite.do")) {      	
+        	HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
 
-            String bidx = request.getParameter("bidx");
-            String replyidx = request.getParameter("replyidx");
+			
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(uidx);
+			
+			request.setAttribute("udto", udto);
+        	
+        	String bidx = request.getParameter("bidx");
+        	System.out.println(bidx);
             String rwriter = request.getParameter("rWriter");
+            System.out.println(rwriter);
             String rcontent = request.getParameter("rContent");
-            String rdate = request.getParameter("rdate");
-            String uidx = request.getParameter("uidx");
+            String rdate = request.getParameter("rDate"); // 댓글 작성일시 받아오기
+
+            // replyidx는 댓글에 대한 답글을 작성할 때만 필요하므로, 상황에 맞게 처리해야 함
 
             CommentsDto cdto = new CommentsDto();
             cdto.setBidx(Integer.parseInt(bidx));
-            cdto.setReplyiDX(Integer.parseInt(replyidx));
             cdto.setrWriter(rwriter);
             cdto.setrContent(rcontent);
-            cdto.setrDate(rdate);
-            cdto.setUidx(Integer.parseInt(uidx));
+            cdto.setrDate(rdate); // rDate로 수정
+            cdto.setUidx(uidx); // 유저 ID 설정
 
             int value = 0;
             CommentsDao rdao = new CommentsDao();
@@ -80,7 +93,6 @@ public class CommentsController extends HttpServlet {
 
             PrintWriter out = response.getWriter();
             out.println(str);
-
         } else if (location.equals("commentDelete.do")) {
 
             String replyidx = request.getParameter("replyidx");

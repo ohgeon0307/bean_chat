@@ -123,7 +123,7 @@ public class FriendDao {
 
 		
 	
-	public List<UserDto> requestSelectAll(int toUidx) {
+	public List<UserDto> receivedRequestSelectAll(int toUidx) {
 	    List<UserDto> alist = new ArrayList<>();
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -136,6 +136,54 @@ public class FriendDao {
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, toUidx);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            UserDto udto = new UserDto();
+	            udto.setUidx(rs.getInt("uidx"));
+	            udto.setUserId(rs.getString("userId"));
+	            udto.setUserName(rs.getString("userName"));
+	            udto.setUserBirth(rs.getString("userBirth"));
+	            udto.setUserNickname(rs.getString("userNickname"));
+	            udto.setUserPhone(rs.getString("userPhone"));
+	            udto.setUserDate(rs.getString("userDate"));
+	            udto.setuDelYn(rs.getString("uDelYn"));
+	            udto.setUserImage(rs.getString("userImage"));
+
+	            alist.add(udto);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) {
+	                rs.close();
+	            }
+	            if (pstmt != null) {
+	                pstmt.close();
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return alist;
+	}
+	
+	// 보낸 요청 목록 조회 메서드
+	public List<UserDto> sentRequestSelectAll(int fromUidx) {
+	    List<UserDto> alist = new ArrayList<>();
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    String sql = "SELECT u.* " +
+	                 "FROM friend_requesttable fr " +
+	                 "JOIN usertable u ON fr.toUidx = u.uidx " +
+	                 "WHERE fr.fromUidx = ? AND fr.fState = 'W'";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, fromUidx);
 	        rs = pstmt.executeQuery();
 
 	        while (rs.next()) {
@@ -242,6 +290,7 @@ public int friendReject(int fridx) {
 
 		
 	}
+
 	
 	public int friendInsert(FriendDto fdto){
 		int exec = 0;
@@ -268,10 +317,67 @@ public int friendReject(int fridx) {
 		return exec;	
 	}
 	
+	public boolean areTheyFriends(int uidx1, int uidx2) {
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    boolean areFriends = false;
+
+	    String sql = "SELECT * FROM friendtable WHERE (Uidx1 = ? AND Uidx2 = ?) OR (Uidx1 = ? AND Uidx2 = ?)";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, uidx1);
+	        pstmt.setInt(2, uidx2);
+	        pstmt.setInt(3, uidx2);
+	        pstmt.setInt(4, uidx1);
+
+	        rs = pstmt.executeQuery();
+	        areFriends = rs.next(); // 결과가 존재하면 친구임을 의미함
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return areFriends;
+	}
 	
-	
-	
-	
+	public boolean isRequestSent(int fromUidx, int toUidx) {
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    boolean isSent = false;
+
+	    String sql = "SELECT * FROM friend_requesttable WHERE ((fromUidx = ? AND toUidx = ?) OR (fromUidx = ? AND toUidx = ?)) AND fState = 'W'";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, fromUidx);
+	        pstmt.setInt(2, toUidx);
+	        pstmt.setInt(3, toUidx);
+	        pstmt.setInt(4, fromUidx);
+
+	        rs = pstmt.executeQuery();
+	        isSent = rs.next(); // 결과가 존재하면 요청이 보내진 상태임을 의미함
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return isSent;
+	}
 	
 	
 	

@@ -10,8 +10,11 @@
 <meta charset="UTF-8">
 <title>친구리스트</title>
 	<!-- 제이쿼리 연결 -->
-   <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
- 	<!-- css연결 -->
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
+	<!-- 부트스트랩 연결 -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- css연결 -->
 	<link href="../css/reset.css" rel="stylesheet" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<link href="../css/mypage/my_friend_list.css" rel="stylesheet" /> 
@@ -47,22 +50,54 @@
     // 친구 검색
     function searchAndAddFriend() {
         var friendId = $('#friendId').val();
+        var friendId = $('#friendId').val().trim(); // 입력값 양쪽 공백 제거
+
+        // 입력값이 공백인지 확인
+        if (friendId === '') {
+            // 공백일 경우 알림을 띄우고 검색을 수행하지 않음
+            alert('공백으로는 검색할 수 없습니다.');
+            return;
+        }
 
         $.ajax({
             url: '/bean_chat/friend/searchFriend.do?friendId=' + friendId,
             type: 'POST',
             dataType: 'json',
             success: function (data) {
+            	if (data && Object.keys(data).length > 0) {
+            		
                 // 검색 결과 표시
-              var searchResult = ('친구 ID: ' + data.userId + '<br>' +
-                                        '친구 이름: ' + data.userName+'<br>' +
-                                        '친구 닉네임: ' + data.userNickname+'<br>' +
-                                        '친구 이미지: <img src="../' + data.userImage + '" id="profile-image"><br>' +
-                                        '친구 생일: ' + data.userBirth);
-             // 추가 버튼
-                var addButton = '<button onclick="addFriend(\'' + data.userId + '\')">친구 추가</button>';
-                // 검색 결과 및 추가 버튼 표시
-                $('#searchAndAddResult').html(searchResult + '<br>' + addButton);
+              	var searchResult = ('<img src="../' + data.userImage + '" id="profile-image"><br>' +
+                                        'ID: ' + data.userId + '<br>' +
+                                        '이름: ' + data.userName+'<br>' +
+                                        '닉네임: ' + data.userNickname);
+           		// 검색 결과를 표시할 요소에 내용 추가
+              $('#searchAndAddResult').html(searchResult);
+           		
+           		
+              var isFriend = data.isFriend; // 서버에서 전달된 친구 여부 값
+              var isRequestSent = data.isRequestSent;
+
+              if (isFriend) {
+                  // 이미 친구인 경우
+                  alert('이미 친구인 사용자입니다.');
+              } else if (isRequestSent) {
+                  // 이미 요청을 보낸 상태이므로 추가 버튼 비활성화
+            	  alert('요청 대기 중인 사용자입니다.');
+              }else {
+              // 추가 버튼 생성 및 이벤트 설정
+              var addButton = $('<button>친구 추가</button>');
+              addButton.on('click', function() {
+                  addFriend(data.userId);
+              });
+
+              // 모달 푸터에 추가 버튼 추가
+              $('.modal-footer').empty().append(addButton);
+              }
+            	} else {
+            		 // 검색 결과가 없을 때 표시할 메시지
+                    $('#searchAndAddResult').html('<p>검색 결과가 없습니다.</p>');
+                }
             },
             error: function (error) {
                 console.error(error);
@@ -80,7 +115,8 @@
             dataType: 'json',
             success: function (data) {
                 // 추가 결과 표시
-            	 $('#searchAndAddResult').html('상대방에게 요청 메세지를 보냈어요!');
+            	$('#searchAndAddResult').html('');
+            	alert('상대방에게 요청 메세지를 보냈어요!\n상대방이 수락 할 때까지 기다려 주세요.');
             },
             error: function (error) {
                 console.error(error);
@@ -88,6 +124,8 @@
         });
     }
    </script>
+ 
+   
 
 </head>
 <body>
@@ -136,10 +174,10 @@
 <main>
 	<h1>My Page</h1>
 	<hr>
+	<h2>나의 친구 목록</h2>
 	<button type="button" id="addFriend">
 		<i class="xi-user-plus-o"></i>친구 추가하기
 	</button><!-- modalBox연결 버튼 -->
-	<h2>나의 친구 목록</h2>
 
 
 		<div id="list_friend">
@@ -148,21 +186,43 @@
 
 
 
+	<div id="button_zone">
+		<a href="<%=request.getContextPath()%>/friend/myFriendRequest.do" class="myButton primary">친구요청수락하러가기</a>
+		<a href="<%=request.getContextPath()%>/mypage/myMain.do" class="myButton secondary">목록 돌아가기</a>
+	</div>
 
 </main>
-
-	<div id="add_friend">
-	
-		<!-- 친구 검색 -->
-		<label for="friendId">친구 ID:</label>
-		<input type="text" id="friendId" name="friendId">
-		<button onclick="searchAndAddFriend()">검색 후 추가</button>
+<footer>
+	<div id="slogan">
+	        <img src="../images/indexImage/beanchat_char.png" width="200px" />
+	        <p>Beanchat, the collaborative chat web application System.</p>
+		</div><!--end: #slogan-->
 		
-		<!-- 검색 및 추가 결과 표시 -->
-		<div id="searchAndAddResult"></div>
-	
-		<a href="<%=request.getContextPath()%>/friend/myFriendRequest.do">친구요청수락하러가기</a>
-	</div>
+		<div id="footerMenu">
+			<ul>
+				<li><a href="#">팀 소개</a></li>
+					<p>&#124;</p>
+				<li><a href="#">개인정보처리방침</a></li>
+					<p>&#124;</p>
+				<li><a href="#">이용약관</a></li>
+					<p>&#124;</p>
+				<li><a href="#">도움말</a></li>
+					<p>&#124;</p>
+				<li><a href="#">공지사항</a></li>
+			</ul>
+	        <p class="companyInfo">빈챗 &#124; 팀원 : 최다혜 안기현 임세현 오 건 <br/>
+	        	Beanchat &#124; 전주시 덕진구 백제대로 572 4층 이젠컴퓨터아트서비스학원<br />
+				© 2023 Beanchat Ltd. All rights reserved.
+			</p><!--end: .companyInfo-->
+		</div><!--end: #footerMenu-->
+		<div id="sns">
+			<ul>
+				<li><a href="#"><i class="xi-instagram xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-facebook xi-2x"></i></a></li>
+				<li><a href="#"><i class="xi-kakaotalk xi-2x"></i></a></li>
+			</ul>
+		</div><!--end: #sns-->
+</footer>
 
 
 		<div class="modal" id="addModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -174,27 +234,40 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
-					</div><!--  -->//.modal-header
+					</div><!--//.modal-header  -->
 
 
-					Modal body
+					<!--Modal body  -->
 					<div class="modal-body">
+						<!-- 친구 검색 -->
+						<P>친구의 ID를 검색 후 추가 할 수 있어요!</P>
 						<label for="friendId">친구 ID:</label>
-							<input type="text" id="friendId" name="friendId">
-						<button onclick="searchFriend()">검색</button>
-					
-					
-					
-					</div>//.modal-body
-					
-					Modal footer
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-danger" onclick="byeUser();">탈퇴하기</button>
-						<button type="button" id="clodelModalBtn" class="btn btn-default" data-dismiss="modal">취소</button>
-					</div>//.modal-footer
+						<input type="text" id="friendId" name="friendId">
+						<button onclick="searchAndAddFriend()">검색</button>
+						
+						<!-- 검색 및 추가 결과 표시 -->
+						<div id="searchAndAddResult"></div>
 
-				</div>//.modal-content
-			</div>//.modal-dialog modal-dialog-centered
-		</div>//#delModal
+					</div><!--//.modal-body  -->
+					
+					<!--Modal footer  -->
+					<div class="modal-footer">
+						<!-- 추가버튼 추가 될 자리 -->
+						<button type="button" id="clodelModalBtn" class="btn btn-default" data-dismiss="modal">취소</button>
+					</div><!-- //.modal-footer -->
+
+				</div><!--//.modal-content  -->
+			</div><!-- //.modal-dialog modal-dialog-centered -->
+		</div><!-- //#delModal -->
+		  <script>  // 모달 버튼에 이벤트를 건다.  
+		  $('#addFriend').on('click', function(){
+			    $('#addModal').modal('show');
+			});
+
+			// 모달 안의 취소 버튼 클릭 시 모달 닫기
+			$('#clodelModalBtn').on('click', function(){
+			    $('#addModal').modal('hide');
+			});
+		</script>
 </body>
 </html>

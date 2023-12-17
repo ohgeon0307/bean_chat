@@ -3,6 +3,7 @@ package app.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 import app.dao.ChatDao;
+import app.dao.FriendDao;
 import app.dao.UserDao;
 import app.dto.ChatDto;
 import app.dto.ChatRoomDto;
@@ -123,6 +127,47 @@ public class ChatController extends HttpServlet {
 		    rd.forward(request, response);
 		} else if (location.equals("viewChatRoomList.do")) {
 			viewChatRoomList(request, response);
+		}else if (location.equals("chatSearchFriend.do")) {
+			
+			//인풋값 : friendId
+			String friendId = request.getParameter("friendId");
+         
+			FriendDao fdao = new FriendDao();
+         
+			//아이디로 상대 uidx 찾아서 fuidx변수에 넣어줌
+			int fUidx= fdao.friendFindId(friendId);
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+
+			//상대uidx로 selectone메소드 이용해서 정보 가져와서 udto생성자에 담아줌.
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(fUidx);
+			boolean areFriends = fdao.areTheyFriends(uidx, fUidx); // 현재 사용자와 상대방의 친구 여부 체크
+			
+			response.setContentType("application/json;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+		
+			//gson==제이슨라이브러리
+			//유저정보 문자열 가져온거 json으로 파싱해줌. ajax에 뿌려주기위해서
+			Gson gson = new Gson();
+			HashMap<String, Object> responseData = new HashMap<>();
+			//삼항연산자 사용
+			//조건식 ? 표현식1 : 표현식 2
+			//if 조건식 참-> 표1, if 조건식 거짓->표2 반환
+			//{}>>>udto==null 일 때 처리, {}쓰는이유 : json 빈 객체 나타내는 표기법
+			if (udto != null) {
+		        responseData.put("userId", udto.getUserId());
+		        responseData.put("userName", udto.getUserName());
+		        responseData.put("userNickname", udto.getUserNickname());
+		        responseData.put("isFriend", areFriends); // 친구 여부 추가
+		    } else {
+		        responseData.put("error", "User not found");
+		    }
+
+		    String jsonResponse = gson.toJson(responseData);
+		    out.print(jsonResponse);
+		    out.flush();
+
 		}
 	}
 

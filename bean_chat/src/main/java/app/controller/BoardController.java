@@ -125,6 +125,14 @@ public class BoardController extends HttpServlet {
 			}
 
 		} else if (location.equals("boardContents.do")) {
+			HttpSession session = request.getSession();
+			int uidx = (Integer)session.getAttribute("uidx");
+
+			
+			UserDao udao = new UserDao();
+			UserDto udto = udao.UserSelectOne(uidx);
+			
+			request.setAttribute("udto", udto);
 			String bidx = request.getParameter("bidx");
 			int bidx_int = Integer.parseInt(bidx);
 
