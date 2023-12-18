@@ -58,13 +58,13 @@
 	                var listItem = $('<li>');
 
 	                var userInfo = $('<div>').html(
-	                	sentRequests[i].userId + '<br>' +
-	                    '친구 이름: ' + sentRequests[i].userName + '<br>' +
-	                    '친구 닉네임: ' + sentRequests[i].userNickname + '<br>' +
-	                    '친구 생일: ' + sentRequests[i].userBirth + '<br>'
+	                	sentRequests[j].userId + '<br>' +
+	                    '친구 이름: ' + sentRequests[j].userName + '<br>' +
+	                    '친구 닉네임: ' + sentRequests[j].userNickname + '<br>' +
+	                    '친구 생일: ' + sentRequests[j].userBirth + '<br>'
 	                );
 
-	                var profileImage = $('<img>').attr('src', '../' + sentRequests[i].userImage).attr('id', 'profile-image');
+	                var profileImage = $('<img>').attr('src', '../' + sentRequests[j].userImage).attr('id', 'profile-image');
 
 	                listItem.append(profileImage, userInfo);
 	                sendRequestList.append(listItem);

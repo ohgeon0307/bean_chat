@@ -170,10 +170,7 @@
 		<input type="hidden" value="${udto.userNickname}" name="writer">
 		<div id="topMenu">
 			<div class="leftElement">
-				<a href="#" class="logo"> <img
-					src="../images/indexImage/beanchat_text.png"
-					
-              width="220px" />
+				<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a> 
 				</a>
 				<h1>글 상세보기</h1>
 			</div>

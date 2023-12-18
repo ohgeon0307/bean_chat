@@ -22,7 +22,7 @@
 <body>
 	<header><!-- 헤더 시작 -->
 		<div class="container"> 
-			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text logo">    
+			<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a>     
 	        <div class="items">
 	            <ul>
 		           <li> 
@@ -169,13 +169,6 @@
 			fm.submit(); //전송시킴
 			return true;	
 		}
-		
-		 $(".logo").click(function(){	
-	        	if(!confirm("메인으로 돌아가시겠습니까?")){
-					return false;
-	        	}else{
-	        		location.href="<%=request.getContextPath()%>";
-	        	}
 	        	
 	         });
 	
