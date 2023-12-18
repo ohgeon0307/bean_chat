@@ -23,9 +23,9 @@ public class CommentController extends HttpServlet {
 
     private String location;
 
-    public CommentController() {
-        super();
-    }
+    public CommentController(String location){
+		this.location = location;
+	}
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,7 +42,7 @@ public class CommentController extends HttpServlet {
             int uidx = 0;
             String str = "";
             
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < listCnt; i++) {
             ReplyiDX = list.get(i).getReplyiDX();
             rWriter = list.get(i).getrWriter();
             rContents = list.get(i).getrContent();
@@ -57,14 +57,12 @@ public class CommentController extends HttpServlet {
             }
             
             str = str + "{\"replyidx\":\""+ReplyiDX+"\",\"rWriter\":\""+rWriter+"\",\"rContent\":\""+rContents+"\",\"rDate\":\""+rDate+"\",\"uidx\":\""+uidx+"\"}"+comma;	
-            System.out.println(str);
             }
             
             PrintWriter out = response.getWriter();
             out.println("["+str+"]");
         } else if (location.equals("commentWrite.do")) {
         	
-        	System.out.println("test comments");
         	
         	HttpSession session = request.getSession();
 			int uidx = (Integer)session.getAttribute("uidx");
@@ -76,9 +74,7 @@ public class CommentController extends HttpServlet {
 			request.setAttribute("udto", udto);
         	
         	String bidx = request.getParameter("bidx");
-        	System.out.println(bidx);
             String rwriter = request.getParameter("rWriter");
-            System.out.println(rwriter);
             String rcontent = request.getParameter("rContent");
             java.util.Date date = new java.util.Date();
             Timestamp timestamp = new Timestamp(date.getTime());

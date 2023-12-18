@@ -22,7 +22,7 @@ public class CommentsDao {
     public ArrayList<CommentsDto> commentSelectAll() {
         ArrayList<CommentsDto> alist = new ArrayList<CommentsDto>();
         ResultSet rs = null;
-        String sql = "select * from replytable where delyn='N' order by ReplyiDX desc";
+        String sql = "select * from replytable where rdelyn='N' order by ReplyiDX desc";
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
@@ -42,7 +42,6 @@ public class CommentsDao {
             try {
                 rs.close();
                 pstmt.close();
-                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -52,18 +51,14 @@ public class CommentsDao {
 
     public int commentInsert(CommentsDto cdto) {
         int exec = 0;
-        String sql = "INSERT INTO replytable(ReplyiDX, Bidx, Uidx, rWriter, rDate, rDelYn, rContent,ReplyLikeCnt,LikeCheck) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
+        String sql = "INSERT INTO replytable(ReplyiDX, Bidx, Uidx, rWriter,rContent,rDelYn) VALUES (?, ?, ?, ?, ?,'N')";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, cdto.getReplyiDX());
             pstmt.setInt(2, cdto.getBidx());
             pstmt.setInt(3, cdto.getUidx());
             pstmt.setString(4, cdto.getrWriter());
-            pstmt.setString(5, cdto.getrDate());
-            pstmt.setString(6, cdto.getrDelYn());
-            pstmt.setString(7, cdto.getrContent());
-            pstmt.setInt(8, cdto.getReplyLikeCnt());
-            pstmt.setString(9, cdto.getLikeCheck());
+            pstmt.setString(5, cdto.getrContent());
             exec = pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

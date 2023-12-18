@@ -58,6 +58,9 @@ public class FrontController extends HttpServlet {
 		}else if(str.equals("admin")) {
 			AdminController ac = new AdminController(location);
 			ac.doGet(request, response);
+		}else if(str.equals("comment")) {
+			CommentController cmc = new CommentController(location);
+			cmc.doGet(request, response);
 		}
 		/*
 			 * else if(str.equals("chatsubmit")) { ChatSubmitController csc = new

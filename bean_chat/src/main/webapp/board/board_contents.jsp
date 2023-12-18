@@ -73,20 +73,18 @@
     </script>
 
     <script>
-        $(document).ready(function () {
-            
-
+    	$(document).ready(function(){
+    	$.boardCommentList();
+    	
             $("#addReply").on("click", function () {
                 let rWriter = $("#rWriter").val();
                 let rContent = $("#rContent").val();
                 let bidx = <%=bdto.getBidx()%>;
                 let uidx = ${uidx};
-                consol.log(bidx);
-                consol.log(uidx);
 
                 $.ajax({
                     type: "post",
-                    url: '<%=request.getContextPath()%>/comment/commentWrite.do',
+                    url:  '<%=request.getContextPath()%>/comment/commentWrite.do',
                     dataType: "json",
                     data: {
                         "bidx": bidx,
@@ -96,7 +94,7 @@
                     },
                     cache: false,
                     success: function (data) {
-                        boardCommentList();     // 새로고침없이 바로 등록됨
+                    	$.boardCommentList();     // 새로고침없이 바로 등록됨
                         $("#rWriter").val("");
                         $("#rContent").val("");
                     },
@@ -105,13 +103,13 @@
                     }
                 });
             });
-        });
-
-        function boardCommentList() {
+  
+    	});
+        $.boardCommentList= function(){
 
             $.ajax({
-                type: "POST",
-                url: "<%=request.getContextPath()%>/comment/commentList.do",
+                type: "get",
+                url :'<%=request.getContextPath()%>/comment/commentList.do',
                 dataType: "json",
                 cache: false,
                 success: function (data) {
@@ -122,6 +120,7 @@
                 }
             });
         }
+
 
         function commentDel(replyidx) {
             $.ajax({
@@ -226,9 +225,10 @@
     </div>
 
    <div id="commentSection">
+   <div id="tbl"></div>
 <!--             <h2>댓글</h2> -->
             <%-- 댓글 목록 출력 --%>
-            <ul class="commentList">
+           <%--  <ul class="commentList">
                 <c:forEach items="${commentList}" var="comment">
                     <li>
                         <p class="commentWriter">${comment.getWriter()}</p>
@@ -236,7 +236,7 @@
                         <p class="commentDate">${comment.getWriteDate()}</p>
                     </li>
                 </c:forEach>
-            </ul>
+            </ul> --%>
             <%-- 댓글 작성 폼 --%>
             <form name="rFrm">
                 <input type="hidden"  name="uidx" id="uidx"   value="${uidx}">
@@ -245,7 +245,7 @@
                    <input type="text" value="${udto.userNickname}" name="rWriter" id="rWriter" readonly>
                 <label for="rContent">댓글 작성:</label>
                 <textarea id="rContent" name="rContent" rows="4" cols="50"></textarea>
-                <button type="submit" id="addReply">댓글 등록</button>
+                <input type="button"  name="addReply" id="addReply" value="저장">
             </form>
         </div>
    </main>
