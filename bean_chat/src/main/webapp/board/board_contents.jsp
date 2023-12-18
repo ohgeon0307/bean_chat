@@ -26,6 +26,7 @@
     <link href="../css/board/board_contents.css" rel="stylesheet"/>
     <!-- css 연결 -->
     <script>
+
         $(document).ready(function () {
             // 화면 이동 관련 스크립트
             $(".logo").click(function () {
@@ -35,6 +36,7 @@
                     location.href = "<%=request.getContextPath()%>";
                 }
             });
+
 
             $(".cancel").click(function () {
                 if (!confirm("이전 화면으로 돌아가시겠습니까? 작성하신 내용은 저장되지 않습니다.")) {
@@ -180,6 +182,7 @@
     
 </head>
 <body>
+<<<<<<< HEAD
     <input type="hidden"  value="${uidx}" name="uidx">
     <div id="topMenu">
         <div class="leftElement">
@@ -188,6 +191,40 @@
                 width="220px" />
             </a>
             <h1>글 상세보기</h1>
+
+		<input type="hidden"  value="${uidx}" name="uidx">
+		<div id="topMenu">
+			<div class="leftElement">
+				<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a> 
+				<h1>글 상세보기</h1>
+			</div>
+			<!--end: .leftElement-->
+			<%-- <div class="rightElement">
+				<a href="#" class="cancel">취소</a>
+				<button class="write">등록</button>
+				<p class="nickname">
+					<span>${udto.userNickname}</span> 님
+				</p>
+				<img
+					src="<%=request.getContextPath()%>/resources/upload/${login.stname}"
+					class="memberImage"
+					style="width: 45px; height: 45px; border-radius: 30px;">
+			</div> --%>
+			<!--end: .rightElement-->
+		</div>
+		<!--end: #topMenu-->
+	<main>
+        <p class="view">게시글 상세보기</p>
+      <div class="main">
+
+        <div id="viewTitle">
+		    <p class="title">제목 : <%=bdto.getSubject() %></p>
+			<hr/>
+		</div>
+
+        <div id="viewDate">
+            <p class="date">작성날짜 : <%=bdto.getWriteDate() %></p>
+            <hr/>
         </div>
         <!--end: .leftElement-->
         <!-- <div class="rightElement">
