@@ -29,7 +29,7 @@ public class UserDao {
 		        +" values(?,?,?,?,?,?,?,?,'N')";
 		try{
 		conn.setAutoCommit(false);
-		pstmt = conn.prepareStatement(sql);
+		pstmt = conn.prepareStatement(sql); 
 		pstmt.setInt(1, udto.getUidx());
 		pstmt.setString(2, udto.getUserId());
 	    pstmt.setString(3, udto.getUserPwd());
