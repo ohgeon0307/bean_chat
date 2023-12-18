@@ -174,7 +174,7 @@
       <div id="topMenu">
          <div class="leftElement">
             <a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a> 
-            <h1>글 상세보기</h1>
+            <div class="h_div"><h1>글 상세보기</h1></div>
          </div>
          <!--end: .leftElement-->
          <%-- <div class="rightElement">
