@@ -186,6 +186,27 @@
 	        });
 			}
 		</script>
+		<script>
+	    // 친구 추가
+	    function addFriend(friendId) {
+	        var addId = $('#addId').val();
+
+	        $.ajax({
+	            url: '<%= request.getContextPath() %>/chat/chatAddFriend.do?addId=' + friendId,
+	            type: 'POST',
+	            dataType: 'json',
+	            success: function (data) {
+	                // 추가 결과 표시
+	            	$('#addModal').modal('hide'); // 모달 닫기
+	            	alert('상대방에게 요청 메세지를 보냈어요!\n상대방이 수락 할 때까지 기다려 주세요.');
+	            },
+	            error: function (error) {
+	                console.error(error);
+	                alert('친구 초대에 실패했습니다. 다시 시도해주세요.');
+	            }
+	        });
+	    }
+	   </script>
 		
 		
     <script type="text/javascript">

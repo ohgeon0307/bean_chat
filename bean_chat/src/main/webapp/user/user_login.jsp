@@ -170,7 +170,6 @@
 			return true;	
 		}
 	        	
-	         });
 	
 	</script>
 
