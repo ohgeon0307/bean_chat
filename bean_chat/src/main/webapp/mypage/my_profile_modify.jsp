@@ -314,13 +314,6 @@
 	$('#clodelModalBtn').on('click', function(){
 		$('#modalBox').modal('hide');  });
 	
-	 $(".logo").click(function(){	
-     	if(!confirm("메인으로 돌아가시겠습니까?")){
-				return false;
-     	}else{
-     		location.href="<%=request.getContextPath()%>";
-     	});
-	
 	</script>
 
 	<script>

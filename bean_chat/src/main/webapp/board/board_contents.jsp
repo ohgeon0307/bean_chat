@@ -24,15 +24,6 @@
 
     <script>
 
-            $(".logo").click(function () {
-                if (!confirm("메인으로 돌아가시겠습니까?")) {
-                    return false;
-                } else {
-                    location.href = "<%=request.getContextPath()%>";
-                }
-
-            });
-
             $(".cancel").click(function () {
                 if (!confirm("이전 화면으로 돌아가시겠습니까? 작성하신 내용은 저장되지 않습니다.")) {
                     return false;
@@ -182,11 +173,7 @@
 		<input type="hidden"  value="${uidx}" name="uidx">
 		<div id="topMenu">
 			<div class="leftElement">
-				<a href="#" class="logo"> <img
-					src="../images/indexImage/beanchat_text.png"
-					
-              width="220px" />
-				</a>
+				<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a> 
 				<h1>글 상세보기</h1>
 			</div>
 			<!--end: .leftElement-->
