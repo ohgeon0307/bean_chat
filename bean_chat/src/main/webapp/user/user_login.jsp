@@ -169,11 +169,7 @@
 			fm.submit(); //전송시킴
 			return true;	
 		}
-<<<<<<< HEAD
-=======
-		
->>>>>>> branch 'master' of https://github.com/ohgeon0307/bean_chat.git
-	        	
+
 	
 	</script>
 
