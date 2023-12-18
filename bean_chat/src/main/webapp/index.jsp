@@ -52,7 +52,17 @@
                 		</c:otherwise>
                 	</c:choose>
                 </li>
-                <li><a href="<%=request.getContextPath()%>/board/boardList.do"><img role="button" src="./images/indexImage/board_icon.png" alt=""><span>게시판</span></a></li>
+                
+                <li>
+                	<c:choose>
+                		<c:when test="${uidx==null }">
+                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="./images/indexImage/board_icon.png" alt=""><span>게시판</span></a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="<%=request.getContextPath() %>/board/boardList.do"><img role="button" src="./images/indexImage/board_icon.png" alt=""><span>게시판</span></a>
+                		</c:otherwise>
+                	</c:choose>
+                </li>
                 <li><a  href="<%=request.getContextPath()%>/notice/noticeList.do"><img role="button" src="./images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a></li>
                 <li>
                 	<c:choose>

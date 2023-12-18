@@ -30,37 +30,35 @@ public class CommentController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (location.equals("commentList.do")) {
-        	
-            CommentsDao rdao = new CommentsDao();
-            ArrayList<CommentsDto> list = rdao.commentSelectAll();
-            int listCnt = list.size();
-            int ReplyiDX = 0;
-            String rWriter = "";
-            String rContents = "";
-            String rDate = "";
-            int uidx = 0;
-            String str = "";
-            
-            for (int i = 0; i < listCnt; i++) {
-            ReplyiDX = list.get(i).getReplyiDX();
-            rWriter = list.get(i).getrWriter();
-            rContents = list.get(i).getrContent();
-            rDate = list.get(i).getrDate();
-            uidx = list.get(i).getUidx();
-            
-            String comma = "";
-            if ( i == listCnt-1) {
-            	comma ="";
-            } else {
-            	comma = ",";
-            }
-            
-            str = str + "{\"replyidx\":\""+ReplyiDX+"\",\"rWriter\":\""+rWriter+"\",\"rContent\":\""+rContents+"\",\"rDate\":\""+rDate+"\",\"uidx\":\""+uidx+"\"}"+comma;	
-            }
-            
-            PrintWriter out = response.getWriter();
-            out.println("["+str+"]");
+    	if (location.equals("commentList.do")) {
+    	    String bidx = request.getParameter("bidx");
+    	    
+    	    CommentsDao rdao = new CommentsDao();
+    	    ArrayList<CommentsDto> list = rdao.commentSelectByBidx(Integer.parseInt(bidx));
+
+    	    int listCnt = list.size();
+    	    StringBuilder jsonArray = new StringBuilder("[");
+
+    	    for (int i = 0; i < listCnt; i++) {
+    	        CommentsDto commentsDto = list.get(i);
+
+    	        jsonArray.append("{")
+    	                  .append("\"replyidx\":\"").append(commentsDto.getReplyiDX()).append("\",")
+    	                  .append("\"rWriter\":\"").append(commentsDto.getrWriter()).append("\",")
+    	                  .append("\"rContent\":\"").append(commentsDto.getrContent()).append("\",")
+    	                  .append("\"rDate\":\"").append(commentsDto.getrDate()).append("\",")
+    	                  .append("\"uidx\":\"").append(commentsDto.getUidx()).append("\"}");
+
+    	        if (i < listCnt - 1) {
+    	            jsonArray.append(",");
+    	        }
+    	    }
+
+    	    jsonArray.append("]");
+
+    	    PrintWriter out = response.getWriter();
+    	    out.println(jsonArray.toString());
+    	
         } else if (location.equals("commentWrite.do")) {
         	
         	

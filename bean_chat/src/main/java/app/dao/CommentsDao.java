@@ -19,12 +19,13 @@ public class CommentsDao {
         this.conn = dbconn.getConnection();
     }
 
-    public ArrayList<CommentsDto> commentSelectAll() {
+    public ArrayList<CommentsDto> commentSelectByBidx(int bidx) {
         ArrayList<CommentsDto> alist = new ArrayList<CommentsDto>();
         ResultSet rs = null;
-        String sql = "select * from replytable where rdelyn='N' order by ReplyiDX desc";
+        String sql = "SELECT * FROM replytable WHERE bidx=? AND rdelyn='N' ORDER BY ReplyiDX DESC";
         try {
             pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, bidx);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 CommentsDto cdto = new CommentsDto();

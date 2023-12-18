@@ -272,7 +272,7 @@ h1 {
 
 main {
     width: 1500px;
-    height: 2000px;
+    height: auto;
     text-align: left;
     margin-top: 50px;
 }
