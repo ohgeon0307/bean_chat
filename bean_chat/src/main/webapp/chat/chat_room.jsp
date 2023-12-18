@@ -253,7 +253,7 @@
                     //챗dao  getRecentChatMessages 메소드 수정하면 닉네임, 이름, 아이디중 암꺼나 뽑아올수 있어요.
                     appendMessages(messages);
                 },
-                error: function (error) { 
+                error: function (error) {
                     console.log(error);
                 }
             });
