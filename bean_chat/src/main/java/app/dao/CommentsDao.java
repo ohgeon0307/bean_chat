@@ -22,7 +22,7 @@ public class CommentsDao {
     public ArrayList<CommentsDto> commentSelectAll() {
         ArrayList<CommentsDto> alist = new ArrayList<CommentsDto>();
         ResultSet rs = null;
-        String sql = "select * from replytable where delyn='N' order by replyidx desc";
+        String sql = "select * from replytable where delyn='N' order by ReplyiDX desc";
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
