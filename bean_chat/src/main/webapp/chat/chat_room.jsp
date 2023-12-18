@@ -42,14 +42,15 @@
         };
 
         function parseTimestampFromMessage(message) {
-            // 메시지에서 타임스탬프를 추출하는 로직 (가정: 메시지에 "timestamp:" 뒤에 Unix 타임스탬프가 있는 경우)
+            // 메시지에서 타임스탬프를 추출하는 로직 수정
+            // (가정: 메시지에 "timestamp:" 뒤에 Unix 타임스탬프가 있는 경우)
             var timestampIndex = message.indexOf("timestamp:");
             if (timestampIndex !== -1) {
-                var timestampString = message.substring(timestampIndex + "timestamp:".length).trim();
-                return parseInt(timestampString, 10);
+                // 타임스탬프를 제거하고 메시지 반환
+                return message.substring(0, timestampIndex).trim();
             }
             // 만약 메시지에서 타임스탬프를 찾을 수 없다면 혹은 다른 형식이라면 적절한 처리를 수행해야 합니다.
-            return null;
+            return message;
         }
 
         function appendMessage(message) {
@@ -80,10 +81,10 @@
          </button><!-- modalBox연결 버튼 -->
         </div>
         <div id="chat-content" class="chat-content"></div>
-        <form id="chatForm">
-            <input id="input_msg" type="text" name="message" placeholder="Type your message..." />
-            <input type="button" value="Send" onclick="send(event)" />
-        </form>
+        <form id="chatForm" onsubmit="send(event); return false;">
+    		<input id="input_msg" type="text" name="message" placeholder="메세지를 입력해주세요!" />
+    		<input type="submit" value="전송" />
+		</form>
     </div>
     
     
@@ -247,10 +248,6 @@
                 url: "<%= request.getContextPath() %>/ChatSSEServlet?chatRoomId=<%= session.getAttribute("chatRoomId") %>",
                 success: function (messages) {
                     // 받아온 메시지를 표시
-                    //여기 메세지가 sse컨트롤러에 있던데 결국 sse의 writer를 보여주는거였음
-                    //sse의 writer는 dao에서 이너조인써서 위에 savemessage에서 저장한 유저정보의 usertable의 uidx 이용해서
-                    //아무거나 뽑아올수 있었는데 건이가 userId를 뽑아오고있었어여
-                    //챗dao  getRecentChatMessages 메소드 수정하면 닉네임, 이름, 아이디중 암꺼나 뽑아올수 있어요.
                     appendMessages(messages);
                 },
                 error: function (error) {
