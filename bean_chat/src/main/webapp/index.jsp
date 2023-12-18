@@ -74,7 +74,8 @@
         <div class="section s0"> <!-- full-page section 첫번째 시작 -->
             <div class="main">
                 <div class="main_text_image">
-                    <img src="./images/indexImage/BeanchatTitle1.png" alt="" class="Beanchat_title">
+                     <img src="./images/indexImage/BeanchatTitle1.png" alt="" class="Beanchat_title">
+                    
                     <p>빈챗은 가볍고 쉬운 웹 채팅 어플리케이션 입니다.</p>
                     <img src="./images/indexImage/BeanChatWater.png" alt="" class="Beanchat_water">
                 </div>
@@ -87,10 +88,10 @@
                 <div class="main_text_image">
                     <img src="./images/indexImage/BeanchatTitle2.png" alt="" class="Beanchat_title2">
                     <p>우리는 어쩌면 작은 콩들이 아닐까요?</p>
-                    <p> 빈챗의 웹 협업 채팅 어플리케이션은 마치 작은 완두콩처럼 작지만,</p>
-                     <p>협업의 힘으로 무한한 가능성을 키우는 도구입니다.</p>
-                     <p>작은 콩들이 커져 성장하는 과정을 지원하고, </p>
-                     <p>협업을 통해 큰 일을 이루어낼 수 있음을 증명해보고 싶습니다. </p>
+                    <p> 빈챗의 웹 채팅 어플리케이션은 마치 작은 완두콩처럼 작지만,</p>
+                     <p>끊임없는 가능성을 품고 발전하는 시스템입니다.</p>
+                     <p>작은 씨앗들이 커져 성장하는 과정을 지원하고, </p>
+                     <p>함께 나아가며 큰일을 이루어낼 수 있음을 증명해보고 싶습니다. </p>
                      <p>자, 그럼 시작해볼까요 ?</p>
                      <a href="<%=request.getContextPath()%>/chat/chatList.do">시작하기!</a>
                 </div>
