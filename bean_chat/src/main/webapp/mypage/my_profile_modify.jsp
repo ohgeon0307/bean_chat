@@ -21,7 +21,7 @@
 <body>
 	<header><!-- 헤더 시작 -->
 		<div class="container"> 
-			<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a>
+			<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
 	        <div class="items">
 	            <ul>
 	                <li>

@@ -2,6 +2,7 @@ package app.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -16,50 +17,55 @@ import app.dao.UserDao;
 import app.dto.CommentsDto;
 import app.dto.UserDto;
 
-@WebServlet("/CommentsController")
-public class CommentsController extends HttpServlet {
+@WebServlet("/CommentController")
+public class CommentController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private String location;
 
-    public CommentsController(String location) {
-        this.location = location;
+    public CommentController() {
+        super();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         if (location.equals("commentList.do")) {
-        	
-        	HttpSession session = request.getSession();
-			int uidx = (Integer)session.getAttribute("uidx");
-
-			
-			UserDao udao = new UserDao();
-			UserDto udto = udao.UserSelectOne(uidx);
-			
-			request.setAttribute("udto", udto);
 
             CommentsDao rdao = new CommentsDao();
             ArrayList<CommentsDto> list = rdao.commentSelectAll();
-
-            String str = "[";
+            int listCnt = list.size();
+            int ReplyiDX = 0;
+            String rWriter = "";
+            String rContents = "";
+            String rDate = "";
+            int uidx = 0;
+            String str = "";
+            
             for (int i = 0; i < list.size(); i++) {
-                CommentsDto comment = list.get(i);
-                str += "{\"replyidx\":\"" + comment.getReplyiDX() + "\",\"rwriter\":\"" + comment.getrWriter()
-                        + "\",\"rcontent\":\"" + comment.getrContent() + "\",\"rdate\":\"" + comment.getrDate()
-                        + "\",\"bidx\":\"" + comment.getBidx() + "\",\"uidx\":\"" + comment.getUidx() + "\"}";
-
-                if (i < list.size() - 1) {
-                    str += ",";
-                }
+            ReplyiDX = list.get(i).getReplyiDX();
+            rWriter = list.get(i).getrWriter();
+            rContents = list.get(i).getrContent();
+            rDate = list.get(i).getrDate();
+            uidx = list.get(i).getUidx();
+            
+            String comma = "";
+            if ( i == listCnt-1) {
+            	comma ="";
+            } else {
+            	comma = ",";
             }
-            str += "]";
-
+            
+            str = str + "{\"replyidx\":\""+ReplyiDX+"\",\"rWriter\":\""+rWriter+"\",\"rContent\":\""+rContents+"\",\"rDate\":\""+rDate+"\",\"uidx\":\""+uidx+"\"}"+comma;	
+            System.out.println(str);
+            }
+            
             PrintWriter out = response.getWriter();
-            out.println(str);
-
-        } else if (location.equals("commentWrite.do")) {      	
+            out.println("["+str+"]");
+        } else if (location.equals("commentWrite.do")) {
+        	
+        	System.out.println("test comments");
+        	
         	HttpSession session = request.getSession();
 			int uidx = (Integer)session.getAttribute("uidx");
 
@@ -74,7 +80,9 @@ public class CommentsController extends HttpServlet {
             String rwriter = request.getParameter("rWriter");
             System.out.println(rwriter);
             String rcontent = request.getParameter("rContent");
-            String rdate = request.getParameter("rDate"); // 댓글 작성일시 받아오기
+            java.util.Date date = new java.util.Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            String rdate = timestamp.toString();
 
             // replyidx는 댓글에 대한 답글을 작성할 때만 필요하므로, 상황에 맞게 처리해야 함
 

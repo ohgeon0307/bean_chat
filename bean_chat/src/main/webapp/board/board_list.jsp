@@ -28,7 +28,8 @@
 </head>
 <body>
 	<div class="container">
-		<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a> 
+		<img src="../images/indexImage/beanchat_text.png" alt=""
+			class="beanchat_text logo">
 		<div class="items">
 			<ul>
 				<li><c:choose>
@@ -181,6 +182,15 @@
 		<!--end: #sns-->
 	</footer>
 	<!--end: footer-->
-	
+	<script>
+$(".logo").click(function(){	
+	if(!confirm("메인으로 돌아가시겠습니까?")){
+		return false;
+	}else{
+		location.href="<%=request.getContextPath()%>";
+			}
+
+		});
+	</script>
 </body>
 </html>

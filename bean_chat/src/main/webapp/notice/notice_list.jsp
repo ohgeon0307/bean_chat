@@ -26,7 +26,8 @@
 </head>
 <body>
 	<div class="container">
-		<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a> 
+		<img src="../images/indexImage/beanchat_text.png" alt=""
+			class="beanchat_text logo">
 		<div class="items">
 			<ul>
 				<li><c:choose>
