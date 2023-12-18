@@ -103,7 +103,7 @@
                 console.error(error);
             }
         });
-    }
+    } 
 
     // 친구 추가
     function addFriend(friendId) {
