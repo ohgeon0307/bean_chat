@@ -1,6 +1,7 @@
 package app.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -67,7 +68,29 @@ public class AdminController extends HttpServlet {
 			rd.forward(request, response);
 
 			// 회원가입 페이지 이동
-		} else if (location.equals("userJoin.do")) {
+		} else if (location.equals("adminUserDelete.do")) {
+			String[] selectUidx = request.getParameterValues("uidx");
+
+			if (selectUidx != null && selectUidx.length > 0) {
+	            UserDao udao = new UserDao();
+
+	            PrintWriter out = response.getWriter();
+	            for (String uidx : selectUidx) {
+	                int uidxValue = Integer.parseInt(uidx);
+	                int exec= udao.userDelete(uidxValue); // 선택된 회원 삭제
+
+	                if(exec > 0) {
+						out.println("<script>alert('정상적으로 해당 회원 탈퇴처리 되었습니다.');"
+								+	"document.location.href='"+request.getContextPath() + "/admin/userList.do'</script>");
+							}else{
+								out.println("<script>history.back();</script>");
+							}
+	            	}
+				}
+
+		}else if (location.equals("adminUserDeletdde.do")) {
+
+
 			
 		}
 	}

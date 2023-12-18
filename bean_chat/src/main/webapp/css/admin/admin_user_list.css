@@ -132,56 +132,7 @@
 /* header css 종료 */
 
 
-#searchBar {
-  display: flex;
-  width: 666px;
-  height: 49px;
-  border: 3px solid #BCE489;
-  margin-top: 10px;
-  margin-right: 220px;
-}
 
-#searchBar input {
-  width: 597px;
-  height: 47px;
-  padding-left: 15px;
-  font-size: 20px;
-  font-weight: bold;
-  border: none;
-  font-family: "Pretendard-Regular";
-}
-
-#searchBar input:focus {
-  outline: none;
-}
-
-#searchBar input::placeholder {
-  font-size: 20px;
-  color: rgb(182, 182, 182);
-}
-
-.searchBtn {
-  border: none;
-  color: #BCE489;
-  padding: 8.5px 16px 7px 7px;
-  background: none;
-}
-
-.searchBtn:hover {
-  color: #BCE489;
-  cursor: pointer;
-}
-
-.searchBtn i {
-  display: inline-block;
-}
-
-
-hr {
-  background: rgb(182, 182, 182);
-  height: 1px;
-  border: none;
-}
 
 
 main {
@@ -189,46 +140,44 @@ main {
     margin-top: 200px; 
     margin-right:auto;
     margin-left:auto;
-    margin-bottom: 150px; 
-    height:auto;
+
   }
 
   main h1 {
-  	width: 68%;
+  	width: 75%;
   	font-weight:bold;
     font-size: 44px;
     color: #BCE489;
-    margin: 0 auto;
-    
-    
+    margin-top: 20px;
+    margin-right:auto;
+    margin-left:auto;
   }
+  #userSearch {
+	margin:0 auto;
+	width: 100%;
+}
 
-  #inner {
+#sFrm{
+	padding-right:0;
+	margin-right:0;
+	width:400px;
+	float:right;
+	display:flex;
+} 
+ #inner {
     width: 75%;
     margin-top: 20px;
     margin-right:auto;
     margin-left:auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-  }
 
-  .userSet {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
   }
-
-.userSearch {
-  margin-left: 750px;
-} 
 
 .userSearch select {
-    padding: 4px;
-    font-size: 15px;
+   	margin-left:auto;
+    padding:0 2px;
+    font-size: 13px;
     outline: none;
-    margin-right: 12px;
-    background: none;
+    margin-right: 14px;
 }
 
 .userSearch select:hover {
@@ -238,23 +187,23 @@ main {
 
 
   .userSearch input[type=text] {
-    width: 268px;
+    width: 45%;
     padding: 10px;
-    font-size: 18px;
+    font-size: 15px;
     outline: none;
     border: none;
     border-bottom: 2px solid #BCE489;
     background: none;
+    margin-right: 14px;
 }
 
   .uSearchBtn {
-    margin-left: 20px;
-    padding: 10px 17px;
+  padding: 10px 17px;
     background-color: #BCE489;
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
   }
@@ -279,92 +228,102 @@ main {
     border-radius: 3px;
   }
 /*end: .userSelect*/
+#selectAllCheckbox{
+ 	margin-top:20px;
 
+ }
+#frm{
+	width:100%;
+	height:auto;
+
+}
   .userList {
-    width: 90%;
-    margin:0 auto;
+     width: 100%;
+    height:500px;
+    margin-top:50px;
+    margin-right:auto;
+    margin-left:auto;
+    margin-bottom:30px;
   }
 
-  .userList ul {
-   text-align: left;
-   padding-top: 15px;
+  .userList thead{
+  font-size:20px;
+   text-align: center;
+   font-weight:bold;
+  }
+.userList thead tr{
+	height:30px;
+}
+
+ .userList tr {
+  border-bottom:1px solid rgb(182, 182, 182);
+ }
+
+.userList tbody {
+	color: rgb(54, 54, 54);
+	font-size: 18px;
+	text-align:center;
   }
 
-  .userList li {
-    border-top: none;
-    border-bottom: 1px solid rgb(136, 136, 136);
-    padding-top: 20px;
-    line-height: 50px;
+.userList tbody td{
+	  vertical-align:middle;
+	  text-align:center;
+}
+
+  .userList tbody tr{
+	color: rgb(54, 54, 54);
+	font-size: 18px;
+	text-align:center;
+	height:20px;
+	vertical-align:middle;
   }
 
-
-  .userList li:last-child {
+  .userList tr:last-child {
     border-bottom: none !important;
   }
 
-  .userList a {
-    width: 635px;
-    height: 55px;
-    font-size: 32px;
-    color: rgb(54, 54, 54);
-    text-align: left;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+.delBtn{
+ 	padding: 10px 20px;
+ 	font-size:17px;
+ 	border:none;
+ 	border-radius:5px;
+ 	float:right;
+ 	color: #BCE489;
+    font-weight: bold;
+    border: 1px solid #BCE489;
+    cursor:pointer;
+ }
 
-    .userList a:hover {
-      color: #BCE489;
-    }
-
-
-  .userContent {
-    float: right;
-  }
-
-  .userContent span {
-    height: 20px;
-    border: 1px solid rgb(177, 177, 177);
-    padding: 4px 10px;
-    background-color: rgb(243, 243, 243);
-    color:rgb(56, 56, 56);
-    font-size: 18px;
-    filter: opacity(0.9);
-  }
-
-  .boardContent p {
-    display: inline-block;
-    font-size: 16px;
-    color:rgb(70, 70, 70);
-    margin-left: 15px;
-  }
   
   .pager {
-    width: 1300px;
+	margin-top:20px;
+    width: 100%;
     height: 64px;
     background-color: rgb(192, 192, 192);
     text-align: center;
     padding-top: 40px;
   }
 
+.pager a{
+
+	font-size:18px;
+	margin-left:5px;
+	text-decoration: none;
+}
+
+.pager:first-child{
+	margin-left:0;
+}
   .btnBar {
-    width: 1300px;
+    width: 100%;
     height: 64px;
 }
 
-  .btnBar a {
-    font-size: 17px;
-    padding: 10px 20px;
-    border: 1px solid #BCE489;
-    border-radius: 5px;
-    float: right;
-    color: #BCE489;
-    font-weight: bold;
-  }
-
-  .btnBar a:hover {
+ .delBtn:hover {
     background-color: #BCE489;
+    color: white;
+    transition: all 0.2s ease-in-out;
+	background-color: #BCE489;
     color: white;
     transition: all 0.2s ease-in-out;
   }
