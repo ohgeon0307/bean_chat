@@ -95,7 +95,7 @@ public class BoardController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
 		} else if (location.equals("boardWriteAction.do")) {
-
+ 
 			HttpSession session = request.getSession();
 			int uidx = (Integer) session.getAttribute("uidx");
 
