@@ -9,11 +9,11 @@
 <head>
     <meta charset="UTF-8">
     <!-- 제이쿼리 연결 -->
-	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
-	<!-- 부트스트랩 연결 -->
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+   <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"> </script>
+   <!-- 부트스트랩 연결 -->
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <link href="../css/reset.css" rel="stylesheet" />
     <link href="../css/chat/chat_room.css" rel="stylesheet" />
     
@@ -76,8 +76,8 @@
            원래 action.do같은데따 담아두셨음. -->
             <p>안녕하세요, ${udto.userName}님!</p>
             <button type="button" id="addFriend">
-				<i class="xi-user-plus-o"></i>친구 초대하기
-			</button><!-- modalBox연결 버튼 -->
+            <i class="xi-user-plus-o"></i>친구 초대하기
+         </button><!-- modalBox연결 버튼 -->
         </div>
         <div id="chat-content" class="chat-content"></div>
         <form id="chatForm">
@@ -87,128 +87,132 @@
     </div>
     
     
-		<div class="modal" id="addModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<!-- Modal Header -->
-					<div class="modal-header">
-						<h4 class="modal-title">친구추가</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div><!--//.modal-header  -->
+      <div class="modal" id="addModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <!-- Modal Header -->
+               <div class="modal-header">
+                  <h4 class="modal-title">친구추가</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">×</span>
+                  </button>
+               </div><!--//.modal-header  -->
 
 
-					<!--Modal body  -->
-					<div class="modal-body">
-						<!-- 친구 검색 -->
-						<P>친구의 ID를 검색 후 초대 할 수 있어요!</P>
-						<label for="friendId">친구 ID:</label>
-						<input type="text" id="friendId" name="friendId">
-						<button onclick="searchAndAddFriend()">검색</button>
-						
-						<!-- 검색 및 추가 결과 표시 -->
-						<div id="searchAndAddResult"></div>
+               <!--Modal body  -->
+               <div class="modal-body">
+                  <!-- 친구 검색 -->
+                  <P>친구의 ID를 검색 후 초대 할 수 있어요!</P>
+                  <label for="friendId">친구 ID:</label>
+                  <input type="text" id="friendId" name="friendId">
+                  <button onclick="searchAndAddFriend()">검색</button>
+                  
+                  <!-- 검색 및 추가 결과 표시 -->
+                  <div id="searchAndAddResult"></div>
 
-					</div><!--//.modal-body  -->
-					
-					<!--Modal footer  -->
-					<div class="modal-footer">
-						<!-- 추가버튼 추가 될 자리 -->
-						<button type="button" id="clodelModalBtn" class="btn btn-default" data-dismiss="modal">취소</button>
-					</div><!-- //.modal-footer -->
+               </div><!--//.modal-body  -->
+               
+               <!--Modal footer  -->
+               <div class="modal-footer">
+                  <!-- 추가버튼 추가 될 자리 -->
+                  <button type="button" id="clodelModalBtn" class="btn btn-default" data-dismiss="modal">취소</button>
+               </div><!-- //.modal-footer -->
 
-				</div><!--//.modal-content  -->
-			</div><!-- //.modal-dialog modal-dialog-centered -->
-		</div><!-- //#delModal -->
-		 <script>  // 모달 버튼에 이벤트를 건다.  
-		  $('#addFriend').on('click', function(){
-			    $('#addModal').modal('show');
-			});
+            </div><!--//.modal-content  -->
+         </div><!-- //.modal-dialog modal-dialog-centered -->
+      </div><!-- //#delModal -->
+       <script>  // 모달 버튼에 이벤트를 건다.  
+        $('#addFriend').on('click', function(){
+             $('#addModal').modal('show');
+         });
 
-			// 모달 안의 취소 버튼 클릭 시 모달 닫기
-			$('#clodelModalBtn').on('click', function(){
-			    $('#addModal').modal('hide');
-			});
-			
-			// 친구 검색
-		    function searchAndAddFriend() {
-		        var friendId = $('#friendId').val();
-		        var friendId = $('#friendId').val().trim(); // 입력값 양쪽 공백 제거
+         // 모달 안의 취소 버튼 클릭 시 모달 닫기
+         $('#clodelModalBtn').on('click', function(){
+             $('#addModal').modal('hide');
+         });
+         
+         // 친구 검색
+          function searchAndAddFriend() {
+              var friendId = $('#friendId').val();
+              var friendId = $('#friendId').val().trim(); // 입력값 양쪽 공백 제거
 
-		        // 입력값이 공백인지 확인
-		        if (friendId === '') {
-		            // 공백일 경우 알림을 띄우고 검색을 수행하지 않음
-		            alert('공백으로는 검색할 수 없습니다.');
-		            return;
-		        }
-			
-			
-			
-			
-	        $.ajax({
-	            url: '<%= request.getContextPath() %>/chat/chatSearchFriend.do?friendId=' + friendId,
-	            type: 'POST',
-	            dataType: 'json',
-	            success: function (data) {
-	            	var isFriend = data.isFriend; // 서버에서 전달된 친구 여부 값
-	            	
-	            	if (data && Object.keys(data).length > 0) {
-	            		if (isFriend) {
-	            		
-		                // 검색 결과 표시
-		              	var searchResult = ('<img src="../' + data.userImage + '" id="profile-image"><br>' +
-	                                        'ID: ' + data.userId + '<br>' +
-	                                        '이름: ' + data.userName+'<br>' +
-	                                        '닉네임: ' + data.userNickname);
-		           		// 검색 결과를 표시할 요소에 내용 추가
-		              $('#searchAndAddResult').html(searchResult);
-	           		
+              // 입력값이 공백인지 확인
+              if (friendId === '') {
+                  // 공백일 경우 알림을 띄우고 검색을 수행하지 않음
+                  alert('공백으로는 검색할 수 없습니다.');
+                  return;
+              }
+         
+         
+         
+         
+           $.ajax({
+               url: '<%= request.getContextPath() %>/chat/chatSearchFriend.do?friendId=' + friendId,
+               type: 'POST',
+               dataType: 'json',
+               success: function (data) {
+                  
+                  if (data && Object.keys(data).length > 0) {
+                     if (data.isFriend) {
+                     
+                      // 검색 결과 표시
+                       var searchResult = ('<img src="../' + data.userImage + '" id="profile-image"><br>' +
+                                           'ID: ' + data.userId + '<br>' +
+                                           '이름: ' + data.userName+'<br>' +
+                                           '닉네임: ' + data.userNickname);
+                       // 검색 결과를 표시할 요소에 내용 추가
+                    $('#searchAndAddResult').html(searchResult);
+                    
 
-		              var addButton = $('<button>친구 초대</button>');
-		              addButton.on('click', function() {
-		                  chatAddFriend(data.userId);
-		              });
+                    var addButton = $('<button>친구 초대</button>');
+                    addButton.on('click', function() {
+                        chatAddFriend(data.userId);
+                    });
 
-		              // 모달 푸터에 추가 버튼 추가
-		              $('.modal-footer').empty().append(addButton);
-		              }else {
-	            		 // 검색 결과가 없을 때 표시할 메시지
-	                    $('#searchAndAddResult').html('<p>검색 결과가 없습니다.</p>');
-	                }
-  				} else {
-	            	  $('#searchAndAddResult').html('<p>검색 결과가 없습니다.</p>');
-	            } 
-	         },
-	            error: function (error) {
-	                console.error(error);
-	            }
-	        });
-			}
-		</script>
-		<script>
-	    // 친구 추가
-	    function addFriend(friendId) {
-	        var addId = $('#addId').val();
+                    // 모달 푸터에 추가 버튼 추가
+                    $('.modal-footer').empty().append(addButton);
+                    }else {
+                      // 검색 결과가 없을 때 표시할 메시지
+                       $('#searchAndAddResult').html('<p>검색 결과가 없습니다.</p>');
+                   }
+              } else {
+                    $('#searchAndAddResult').html('<p>검색 결과가 없습니다.</p>');
+               } 
+            },
+               error: function (error) {
+                   console.error(error);
+               }
+           });
+         }
+      </script>
+      <script>
+       // 친구 추가
+       function chatAddFriend(friendId) {
+           var addId = $('#addId').val();
 
-	        $.ajax({
-	            url: '<%= request.getContextPath() %>/chat/chatAddFriend.do?addId=' + friendId,
-	            type: 'POST',
-	            dataType: 'json',
-	            success: function (data) {
-	                // 추가 결과 표시
-	            	$('#addModal').modal('hide'); // 모달 닫기
-	            	alert('상대방에게 요청 메세지를 보냈어요!\n상대방이 수락 할 때까지 기다려 주세요.');
-	            },
-	            error: function (error) {
-	                console.error(error);
-	                alert('친구 초대에 실패했습니다. 다시 시도해주세요.');
-	            }
-	        });
-	    }
-	   </script>
-		
-		
+           $.ajax({
+               url: '<%= request.getContextPath() %>/chat/chatAddFriend.do?addId=' + friendId,
+               type: 'POST',
+               dataType: 'json',
+               success: function (data) {
+                  if(data.success){
+                   // 추가 결과 표시
+                  $('#addModal').modal('hide'); // 모달 닫기
+                  alert('상대방에게 요청 메세지를 보냈어요!\n상대방이 수락 할 때까지 기다려 주세요.');
+                  }else{
+                     alert('이미 초대된 사용자입니다.')
+                  }
+
+               },
+               error: function (error) {
+                   console.error(error);
+                   alert('친구 초대에 실패했습니다. 다시 시도해주세요.');
+               }
+           });
+       }
+      </script>
+      
+      
     <script type="text/javascript">
         var inputMsg = document.getElementById('input_msg');
         //여기는 그냥 유저네임이든 유아이디엑스든 유저정보 뽑아올수 있는거면 아무거나 괜찮은듯

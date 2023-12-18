@@ -93,7 +93,15 @@
                      <p>작은 완두콩같은 사람들이 모여 채팅을 하고, </p>
                      <p>지속적인 소통으로 좋은 관계를 이루어낼 수 있음을 증명해보고 싶습니다. </p>
                      <p>자, 그럼 시작해볼까요 ?</p>
-                     <a href="<%=request.getContextPath()%>/chat/chatList.do">시작하기!</a>
+                     <c:choose>
+                		<c:when test="${uidx== null }">
+                			<a href="<%=request.getContextPath()%>/user/userLogin.do">시작하기!</a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="<%=request.getContextPath()%>/chat/chatIndex.do">시작하기!</a>
+                		</c:otherwise>
+                	</c:choose>
+                     
                 </div>
             </div>
         </div> <!-- full-page section 두번째 종료-->

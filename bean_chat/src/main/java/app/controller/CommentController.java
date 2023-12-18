@@ -31,7 +31,7 @@ public class CommentController extends HttpServlet {
             throws ServletException, IOException {
 
         if (location.equals("commentList.do")) {
-
+        	
             CommentsDao rdao = new CommentsDao();
             ArrayList<CommentsDto> list = rdao.commentSelectAll();
             int listCnt = list.size();

@@ -42,7 +42,7 @@ public class ChatSSEServlet extends HttpServlet {
         
         int chatRoomId = (int) session.getAttribute("chatRoomId");
 
-        // 예시로 최근 10개의 메시지를 가져오도록 함
+        // 최근메세지 끌어오기
         ChatDao cdao = new ChatDao();
         List<ChatDto> messages = cdao.getRecentChatMessages(chatRoomId, 10);
 
