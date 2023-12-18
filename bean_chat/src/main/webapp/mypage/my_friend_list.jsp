@@ -131,7 +131,7 @@
 <body>
 <header><!-- 헤더 시작 -->
 	<div class="container"> 
-		<img src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
+		<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a>    
         <div class="items">
             <ul>
                 <li>
@@ -267,6 +267,13 @@
 			// 모달 안의 취소 버튼 클릭 시 모달 닫기
 			$('#clodelModalBtn').on('click', function(){
 			    $('#addModal').modal('hide');
+			    
+			    $(".logo").click(function(){	
+		        	if(!confirm("메인으로 돌아가시겠습니까?")){
+						return false;
+		        	}else{
+		        		location.href="<%=request.getContextPath()%>";
+		        	}
 			});
 		</script>
 </body>
