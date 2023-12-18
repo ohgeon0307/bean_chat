@@ -25,8 +25,8 @@ public class UserDao {
 	public int userInsert(UserDto udto){
 		int exec = 0;
 		
-		String sql = "insert into usertable(uidx,userid,userpwd,username,userbirth,usergender,userphone,usernickname)"
-		        +" values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into usertable(uidx,userid,userpwd,username,userbirth,usergender,userphone,usernickname,adminYn)"
+		        +" values(?,?,?,?,?,?,?,?,'N')";
 		try{
 		conn.setAutoCommit(false);
 		pstmt = conn.prepareStatement(sql);
