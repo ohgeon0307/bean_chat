@@ -399,6 +399,10 @@ footer {
   margin-bottom: 10px; /* 높이 조정 */
 }
 
+#slogan p, .companyInfo {
+	color: rgb(99, 99, 99);
+}
+
 footer img {
   filter: invert(0.2);
   margin-bottom: 5px;

@@ -341,6 +341,10 @@ footer {
   color: rgb(99, 99, 99);
 }
 
+#slogan p, .companyInfo {
+	color: rgb(99, 99, 99);
+}
+
 #slogan {
   width: 100%;
   max-width: 600px;
