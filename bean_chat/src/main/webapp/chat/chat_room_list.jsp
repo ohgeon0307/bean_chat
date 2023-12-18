@@ -21,6 +21,9 @@
 <body>
     <h2>내 채팅방 목록</h2>
 	<img src="../images/indexImage/beanchat_char.png" alt="" class="Beanchat_title2 logo">
+   
+   
+   <a href="<%=request.getContextPath()%>/chat/chatRequest.do" class="myButton primary">채팅수락하러가기</a>
     <div id="chatList">
         <c:if test="${not empty chatRooms}">
             <c:forEach var="chatRoom" items="${chatRooms}">
