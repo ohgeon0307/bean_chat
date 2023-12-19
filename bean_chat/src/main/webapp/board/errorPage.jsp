@@ -61,7 +61,7 @@
 <body>
 	<div class="error-container">
 	  <div class="logo-container">
-            <img class="logo-img" src="../images/indexImage/beanchat_char.png" alt="로고 이미지">
+            <img class="logo-img" src="../images/indexImage/BeanchatNoAccess.png" alt="로고 이미지">
         </div>
         <h1>권한이 없습니다!</h1>
         <p>죄송해요! 수정/삭제 권한이 없는거같아요.
