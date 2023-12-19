@@ -38,14 +38,14 @@
                 			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="./images/indexImage/login_icon.png" alt=""><span>로그인</span></a>
         				</c:when>
             			<c:otherwise>
-            				<a href="<%=request.getContextPath()%>/user/userLogout.do"><img role="button" src="./images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
+            				<a href="<%=request.getContextPath()%>/user/userLogout.do" onclick="return confirm('로그아웃 하시겠습니까?')"><img role="button" src="./images/indexImage/logout_icon.png" alt=""><span>로그아웃</span></a>
             			</c:otherwise>
             		</c:choose> 
             	</li>
                 <li>
                 	<c:choose>
                 		<c:when test="${uidx== null }">
-                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="./images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
+                			<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')"><img role="button" src="./images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
                 		</c:when>
                 		<c:otherwise>
                 			<a href="<%=request.getContextPath()%>/mypage/myMain.do"><img role="button" src="./images/indexImage/mypage_icon.png" alt=""><span>마이페이지</span></a>
@@ -56,18 +56,27 @@
                 <li>
                 	<c:choose>
                 		<c:when test="${uidx==null }">
-                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="./images/indexImage/board_icon.png" alt=""><span>게시판</span></a>
+                			<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')"><img role="button" src="./images/indexImage/board_icon.png" alt=""><span>게시판</span></a>
                 		</c:when>
                 		<c:otherwise>
                 			<a href="<%=request.getContextPath() %>/board/boardList.do"><img role="button" src="./images/indexImage/board_icon.png" alt=""><span>게시판</span></a>
                 		</c:otherwise>
                 	</c:choose>
                 </li>
-                <li><a  href="<%=request.getContextPath()%>/notice/noticeList.do"><img role="button" src="./images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a></li>
+                <li>
+                <c:choose>
+                	<c:when test="${uidx==null }">
+                		<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')"><img role="button" src="./images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a>
+                	</c:when>
+                	<c:otherwise>
+                		<a  href="<%=request.getContextPath()%>/notice/noticeList.do"><img role="button" src="./images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a>
+               		</c:otherwise>
+                </c:choose>
+                </li>
                 <li>
                 	<c:choose>
                 		<c:when test="${uidx== null }">
-                			<a href="<%=request.getContextPath()%>/user/userLogin.do"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+                			<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
                 		</c:when>
                 		<c:otherwise>
                 			<a href="<%=request.getContextPath()%>/chat/chatIndex.do"><img role="button" src="./images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
@@ -105,7 +114,7 @@
                      <p>자, 그럼 시작해볼까요 ?</p>
                      <c:choose>
                 		<c:when test="${uidx== null }">
-                			<a href="<%=request.getContextPath()%>/user/userLogin.do">시작하기!</a>
+                			<a href="<%=request.getContextPath()%>/user/userLogin.do" onclick="return alert('로그인이 필요합니다.')">시작하기!</a>
                 		</c:when>
                 		<c:otherwise>
                 			<a href="<%=request.getContextPath()%>/chat/chatIndex.do">시작하기!</a>

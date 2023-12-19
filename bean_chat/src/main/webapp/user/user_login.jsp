@@ -22,14 +22,9 @@
 <body>
 	<header><!-- 헤더 시작 -->
 		<div class="container"> 
-			<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a>     
+			<a href="../index.jsp"><img role="button" src="../images/indexImage/beanchat_text.png" alt="" class="beanchat_text"></a> 
 	        <div class="items">
 	            <ul>
-		           <li> 
-	            		<c:if test="${admin == 'admin' }">
-	            			<a href="<%=request.getContextPath()%>/admin/userList.do"><i class="xi-crown xi-4x" style="color:gold;"></i></a>
-	            		</c:if>
-	            	</li>
 	                <li>
 	                	<c:choose>
 	                		<c:when test="${uidx== null }">
@@ -50,14 +45,33 @@
 	                		</c:otherwise>
 	                	</c:choose>
 	                </li>
-	                <li><a href="<%=request.getContextPath()%>/board/boardList.do"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a></li>
+		                 <li>
+	                	<c:choose>
+	                		<c:when test="${uidx==null }">
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"  onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<a href="<%=request.getContextPath() %>/board/boardList.do"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a>
+	                		</c:otherwise>
+	                	</c:choose>
+	                </li>
+	                <li>
+	                <c:choose>
+	                	<c:when test="${uidx==null }">
+	                		<a href="<%=request.getContextPath()%>/user/userLogin.do"  onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a>
+	                	</c:when>
+	                	<c:otherwise>
+	                		<a  href="<%=request.getContextPath()%>/notice/noticeList.do"><img role="button" src="../images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a>
+	              		 </c:otherwise>
+	                	</c:choose>
+	                </li>
 	                <li>
 	                	<c:choose>
 	                		<c:when test="${uidx== null }">
-	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"  onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
 	                		</c:when>
 	                		<c:otherwise>
-	                			<a href="<%=request.getContextPath()%>/chat/chatList.do"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+	                			<a href="<%=request.getContextPath()%>/chat/chatIndex.do"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
 	                		</c:otherwise>
 	                	</c:choose>
 	                </li>	

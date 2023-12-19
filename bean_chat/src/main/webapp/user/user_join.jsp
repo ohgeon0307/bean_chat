@@ -42,14 +42,33 @@
 	                		</c:otherwise>
 	                	</c:choose>
 	                </li>
-	                <li><a href="<%=request.getContextPath()%>/board/boardList.do"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a></li>
+		                 <li>
+	                	<c:choose>
+	                		<c:when test="${uidx==null }">
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"  onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<a href="<%=request.getContextPath() %>/board/boardList.do"><img role="button" src="../images/indexImage/board_icon.png" alt=""><span>게시판</span></a>
+	                		</c:otherwise>
+	                	</c:choose>
+	                </li>
+	                <li>
+	                <c:choose>
+	                	<c:when test="${uidx==null }">
+	                		<a href="<%=request.getContextPath()%>/user/userLogin.do"  onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a>
+	                	</c:when>
+	                	<c:otherwise>
+	                		<a  href="<%=request.getContextPath()%>/notice/noticeList.do"><img role="button" src="../images/indexImage/announcement_icon.png" alt=""><span>공지사항</span></a>
+	              		 </c:otherwise>
+	                	</c:choose>
+	                </li>
 	                <li>
 	                	<c:choose>
 	                		<c:when test="${uidx== null }">
-	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+	                			<a href="<%=request.getContextPath()%>/user/userLogin.do"  onclick="return alert('로그인이 필요합니다.')"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
 	                		</c:when>
 	                		<c:otherwise>
-	                			<a href="<%=request.getContextPath()%>/chat/chatList.do"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
+	                			<a href="<%=request.getContextPath()%>/chat/chatIndex.do"><img role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
 	                		</c:otherwise>
 	                	</c:choose>
 	                </li>	
@@ -80,7 +99,6 @@
 						<!-- autocomplete="off" : 자동 완성 미사용 -->
 						<!-- required : 필수 작성 input 태그 -->
 	
-						<button type="button" class="custom-button">인증번호 받기</button>
 	            	</div><!-- //.input_area -->
 					<!-- 이메일 인증번호 -->
 			</div>
@@ -90,16 +108,6 @@
 				</span >
 
 				<!-- 인증번호 input창 -->
-			<div class="fake">
-					<label for="emailCheck">
-						<img class="laBean" src="../images/indexImage/poorBean.png" alt="콩이미지">
-						인증번호 :
-	            	</label>
-				<div class="input_area">
-					<input type="text" id="emailCheck" placeholder="인증번호 입력" maxlength="6" autocomplete="off"/>
-					<button type="button" class="custom-button">인증하기</button>
-            	</div><!-- //.input_area -->
-			</div>
 				<!-- 인증번호 message -->
 				<!-- <span class="message_success">인증되었습니다.</span> -->
 
