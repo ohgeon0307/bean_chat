@@ -257,9 +257,25 @@
         }
 
         function appendMessages(messages) {
-            // 받아온 메시지 목록을 채팅 창에 표시
             var chatContent = document.getElementById('chat-content');
-            chatContent.innerHTML = '<div class="message">' + messages.join('</div><div class="message">') + '</div>';
+
+            // 문자열인 경우 처리
+            if (typeof messages === 'string') {
+                // 받아온 메시지를 배열로 분할
+                var messageArray = messages.split('\n').filter(Boolean);
+
+                // 배열의 각 요소를 처리하여 채팅 창에 표시
+                for (var i = 0; i < messageArray.length; i++) {
+                    var message = messageArray[i];
+                    chatContent.innerHTML += '<div class="message">' + message + '</div>';
+                }
+            } else if (Array.isArray(messages)) {
+                // 배열인 경우 처리
+                chatContent.innerHTML = '<div class="message">' + messages.join('</div><div class="message">') + '</div>';
+            } else {
+                // 그 외의 경우, 적절한 처리를 수행
+                console.error('Messages is not a string or an array:', messages);
+            }
 
             // 채팅 창을 스크롤하여 최신 메시지가 보이도록 함
             chatContent.scrollTop = chatContent.scrollHeight;

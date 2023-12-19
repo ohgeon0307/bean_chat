@@ -52,7 +52,7 @@ public class ChatSSEServlet extends HttpServlet {
     }
 
     private static void sendMessageToClient(PrintWriter writer, String message) {
-        writer.write("data: " + message + "\n\n");
+        writer.write(message + "\n\n");
         writer.flush();
     }
 }
