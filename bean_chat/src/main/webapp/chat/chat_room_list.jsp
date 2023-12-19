@@ -19,11 +19,16 @@
     </style>
 </head>
 <body> 
+<div id="likeHeader">
     <h2>내 채팅방 목록</h2>
+</div>
+<div id="main_zone">
 	<img src="../images/indexImage/beanchat_char.png" alt="" class="Beanchat_title2 logo">
    
    
-   <a href="<%=request.getContextPath()%>/chat/chatRequest.do" class="myButton primary">채팅수락하러가기</a>
+  <div id="middle_zone">
+    <p>채팅방 목록이 여기에 표시됩니다.</p> <a href="<%=request.getContextPath()%>/chat/chatRequest.do" class="acpBtn">채팅수락하러가기</a>
+   </div> 
     <div id="chatList">
         <c:if test="${not empty chatRooms}">
             <c:forEach var="chatRoom" items="${chatRooms}">
@@ -36,7 +41,6 @@
         </c:if>
     </div>
 
-    <p>채팅방 목록이 여기에 표시됩니다.</p>
 
     <script>
         // 채팅방 목록 클릭 시 해당 채팅방으로 이동
@@ -59,5 +63,6 @@
 
         		});
     </script>
+</div>
 </body>
 </html>

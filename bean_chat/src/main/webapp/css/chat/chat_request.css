@@ -1,0 +1,457 @@
+@charset "UTF-8";@charset "UTF-8";
+
+
+/* header css */
+
+.container a { text-decoration: none; color: white;
+font-weight: 900; }
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+
+.container {
+    background-color:  #bce489;
+    position : fixed;
+    z-index: 1000;
+    display : flex;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 40px 0px 0px 6%;
+    top: 0;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: 1.5s ease 0.3s 1 normal forwards running headerbar;
+    color : white;
+    height : 140px;
+}
+
+@keyframes headerbar {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+        max-width: 1140vmax;
+    }
+}
+
+.beanchat_text {
+    position : relative;
+    left : 165px;
+    bottom : 20px;
+    max-width : 250px;
+}
+
+.container ul img {
+    position : relative;
+    right : 0px;
+    object-fit: contain;
+    display: flex;
+    float: none;
+    width: 150%;
+    height: auto;
+    max-width : 250px;
+}
+
+.items {
+    position: relative;
+    bottom : 20px;
+    display: flex;
+    flex-flow: wrap;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin : 0;
+    padding : 0;
+}
+
+.items li:hover img {
+    opacity : 0;
+}
+
+.items li span {
+    position: absolute;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 150px;
+    height: 30px;
+    bottom : 20px;
+}
+
+.items li:hover span {
+    position : absolute;
+    opacity : 1;
+    transition-delay: 0.3s;
+}
+
+.container ul {
+    display: flex;
+    list-style: none;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 48px;
+    margin-right : 200px;
+    padding : 0;
+}
+
+.container ul li:not(:last-child) {
+    margin-right : 25px;
+}
+
+.container ul li {
+    width: 60px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 방지 */
+    text-align: center; /* 가로 정렬을 위해 텍스트 가운데 정렬 */
+    margin: 0;
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.items li img {
+    opacity: 1;
+    transition: opacity 0.3s;
+    width : 45px;
+    height: 45px;
+}
+/* header css 종료 */
+
+/*main 시작*/
+main {
+    width: 70%;
+    margin-left: auto;
+  	margin-right: auto;
+ 	margin-top: 250px; 
+	margin-bottom: 100px; 
+    height:auto;
+    
+}
+
+main h1 {
+	font-size: 40px;
+	color: #418722;
+}
+
+hr {
+	background: #1e2924;
+	height: 10px;
+	border: 0;
+	width: 250px;
+	margin-left: 0;
+	box-shadow: 0 10px 10px -10px #409968 inset;
+	border-radius: 10px;
+}
+
+/*탭 부분 css */
+
+#myTab {
+	display: flex;
+    width: 50%;
+    background-color: #d1f2eb; /* 탭의 전체 배경색 변경 */
+	justify-content: center; /* 탭을 가운데 정렬 */
+    margin-bottom: 20px; /* 아래 여백 설정 */
+    margin-top: 50px; 
+    height:50px;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+#myTab .nav-item {
+    text-align: center;
+    font-size:18px;
+    font-weight:bold;
+    border: none;
+    text-decoration: none;
+    border-radius: 3px;
+    color: #555;
+    transition: background-color 0.3s ease, color 0.3s ease; /* 색상 전환 효과 추가 */
+}
+
+#myTab .nav-link {
+	width:170px;
+	height:50px;
+	color: #333;
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 30px; /* 탭 버튼 간격 조정 */
+    padding: 10px 20px; /* 탭 버튼 내부 여백 설정 */
+   /*  border-radius: 5px 5px 0 0; 탭 버튼 모서리 둥글게 설정 */
+   border-radius:5px;
+    border-bottom: 3px solid transparent; /* 선택된 탭의 아래 테두리 설정 */
+    transition: border-bottom-color 0.3s ease; /* 테두리 색상 전환 효과 */
+}
+
+
+
+
+
+
+/* 선택된 탭의 스타일 */
+.nav-item .nav-link.active {
+	color: #fff !important;
+    background-color: #2ecc71 !important;
+    border-bottom-color: #238e68 !important; /* 선택된 탭의 테두리 색상 설정 */
+}
+
+/* 선택되지 않은 탭의 스타일 */
+.nav-item .nav-link:not(.active) {
+	color: #555 !important; /* 비활성화된 탭의 텍스트 색상 변경 */
+    background-color: transparent !important; /* 배경색을 투명으로 설정하여 효과적으로 변경됩니다 */
+    border-bottom: 2px solid transparent; /* 선택되지 않은 탭의 하단 테두리 스타일 */
+}
+
+/* 마우스를 올렸을 때 탭의 스타일 */
+.nav-item .nav-link:not(.active):hover {
+	color: white !important; /* 호버 시 텍스트 색상 */
+    background-color:#007bff  !important; /* 호버 시 배경색 */
+}
+
+.tab-content .tab-pane {
+    display: none;
+}
+
+.tab-content .tab-pane.active {
+    display: block;
+}
+
+/* 폼 css*/
+#myTabContent{
+	min-height: 500px; /* 최소 높이 지정 */
+	padding: 20px;
+    border: 1px solid #ccc;
+    border-radius:10px;
+    width:50%;
+    margin-right:auto;
+    margin-left:auto;
+    
+}
+
+.search-title{
+	margin:35px auto;
+	text-align:center;
+}
+
+.search-title h2{
+	font-size:30px;
+}
+
+.search-title p{
+	font-size:18px;
+	margin-top:30px;
+}
+
+.form-search{
+	margin:0 auto;
+	text-align:center;
+	width:70%;
+}
+
+
+
+
+main h2{
+    margin-top: 50px;
+    font-size:30px;
+    margin-bottom:40px;
+}
+
+/* 친구 요청 목록 스타일 */
+#requestList,#sendRequestList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#requestList li,#sendRequestList li {
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+#requestList li img,#sendRequestList li img {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+#requestList li div ,#sendRequestList li div{
+  flex: 1;
+}
+
+#requestList li button {
+  padding: 8px 15px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+#requestList li button:nth-child(1) {
+  background-color: #007bff; /* 새로운 배경색 지정 */
+  color: white; /* 버튼 텍스트 색상 */
+}
+
+#requestList li button:nth-child(2) {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* 버튼 호버 시 색상 변경 */
+#requestList li button:hover {
+  opacity: 0.8;
+}
+
+.button_zone{
+	width:300px;
+	text-align:center;
+	margin-right:auto;
+	margin-left:auto;
+	margin-top:80px;
+	margin-bottom:60px;
+}
+.backBtn {
+  display: inline-block;
+  padding: 20px 20px;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.backBtn:hover{
+	background-color: #45a049;
+}
+
+
+
+
+
+/*푸터 css*/
+
+footer {
+	width: 100%;
+	box-sizing: border-box;
+	height: auto;
+	background-color: rgb(56, 56, 56);
+	padding: 30px 0; /* 높이 조정 */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: rgb(99, 99, 99);
+}
+
+#slogan {
+	width: 100%;
+	max-width: 600px;
+	text-align: center;
+	margin-bottom: 10px; /* 높이 조정 */
+}
+
+#slogan p, .companyInfo {
+	color: rgb(99, 99, 99);
+}
+
+footer img {
+	filter: invert(0.2);
+	margin-bottom: 5px;
+}
+
+#footerMenu, .companyInfo, #sns {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px; /* 높이 조정 */
+  flex-direction: column-reverse;
+  align-content : center;
+  margin-left : 25px;
+}
+
+
+#footerMenu ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+}
+
+#footerMenu li {
+	margin-right: 20px;
+}
+
+#footerMenu a {
+	color: rgb(99, 99, 99);
+	text-decoration: none;
+}
+
+#footerMenu a:hover {
+	color: #BCE489;
+}
+
+.companyInfo {
+	max-width: 400px;
+}
+
+#sns {
+	max-width: 300px;
+}
+
+#sns ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	align-items: center; /* 세로 중앙 정렬 추가 */
+	justify-content: center; /* 가로 중앙 정렬 추가 */
+}
+
+#sns li {
+	margin-right: 15px;
+}
+
+#sns a {
+	display: flex; /* 아이콘을 세로 중앙 정렬하기 위해 추가 */
+	align-items: center; /* 세로 중앙 정렬 추가 */
+	padding: 10px;
+	border: 1px solid rgb(99, 99, 99);
+	border-radius: 50%;
+	color: rgb(99, 99, 99);
+	text-decoration: none;
+}
+
+#sns a:visited {
+	color: rgb(99, 99, 99);
+}
+
+#sns a:hover {
+	color: #BCE489;
+	border: 1px solid #BCE489;
+}
+
+
+
+
+

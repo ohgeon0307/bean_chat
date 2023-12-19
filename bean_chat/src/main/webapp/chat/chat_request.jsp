@@ -15,7 +15,7 @@
 	<!-- css연결 -->
 	<link href="../css/reset.css" rel="stylesheet" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-	<link href="../css/mypage/my_friend_request.css" rel="stylesheet" /> 
+	<link href="../css/chat/chat_request.css" rel="stylesheet" /> 
 	
 	<script type="text/javascript">
 	function chatRequestList() {
@@ -33,9 +33,9 @@
 	            for (var i = 0; i < receivedRequests.length; i++) {
 	                var listItem = $('<li>');
 
-	                var roomInfo = $('<div>').html('Room Name: ' + receivedRequests[i].roomName); // 룸 이름 표시
-	                var id = $('<div>').html('Room ID: ' + receivedRequests[i].id); // 룸 아이디 표시
-	                var friendInfo = $('<div>').html('Friend Info: ' + friendNicknames[i]); // 프렌즈 정보 표시
+	                var id = $('<div>').html('Num: ' + receivedRequests[i].id); // 룸 아이디 표시
+	                var roomInfo = $('<div>').html('방이름: ' + receivedRequests[i].roomName); // 룸 이름 표시
+	                var friendInfo = $('<div>').html('친구닉네임: ' + friendNicknames[i]); // 프렌즈 정보 표시
 
 
 	                var acceptBtn = $('<button>').text('수락');
@@ -43,7 +43,7 @@
 
 	                createClickHandlers(acceptBtn, rejectBtn, receivedRequests[i].id);
 
-	                listItem.append(roomInfo, id, friendInfo, acceptBtn, rejectBtn);
+	                listItem.append(id, roomInfo, friendInfo, acceptBtn, rejectBtn);
 	                requestList.append(listItem);
 	            }
 	        },
@@ -66,7 +66,13 @@
 	                	        data: { id: id },
 	                	        success: function(response) {
 	                	            if (response.success) {
-	                	                // 요청을 성공적으로 처리한 경우 실행할 코드
+	                	            	var confirmMessage = '수락완료되었습니다. 해당 친구와의 채팅방으로 이동하시겠습니까?';
+	                	                if (confirm(confirmMessage)) {
+	                	                    // 채팅방으로 이동하는 링크
+	                	                    var chatRoomLink = '/bean_chat/chat/selectChatRoom.do?selectedChatRoomId=' + id;
+	                	                    window.location.href = chatRoomLink; // 채팅방으로 이동
+	                	                }
+
 	                	                listItemRemove.remove();
 	                	            } else {
 	                	                console.log('요청을 처리하지 못했습니다.');
