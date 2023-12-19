@@ -69,6 +69,7 @@
     </script>
 </head>
 <body>
+	<p class="chat_room_p">BeanChat Chatting Room</p>
     <div class="chat-container">
         <div class="chat-header">
         <!-- 세션에서 담아줌 -->  
