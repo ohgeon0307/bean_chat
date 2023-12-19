@@ -186,7 +186,7 @@
       </script>
       <script>
        // 친구 추가
-       function addFriend(friendId) {
+       function chatAddFriend(friendId) {
            var addId = $('#addId').val();
 
            $.ajax({
