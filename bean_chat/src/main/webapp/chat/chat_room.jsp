@@ -151,10 +151,8 @@
                type: 'POST',
                dataType: 'json',
                success: function (data) {
-                  var isFriend = data.isFriend; // 서버에서 전달된 친구 여부 값
-                  
-                  if (data && Object.keys(data).length > 0) {
-                     if (isFriend) {
+            	   if (data && Object.keys(data).length > 0) {
+                       if (data.isFriend) {
                      
                       // 검색 결과 표시
                        var searchResult = ('<img src="../' + data.userImage + '" id="profile-image"><br>' +
@@ -196,10 +194,15 @@
                type: 'POST',
                dataType: 'json',
                success: function (data) {
-                   // 추가 결과 표시
-                  $('#addModal').modal('hide'); // 모달 닫기
-                  alert('상대방에게 요청 메세지를 보냈어요!\n상대방이 수락 할 때까지 기다려 주세요.');
-               },
+            	   if(data.success){
+                       // 추가 결과 표시
+                      $('#addModal').modal('hide'); // 모달 닫기
+                      alert('상대방에게 요청 메세지를 보냈어요!\n상대방이 수락 할 때까지 기다려 주세요.');
+                      }else{
+                         alert('이미 초대된 사용자입니다.')
+                      }
+
+                   },
                error: function (error) {
                    console.error(error);
                    alert('친구 초대에 실패했습니다. 다시 시도해주세요.');

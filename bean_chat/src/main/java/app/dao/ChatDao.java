@@ -108,21 +108,200 @@ public class ChatDao {
        return -1;
    }
 
-   // 사용자를 채팅 방에 추가하는 메소드
-   private void addUserToChatRoom(int chatRoomId, int userId) {
-      String addUserSql = "INSERT INTO chatparticipant (chatRoomId, uidx) VALUES (?, ?)";
-      try {
-         pstmt = conn.prepareStatement(addUserSql);
-         pstmt.setInt(1, chatRoomId);
-         pstmt.setInt(2, userId);
-         pstmt.executeUpdate();
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         closeResources();
-      }
-   }
+// 사용자를 채팅 방에 추가하는 메소드
+	private void addUserToChatRoom(int chatRoomId, int userId) {
+		String addUserSql = "INSERT INTO chatparticipant (chatRoomId, uidx, cState) VALUES (?, ?,'Y')";
+		try {
+			pstmt = conn.prepareStatement(addUserSql);
+			pstmt.setInt(1, chatRoomId);
+			pstmt.setInt(2, userId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources();
+		}
+	}
+	// 채팅방에 친구를 초대하는 메서드
+   public int sendInvitation(int chatRoomId, int uidx) {
+       int exec = 0;
+       String sql = "INSERT INTO chatparticipant (chatRoomId, uidx, cState) VALUES (?, ?,'W')";
 
+       try {
+           PreparedStatement pstmt = conn.prepareStatement(sql);
+           pstmt.setInt(1, chatRoomId);
+           pstmt.setInt(2, uidx);
+
+           exec = pstmt.executeUpdate();
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+
+       return exec;
+   }
+   // 채팅방 참여 여부 확인하는 메서드
+   public boolean checkParticipant(int chatRoomId, int uidx) {
+       boolean isParticipant = false;
+       String sql = "SELECT * FROM chatparticipant WHERE chatRoomId = ? AND uidx = ?";
+       
+       try {
+           PreparedStatement pstmt = conn.prepareStatement(sql);
+           pstmt.setInt(1, chatRoomId);
+           pstmt.setInt(2, uidx);
+
+           ResultSet rs = pstmt.executeQuery();
+           if (rs.next()) {
+               isParticipant = true; // 이미 채팅방에 참여 중인 상태
+           }
+
+           rs.close();
+           pstmt.close();
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+
+       return isParticipant;
+   }
+   
+   public boolean checkSentInvitation(int chatRoomId, int friendUidx) {
+       boolean hasSentInvitation = false;
+       String sql = "SELECT COUNT(*) AS count FROM chatparticipant " +
+                    "WHERE chatRoomId = ? AND uidx = ? AND cState = 'W'";
+
+       try {
+           PreparedStatement pstmt = conn.prepareStatement(sql);
+           pstmt.setInt(1, chatRoomId);
+           pstmt.setInt(2, friendUidx);
+           ResultSet rs = pstmt.executeQuery();
+
+           if (rs.next()) {
+               int count = rs.getInt("count");
+               hasSentInvitation = count > 0;
+           }
+       } catch (SQLException e) {
+           e.printStackTrace();
+       } finally {
+           closeResources();
+       }
+
+       return hasSentInvitation;
+   }
+   
+	public List<ChatRoomDto> chatReceivedSelectAll(int uidx) {
+	    List<ChatRoomDto> alist = new ArrayList<>();
+	    String sql = "SELECT cp.chatRoomId, cr.roomName " +
+	                 "FROM chatparticipant cp " +
+	                 "JOIN chatroom cr ON cp.chatRoomId = cr.id " +
+	                 "WHERE cp.uidx = ? AND cp.cState = 'W'";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, uidx);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            int chatRoomId = rs.getInt("chatRoomId");
+	            String roomName = rs.getString("roomName");
+
+	            // ChatRoomDto를 사용하여 결과 저장
+	            ChatRoomDto crdto = new ChatRoomDto(chatRoomId, roomName);
+	            alist.add(crdto);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResources(); // 필요에 따라 리소스를 닫아줘야 합니다.
+	    }
+
+	    return alist;
+	}
+	
+	   public int getInvitedFriendUidx(int chatRoomId) {
+	        int invitedFriendUidx = -1; // 초대된 친구의 ID
+	        PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+
+	        try {
+	            String sql = "SELECT uidx FROM chatparticipant WHERE chatRoomId = ? and cState='Y'";
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setInt(1, chatRoomId);
+	            rs = pstmt.executeQuery();
+
+	            if (rs.next()) {
+	                invitedFriendUidx = rs.getInt("uidx");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            // 리소스 해제
+	            // 만약 conn, pstmt, rs를 사용하고 있는 경우 close() 메소드를 사용하여 리소스를 닫아줘야 합니다.
+	            try {
+	                if (rs != null) rs.close();
+	                if (pstmt != null) pstmt.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        
+
+	        return invitedFriendUidx;
+	    }
+	   
+	   public String getInvitedFriendNickname(int uidx) {
+		    String friendNickname = null;
+		    String sql = "SELECT userNickname FROM usertable WHERE uidx = ?";
+		    
+		    try {
+		        pstmt = conn.prepareStatement(sql);
+		        pstmt.setInt(1, uidx);
+		        ResultSet rs = pstmt.executeQuery();
+		        
+		        if (rs.next()) {
+		            friendNickname = rs.getString("userNickname");
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    
+		    return friendNickname;
+		}
+	   
+	   public boolean ChatRequestAccecpt(int chatRoomId, boolean acceptRequest) {
+		    if (!acceptRequest) { // 거절일 경우
+		        String deleteSql = "DELETE FROM chatparticipant WHERE chatRoomId = ? and cState='W'";
+
+		        try {
+		            pstmt = conn.prepareStatement(deleteSql);
+		            pstmt.setInt(1, chatRoomId);
+		            int rowsAffected = pstmt.executeUpdate();
+
+		            return rowsAffected > 0;
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        } finally {
+		            closeResources();
+		        }
+
+		        return false;
+		    } else { // 수락일 경우는 'Y'로 업데이트
+		        String updateSql = "UPDATE chatparticipant SET cState = 'Y' WHERE chatRoomId = ?";
+
+		        try {
+		            pstmt = conn.prepareStatement(updateSql);
+		            pstmt.setInt(1, chatRoomId);
+		            int rowsAffected = pstmt.executeUpdate();
+
+		            return rowsAffected > 0;
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        } finally {
+		            closeResources();
+		        }
+
+		        return false;
+		    }
+		}
+	   
    // 현재 사용자의 ID를 얻는 메소드
    private int getCurrentUserId(HttpServletRequest request) {
       HttpSession session = request.getSession();
@@ -162,31 +341,32 @@ public class ChatDao {
    }
 
    public List<ChatRoomDto> getChatRoomsByUserId(int userId) {
-       List<ChatRoomDto> chatRooms = new ArrayList<>();
-       String sql = "SELECT cr.id, cr.roomName FROM chatroom cr " +
-                    "JOIN chatparticipant cp ON cr.Id = cp.chatRoomId " +
-                    "WHERE cp.uidx = ?";
+	    List<ChatRoomDto> chatRooms = new ArrayList<>();
+	    String sql = "SELECT cr.id, cr.roomName FROM chatroom cr " +
+	                 "JOIN chatparticipant cp ON cr.Id = cp.chatRoomId " +
+	                 "WHERE cp.uidx = ? AND cp.cState = 'Y'"; // 'y'인 경우 필터링 추가
 
-       try {
-           pstmt = conn.prepareStatement(sql);
-           pstmt.setInt(1, userId);
-           ResultSet rs = pstmt.executeQuery();
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, userId);
+	        ResultSet rs = pstmt.executeQuery();
 
-           while (rs.next()) {
-               int chatRoomId = rs.getInt("Id");
-               String roomName = rs.getString("roomName");
+	        while (rs.next()) {
+	            int chatRoomId = rs.getInt("Id");
+	            String roomName = rs.getString("roomName");
 
-               ChatRoomDto chatRoomDto = new ChatRoomDto(chatRoomId, roomName);
-               chatRooms.add(chatRoomDto);
-           }
-       } catch (SQLException e) {
-           e.printStackTrace();
-       } finally {
-           closeResources(); // 수정된 부분
-       }
+	            ChatRoomDto chatRoomDto = new ChatRoomDto(chatRoomId, roomName);
+	            chatRooms.add(chatRoomDto);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResources(); // 수정된 부분
+	    }
 
-       return chatRooms;
-   }
+	    return chatRooms;
+	}
+   
 
    public List<ChatDto> getChatMessagesByRoomId(int roomId) {
        List<ChatDto> chatMessages = new ArrayList<>();
