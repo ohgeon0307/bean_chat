@@ -221,7 +221,7 @@ public class NoticeDao {
 			 str =" and " +scri.getSearchType()+" like concat('%', '"+scri.getKeyword()+"', '%') ";
 		 }
 		 
-		 String sql="select count(*) as cnt from boardtable where bDelYn='N' "+str;
+		 String sql="select count(*) as cnt from boardtable where bDelYn='N' and bList='N'"+str;
 		 ResultSet rs = null;
 		 try {
 			 pstmt = conn.prepareStatement(sql);

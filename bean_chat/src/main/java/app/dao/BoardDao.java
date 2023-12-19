@@ -31,7 +31,7 @@ public class BoardDao {
 
 	    String sql = "SELECT bidx, subject, writer, viewcnt, writedate "
 	            + "FROM boardtable "
-	            + "WHERE bDelYn = 'N' "
+	            + "WHERE bDelYn = 'N' AND bList='F'"
 	            + str
 	            + "ORDER BY bidx DESC LIMIT ?, ?";
 
@@ -84,8 +84,8 @@ public class BoardDao {
 	public int boardInsert(BoardDto bdto) {
 		int exec = 0;
 		
-		String sql = "INSERT INTO boardtable(bidx,subject,contents,writer,uidx,filename)\r\n"
-				+ "VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO boardtable(bidx,subject,contents,writer,uidx,filename,bList)\r\n"
+				+ "VALUES(?,?,?,?,?,?,'F')";
 		
 		try{
 			conn.setAutoCommit(false);
@@ -227,7 +227,7 @@ public class BoardDao {
 			 str =" and " +scri.getSearchType()+" like concat('%', '"+scri.getKeyword()+"', '%') ";
 		 }
 		 
-		 String sql="select count(*) as cnt from boardtable where bDelYn='N' "+str;
+		 String sql="select count(*) as cnt from boardtable where bDelYn='N' and bList='F'"+str;
 		 ResultSet rs = null;
 		 try {
 			 pstmt = conn.prepareStatement(sql);
