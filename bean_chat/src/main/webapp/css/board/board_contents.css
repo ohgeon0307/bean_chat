@@ -281,7 +281,7 @@ main {
     border : 2px solid #BCE489;
     border-radius: 10px;
     margin-top : 40px;
-    height : 450px;
+    height : auto;
     position : relative;
 }
 
@@ -335,8 +335,8 @@ footer {
     flex-direction: column;
     flex-wrap: nowrap;
     margin: 0 auto;
-    position: relative;
-    margin-top: 200px;
+    position: absolute;
+    bottom : 0;
   }
   
   #slogan {
