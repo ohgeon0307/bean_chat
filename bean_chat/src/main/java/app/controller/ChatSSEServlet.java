@@ -42,7 +42,7 @@ public class ChatSSEServlet extends HttpServlet {
         
         int chatRoomId = (int) session.getAttribute("chatRoomId");
 
-        // 최근메세지 끌어오기
+        // 예시로 최근 10개의 메시지를 가져오도록 함
         ChatDao cdao = new ChatDao();
         List<ChatDto> messages = cdao.getRecentChatMessages(chatRoomId, 10);
 
@@ -52,7 +52,7 @@ public class ChatSSEServlet extends HttpServlet {
     }
 
     private static void sendMessageToClient(PrintWriter writer, String message) {
-        writer.write(message + "\n\n");
+        writer.write("data: " + message + "\n\n");
         writer.flush();
     }
 }

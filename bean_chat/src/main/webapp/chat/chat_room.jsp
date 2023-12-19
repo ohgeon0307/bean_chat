@@ -42,15 +42,14 @@
         };
 
         function parseTimestampFromMessage(message) {
-            // 메시지에서 타임스탬프를 추출하는 로직 수정
-            // (가정: 메시지에 "timestamp:" 뒤에 Unix 타임스탬프가 있는 경우)
+            // 메시지에서 타임스탬프를 추출하는 로직 (가정: 메시지에 "timestamp:" 뒤에 Unix 타임스탬프가 있는 경우)
             var timestampIndex = message.indexOf("timestamp:");
             if (timestampIndex !== -1) {
-                // 타임스탬프를 제거하고 메시지 반환
-                return message.substring(0, timestampIndex).trim();
+                var timestampString = message.substring(timestampIndex + "timestamp:".length).trim();
+                return parseInt(timestampString, 10);
             }
             // 만약 메시지에서 타임스탬프를 찾을 수 없다면 혹은 다른 형식이라면 적절한 처리를 수행해야 합니다.
-            return message;
+            return null;
         }
 
         function appendMessage(message) {
@@ -82,9 +81,9 @@
         </div>
         <div id="chat-content" class="chat-content"></div>
         <form id="chatForm" onsubmit="send(event); return false;">
-    		<input id="input_msg" type="text" name="message" placeholder="메세지를 입력해주세요!" />
-    		<input type="submit" value="전송" />
-		</form>
+            <input id="input_msg" type="text" name="message" placeholder="채팅을 입력해주세요." />
+            <input type="button" value="전송" onclick="send(event)" />
+        </form>
     </div>
     
     
@@ -152,9 +151,10 @@
                type: 'POST',
                dataType: 'json',
                success: function (data) {
+                  var isFriend = data.isFriend; // 서버에서 전달된 친구 여부 값
                   
                   if (data && Object.keys(data).length > 0) {
-                     if (data.isFriend) {
+                     if (isFriend) {
                      
                       // 검색 결과 표시
                        var searchResult = ('<img src="../' + data.userImage + '" id="profile-image"><br>' +
@@ -188,7 +188,7 @@
       </script>
       <script>
        // 친구 추가
-       function chatAddFriend(friendId) {
+       function addFriend(friendId) {
            var addId = $('#addId').val();
 
            $.ajax({
@@ -196,14 +196,9 @@
                type: 'POST',
                dataType: 'json',
                success: function (data) {
-                  if(data.success){
                    // 추가 결과 표시
                   $('#addModal').modal('hide'); // 모달 닫기
                   alert('상대방에게 요청 메세지를 보냈어요!\n상대방이 수락 할 때까지 기다려 주세요.');
-                  }else{
-                     alert('이미 초대된 사용자입니다.')
-                  }
-
                },
                error: function (error) {
                    console.error(error);
@@ -248,6 +243,10 @@
                 url: "<%= request.getContextPath() %>/ChatSSEServlet?chatRoomId=<%= session.getAttribute("chatRoomId") %>",
                 success: function (messages) {
                     // 받아온 메시지를 표시
+                    //여기 메세지가 sse컨트롤러에 있던데 결국 sse의 writer를 보여주는거였음
+                    //sse의 writer는 dao에서 이너조인써서 위에 savemessage에서 저장한 유저정보의 usertable의 uidx 이용해서
+                    //아무거나 뽑아올수 있었는데 건이가 userId를 뽑아오고있었어여
+                    //챗dao  getRecentChatMessages 메소드 수정하면 닉네임, 이름, 아이디중 암꺼나 뽑아올수 있어요.
                     appendMessages(messages);
                 },
                 error: function (error) {
