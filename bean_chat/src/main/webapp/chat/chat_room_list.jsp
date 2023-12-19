@@ -27,7 +27,7 @@
    
    
   <div id="middle_zone">
-    <p>채팅방 목록이 여기에 표시됩니다.</p> <a href="<%=request.getContextPath()%>/chat/chatRequest.do" class="acpBtn">채팅수락하러가기</a>
+    <p>채팅방 목록이 여기에 표시됩니다.</p> <a href="<%=request.getContextPath()%>/chat/chat_request.jsp" class="acpBtn">채팅수락하러가기</a>
    </div> 
     <div id="chatList">
         <c:if test="${not empty chatRooms}">
