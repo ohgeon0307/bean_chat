@@ -160,8 +160,8 @@ function check(){
 				<p class="nickname">
 					<span>${udto.userNickname}</span> 님
 				</p>
-				<img
-					src="<%=request.getContextPath()%>/resources/upload/${login.stname}"
+				
+					<img src="../${udto.userImage}"
 					class="memberImage"
 					style="width: 45px; height: 45px; border-radius: 30px;">
 			</div>

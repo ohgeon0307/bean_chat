@@ -245,25 +245,22 @@ main h2{
 /*푸터 css*/
 
 footer {
-  position: relative;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  box-sizing: border-box;
-  height:auto;
-  background-color: rgb(56, 56, 56);
-  padding: 30px 0; /* 높이 조정 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: rgb(99, 99, 99);
+	width: 100%;
+	box-sizing: border-box;
+	height: auto;
+	background-color: rgb(56, 56, 56);
+	padding: 30px 0; /* 높이 조정 */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: rgb(99, 99, 99);
 }
 
 #slogan {
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  margin-bottom: 10px; /* 높이 조정 */
+	width: 100%;
+	max-width: 600px;
+	text-align: center;
+	margin-bottom: 10px; /* 높이 조정 */
 }
 
 #slogan p, .companyInfo {
@@ -271,8 +268,8 @@ footer {
 }
 
 footer img {
-  filter: invert(0.2);
-  margin-bottom: 5px;
+	filter: invert(0.2);
+	margin-bottom: 5px;
 }
 
 #footerMenu, .companyInfo, #sns {
@@ -282,67 +279,67 @@ footer img {
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 20px; /* 높이 조정 */
+  flex-direction: column-reverse;
+  align-content : center;
+  margin-left : 25px;
 }
 
+
 #footerMenu ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
+	list-style: none;
+	padding: 0;
+	display: flex;
 }
 
 #footerMenu li {
-  margin-right: 20px;
+	margin-right: 20px;
 }
 
 #footerMenu a {
-  color: rgb(99, 99, 99);
-  text-decoration: none;
+	color: rgb(99, 99, 99);
+	text-decoration: none;
 }
 
 #footerMenu a:hover {
-  color: #BCE489;
+	color: #BCE489;
 }
 
 .companyInfo {
-  max-width: 400px;
+	max-width: 400px;
 }
 
 #sns {
-  max-width: 300px;
+	max-width: 300px;
 }
 
 #sns ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  align-items: center; /* 세로 중앙 정렬 추가 */
-  justify-content: center; /* 가로 중앙 정렬 추가 */
+	list-style: none;
+	padding: 0;
+	display: flex;
+	align-items: center; /* 세로 중앙 정렬 추가 */
+	justify-content: center; /* 가로 중앙 정렬 추가 */
 }
 
 #sns li {
-  margin-right: 15px;
+	margin-right: 15px;
 }
 
 #sns a {
-  display: flex; /* 아이콘을 세로 중앙 정렬하기 위해 추가 */
-  align-items: center; /* 세로 중앙 정렬 추가 */
-  padding: 10px;
-  border: 1px solid rgb(99, 99, 99);
-  border-radius: 50%;
-  color: rgb(99, 99, 99);
-  text-decoration: none;
+	display: flex; /* 아이콘을 세로 중앙 정렬하기 위해 추가 */
+	align-items: center; /* 세로 중앙 정렬 추가 */
+	padding: 10px;
+	border: 1px solid rgb(99, 99, 99);
+	border-radius: 50%;
+	color: rgb(99, 99, 99);
+	text-decoration: none;
 }
 
 #sns a:visited {
-  color: rgb(99, 99, 99);
+	color: rgb(99, 99, 99);
 }
 
 #sns a:hover {
-  color: #BCE489;
-  border: 1px solid #BCE489;
+	color: #BCE489;
+	border: 1px solid #BCE489;
 }
-
-
-
-
 

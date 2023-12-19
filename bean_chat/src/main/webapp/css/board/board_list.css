@@ -216,7 +216,7 @@ nav {
 
 #topMenu {
 	display: flex;
-	width: 1600px;
+	width: 100%;
 	height: 140px;
 	background-color: white;
 	align-content: center;
@@ -574,13 +574,17 @@ footer img {
 }
 
 #footerMenu, .companyInfo, #sns {
-	width: 100%;
-	max-width: 1200px;
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	margin-bottom: 20px; /* 높이 조정 */
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px; /* 높이 조정 */
+  flex-direction: column-reverse;
+  align-content : center;
+  margin-left : 25px;
 }
+
 
 #footerMenu ul {
 	list-style: none;

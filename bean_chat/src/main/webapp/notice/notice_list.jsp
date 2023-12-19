@@ -61,7 +61,7 @@
 								role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
 						</c:when>
 						<c:otherwise>
-							<a href="<%=request.getContextPath()%>/chat/chatList.do"><img
+							<a href="<%=request.getContextPath()%>/chat/chatIndex.do"><img
 								role="button" src="../images/indexImage/chat_icon.png" alt=""><span>채팅</span></a>
 						</c:otherwise>
 					</c:choose></li>

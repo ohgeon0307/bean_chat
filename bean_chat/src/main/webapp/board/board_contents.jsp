@@ -72,98 +72,6 @@
         }
     </script>
 
-    <script>
-    	$(document).ready(function(){
-    	$.boardCommentList();
-    	
-            $("#addReply").on("click", function () {
-                let rWriter = $("#rWriter").val();
-                let rContent = $("#rContent").val();
-                let bidx = <%=bdto.getBidx()%>;
-                let uidx = ${uidx};
-
-                $.ajax({
-                    type: "post",
-                    url:  '<%=request.getContextPath()%>/comment/commentWrite.do',
-                    dataType: "json",
-                    data: {
-                        "bidx": bidx,
-                        "uidx": uidx,
-                        "rWriter": rWriter,
-                        "rContent": rContent
-                    },
-                    cache: false,
-                    success: function (data) {
-                    	$.boardCommentList();     // 새로고침없이 바로 등록됨
-                        $("#rWriter").val("");
-                        $("#rContent").val("");
-                    },
-                    error: function () {
-                        alert("통신오류 실패");
-                    }
-                });
-            });
-  
-    	});
-        $.boardCommentList= function(){
-
-            $.ajax({
-                type: "get",
-                url :'<%=request.getContextPath()%>/comment/commentList.do',
-                dataType: "json",
-                cache: false,
-                success: function (data) {
-                    commentList(data);
-                },
-                error: function () {
-                    alert("통신오류 실패");
-                }
-            });
-        }
-
-
-        function commentDel(replyidx) {
-            $.ajax({
-                type: "POST",
-                url: "<%=request.getContextPath()%>/comment/commentDelete.do?replyidx=" + replyidx,
-                dataType: "json",
-                cache: false,
-                success: function (data) {
-                    if (data.value === 1) {
-                        alert("삭제성공");
-                    }
-                    boardCommentList();
-                },
-                error: function () {
-                    alert("통신오류 실패");
-                }
-            });
-            return;
-        }
-
-        function commentList(data) {
-            var str = "";
-            str = "<tr><td>번호</td><td>작성자</td><td>내용</td><td>등록일</td></tr>";
-
-            var delBtn = "";
-            var loginUidx = ${uidx};
-
-            $(data).each(function () {
-                if (loginUidx === this.uidx) {
-                    delBtn = "<button type='button' id='btn' onclick='commentDel(" + this.replyidx + ");'>삭제</button>";
-                } else {
-                    delBtn = "";
-                }
-
-                str = str + "<tr><td>" + this.replyidx + "</td><td>" + this.rWriter + "</td><td>" + this.rContent + "</td><td>" + this.rDate + "</td><td>" + delBtn + "</td></tr>";
-            });
-
-            $("#tbl").html("<table border=1 style='width:600px;'>" + str + "</table>");
-
-            return;
-        }
-    </script>
-
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <link href="../css/board/board_contents.css" rel="stylesheet"/>
     <!-- css 연결 -->
@@ -209,8 +117,6 @@
             <hr/>
         </div>
 
-
-
       <div id="viewContent">
          <p class="contents">
             <%=bdto.getContents() %>
@@ -224,30 +130,6 @@
       
     </div>
 
-   <div id="commentSection">
-   <div id="tbl"></div>
-<!--             <h2>댓글</h2> -->
-            <%-- 댓글 목록 출력 --%>
-           <%--  <ul class="commentList">
-                <c:forEach items="${commentList}" var="comment">
-                    <li>
-                        <p class="commentWriter">${comment.getWriter()}</p>
-                        <p class="commentContent">${comment.getContent()}</p>
-                        <p class="commentDate">${comment.getWriteDate()}</p>
-                    </li>
-                </c:forEach>
-            </ul> --%>
-            <%-- 댓글 작성 폼 --%>
-            <form name="rFrm">
-                <input type="hidden"  name="uidx" id="uidx"   value="${uidx}">
-                <input type="hidden" name="bidx" value="${bdto.getBidx()}">
-                <label for="rWriter">작성자 : </label>
-                   <input type="text" value="${udto.userNickname}" name="rWriter" id="rWriter" readonly>
-                <label for="rContent">댓글 작성:</label>
-                <textarea id="rContent" name="rContent" rows="4" cols="50"></textarea>
-                <input type="button"  name="addReply" id="addReply" value="저장">
-            </form>
-        </div>
    </main>
    
    <!--end: main-->
