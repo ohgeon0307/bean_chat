@@ -33,16 +33,17 @@
 	            for (var i = 0; i < receivedRequests.length; i++) {
 	                var listItem = $('<li>');
 
-	                var roomInfo = $('<div>').html(receivedRequests[i].roomName);
+	                var roomInfo = $('<div>').html('Room Name: ' + receivedRequests[i].roomName); // 룸 이름 표시
+	                var id = $('<div>').html('Room ID: ' + receivedRequests[i].id); // 룸 아이디 표시
+	                var friendInfo = $('<div>').html('Friend Info: ' + friendNicknames[i]); // 프렌즈 정보 표시
 
-	                var friendInfo = $('<div>').html(friendNicknames[i]);
 
 	                var acceptBtn = $('<button>').text('수락');
 	                var rejectBtn = $('<button>').text('거절');
 
-	                createClickHandlers(acceptBtn, rejectBtn, receivedRequests[i].roomName);
-	                
-	                listItem.append(roomInfo, friendInfo, acceptBtn, rejectBtn);
+	                createClickHandlers(acceptBtn, rejectBtn, receivedRequests[i].id);
+
+	                listItem.append(roomInfo, id, friendInfo, acceptBtn, rejectBtn);
 	                requestList.append(listItem);
 	            }
 	        },
@@ -51,7 +52,7 @@
 	        }
 	    });
 	}
-	function createClickHandlers(acceptBtn, rejectBtn, chatRoomId) {                
+	function createClickHandlers(acceptBtn, rejectBtn, id) {                
 	                // 수락 버튼 클릭 시 이벤트 핸들러
 	                acceptBtn.click(function () {
 
@@ -62,11 +63,10 @@
 	                	        url: '/bean_chat/chat/chatRequestAccept.do',
 	                	        type: 'POST',
 	                	        dataType: 'json',
-	                	        data: { chatRoomId: chatRoomId },
+	                	        data: { id: id },
 	                	        success: function(response) {
 	                	            if (response.success) {
 	                	                // 요청을 성공적으로 처리한 경우 실행할 코드
-	                	                console.log('요청을 성공적으로 처리했습니다.');
 	                	                listItemRemove.remove();
 	                	            } else {
 	                	                console.log('요청을 처리하지 못했습니다.');
@@ -85,15 +85,16 @@
 	         	    var listItemRemove = $(this).closest('li'); // 클릭한 버튼의 부모 li 요소를 찾음 
 	                        
 	                        $.ajax({
-	                            url: '/bean_chat/friend/myRequestReject.do?chatRoomId=' + chatRoomId,
+	                            url: '/bean_chat/chat/chatRequestReject.do',
 	                            type: 'POST',
 	                            dataType: 'json',
-	                            success: function (data) {
-	                                if (data.success) {
-	                                    alert('친구 요청을 거절했습니다.');
+	                            data: { id: id },
+	                            success: function (response) {
+	                                if (response.success) {
+	                                    alert('채팅 초대 요청을 거절했습니다.');
 	                                    listItemRemove.remove();
 	                                } else {
-	                                    alert('친구 요청 거절에 실패했습니다.');
+	                                    alert('채팅 초대 요청 거절에 실패했습니다.');
 	                                }
 	                            },
 	                            error: function (error) {

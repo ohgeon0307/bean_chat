@@ -271,7 +271,43 @@ public class ChatDao {
 		    
 		    return friendNickname;
 		}
-	
+	   
+	   public boolean ChatRequestAccecpt(int chatRoomId, boolean acceptRequest) {
+		    if (!acceptRequest) { // 거절일 경우
+		        String deleteSql = "DELETE FROM chatparticipant WHERE chatRoomId = ? and cState='W'";
+
+		        try {
+		            pstmt = conn.prepareStatement(deleteSql);
+		            pstmt.setInt(1, chatRoomId);
+		            int rowsAffected = pstmt.executeUpdate();
+
+		            return rowsAffected > 0;
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        } finally {
+		            closeResources();
+		        }
+
+		        return false;
+		    } else { // 수락일 경우는 'Y'로 업데이트
+		        String updateSql = "UPDATE chatparticipant SET cState = 'Y' WHERE chatRoomId = ?";
+
+		        try {
+		            pstmt = conn.prepareStatement(updateSql);
+		            pstmt.setInt(1, chatRoomId);
+		            int rowsAffected = pstmt.executeUpdate();
+
+		            return rowsAffected > 0;
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        } finally {
+		            closeResources();
+		        }
+
+		        return false;
+		    }
+		}
+	   
 	// 현재 사용자의 ID를 얻는 메소드
 	private int getCurrentUserId(HttpServletRequest request) {
 		HttpSession session = request.getSession();

@@ -222,7 +222,6 @@ public class ChatController extends HttpServlet {
 
 		    // 받은 요청 목록 조회
 		    List<ChatRoomDto> receivedRequests = cdao.chatReceivedSelectAll(uidx);
-
 		    // 초대를 보낸 친구의 닉네임을 가져와서 응답에 포함
 		    List<String> friendNicknames = new ArrayList<>();
 		    for(ChatRoomDto chatRequest : receivedRequests) {
@@ -234,7 +233,7 @@ public class ChatController extends HttpServlet {
 		    
 
 		    Gson gson = new Gson();
-		    String receivedJson = gson.toJson(receivedRequests);
+		    String receivedJson = gson.toJson(receivedRequests); // receivedRequests에는 roomName과 chatRoomId가 있는 데이터가 있어야 함
 		    String friendNicknamesJson = gson.toJson(friendNicknames);
 
 		    try {
@@ -242,90 +241,53 @@ public class ChatController extends HttpServlet {
 		        response.setCharacterEncoding("UTF-8");
 
 		        PrintWriter out = response.getWriter();
-		        out.println("{\"receivedRequests\": " + receivedJson + ", \"friendNicknames\": " + friendNicknamesJson + "}");
+		        out.println("{\"receivedRequests\": " + receivedJson + ", \"friendNicknames\": " + friendNicknamesJson + "}"); // 룸 아이디와 프렌즈 정보를 함께 전송
 		        out.flush();
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		    }
-		}else if(location.equals("myRequestAccept.do")){
+		}else if(location.equals("chatRequestAccept.do")){
 		
-		PrintWriter out = response.getWriter();
-		String userId = request.getParameter("userId");
-		FriendDao fdao = new FriendDao();
-       
-		//아이디로 상대 uidx 찾아서 fuidx변수에 넣어줌
-		//상대 uidx== fuidx
-		int fUidx= fdao.friendFindId(userId);
-		
-		//세션에서 내uidx가져옴
-		//내 uidx == uidx
-		HttpSession session = request.getSession();
-		int uidx = (Integer)session.getAttribute("uidx");
-		
-		//내uidx와 상대uidx로 fridx가져옴
-		//가져오는이유 :: fridx를 알아야 수락으로 상태변경 해주니깐..
-		int fridx = fdao.findFridxByUidx(fUidx, uidx);
-		
-		//fridx의 fstate값을 'Y'로 변경
-		int exec = fdao.friendAccept(fridx);
-		
-		if(exec != 0) {
-			FriendDto fdto = new FriendDto();
-			fdto.setUidx1(uidx);	//친구요청을 보내는 사람 == 나
-			fdto.setUidx2(fUidx);		//받는사람 == 상대
-			 
-			//Uidx=uidx1, touidx=uidx2, fstate='Y' 로 변경
+			HttpSession session = request.getSession();
+	        int uidx = (Integer) session.getAttribute("uidx");
+	        ChatDao cdao = new ChatDao();
 
-			int result = fdao.friendInsert(fdto);
-			//결과값 json으로 파싱
-			if(result !=0) {
-				String jsonResponse = "{\"success\": true}";
+	        // 클라이언트에서 전송한 chatRoomId 가져오기
+	        int chatRoomId = Integer.parseInt(request.getParameter("id"));
 
-			    response.setContentType("application/json;charset=UTF-8");
-			    response.getWriter().write(jsonResponse);
-			    
-			}else{
-				out.println("<script>alert('친구 추가에 실패했어요 ㅠ.ㅠ'); history.back();</script>");}
-		}else{
-			out.println("<script>alert('친구 추가에 실패했어요 ㅠ.ㅠ'); history.back();</script>");}
-	
-	}else if(location.equals("myRequestReject.do")){
-		
-		PrintWriter out = response.getWriter();
-		String userId = request.getParameter("userId");
-		FriendDao fdao = new FriendDao();
-       
-		//아이디로 상대 uidx 찾아서 fuidx변수에 넣어줌
-		//상대 uidx== fuidx
-		int fUidx= fdao.friendFindId(userId);
-		
-		//세션에서 내uidx가져옴
-		//내 uidx == uidx
-		HttpSession session = request.getSession();
-		int uidx = (Integer)session.getAttribute("uidx");
-		
-		//내uidx와 상대uidx로 fridx가져옴
-		int fridx = fdao.findFridxByUidx(fUidx, uidx);
-		System.out.println(fUidx+"<<<fUidx");
-		System.out.println(uidx+"<<<uidx");
-		System.out.println(fridx+"<<<frdx값");
-		
-		//fridx로 찾아서 보낸요청을 삭제
-		int exec = fdao.friendReject(fridx);
-		System.out.println(exec+"<<<<삭제되면 1");
-		
-		if(exec > 0) {
-			String jsonResponse = "{\"success\": true}";
+	        // ChatDao를 사용하여 요청 수락 처리 메서드 호출
+	        boolean isRequestAccepted = cdao.ChatRequestAccecpt(chatRoomId, true); // 두 번째 매개변수는 수락 여부에 따라 true 또는 false로 변경
 
-		    response.setContentType("application/json;charset=UTF-8");
-		    response.getWriter().write(jsonResponse);
-		    
-		}else{
-			out.println("<script>alert('친구 추가에 실패했어요 ㅠ.ㅠ'); history.back();</script>");
-		}
+	        // 응답을 JSON 형태로 전송
+	        response.setContentType("application/json");
+	        response.setCharacterEncoding("UTF-8");
+
+	        PrintWriter out = response.getWriter();
+	        out.println("{\"success\": " + isRequestAccepted + "}");
+	        out.flush();
+	    }else if(location.equals("chatRequestReject.do")){
+		
+	    	 HttpSession session = request.getSession();
+	         int uidx = (Integer) session.getAttribute("uidx");
+	         ChatDao cdao = new ChatDao();
+
+	         // 클라이언트에서 전송한 chatRoomId 가져오기
+	         int chatRoomId = Integer.parseInt(request.getParameter("id"));
+
+	         // ChatDao를 사용하여 요청 거절 처리 메서드 호출
+	         boolean isRequestRejected = cdao.ChatRequestAccecpt(chatRoomId, false); // 두 번째 매개변수는 거절 여부에 따라 true 또는 false로 변경
+
+	         // 응답을 JSON 형태로 전송
+	         response.setContentType("application/json");
+	         response.setCharacterEncoding("UTF-8");
+
+	         PrintWriter out = response.getWriter();
+	         out.println("{\"success\": " + isRequestRejected + "}");
+	         out.flush();
+	     }
 			
 	}
-	}
+	
 
 	// --------------메소드부분-------------
 
