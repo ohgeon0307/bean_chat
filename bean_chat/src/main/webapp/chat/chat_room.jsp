@@ -26,21 +26,20 @@
         // EventSource for receiving SSE messages
         var eventSource = new EventSource('<%= request.getContextPath() %>/ChatSSEServlet?chatRoomId=<%= session.getAttribute("chatRoomId") %>');
 
-    eventSource.onmessage = function (event) {
-        var message = event.data;
+        eventSource.onmessage = function (event) {
+            var message = event.data;
 
-        // 메시지를 파싱하여 타임스탬프 추출
-        var timestamp = parseTimestampFromMessage(message);
+            // 메시지를 파싱하여 타임스탬프 추출
+            var timestamp = parseTimestampFromMessage(message);
 
-        // 이전에 받은 마지막 메시지의 타임스탬프와 비교하여 중복 여부 확인
-        if (!lastTimestamp || timestamp > lastTimestamp) {
-            // 서버에서 받은 SSE 메시지를 처리하는 함수 호출
-            handleSSEMessage(message);
+            // 이전에 받은 마지막 메시지의 타임스탬프와 비교하여 중복 여부 확인
+            if (!lastTimestamp || timestamp > lastTimestamp) {
+                appendMessage(message);
 
-            // 타임스탬프 업데이트
-            lastTimestamp = timestamp;
-        }
-    };
+                // 타임스탬프 업데이트
+                lastTimestamp = timestamp;
+            }
+        };
 
         function parseTimestampFromMessage(message) {
             // 메시지에서 타임스탬프를 추출하는 로직 수정
@@ -222,8 +221,6 @@
         var userName = "${udto.userName}";
 
         function send(event) {
-            event.preventDefault(); // 폼 기본 동작 방지
-
             var message = inputMsg.value;
 
             $.ajax({
@@ -232,11 +229,11 @@
                 data: {
                     message: message,
                     userName: userName
+                    //여기서 유저네임으로 전해주는가 싶었는데
                 },
                 success: function (response) {
-                    // 채팅 메시지를 직접 추가하는 함수 호출
-                    appendMessageToChat(userName + ": " + message);
-                    inputMsg.value = ''; // 메시지 전송 후 입력 필드 초기화
+                    getNewMessages();
+                    inputMsg.value = ''; // Clear the input field after sending the message
                 },
                 error: function (error) {
                     console.log(error);
@@ -244,25 +241,6 @@
             });
         }
 
-        function handleSSEMessage(message) {
-            // 채팅 메시지를 직접 추가하는 함수 호출
-            appendMessageToChat(message);
-        }
-        
-        function appendMessageToChat(message) {
-            var chatContent = document.getElementById('chat-content');
-            var currentContent = chatContent.innerHTML;
-
-            // 새로운 메시지를 추가
-            var updatedContent = currentContent + '<div class="message">' + message + '</div>';
-
-            // 채팅 창에 업데이트된 내용을 설정
-            chatContent.innerHTML = updatedContent;
-
-            // 채팅 창을 스크롤하여 최신 메시지가 보이도록 함
-            chatContent.scrollTop = chatContent.scrollHeight;
-        }
-        
         function getNewMessages() {
             // 서버로부터 새로운 메시지 목록을 받아와서 채팅 창에 표시
             $.ajax({
@@ -279,25 +257,9 @@
         }
 
         function appendMessages(messages) {
+            // 받아온 메시지 목록을 채팅 창에 표시
             var chatContent = document.getElementById('chat-content');
-
-            // 문자열인 경우 처리
-            if (typeof messages === 'string') {
-                // 받아온 메시지를 배열로 분할
-                var messageArray = messages.split('\n').filter(Boolean);
-
-                // 배열의 각 요소를 처리하여 채팅 창에 표시
-                for (var i = 0; i < messageArray.length; i++) {
-                    var message = messageArray[i];
-                    chatContent.innerHTML += '<div class="message">' + message + '</div>';
-                }
-            } else if (Array.isArray(messages)) {
-                // 배열인 경우 처리
-                chatContent.innerHTML = '<div class="message">' + messages.join('</div><div class="message">') + '</div>';
-            } else {
-                // 그 외의 경우, 적절한 처리를 수행
-                console.error('Messages is not a string or an array:', messages);
-            }
+            chatContent.innerHTML = '<div class="message">' + messages.join('</div><div class="message">') + '</div>';
 
             // 채팅 창을 스크롤하여 최신 메시지가 보이도록 함
             chatContent.scrollTop = chatContent.scrollHeight;
