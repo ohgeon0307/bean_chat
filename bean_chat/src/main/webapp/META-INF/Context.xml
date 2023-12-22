@@ -13,5 +13,5 @@
 	url="jdbc:mysql://jjezen.cafe24.com:3307/aws0803_c"/>
 	<ResourceLink type="javax.sql.data.DataSouce"
 	name="jdbc/beanchat"
-	global="jdbc/beanchat"/>
+	global="jdbc/beanchat"/> 
 </Context>
