@@ -129,18 +129,21 @@
            		
               var isFriend = data.isFriend; // 서버에서 전달된 친구 여부 값
               var isRequestSent = data.isRequestSent;
-
+              var addButton = $('<button>친구 추가</button>');
+              
               if (isFriend) {
                   // 이미 친구인 경우
                   alert('이미 친구인 사용자입니다.');
-                  return;
+                  addButton.hide(); // 친구 추가 버튼 숨기기
+                  $('#clodelModalBtn').show(); // 취소 버튼 보이기
               } else if (isRequestSent) {
                   // 이미 요청을 보낸 상태이므로 추가 버튼 비활성화
             	  alert('요청 대기 중인 사용자입니다.');
-                  return;
+            	  addButton.hide(); // 친구 추가 버튼 숨기기
+            	  $('#clodelModalBtn').show(); // 취소 버튼 보이기
               }else {
               // 추가 버튼 생성 및 이벤트 설정
-              var addButton = $('<button>친구 추가</button>');
+             
               addButton.on('click', function() {
                   addFriend(data.userId);
               });
@@ -171,7 +174,6 @@
                 // 추가 결과 표시
             	$('#searchAndAddResult').html('');
             	alert('상대방에게 요청 메세지를 보냈어요!\n상대방이 수락 할 때까지 기다려 주세요.');
-            	refreshFriendList(); // 친구추가 후 목록 새로고침
             },
             error: function (error) {
                 console.error(error);
