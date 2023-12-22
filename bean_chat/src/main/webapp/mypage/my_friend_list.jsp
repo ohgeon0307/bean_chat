@@ -133,9 +133,11 @@
               if (isFriend) {
                   // 이미 친구인 경우
                   alert('이미 친구인 사용자입니다.');
+                  return;
               } else if (isRequestSent) {
                   // 이미 요청을 보낸 상태이므로 추가 버튼 비활성화
             	  alert('요청 대기 중인 사용자입니다.');
+                  return;
               }else {
               // 추가 버튼 생성 및 이벤트 설정
               var addButton = $('<button>친구 추가</button>');
