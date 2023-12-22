@@ -21,6 +21,7 @@ import app.dto.UserDto;
 public class ChatSSEServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final List<HttpServletResponse> clients = new CopyOnWriteArrayList<>();
+    
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,20 +29,26 @@ public class ChatSSEServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Cache-Control", "no-cache");
         response.setHeader("Connection", "keep-alive");
-
+        //클라이언트에게 SSE를 사용하고 있다고 알리기 위해 응답헤더 설정.
+        
         HttpSession session = request.getSession();
         PrintWriter writer = response.getWriter();
         
         int chatRoomId = (int) session.getAttribute("chatRoomId");
+        //현재 세션에서 특정 채팅방의 Id 가져오기
 
         // 예시로 최근 1개의 메시지를 가져오도록 함, 현재 이 Dao의 메소드는 크게 의미는 없습니다. 10개를 가져오라고 시켰는데
         // 저희는 클라이언트가 메세지 요청을 보냈을때만 동작을하게끔 처리해놨어요.
         ChatDao cdao = new ChatDao();
         List<ChatDto> messages = cdao.getRecentChatMessages(chatRoomId, 1);
+        
+        
 
         for (ChatDto chatDto : messages) {
             sendMessageToClient(writer, chatDto.getSender() + ": " + chatDto.getMessage());
         }
+        
+        //가져온 메세지를 클라이언트에게 보내기 위해 sendMessageToClient 메소드 호출
     }
 
     private static void sendMessageToClient(PrintWriter writer, String message) {

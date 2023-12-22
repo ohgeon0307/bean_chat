@@ -25,7 +25,10 @@
 
         // EventSource for receiving SSE messages
         var eventSource = new EventSource('<%= request.getContextPath() %>/ChatSSEServlet?chatRoomId=<%= session.getAttribute("chatRoomId") %>');
-
+		<!-- 이벤트 소스를 생성하여 서버에 연결, 연결된 URL은 서버 측 SSE 서블릿 주소이고, -->
+		<!-- 쿼리 매개변수로 현재 채팅 방 ID를 전달합니다 -->
+		
+		
         eventSource.onmessage = function (event) {
             var message = event.data;
 
@@ -40,6 +43,10 @@
                 lastTimestamp = timestamp;
             }
         };
+        
+        <!-- onmessage 이벤트 핸들러는 서버로부터 메시지를 수신할 때마다 호출됩니다. 
+        메시지를 파싱하여 타임스탬프를 추출하고, 중복 여부를 확인한 후에 
+        appendMessage 함수를 호출하여 화면에 메시지를 추가합니다.-->
 
         function parseTimestampFromMessage(message) {
             // 메시지에서 타임스탬프를 추출하는 로직 (가정: 메시지에 "timestamp:" 뒤에 Unix 타임스탬프가 있는 경우)
