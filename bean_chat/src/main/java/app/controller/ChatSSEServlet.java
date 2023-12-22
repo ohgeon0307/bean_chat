@@ -31,20 +31,13 @@ public class ChatSSEServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         PrintWriter writer = response.getWriter();
-
-      /*
-       * int uidx = (Integer)session.getAttribute("uidx");
-       * 
-       * UserDao udao = new UserDao(); UserDto udto = udao.UserSelectOne(uidx);
-       * 
-       * request.setAttribute("udto", udto);
-       */
         
         int chatRoomId = (int) session.getAttribute("chatRoomId");
 
-        // 예시로 최근 10개의 메시지를 가져오도록 함
+        // 예시로 최근 1개의 메시지를 가져오도록 함, 현재 이 Dao의 메소드는 크게 의미는 없습니다. 10개를 가져오라고 시켰는데
+        // 저희는 클라이언트가 메세지 요청을 보냈을때만 동작을하게끔 처리해놨어요.
         ChatDao cdao = new ChatDao();
-        List<ChatDto> messages = cdao.getRecentChatMessages(chatRoomId, 10);
+        List<ChatDto> messages = cdao.getRecentChatMessages(chatRoomId, 1);
 
         for (ChatDto chatDto : messages) {
             sendMessageToClient(writer, chatDto.getSender() + ": " + chatDto.getMessage());

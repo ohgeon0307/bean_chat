@@ -48,7 +48,7 @@
                 var timestampString = message.substring(timestampIndex + "timestamp:".length).trim();
                 return parseInt(timestampString, 10);
             }
-            // 만약 메시지에서 타임스탬프를 찾을 수 없다면 혹은 다른 형식이라면 적절한 처리를 수행해야 합니다.
+            // 만약 메시지에서 타임스탬프를 찾을 수 없다면 혹은 다른 형식이라면 적절한 처리를 수행해야함
             return null;
         }
 
@@ -232,7 +232,7 @@
                 },
                 success: function (response) {
                     getNewMessages();
-                    inputMsg.value = ''; // Clear the input field after sending the message
+                    inputMsg.value = ''; 
                 },
                 error: function (error) {
                     console.log(error);
