@@ -10,9 +10,9 @@ public class DbConn {
 	
 	private String user="root";
 	private String password="1234"; */
-	private String url ="jdbc:mysql://silverwoods.synology.me:3306/beanchat?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-	private String user="beanchat";
-	private String password="bORPmB)Ez8DeiBI0";
+	private String url ="jdbc:mysql://jjezen.cafe24.com:3307/aws0803_c?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
+	private String user="aws0803_c_user";
+	private String password="user1234!!";
 	
 	public Connection getConnection() {
 		Connection conn = null;
