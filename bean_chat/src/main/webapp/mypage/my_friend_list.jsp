@@ -134,8 +134,11 @@
               if (isFriend) {
                   // 이미 친구인 경우
                   alert('이미 친구인 사용자입니다.');
+                  console.log('hide되냐고');
                   addButton.hide(); // 친구 추가 버튼 숨기기
+                  console.log('hide인식하고 close준비');
                   $('#clodelModalBtn').show(); // 취소 버튼 보이기
+                  console.log('둘다인식함');
               } else if (isRequestSent) {
                   // 이미 요청을 보낸 상태이므로 추가 버튼 비활성화
             	  alert('요청 대기 중인 사용자입니다.');
