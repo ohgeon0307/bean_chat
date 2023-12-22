@@ -379,6 +379,50 @@ public int friendReject(int fridx) {
 	    return isSent;
 	}
 	
+	// 친구 삭제 메소드
+		public int deleteFriend(int uidx1, int uidx2) {
+		    int exec = 0;
+		    try {
+		        conn.setAutoCommit(false);
+
+		        // 친구 테이블에서 해당 친구 관계 삭제하는 쿼리
+		        String deleteSql = "DELETE FROM friendtable WHERE (uidx1=? AND uidx2=?) OR (uidx1=? AND uidx2=?)";
+		        pstmt = conn.prepareStatement(deleteSql);
+		        pstmt.setInt(1, uidx1);
+		        pstmt.setInt(2, uidx2);
+		        pstmt.setInt(3, uidx2);
+		        pstmt.setInt(4, uidx1);
+
+		        exec = pstmt.executeUpdate();
+		        
+		     // 친구 요청 테이블에서 해당 요청 삭제하는 쿼리
+		        String deleteRequestSql = "DELETE FROM friend_requesttable WHERE (toUidx=? AND fromUidx=?) OR (toUidx=? AND fromUidx=?)";
+		        pstmt = conn.prepareStatement(deleteRequestSql);
+		        pstmt.setInt(1, uidx1);
+		        pstmt.setInt(2, uidx2);
+		        pstmt.setInt(3, uidx2);
+		        pstmt.setInt(4, uidx1);
+
+		        exec += pstmt.executeUpdate();
+		        
+		        
+		        conn.commit();
+		    } catch (SQLException e) {
+		        try {
+		            conn.rollback();
+		        } catch (SQLException e1) {
+		            e1.printStackTrace();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            conn.setAutoCommit(true);
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		    return exec;
+		}
 	
 	
 	

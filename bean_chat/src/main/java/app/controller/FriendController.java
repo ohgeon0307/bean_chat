@@ -261,11 +261,6 @@ public class FriendController extends HttpServlet{
 	        response.getWriter().write(json);
 			
 			
-			
-			
-			
-			
-			
 		}else if(location.equals("myRequestCancle.do")){
 			
 			PrintWriter out = response.getWriter();
@@ -304,6 +299,41 @@ public class FriendController extends HttpServlet{
 			
 			
 			
+		}else if(location.equals("deleteFriend.do")){
+			// 입력값: friendId (삭제할 친구의 아이디)
+		    String friendId = request.getParameter("friendId");
+
+		    // 현재 사용자의 세션에서 uidx 가져오기
+		    HttpSession session = request.getSession();
+		    int uidx = (Integer) session.getAttribute("uidx");
+
+		    // FriendDao를 통해 친구 uidx 찾기
+		    FriendDao fdao = new FriendDao();
+		    int fUidx = fdao.friendFindId(friendId);
+
+		    // 친구 삭제 메소드 호출
+		    int exec = fdao.deleteFriend(uidx, fUidx);
+
+		    // JSON 응답 생성
+		    response.setContentType("application/json;charset=UTF-8");
+		    PrintWriter out = response.getWriter();
+		    Gson gson = new Gson();
+		    HashMap<String, Object> responseData = new HashMap<>();
+
+		    if (exec > 0) {
+		        responseData.put("success", "친구가 삭제되었습니다.");
+		    } else {
+		        responseData.put("error", "친구 삭제에 실패했습니다.");
+		    }
+
+		    String jsonResponse = gson.toJson(responseData);
+		    out.print(jsonResponse);
+		    out.flush();
 		}
+			
+			
+			
+			
+		
 	}
 }

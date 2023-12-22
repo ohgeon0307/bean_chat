@@ -245,7 +245,7 @@
         			</div>
 					
 					<div class ="button_zone">
-						<input type="button"  class="backBtn" name="cancle" value="친구목록 돌아가기" onClick="history.back()">
+						<input type="button"  class="backBtn" name="cancle" value="친구목록 돌아가기" onclick="goToFriendList()">
 					</div><!-- //.btnSearch -->
 				
 			</div><!-- tab-pane fade -->
@@ -306,6 +306,11 @@
 		        });
 		    });
 		});
+	 
+	 
+	 function goToFriendList() {
+		    window.location.href = '<%=request.getContextPath()%>/friend/myFriend.do';
+		  }
 	 </script>
  
 </body>

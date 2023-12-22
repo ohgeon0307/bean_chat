@@ -19,7 +19,25 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<link href="../css/mypage/my_friend_list.css" rel="stylesheet" /> 
 	<script>
+	
+	// refreshFriendList 함수를 전역 스코프에 정의
+	function refreshFriendList() {
+	    loadFriendList(); // 친구 목록을 다시 불러옴
+	}
+	
 	$(document).ready(function(){
+		// 페이지 로딩 시 친구 목록 불러오기
+	    loadFriendList();
+
+	    // 친구 추가 또는 삭제 후 친구 목록 새로고침하는 예시
+	    function refreshFriendList() {
+	        loadFriendList(); // 친구 목록을 다시 불러옴
+	    }
+		
+		
+	});
+	
+	function loadFriendList() {
 	    $.ajax({
 	        url: '/bean_chat/friend/myFriendList.do',
 	        type: 'POST',
@@ -27,7 +45,7 @@
 	        // 받아온 JSON 데이터를 반복하여 화면에 표시
 	        success: function(data){
 	            var table = '<table id="friendTable">'; // 테이블 시작
-	            table += '<tr><th>프로필 사진</th><th>아이디</th><th>이름</th><th>닉네임</th><th>생일</th></tr>'; // 테이블 헤더
+	            table += '<tr><th>프로필 사진</th><th>아이디</th><th>이름</th><th>닉네임</th><th>생일</th><th>삭제</th></tr>'; // 테이블 헤더
 
 	            $.each(data, function(index, udto){
 	                table += '<tr>';
@@ -36,17 +54,51 @@
 	                table += '<td>' + udto.userName + '</td>';
 	                table += '<td>' + udto.userNickname + '</td>';
 	                table += '<td>' + udto.userBirth + '</td>'; // 생일 열 추가
+	                table += '<td><button class="deleteButton" data-userid="' + udto.userId + '">삭제</button></td>'; // 삭제 버튼 추가
 	                table += '</tr>';
 	            });
 
 	            table += '</table>'; // 테이블 종료
 	            $('#friendList').html(table); // HTML에 테이블 삽입
+	            // 삭제 버튼 클릭 이벤트 처리
+	            $('.deleteButton').on('click', function() {
+	                var userIdToDelete = $(this).data('userid');
+	                confirmDelete(userIdToDelete); // 삭제 확인 함수 호출
+	            });
 	        },
 	        error: function(){
 	            alert('친구 리스트를 불러오는데 실패했습니다.');
 	        }
 	    });
-	});
+	}
+	    
+	    // 친구 삭제 확인 함수
+	    function confirmDelete(friendId) {
+	        // 삭제를 한번 더 확인하는 알림 메시지
+	        if (confirm(friendId + '님을 친구에서 삭제하시겠습니까?')) {
+	            deleteFriend(friendId); // 친구 삭제 함수 호출
+	        }
+	    }
+
+	 // 친구 삭제 함수
+	    function deleteFriend(friendId) {
+	        $.ajax({
+	            url: '/bean_chat/friend/deleteFriend.do?friendId=' + friendId,
+	            type: 'POST',
+	            dataType: 'json',
+	            success: function (data) {
+	            	alert('친구가 삭제되었습니다.');
+	            	console.log('deleteFriend 함수 내부: 친구 삭제 성공 후 refreshFriendList() 호출 전'); // 성공 후 콜백 전에 로그 추가
+	                refreshFriendList(); // 친구 삭제 후 목록 새로고침
+	                console.log('deleteFriend 함수 내부: 친구 삭제 성공 후 refreshFriendList() 호출 후'); // 성공 후 콜백 후에 로그 추가
+	            },
+	            error: function (error) {
+	                console.error(error);
+	            }
+	        });
+	    }
+
+	    
     // 친구 검색
     function searchAndAddFriend() {
         var friendId = $('#friendId').val();
@@ -54,7 +106,7 @@
 
         // 입력값이 공백인지 확인
         if (friendId === '') {
-            // 공백일 경우 알림을 띄우고 검색을 수행하지 않음
+            // 공백일 경우 알림을 띄우고 검색 하지 않음
             alert('공백으로는 검색할 수 없습니다.');
             return;
         }
@@ -117,14 +169,15 @@
                 // 추가 결과 표시
             	$('#searchAndAddResult').html('');
             	alert('상대방에게 요청 메세지를 보냈어요!\n상대방이 수락 할 때까지 기다려 주세요.');
+            	refreshFriendList(); // 친구추가 후 목록 새로고침
             },
             error: function (error) {
                 console.error(error);
             }
         });
     }
-   </script>
- 
+    
+  </script>
    
 
 </head>
