@@ -19,9 +19,42 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="./full-page-js/fullpage.min.js"></script>
+    
+    <script>
+        // 최초 접속 시 실행될 함수
+        function showPopup() {
+            // 모달 팝업을 표시
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        // 확인 버튼을 눌렀을 때 실행될 함수
+        function closePopup() {
+            // 모달 팝업을 숨김
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        // 최초 접속 시 팝업 표시
+        window.onload = showPopup;
+    </script>
 </head>
 
 <body>
+
+<div id="popup" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Beanchat, 웹 채팅 서비스</h2>
+        <h3>AWS를 활용한 웹앱개발자 양성과정 2회차</h3>
+        <!-- 여기에 팀 소개 내용을 추가 -->
+        <p>Cystem Team, 팀원 소개</p>
+        <p><strong>PM 오 건</strong> : 채팅 시스템구현, 인덱스구현, 게시판구현</p>
+        <p><strong>PL 최다혜</strong> : 사용자 구현, 친구추가 기능 구현, 채팅초대 기능 구현, 마이페이지 구현</p>
+        <p><strong>PG 임세현</strong> : 게시판구현, DB설계, 디자인 설계, 문서작업</p>
+        <p><strong>PG 안기현</strong> : 게시판구현, DB설계, 디자인 설계, 문서작업</p>
+        <!-- 확인 버튼 -->
+        <button onclick="closePopup()" class="checkBtn">확인</button>
+    </div>
+</div>
     
     <div class="container"> <!-- 헤더 시작 -->
         <img src="./images/indexImage/beanchat_text.png" alt="" class="beanchat_text">    
