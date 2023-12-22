@@ -76,6 +76,7 @@ public class FriendController extends HttpServlet{
 			        responseData.put("userId", udto.getUserId());
 			        responseData.put("userName", udto.getUserName());
 			        responseData.put("userNickname", udto.getUserNickname());
+			        responseData.put("userImage", udto.getUserImage());
 			        responseData.put("isFriend", areFriends); // 친구 여부 추가
 			        responseData.put("isRequestSent", isRequestSent); // 친구 요청 상태 추가
 			    } else {
@@ -249,6 +250,7 @@ public class FriendController extends HttpServlet{
 			
 			ArrayList<UserDto> alist = fdao.friendSelectAll(uidx);
 			
+			System.out.println("alist의 값은? : " + alist);
 
 			
 			PrintWriter out = response.getWriter();
