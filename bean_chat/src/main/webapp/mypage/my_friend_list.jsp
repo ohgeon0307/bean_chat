@@ -100,6 +100,35 @@
 
 	    
     // 친구 검색
+    var cloBtn;
+    $(document).ready(function () {
+        // 모달 안의 취소 버튼 찾아서 cloBtn에 할당
+        cloBtn = $('#clodelModalBtn');
+
+        // 모달 버튼에 이벤트를 건다.
+        $('#addFriend').on('click', function () {
+            $('#addModal').modal('show');
+        });
+
+        // 모달 안의 취소 버튼 클릭 시 모달 닫기
+        cloBtn.on('click', function () {
+            $('#addModal').modal('hide');
+        });
+    });
+    
+    var addBtn;
+    $(document).ready(function () {
+        // 모달 안의 취소 버튼 찾아서 cloBtn에 할당
+        addBtn = $('#addBtn');
+
+        addBtn.on('click', function() {
+            addFriend(data.userId);
+        });
+    });
+    
+    
+    
+    
     function searchAndAddFriend() {
         var friendId = $('#friendId').val();
         var friendId = $('#friendId').val().trim(); // 입력값 양쪽 공백 제거
@@ -129,30 +158,31 @@
            		
               var isFriend = data.isFriend; // 서버에서 전달된 친구 여부 값
               var isRequestSent = data.isRequestSent;
-              var addButton = $('<button>친구 추가</button>');
+              var addBtn = $('#addBtn');
+              
               
               if (isFriend) {
                   // 이미 친구인 경우
                   alert('이미 친구인 사용자입니다.');
-                  console.log('hide되냐고');
-                  addButton.hide(); // 친구 추가 버튼 숨기기
-                  console.log('hide인식하고 close준비');
-                  $('#clodelModalBtn').show(); // 취소 버튼 보이기
-                  console.log('둘다인식함');
+                  addBtn.hide(); // 친구 추가 버튼 숨기기
+                  cloBtn.show(); // 취소 버튼 보이기
+                  $('.modal-footer').empty().append(cloBtn);
+                  
               } else if (isRequestSent) {
                   // 이미 요청을 보낸 상태이므로 추가 버튼 비활성화
             	  alert('요청 대기 중인 사용자입니다.');
-            	  addButton.hide(); // 친구 추가 버튼 숨기기
-            	  $('#clodelModalBtn').show(); // 취소 버튼 보이기
+            	  cloBtn.show(); // 취소 버튼 보이기
+            	  addBtn.hide(); // 친구 추가 버튼 숨기기
+            	  
               }else {
               // 추가 버튼 생성 및 이벤트 설정
              
-              addButton.on('click', function() {
+              addBtn.on('click', function() {
                   addFriend(data.userId);
               });
 
               // 모달 푸터에 추가 버튼 추가
-              $('.modal-footer').empty().append(addButton);
+              $('.modal-footer').empty().append(addBtn);
               }
             	} else {
             		 // 검색 결과가 없을 때 표시할 메시지
@@ -332,6 +362,7 @@
 					<div class="modal-footer">
 						<!-- 추가버튼 추가 될 자리 -->
 						<button type="button" id="clodelModalBtn" class="btn btn-default" data-dismiss="modal">취소</button>
+						<button type="button" id="addBtn" class="btn btn-default">친구 추가</button>
 					</div><!-- //.modal-footer -->
 
 				</div><!--//.modal-content  -->
@@ -341,7 +372,7 @@
 		  $('#addFriend').on('click', function(){
 			    $('#addModal').modal('show');
 			});
-
+ 
 			// 모달 안의 취소 버튼 클릭 시 모달 닫기
 			$('#clodelModalBtn').on('click', function(){
 			    $('#addModal').modal('hide');
