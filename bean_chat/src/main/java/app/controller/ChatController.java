@@ -158,6 +158,7 @@ public class ChatController extends HttpServlet {
 			if (udto != null) {
 		        responseData.put("userId", udto.getUserId());
 		        responseData.put("userName", udto.getUserName());
+		        responseData.put("userImage", udto.getUserImage());
 		        responseData.put("userNickname", udto.getUserNickname());
 		        responseData.put("isFriend", areFriends); // 친구 여부 추가
 		    } else {

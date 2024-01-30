@@ -13,7 +13,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
-    margin-top: 5%;
+    margin-top: 10%;
 }
 
 
@@ -72,4 +72,115 @@ body {
 #input_msg:focus,
 #chatForm input[type="button"]:hover {
     background-color: #98cc72;
+}
+
+
+/* 모달 헤더 */
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ccc;
+  padding: 15px;
+  text-align: center;
+}
+
+.modal-header h4 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+/* 모달 바디 */
+.modal-body {
+  padding: 20px;
+  font-size: 1.1em;
+  color: #555;
+}
+
+/* 친구 검색 입력과 버튼 */
+label {
+  margin-right: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+#friendId {
+  padding: 8px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+}
+
+
+/* 검색 및 추가 결과 표시 */
+#searchAndAddResult {
+  margin-top: 20px;
+}
+
+/* 모달 푸터 */
+.modal-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #ccc;
+  padding: 15px;
+  text-align: right;
+}
+
+#addFriend{
+	float:right;
+	margin-right:20%;
+	margin-top:40px;
+	margin-bottom:40px;
+}
+
+/* 기본 버튼 색상 */
+button {
+  padding: 10px 20px;
+  background-color: #20c997; /* 기본 버튼 배경색 */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* 기본 버튼 호버시 색상 */
+button:hover {
+  background-color: #17a2b8; /* 기본 버튼 호버 배경색 */
+}
+
+/* 추가 버튼 */
+.modal-footer button {
+  padding: 10px 20px;
+  background-color: #007bff; /* 추가 버튼 배경색 */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* 추가 버튼 호버시 색상 */
+.modal-footer button:hover {
+  background-color: #0056b3; /* 추가 버튼 호버 배경색 */
+}
+
+
+/* 취소 버튼 */
+#clodelModalBtn {
+  padding: 10px 20px;
+  background-color: #dc3545; /* 취소 버튼 배경색 */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* 취소 버튼 호버시 색상 */
+#clodelModalBtn:hover {
+  background-color: #c82333; /* 취소 버튼 호버 배경색 */
+}
+/* 프로필 이미지 */
+#profile-image {
+  max-width: 100px;
+  max-height: 100px;
+  margin-bottom: 10px;
 }

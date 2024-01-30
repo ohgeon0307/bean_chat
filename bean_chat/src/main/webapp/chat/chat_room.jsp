@@ -77,15 +77,16 @@
 </head>
 <body>
 	<p class="chat_room_p">BeanChat Chatting Room</p>
+	<button type="button" id="addFriend">
+            <i class="xi-user-plus-o"></i>친구 초대하기
+         </button><!-- modalBox연결 버튼 -->
     <div class="chat-container">
         <div class="chat-header">
         <!-- 세션에서 담아줌 -->  
         <!-- 쉽게 말하면 action.do가 아니고 페이지 포워드 되는데서 udto를 세션에 담았음다
            원래 action.do같은데따 담아두셨음. -->
             <p>안녕하세요, ${udto.userName}님!</p>
-            <button type="button" id="addFriend">
-            <i class="xi-user-plus-o"></i>친구 초대하기
-         </button><!-- modalBox연결 버튼 -->
+            
         </div>
         <div id="chat-content" class="chat-content"></div>
         <form id="chatForm" onsubmit="send(event); return false;">
