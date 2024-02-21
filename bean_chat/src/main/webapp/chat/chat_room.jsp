@@ -44,9 +44,9 @@
             }
         };
         
-        <!-- onmessage 이벤트 핸들러는 서버로부터 메시지를 수신할 때마다 호출됩니다. 
-        메시지를 파싱하여 타임스탬프를 추출하고, 중복 여부를 확인한 후에 
-        appendMessage 함수를 호출하여 화면에 메시지를 추가합니다.-->
+        // onmessage 이벤트 핸들러는 서버로부터 메시지를 수신할 때마다 호출됩니다. 
+        // 메시지를 파싱하여 타임스탬프를 추출하고, 중복 여부를 확인한 후에 
+        // appendMessage 함수를 호출하여 화면에 메시지를 추가합니다.
 
         function parseTimestampFromMessage(message) {
             // 메시지에서 타임스탬프를 추출하는 로직 (가정: 메시지에 "timestamp:" 뒤에 Unix 타임스탬프가 있는 경우)
@@ -77,6 +77,10 @@
 </head>
 <body>
 	<p class="chat_room_p">BeanChat Chatting Room</p>
+	<a href="../index.jsp"><img src="../images/logo/BeanchatLogo.png" class="chatroom_logo"></a>
+	<button type="button" id="goBack">
+    <i class="xi-arrow-left"></i> 목록으로 돌아가기
+	</button>
 	<button type="button" id="addFriend">
             <i class="xi-user-plus-o"></i>친구 초대하기
          </button><!-- modalBox연결 버튼 -->
@@ -275,6 +279,11 @@
             // 채팅 창을 스크롤하여 최신 메시지가 보이도록 함
             chatContent.scrollTop = chatContent.scrollHeight;
         }
+        
+     // 목록으로 돌아가기 버튼 클릭 시 이벤트 처리
+        $('#goBack').on('click', function(){
+        	window.location.href = "<%=request.getContextPath()%>/chat/viewChatRoomList.do";
+        });
     </script>
 </body>
 </html>

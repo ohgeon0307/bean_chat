@@ -84,6 +84,13 @@ h2 {
 }
 
 .Beanchat_title2 {
-	width : 600px;
-	height: 450px;
+    width: 600px;
+    height: 450px;
+    transition: transform 0.3s ease; /* 호버 효과를 위한 트랜지션 추가 */
+    cursor : pointer;
 }
+
+.Beanchat_title2:hover {
+    transform: scale(1.05); /* 호버 시 약간 확대되는 효과 */
+}
+
