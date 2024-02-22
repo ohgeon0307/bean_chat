@@ -348,36 +348,6 @@ public int friendReject(int fridx) {
 	    return areFriends;
 	}
 	
-	public boolean isRequestSent(int fromUidx, int toUidx) {
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    boolean isSent = false;
-
-	    String sql = "SELECT * FROM friend_requesttable WHERE ((fromUidx = ? AND toUidx = ?) OR (fromUidx = ? AND toUidx = ?)) AND fState = 'W'";
-
-	    try {
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, fromUidx);
-	        pstmt.setInt(2, toUidx);
-	        pstmt.setInt(3, toUidx);
-	        pstmt.setInt(4, fromUidx);
-
-	        rs = pstmt.executeQuery();
-	        isSent = rs.next(); // 결과가 존재하면 요청이 보내진 상태임을 의미함
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            if (rs != null) rs.close();
-	            if (pstmt != null) pstmt.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-
-	    return isSent;
-	}
 	
 	// 친구 삭제 메소드
 		public int deleteFriend(int uidx1, int uidx2) {
@@ -425,7 +395,38 @@ public int friendReject(int fridx) {
 		}
 	
 	
-	
+		public boolean isRequestSent(int fromUidx, int toUidx) {
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    boolean isSent = false;
+
+		    String sql = "SELECT * FROM friend_requesttable WHERE ((fromUidx = ? AND toUidx = ?) OR (fromUidx = ? AND toUidx = ?)) AND fState = 'W'";
+
+		    try {
+		        pstmt = conn.prepareStatement(sql);
+		        pstmt.setInt(1, fromUidx);
+		        pstmt.setInt(2, toUidx);
+		        pstmt.setInt(3, toUidx);
+		        pstmt.setInt(4, fromUidx);
+
+		        rs = pstmt.executeQuery();
+		        isSent = rs.next(); // 결과가 존재하면 요청이 보내진 상태임을 의미함
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (rs != null) rs.close();
+		            if (pstmt != null) pstmt.close();
+		            if (conn != null) conn.close();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return isSent;
+		}
+		
 	
 	
 	

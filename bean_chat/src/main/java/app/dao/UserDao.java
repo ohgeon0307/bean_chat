@@ -359,7 +359,7 @@ public class UserDao {
             if (rs.next()) {
                 adminYn = rs.getString("adminYn"); // 관리자 여부 가져오기
             }
-
+            conn.close();
             rs.close();
             pstmt.close();
         } catch (SQLException e) {

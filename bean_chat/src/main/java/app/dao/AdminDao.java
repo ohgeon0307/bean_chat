@@ -76,16 +76,15 @@ public class AdminDao {
 		} catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {
-	        try {
-	            if (rs != null) {
-	                rs.close();
-	            }
-	            if (pstmt != null) {
-	                pstmt.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
+	    	  try {
+		            if (rs != null) {
+		                rs.close();
+		            }if (pstmt != null) {
+		                pstmt.close();
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
 	    }
 
 	    return alist;
@@ -111,13 +110,17 @@ public class AdminDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				rs.close();
-				pstmt.close();
-				conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+			  try {
+		            if (rs != null) {
+		                rs.close();
+		            }if (pstmt != null) {
+		                pstmt.close();
+		            }if (conn != null) {
+		                conn.close();
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
 		}
 		 return value;
 	 }
